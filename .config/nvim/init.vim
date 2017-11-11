@@ -52,9 +52,7 @@ call map(dein#check_clean(),"delete(v:val,'rf')")
 "
 
 syntax enable
-colorscheme triplejelly
 set number
-set clipboard=unnamed,unnamedplus
 set expandtab
 set termguicolors
 set hidden
@@ -67,7 +65,7 @@ set mouse=a
 set cmdheight=2
 set backspace=indent,eol,start
 set startofline
-set title
+"set title
 set tabstop=2
 set shiftwidth=2
 set list
@@ -77,32 +75,35 @@ set smarttab
 set incsearch
 set nohlsearch
 set splitbelow
+set guicursor=
+set background=dark
+set cursorline
 filetype on
 filetype plugin on
 
 " python向け
 " jedi docstringをださない
-autocmd FileType python setlocal completeopt-=preview
-let g:syntastic_python_checkers = ['pep8', 'pyflakes']
-function! Preserve(command)
-    " Save the last search.
-    let search = @/
-    " Save the current cursor position.
-    let cursor_position = getpos('.')
-    " Save the current window position.
-    normal! H
-    let window_position = getpos('.')
-    call setpos('.', cursor_position)
-    " Execute the command.
-    execute a:command
-    " Restore the last search.
-    let @/ = search
-    " Restore the previous window position.
-    call setpos('.', window_position)
-    normal! zt
-    " Restore the previous cursor position.
-    call setpos('.', cursor_position)
-endfunction
+"autocmd FileType python setlocal completeopt-=preview
+"let g:syntastic_python_checkers = ['pep8', 'pyflakes']
+"function! Preserve(command)
+"    " Save the last search.
+"    let search = @/
+"    " Save the current cursor position.
+"    let cursor_position = getpos('.')
+"    " Save the current window position.
+"    normal! H
+"    let window_position = getpos('.')
+"    call setpos('.', cursor_position)
+"    " Execute the command.
+"    execute a:command
+"    " Restore the last search.
+"    let @/ = search
+"    " Restore the previous window position.
+"    call setpos('.', window_position)
+"    normal! zt
+"    " Restore the previous cursor position.
+"    call setpos('.', cursor_position)
+"endfunction
 
 function! Autopep8()
     call Preserve(':silent %!autopep8 -')
@@ -122,18 +123,20 @@ nnoremap <C-d> :q<CR>
 nnoremap s <NOP>
 nnoremap st :new<CR>:resize 15<CR>:terminal<CR>
 nnoremap sq :q<CR>
-nnoremap sl <C-w>l
-nnoremap sk <C-w>k
-nnoremap sj <C-w>j
-nnoremap sh <C-w>h
-nnoremap sa <C-w>h
+nnoremap sl <C-w>l i
+nnoremap sk <C-w>k i
+nnoremap sj <C-w>j i
+nnoremap sh <C-w>h i
+nnoremap sa <C-w>h i
 nnoremap sT :tabnew<CR>
 nnoremap sn :new<CR>
 nnoremap sv :vnew<CR>
 nnoremap stt :terminal<CR>
-nnoremap sw <C-w>k
-nnoremap sd <C-w>l
-nnoremap ss <C-w>j
+nnoremap sw <C-w>k i
+nnoremap sd <C-w>l i
+nnoremap ss <C-w>j i
 
 tnoremap <silent> jj <C-\><C-n>
 inoremap <silent> jj <ESC>
+
+colorscheme iceberg
