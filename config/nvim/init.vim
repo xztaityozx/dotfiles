@@ -1,7 +1,6 @@
 let g:cache_home = empty($XDG_CACHE_HOME) ? expand('$HOME/.cache') : $XDG_CACHE_HOME
 let g:config_home = empty($XDG_CONFIG_HOME) ? expand('$HOME/.config') : $XDG_CONFIG_HOME
 
-let g:powerline_pycmd="python3"
 " dein {{{
 let s:dein_cache_dir = g:cache_home . '/dein'
 
@@ -136,7 +135,8 @@ nnoremap sv :vnew<CR>
 nnoremap stt :terminal<CR>
 nnoremap sw <C-w>k 
 nnoremap sd <C-w>l 
-nnoremap ss <C-w>j 
+nnoremap ss <C-w>j
+nnoremap s= gg=G
 
 tnoremap <silent> jj <C-\><C-n>
 inoremap <silent> jj <ESC>
