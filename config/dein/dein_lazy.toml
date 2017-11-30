@@ -9,9 +9,11 @@ hook_add='''
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 build='make'
+on_ft='cs'
 
 [[plugins]]
 repo = 'tpope/vim-dispatch'
+on_ft='cs'
 
 [[plugins]]
 repo = 'OrangeT/vim-csharp'
