@@ -52,6 +52,7 @@ repo='scrooloose/syntastic'
 hook_post_source = ''' 
 let g:syntastic_mode_map={ 'mode':'active',
 \ 'active_filetypes':['python']}
+let g:syntastic_cpp_compiler_options='-std=c++14 -Wall'
 '''
 
 #[[plugins]]
