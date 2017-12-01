@@ -27,3 +27,10 @@ __insert_sed__(){
 }
 
 bind -x '"\C-xsed":"__insert_sed__"'
+
+__step_up__(){
+  local upper=${READLINE_LINE:0:$READLINE_POINT}
+  
+}
+
+bind -x '"\C-xb":"__step_up__"'
