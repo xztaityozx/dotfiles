@@ -29,8 +29,15 @@ __insert_sed__(){
 bind -x '"\C-xsed":"__insert_sed__"'
 
 __step_up__(){
-  local upper=${READLINE_LINE:0:$READLINE_POINT}
-  
+  local next=$(echo ${READLINE_LINE:0:$READLINE_POINT}|sed 's/[^ ]/1/g'|awk '{print $NF}')
+  READLINE_POINT=$(($READLINE_POINT-${#next}-1))
 }
 
-bind -x '"\C-xb":"__step_up__"'
+bind -x '"\C-b":"__step_up__"'
+
+__step_down__(){
+  local next=$(echo ${READLINE_LINE:$READLINE_POINT}|sed 's/[^ ]/1/g'|awk '{print $1}')
+  READLINE_POINT=$(($READLINE_POINT+${#next}+1))
+}
+
+bind -x '"\C-h":"__step_down__"'
