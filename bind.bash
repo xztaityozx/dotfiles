@@ -41,3 +41,15 @@ __step_down__(){
 }
 
 bind -x '"\C-h":"__step_down__"'
+
+__cdx_bind__(){
+  echo "cdx $(find . -mindepth 1 \( -path '*/\.*' \) -prune -o -type d -print|fzf)"
+}
+
+bind '"\ecc":"\C-e\C-u$(__cdx_bind__)\e\C-e\er\C-m"'
+
+bind '"\ech":"\C-e\C-ucdx -h\e\C-e\er\C-m"'
+bind '"\ecb":"\C-e\C-ucdx -b\e\C-e\er\C-m"'
+
+__opennvim__(){ local f=$(__fzf_select__); READLINE_LINE="nvim "$f; READLINE_POINT=$((4+${#f})); }
+bind -x '"\C-nn":"__opennvim__"'
