@@ -53,3 +53,11 @@ bind '"\ecb":"\C-e\C-ucdx -b\e\C-e\er\C-m"'
 
 __opennvim__(){ local f=$(__fzf_select__); READLINE_LINE="nvim "$f; READLINE_POINT=$((4+${#f})); }
 bind -x '"\C-nn":"__opennvim__"'
+
+
+__insert_single_q__(){
+  READLINE_LINE=$READLINE_LINE" ''"
+  READLINE_POINT=$(($READLINE_POINT+2))
+}
+
+bind -x '"\es":"__insert_single_q__"'
