@@ -22,7 +22,7 @@ __git_push_set__(){
 bind -x '"\C-xgit":"__git_push_set__"'
 
 __insert_sed__(){
-  READLINE_LINE=${READLINE_LINE:0:$READLINE_POINT}" sed \'\'"${READLINE_LINE:$READLINE_POINT}
+  READLINE_LINE=${READLINE_LINE:0:$READLINE_POINT}" sed ''"${READLINE_LINE:$READLINE_POINT}
   READLINE_POINT=$(($READLINE_POINT+6))
 }
 
