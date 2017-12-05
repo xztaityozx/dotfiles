@@ -62,4 +62,4 @@ __insert_single_q__(){
 
 bind -x '"\es":"__insert_single_q__"'
 
-type uim-fep > /dev/null && bind '"\C-xuim":"\C-e\C-uuim-fep\e\C-e\er\C-m'
+type uim-fep 1>/dev/null 2> /dev/null && bind '"\C-xuim":"\C-e\C-uuim-fep\e\C-e\er\C-m'
