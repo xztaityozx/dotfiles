@@ -44,7 +44,7 @@ let g:airline_theme='onedark'
 [[plugins]]
 repo='thinca/vim-quickrun'
 hook_source='''
-let g:quickrun_config={'python':{'command':'python3'}}
+let g:quickrun_config={'python':{'command':'python3'},'systemverilog':'vlog -sv'}
 '''
 
 [[plugins]]
@@ -52,6 +52,7 @@ repo='scrooloose/syntastic'
 hook_post_source = ''' 
 let g:syntastic_mode_map={ 'mode':'active',
 \ 'active_filetypes':['python']}
+let g:syntastic_cpp_compiler_options='-std=c++14 -Wall'
 '''
 
 #[[plugins]]
@@ -130,6 +131,6 @@ repo='kassio/neoterm'
 [[plugins]]
 repo='airblade/vim-gitgutter'
 
-[[plugins]]
-repo='Shougo/denite.nvim'
+#[[plugins]]
+#repo='Shougo/denite.nvim'
 
