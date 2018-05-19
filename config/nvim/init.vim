@@ -102,6 +102,10 @@ inoremap <silent> jj <ESC>
 nnoremap sb :CtrlPBuffer<CR>
 tnoremap <silent> sb <C-\><C-n>:CtrlPBuffer<CR>
 nnoremap bd :bdelete<CR>
+nnoremap rt <C-w>l :q<CR>
+nnoremap r4 <C-w>k :q<CR>
+nnoremap re <C-w>h :q<CR>
+nnoremap rf <C-w>j :q<CR>
 
 command! OpenPlugFile edit ~/.config/nvim/plug.vim
 command! OpenInitFile edit ~/.config/nvim/init.vim
