@@ -3,7 +3,7 @@ bindkey ";5C" forward-word
 bindkey ";5D" backward-word
 
 __git_set__(){
-  local TEXT='git add -A;git commit -m "";git push'
+  local TEXT='hub add -A;hub commit -m "";hub push'
   BUFFER=$TEXT
   CURSOR=26
 }
@@ -33,4 +33,9 @@ __insert_sed__(){
 zle -N __insert_sed__
 bindkey "^Xsed" __insert_sed__
 
+__xsel_b__(){
+  BUFFER=${BUFFER}"|xsel -b"
+}
 
+zle -N __xsel_b__
+bindkey "^Xxx" __xsel_b__
