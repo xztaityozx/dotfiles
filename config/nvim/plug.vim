@@ -30,6 +30,9 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     let g:go_highlight_operators = 1
     autocmd FileType go nnoremap gr :GoRun<CR>
     autocmd FileType go nnoremap gt :GoTest<CR>
+    autocmd FileType go nnoremap gi :GoImport 
+    autocmd FileType go nnoremap gb :GoBuild<CR>
+    autocmd FileType go nnoremap bf :GoFmt<CR>
   "}}}
 "}}}
 "
