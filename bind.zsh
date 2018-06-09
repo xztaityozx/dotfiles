@@ -39,3 +39,14 @@ __xsel_b__(){
 
 zle -N __xsel_b__
 bindkey "^Xxx" __xsel_b__
+
+__edit_line__(){
+  echo "" > /tmp/edit_line &&
+  cat $BUFFER > /tmp/edit_line && 
+    nvim /tmp/edit_oneliner &&
+    BUFFER="$(cat /tmp/edit_oneliner)" &&
+    CURSOR=${#BUFFER}
+}
+
+zle -N __edit_line__
+bindkey "^Xe" __edit_line__
