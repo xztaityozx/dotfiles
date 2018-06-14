@@ -7,6 +7,11 @@ Plug 'vim-airline/vim-airline-themes'
   let g:airline_theme='onedark'
 "}}}
 
+Plug 'tpope/vim-surround'
+"{{{
+"
+"}}}
+
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "{{{
   let g:deoplete#enable_at_startup=1
@@ -32,7 +37,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     autocmd FileType go nnoremap gt :GoTest<CR>
     autocmd FileType go nnoremap gi :GoImport 
     autocmd FileType go nnoremap gb :GoBuild<CR>
-    autocmd FileType go nnoremap bf :GoFmt<CR>
+    autocmd FileType go nnoremap gf :GoFmt<CR>
+    autocmd FileType go nnoremap go :GoDoc 
   "}}}
 "}}}
 "
