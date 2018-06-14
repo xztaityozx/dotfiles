@@ -39,3 +39,14 @@ __xsel_b__(){
 
 zle -N __xsel_b__
 bindkey "^Xxx" __xsel_b__
+
+__edit_line__(){
+  local FILE="/tmp/$(date "+%s")line.sh"
+  echo "$BUFFER" > $FILE &&
+    nvim $FILE &&
+  BUFFER=$(cat $FILE) &&
+  CURSOR=${#BUFFER}
+}
+
+zle -N __edit_line__
+bindkey "^Xe" __edit_line__
