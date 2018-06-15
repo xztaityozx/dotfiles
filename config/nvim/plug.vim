@@ -38,6 +38,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "}}}
 "
 
+
 Plug 'OmniSharp/omnisharp-vim'
 "{{{
   Plug 'Robzz/deoplete-omnisharp'
@@ -98,12 +99,17 @@ Plug 'ctrlpvim/ctrlp.vim'
 "}}}
 Plug 'kassio/neoterm'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/syntastic'
-"{{{
-  let g:syntastic_cs_checkers = ['code_checker']
-  let g:syntastic_cpp_compiler = "g++ -std=c++17"
-"}}}
+"Plug 'scrooloose/syntastic'
+""{{{
+  "let g:syntastic_cs_checkers = ['code_checker']
+  "let g:syntastic_cpp_compiler = 'g++'
+  "let g:syntastic_cpp_compiler_options = '--std=c++14'
+""}}}
 
+Plug 'w0rp/ale'
+"{{{
+
+"}}}
 Plug 'zchee/deoplete-jedi'
 "{{{
   
@@ -142,6 +148,14 @@ Plug 'nightsense/seabird'
 
 " QuickRun
 Plug 'thinca/vim-quickrun'
+"{{{
+  let g:quickrun_config={}
+  let g:quickrun_config['cpp/clang++14'] = {
+      \ 'cmdopt': '--std=c++14',
+      \ 'type': 'cpp/clang++'
+    \ }
+  let g:quickrun_config['cpp'] = {'type': 'cpp/clang++14'}
+"}}}
 
 
 call plug#end()
