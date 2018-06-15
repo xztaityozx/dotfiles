@@ -38,8 +38,11 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     autocmd FileType go nnoremap gi :GoImport 
     autocmd FileType go nnoremap gb :GoBuild<CR>
     autocmd FileType go nnoremap gf :GoFmt<CR>
+<<<<<<< HEAD
     autocmd FileType go nnoremap go :GoDoc 
+=======
     autocmd FileType go nnoremap gI :GoInfo<CR>
+>>>>>>> fbe843e2284ca24a8821987aa21602636ef1cd3f
   "}}}
 "}}}
 "
