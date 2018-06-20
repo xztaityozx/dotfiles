@@ -12,6 +12,11 @@ Plug 'tpope/vim-surround'
 "
 "}}}
 
+Plug 'junegunn/goyo.vim'
+"{{{
+
+"}}}
+
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "{{{
   let g:deoplete#enable_at_startup=1
@@ -112,7 +117,7 @@ Plug 'airblade/vim-gitgutter'
   "let g:syntastic_cpp_compiler_options = '--std=c++14'
 ""}}}
 
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 "{{{
 
 "}}}
