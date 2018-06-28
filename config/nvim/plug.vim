@@ -30,42 +30,42 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     let g:deoplete#sources#clang#clang_header="/usr/lib/llvm-6.0/lib/clang"
   "}}}
   
-  Plug 'zchee/deoplete-go'
-  "{{{
-    Plug 'fatih/vim-go'
-    let g:go_addtags_transform = "camelcase"
-    let g:go_fmt_command="goimports"
-    let g:go_highlight_types = 1
-    let g:go_highlight_methods = 1
-    let g:go_highlight_operators = 1
-    autocmd FileType go nnoremap gr :GoRun<CR>
-    autocmd FileType go nnoremap gt :GoTest<CR>
-    autocmd FileType go nnoremap gi :GoImport 
-    autocmd FileType go nnoremap gb :GoBuild<CR>
-    autocmd FileType go nnoremap gf :GoFmt<CR>
-    autocmd FileType go nnoremap go :GoDoc 
-    autocmd FileType go nnoremap gI :GoInfo<CR>
-  "}}}
+  "Plug 'zchee/deoplete-go'
+  ""{{{
+    "Plug 'fatih/vim-go'
+    "let g:go_addtags_transform = "camelcase"
+    "let g:go_fmt_command="goimports"
+    "let g:go_highlight_types = 1
+    "let g:go_highlight_methods = 1
+    "let g:go_highlight_operators = 1
+    "autocmd FileType go nnoremap gr :GoRun<CR>
+    "autocmd FileType go nnoremap gt :GoTest<CR>
+    "autocmd FileType go nnoremap gi :GoImport 
+    "autocmd FileType go nnoremap gb :GoBuild<CR>
+    "autocmd FileType go nnoremap gf :GoFmt<CR>
+    "autocmd FileType go nnoremap go :GoDoc 
+    "autocmd FileType go nnoremap gI :GoInfo<CR>
+  ""}}}
 "}}}
 "
 
 
-Plug 'OmniSharp/omnisharp-vim'
-"{{{
-  Plug 'Robzz/deoplete-omnisharp'
-  Plug 'honza/vim-snippets'
-  Plug 'tpope/vim-dispatch'
-  Plug 'Shougo/vimproc.vim' , { 'do' : 'make' }
-  Plug 'SirVer/ultisnips'
-  "{{{
-  "}}}
-  let g:OmniSharp_server_path = '$HOME/Utils/omnisharp/omnisharp/OmniSharp.exe'
-  let g:OmniSharp_selector_ui = 'ctrlp'
-  set previewheight=5
-  let g:Omnisharp_stop_server = 0
+"Plug 'OmniSharp/omnisharp-vim'
+""{{{
+  "Plug 'Robzz/deoplete-omnisharp'
+  "Plug 'honza/vim-snippets'
+  "Plug 'tpope/vim-dispatch'
+  "Plug 'Shougo/vimproc.vim' , { 'do' : 'make' }
+  "Plug 'SirVer/ultisnips'
+  ""{{{
+  ""}}}
+  "let g:OmniSharp_server_path = '$HOME/Utils/omnisharp/omnisharp/OmniSharp.exe'
+  "let g:OmniSharp_selector_ui = 'ctrlp'
+  "set previewheight=5
+  "let g:Omnisharp_stop_server = 0
 
-  autocmd FileType cs nnoremap <F5> :OmniSharpBuildAsync<CR>
-"}}}
+  "autocmd FileType cs nnoremap <F5> :OmniSharpBuildAsync<CR>
+""}}}
 
 Plug 'nathanaelkane/vim-indent-guides' 
 "{{{
@@ -121,26 +121,26 @@ Plug 'airblade/vim-gitgutter'
 "{{{
 
 "}}}
-Plug 'zchee/deoplete-jedi'
-"{{{
+"Plug 'zchee/deoplete-jedi'
+""{{{
   
-"}}}
+""}}}
 
-Plug 'mhartington/nvim-typescript'
-"{{{
-  Plug 'HerringtonDarkholme/yats.vim'
-"}}}
+"Plug 'mhartington/nvim-typescript'
+""{{{
+  "Plug 'HerringtonDarkholme/yats.vim'
+""}}}
 
-Plug 'scrooloose/nerdtree'
-"{{{
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  let g:NERDTreeShowIgnoredStatus = 1
+"Plug 'scrooloose/nerdtree'
+""{{{
+  "Plug 'Xuyuanp/nerdtree-git-plugin'
+  "let g:NERDTreeShowIgnoredStatus = 1
 
-  nnoremap so :NERDTreeToggle<CR>
-  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-  let g:NERDTreeWinPos = "right"
-  let g:NERDTreeWinSize = 25
-"}}}
+  "nnoremap so :NERDTreeToggle<CR>
+  "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  "let g:NERDTreeWinPos = "right"
+  "let g:NERDTreeWinSize = 25
+""}}}
 
 " colorschemes
 " {{{
