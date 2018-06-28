@@ -4,11 +4,10 @@ MAINTAINER xztaityozx
 RUN apt update && apt upgrade -y
 RUN apt install -y curl git neovim zsh python3-dev python3-pip python-pip python-dev
 RUN mkdir ~/dotfiles
-WORKDIR ~/dotfiles
-RUN git clone https://github.com/xztaityozx/dotfiles ./xztaityozx
-RUN git clone https://github.com/wheson/dotfiles ./wheson
-RUN git clone https://github.com/eliza0x/nvim ./eliza0x 
-RUN git clone https://github.com/zplug/zplug $HOME/.zplug && cp ./xztaityozx/zshrc_minimal ~/.zshrc
+RUN git clone https://github.com/xztaityozx/dotfiles ./dotfiles/xztaityozx
+RUN git clone https://github.com/wheson/dotfiles ./dotfiles/wheson
+RUN git clone https://github.com/eliza0x/nvim ./dotfiles/eliza0x 
+RUN git clone https://github.com/zplug/zplug $HOME/.zplug && cp ./dotfiles/xztaityozx/zshrc_minimal ~/.zshrc
 
 RUN pip install --upgrade neovim
 RUN pip3 install --upgrade neovim
