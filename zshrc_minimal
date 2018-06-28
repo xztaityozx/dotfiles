@@ -1,8 +1,7 @@
 # Created by newuser for 5.5
 
-
 # zplug
-source /home/linuxbrew/.linuxbrew/Cellar/zplug/2.4.2/init.zsh
+source $HOME/.zplug/init.zsh
 touch $ZPLUG_LOADFILE
 #zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
@@ -10,23 +9,8 @@ zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 
-
-#if ! zplug check --verbose; then
-  #printf "Install? [y/N]: "
-  #if read -q; then
-    #echo; zplug install
-  #fi
-#fi
-# Then, source plugins and add commands to $PATH
 zplug load 
 
-
-
-# powerline
-export PATH=$PATH:$HOME/.local/bin
-export POWERLINE_CONFIG_COMMAND="$HOME/.local/bin/powerline-config"
-powerline-daemon -q
-. /home/xztaityozx/.local/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # config zsh
 HISTFILE=$HOME/.zsh_history
