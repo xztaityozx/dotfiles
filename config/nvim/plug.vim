@@ -26,8 +26,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
   Plug 'zchee/deoplete-clang'
   "{{{
-    let g:deoplete#sources#clang#libclang_path="/home/linuxbrew/.linuxbrew/lib/libclang.so"
-    let g:deoplete#sources#clang#clang_header="/home/linuxbrew/.linuxbrew/opt/llvm/lib/clang"
+    let g:deoplete#sources#clang#libclang_path="/usr/lib/llvm-6.0/lib/libclang.so.1"
+    let g:deoplete#sources#clang#clang_header="/usr/lib/llvm-6.0/lib/clang"
   "}}}
   
   Plug 'zchee/deoplete-go'
