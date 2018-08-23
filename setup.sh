@@ -10,7 +10,7 @@ __log_num=1
 function LogAndRun() {
   # $@ Command
 
-  echo -e "\e[1;31m[$__log_num]$@\e[0;39m" && "$@" || exit 1
+  echo -e "\e[1;31m[$__log_num]$@\e[0;39m" && eval "$@" || exit 1
   __log_num=$(echo $(($__log_num+1)))
 }
 
