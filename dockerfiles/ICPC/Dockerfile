@@ -11,10 +11,13 @@ RUN git clone https://github.com/zplug/zplug $HOME/.zplug && cp ./dotfiles/xztai
 
 RUN pip install --upgrade neovim
 RUN pip3 install --upgrade neovim
+RUN apt install llvm clang wget -y
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN mkdir ~/.config && \
     ln -s ~dotfiles/xztaityozx/config/powerline ~/.config/powerline
+WORKDIR /usr/lib/clang/6.0.0/include/
+RUN wget https://gist.githubusercontent.com/reza-ryte-club/97c39f35dab0c45a5d924dd9e50c445f/raw/47ecad34033f986b0972cdbf4636e22f838a1313/stdc++.h 
 
 CMD zsh
 

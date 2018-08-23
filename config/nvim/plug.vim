@@ -26,13 +26,13 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
   Plug 'zchee/deoplete-clang'
   "{{{
-    let g:deoplete#sources#clang#libclang_path="/home/linuxbrew/.linuxbrew/lib/libclang.so"
-    let g:deoplete#sources#clang#clang_header="/home/linuxbrew/.linuxbrew/opt/llvm/lib/clang"
+    let g:deoplete#sources#clang#libclang_path="/usr/lib/llvm-6.0/lib/libclang.so.1"
+    let g:deoplete#sources#clang#clang_header="/usr/lib/llvm-6.0/lib/clang"
   "}}}
   
-  Plug 'zchee/deoplete-go'
+  Plug 'zchee/deoplete-go', { 'do': 'make'}
   "{{{
-    Plug 'fatih/vim-go'
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
     let g:go_addtags_transform = "camelcase"
     let g:go_fmt_command="goimports"
     let g:go_highlight_types = 1
@@ -50,22 +50,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "
 
 
-Plug 'OmniSharp/omnisharp-vim'
-"{{{
-  Plug 'Robzz/deoplete-omnisharp'
-  Plug 'honza/vim-snippets'
-  Plug 'tpope/vim-dispatch'
-  Plug 'Shougo/vimproc.vim' , { 'do' : 'make' }
-  Plug 'SirVer/ultisnips'
-  "{{{
-  "}}}
-  let g:OmniSharp_server_path = '$HOME/Utils/omnisharp/omnisharp/OmniSharp.exe'
-  let g:OmniSharp_selector_ui = 'ctrlp'
-  set previewheight=5
-  let g:Omnisharp_stop_server = 0
-
-  autocmd FileType cs nnoremap <F5> :OmniSharpBuildAsync<CR>
-"}}}
 
 Plug 'nathanaelkane/vim-indent-guides' 
 "{{{
@@ -117,10 +101,6 @@ Plug 'airblade/vim-gitgutter'
   "let g:syntastic_cpp_compiler_options = '--std=c++14'
 ""}}}
 
-"Plug 'w0rp/ale'
-"{{{
-
-"}}}
 Plug 'zchee/deoplete-jedi'
 "{{{
   Plug 'tell-k/vim-autopep8'
@@ -150,14 +130,7 @@ Plug 'zchee/deoplete-jedi'
       call Preserve(':silent %!autopep8 -')
   endfunction
 
-" Shift + F で自動修正
-"autocmd FileType python nnoremap <S-f> :call Autopep8()<CR>
-"}}}
 
-Plug 'mhartington/nvim-typescript'
-"{{{
-  Plug 'HerringtonDarkholme/yats.vim'
-"}}}
 
 Plug 'scrooloose/nerdtree'
 "{{{
