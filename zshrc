@@ -25,7 +25,7 @@ eval "$($HOME/.go/bin/go-cdx --init)"
 
 # powerline
 powerline-daemon -q
-. /home/xztaityozx/.local/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
+. $HOME/.local/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # config zsh
 HISTFILE=$HOME/.zsh_history
@@ -36,8 +36,4 @@ SAVEHIST=10000
 source ~/.ghq/github.com/xztaityozx/dotfiles/bind.zsh
 
 # alias
-alias ls=exa
-alias gesrestart="libinput-gestures-setup restart"
-alias shove="$HOME/.ghq/github.com/progrhyme/shove/bin/shove"
-alias rescale="$HOME/.ghq/github.com/xztaityozx/dotfiles/scaleSet.sh"
-alias millitime="$HOME/.ghq/github.com/xztaityozx/dotfiles/millitime.sh"
+source $HOME/.ghq/github.com/xztaityozx/dotfiles/alias.zsh
