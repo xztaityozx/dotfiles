@@ -1,0 +1,12 @@
+{
+  "HistoryFile": "~/.config/go-cdx/history.json",
+  "BookMarkFile":"~/.config/go-cdx/bookmark.json",
+  "Command":"pushd",
+  "NoOutput":true,
+  "Make":false,
+  "CustomSource":[],
+  "FuzzyFinder":{
+    "CommandPath":"fzf",
+    "Options":[]
+  }
+}
