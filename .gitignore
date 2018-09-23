@@ -1,2 +1,4 @@
 bin/
 config/nvim/plugged/
+config/go-cdx/bookmark.json
+config/go-cdx/history.json
