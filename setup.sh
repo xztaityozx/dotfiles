@@ -8,8 +8,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y git curl zsh wget make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev
 
 # brew
-sudo apt install -y linuxbrew-wrapper
-yes|brew
+HOMEBREW_FORCE_VENDOR_RUBY=1 sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin
 
 # any packages from brew
@@ -48,4 +47,4 @@ ls -s $HOME/.ghq/github.com/xztaityozx/dotfiles/config/* $HOME/.config/
 
 
 # complete
-echo "Complete
+echo "Complete"
