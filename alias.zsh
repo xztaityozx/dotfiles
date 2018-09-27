@@ -7,3 +7,12 @@ alias millitime="$HOME/.ghq/github.com/xztaityozx/dotfiles/millitime.sh"
 [[ -f "$HOME/.utils/prettyping" ]] && alias ping="$HOME/.utils/prettyping --nolegend"
 type bat &> /dev/null && alias cat=bat
 [[ -f "$HOME/.utils/diff-so-fancy" ]] && alias diff="$HOME/.utils/diff-so-fancy"
+[[ -f $HOME/.utils/nvim.appimage ]] && alias nvim="$HOME/.utils/nvim.appimage" && alias vim="$HOME/.utils/nvim.appimage"
+
+# cdx
+alias cg="cdx -c g"
+alias ch="cdx -h"
+alias cb="cdx -b"
+
+# hub
+alias hc="hub checkout"
