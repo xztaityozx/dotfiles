@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function __docker_run(){
+  docker run --rm -v $PWD:/workdir xztaityozx/openjdk "$@"
+}
+
+[[ "$1" == "r" ]] && __docker_run "java $2"
+[[ "$1" == "c" ]] && __docker_run "javac $2"
+[[ "$1" == "s" ]] && __docker_run "javac $2 && java $2"
