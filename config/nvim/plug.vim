@@ -17,6 +17,13 @@ Plug 'junegunn/goyo.vim'
 
 "}}}
 
+Plug 'SirVer/ultisnips'
+"{{{
+  Plug 'honza/vim-snippets'
+  set runtimepath+=~/.config/nvim/snips
+  let g:UltiSnipsSnippetsDir="~/.config/nvim/snips/UltiSnips"
+"}}}
+
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 "{{{
   let g:deoplete#enable_at_startup=1
@@ -33,6 +40,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'zchee/deoplete-go', { 'do': 'make'}
   "{{{
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
     let g:go_addtags_transform = "camelcase"
     let g:go_fmt_command="goimports"
     let g:go_highlight_types = 1
