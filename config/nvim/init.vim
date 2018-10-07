@@ -1,6 +1,10 @@
 filetype on
 filetype plugin on
 
+let g:python3_host_prog  = '/home/xztaityozx/.pyenv/shims/python3'
+let g:python3_host_skip_check = 1
+set completeopt+=noselect
+
 " vim-plug
 " {{{
   if filereadable(expand('$HOME/.config/nvim/plug.vim'))
@@ -22,7 +26,6 @@ set mouse=a
 set cmdheight=2
 set backspace=indent,eol,start
 set startofline
-"set title
 set tabstop=2
 set shiftwidth=2
 set list
@@ -35,36 +38,6 @@ set splitbelow
 set guicursor=
 set background=dark
 set cursorline
-
-" python向け
-" jedi docstringをださない
-"autocmd FileType python setlocal completeopt-=preview
-"let g:syntastic_python_checkers = ['pep8', 'pyflakes']
-"function! Preserve(command)
-"    " Save the last search.
-"    let search = @/
-"    " Save the current cursor position.
-"    let cursor_position = getpos('.')
-"    " Save the current window position.
-"    normal! H
-"    let window_position = getpos('.')
-"    call setpos('.', cursor_position)
-"    " Execute the command.
-"    execute a:command
-"    " Restore the last search.
-"    let @/ = search
-"    " Restore the previous window position.
-"    call setpos('.', window_position)
-"    normal! zt
-"    " Restore the previous cursor position.
-"    call setpos('.', cursor_position)
-"endfunction
-
-function! Autopep8()
-    call Preserve(':silent %!autopep8 -')
-endfunction
-
-autocmd FileType python nnoremap <S-f> :call Autopep8()<CR>
 
 
 " keyBind
@@ -109,5 +82,5 @@ command! Reload source ~/.config/nvim/init.vim
 
 autocmd FileType * colorscheme iceberg
 autocmd FileType py setfiletype python
-autocmd FileType cs colorscheme stellarized_dark
 autocmd FileType * AirlineRefresh
+
