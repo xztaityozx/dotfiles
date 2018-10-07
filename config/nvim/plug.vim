@@ -44,6 +44,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     let g:go_highlight_types = 1
     let g:go_highlight_methods = 1
     let g:go_highlight_operators = 1
+    Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.local/share/nvim/plugged/gocode/nvim/symlink.sh' }
     let g:deoplete#sources#go#gocode_binary = '/home/xztaityozx/.go/bin/gocode'
     let g:deoplete#sources#go#sort_class = ["package","const"]
     autocmd FileType go nnoremap gr :GoRun<CR>
