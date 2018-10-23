@@ -1,6 +1,8 @@
 # Created by newuser for 5.5
 
-export fpath=($fpath /home/linuxbrew/.linuxbrew/Cellar/hub/2.5.0/share/zsh/site-functions /home/linuxbrew/.linuxbrew/Homebrew/completions/zsh/)
+type brew &> /dev/null || . ~/.profile
+
+export fpath=($fpath /home/linuxbrew/.linuxbrew/Cellar/hub/2.5.1/share/zsh/site-functions /home/linuxbrew/.linuxbrew/Homebrew/completions/zsh/)
 
 # zplug
 source /home/linuxbrew/.linuxbrew/Cellar/zplug/2.4.2/init.zsh
@@ -20,8 +22,8 @@ eval "$(pyenv init --no-rehash -)"
 eval "$($HOME/.go/bin/go-cdx --init)"
 
 # fzf
-. /home/linuxbrew/.linuxbrew/Cellar/fzf/0.17.4/shell/key-bindings.zsh
-. /home/linuxbrew/.linuxbrew/Cellar/fzf/0.17.4/shell/completion.zsh
+. /home/linuxbrew/.linuxbrew/Cellar/fzf/0.17.5/shell/key-bindings.zsh
+. /home/linuxbrew/.linuxbrew/Cellar/fzf/0.17.5/shell/completion.zsh
 
 # powerline
 powerline-daemon -q
@@ -37,3 +39,6 @@ source ~/.ghq/github.com/xztaityozx/dotfiles/bind.zsh
 
 # alias
 source $HOME/.ghq/github.com/xztaityozx/dotfiles/alias.zsh
+
+
+true
