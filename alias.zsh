@@ -9,6 +9,10 @@ type bat &> /dev/null && alias cat="bat --theme TwoDark"
 [[ -f "$HOME/.utils/diff-so-fancy" ]] && alias diff="$HOME/.utils/diff-so-fancy"
 [[ -f $HOME/.utils/nvim.appimage ]] && alias nvim="$HOME/.utils/nvim.appimage" && alias vim="$HOME/.utils/nvim.appimage"
 
+# typo
+alias ks=ls
+alias ka=ls
+
 # cdx
 alias cg="cdx -c g"
 alias ch="cdx -h"

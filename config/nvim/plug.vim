@@ -154,15 +154,6 @@ Plug 'scrooloose/nerdtree'
 " colorschemes
 " {{{
 Plug 'rhysd/try-colorscheme.vim'
-Plug 'hauleth/blame.vim'
-Plug 'miconda/lucariox.vim'
-Plug 'Alvarocz/vim-northpole'
-Plug 'nightsense/stellarized'
-Plug 'ajmwagar/vim-deus'
-Plug 'vim-scripts/DuoTones-Dark'
-Plug 'Badacadabra/vim-archery'
-Plug 'nightsense/nemo'
-Plug 'baines/vim-colorscheme-thaumaturge'
 Plug 'nightsense/seabird'
 " }}}
 
