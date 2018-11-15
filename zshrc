@@ -26,8 +26,10 @@ eval "$($HOME/.go/bin/go-cdx --init)"
 . /home/linuxbrew/.linuxbrew/Cellar/fzf/0.17.5/shell/completion.zsh
 
 # powerline
-powerline-daemon -q
-. $HOME/.local/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
+#powerline-daemon -q
+#. $HOME/.local/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
+
+#source $HOME/.ghq/github.com/xztaityozx/dotfiles/powerline.sh
 
 # config zsh
 HISTFILE=$HOME/.zsh_history
@@ -42,3 +44,4 @@ source $HOME/.ghq/github.com/xztaityozx/dotfiles/alias.zsh
 
 
 true
+
