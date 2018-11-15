@@ -5,8 +5,7 @@ function powerline_precmd() {
       -modules 'ssh,docker,cwd,git,jobs,exit,newline,user,root' \
       -theme $HOME/.config/powerline-go/default.json \
       -cwd-max-depth 3\
-      -cwd-max-dir-size 6\
-      -cwd-mode plain)"
+      -cwd-max-dir-size -1)"
 }
 
 function install_powerline_precmd() {
