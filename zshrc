@@ -29,7 +29,7 @@ eval "$($HOME/.go/bin/go-cdx --init)"
 #powerline-daemon -q
 #. $HOME/.local/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
 
-#source $HOME/.ghq/github.com/xztaityozx/dotfiles/powerline.sh
+source $HOME/.ghq/github.com/xztaityozx/dotfiles/powerline.sh
 
 # config zsh
 HISTFILE=$HOME/.zsh_history
