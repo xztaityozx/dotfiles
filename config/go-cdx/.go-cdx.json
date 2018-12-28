@@ -1,13 +1,19 @@
 {
-  "HistoryFile": "~/.config/go-cdx/history.json",
-  "BookMarkFile":"~/.config/go-cdx/bookmark.json",
+  "HistoryFile": "~/.config/go-cdx/history",
+  "BookMarkFile":"~/.config/go-cdx/bookmark",
   "Command":"pushd",
   "NoOutput":true,
   "Make":false,
   "CustomSource":[
     {
       "Name":"g",
-      "Command":"ghq list | xargs -n1 -I@ echo 'echo -e \"$(basename @) $(ghq root)/@\"'|bash|column -t"
+      "Command":"ghq list | xargs -n1 -I@ echo 'echo -e \"$(basename @) $(ghq root)/@\"'|bash|column -t",
+      "BeginColumn":"2"
+    },
+    {
+      "Name":".",
+      "Command":"find -path '*/.*' -prune -o -type -d -print",
+      "BeginColumn":"1"
     }
   ],
   "FuzzyFinder":{
