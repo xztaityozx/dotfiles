@@ -1,7 +1,6 @@
 filetype on
 filetype plugin on
 
-let g:python3_host_prog  = '/home/xztaityozx/.pyenv/shims/python3'
 let g:python3_host_skip_check = 1
 set completeopt+=noselect
 
