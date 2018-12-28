@@ -36,23 +36,23 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     "let g:deoplete#sources#clang#clang_header="/usr/lib/llvm-6.0/lib/clang"
   ""}}}
   
-  Plug 'zchee/deoplete-go', { 'do': 'make'}
-  "{{{
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-    let g:go_addtags_transform = "camelcase"
-    let g:go_fmt_command="goimports"
-    let g:go_highlight_types = 1
-    let g:go_highlight_methods = 1
-    let g:go_highlight_operators = 1
-    Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-    let g:deoplete#sources#go#sort_class = ["package","const"]
-    autocmd FileType go nnoremap gr :GoRun<CR>
-    autocmd FileType go nnoremap gt :GoTest<CR>
-    autocmd FileType go nnoremap gi :GoImport 
-    autocmd FileType go nnoremap gb :GoBuild<CR>
-    autocmd FileType go nnoremap gf :GoFmt<CR>
-    autocmd FileType go nnoremap go :GoDoc 
-    autocmd FileType go nnoremap gI :GoInfo<CR>
+"  Plug 'zchee/deoplete-go', { 'do': 'make'}
+"  "{{{
+"    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"    let g:go_addtags_transform = "camelcase"
+"    let g:go_fmt_command="goimports"
+"    let g:go_highlight_types = 1
+"    let g:go_highlight_methods = 1
+"    let g:go_highlight_operators = 1
+"    Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+"    let g:deoplete#sources#go#sort_class = ["package","const"]
+"    autocmd FileType go nnoremap gr :GoRun<CR>
+"    autocmd FileType go nnoremap gt :GoTest<CR>
+"    autocmd FileType go nnoremap gi :GoImport 
+"    autocmd FileType go nnoremap gb :GoBuild<CR>
+"    autocmd FileType go nnoremap gf :GoFmt<CR>
+"    autocmd FileType go nnoremap go :GoDoc 
+"    autocmd FileType go nnoremap gI :GoInfo<CR>
   "}}}
 "}}}
 "

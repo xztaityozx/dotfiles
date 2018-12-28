@@ -1,6 +1,9 @@
 # zsh bindings
 bindkey ";5C" forward-word
 bindkey ";5D" backward-word
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[3~" delete-char
 
 __git_set__(){
   local TEXT='hub add -A;hub commit -m "";hub push'

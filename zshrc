@@ -1,6 +1,6 @@
 # Created by newuser for 5.5
 
-type brew &> /dev/null || . ~/.profile
+type brew &> /dev/null || . ~/.zprofile
 
 export fpath=($fpath /home/linuxbrew/.linuxbrew/Cellar/hub/2.5.1/share/zsh/site-functions /home/linuxbrew/.linuxbrew/Homebrew/completions/zsh/)
 
@@ -15,11 +15,11 @@ zplug "b4b4r07/zsh-gomi", if:"which fzf"
 zplug load 
 
 # pyenv
-eval "$(pyenv init --no-rehash -)"
+#eval "$(pyenv init --no-rehash -)"
 
 
 # cdx
-eval "$($HOME/.go/bin/go-cdx --init)"
+eval "$($GOPATH/bin/go-cdx --init)"
 
 # fzf
 . /home/linuxbrew/.linuxbrew/Cellar/fzf/0.17.5/shell/key-bindings.zsh
