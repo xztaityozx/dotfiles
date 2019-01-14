@@ -15,7 +15,7 @@ zplug "b4b4r07/zsh-gomi", if:"which fzf"
 zplug load 
 
 # pyenv
-#eval "$(pyenv init --no-rehash -)"
+#type pyenv &> /dev/null && eval "$(pyenv init --no-rehash -)"
 
 
 # cdx
