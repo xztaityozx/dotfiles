@@ -1,6 +1,8 @@
 filetype on
 filetype plugin on
 
+let g:python_host_prog='/home/linuxbrew/.linuxbrew/Cellar/python@2/2.7.15_1/bin/python'
+let g:python3_host_prog='/home/linuxbrew/.linuxbrew/Cellar/python/3.7.1/bin/python3'
 let g:python3_host_skip_check = 1
 set completeopt+=noselect
 
