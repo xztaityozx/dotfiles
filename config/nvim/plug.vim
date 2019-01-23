@@ -84,8 +84,8 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'simeji/winresizer'
 "{{{
   let g:winresizer_keycode_left=97
-  let g:winresizer_keycode_up=115
-  let g:winresizer_keycode_down=119
+  let g:winresizer_keycode_up=119
+  let g:winresizer_keycode_down=115
   let g:winresizer_keycode_right=100
 "}}}
 
@@ -136,6 +136,11 @@ Plug 'thinca/vim-quickrun'
   let g:quickrun_config['cpp'] = {'type': 'cpp/clang++14'}
 "}}}
 
+" for Python settings
+" {{{
+  Plug 'tell-k/vim-autopep8'
+  autocmd FileType python nnoremap sp :Autopep8<CR>
+" }}}
 
 call plug#end()
 " key-mapping for complete

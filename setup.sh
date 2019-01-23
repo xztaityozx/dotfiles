@@ -12,17 +12,17 @@ HOMEBREW_FORCE_VENDOR_RUBY=1 sh -c "$(curl -fsSL https://raw.githubusercontent.c
 export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin
 
 # any packages from brew
-brew install fzf pyenv hub ghq go exa gcc zplug bat
+brew install fzf pyenv hub ghq go exa gcc zplug bat python@2 python
 
 # go
 export GOPATH=$HOME/.go
 go get github.com/xztaityozx/go-cdx
 
 # python setup
-eval "$(pyenv init -)"
-CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" pyenv install -v 3.6.5
-CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" pyenv install -v 2.7.15
-pyenv global 3.6.5 2.7.15
+#eval "$(pyenv init -)"
+#CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" pyenv install -v 3.6.5
+#CFLAGS="-I$(brew --prefix openssl)/include" LDFLAGS="-L$(brew --prefix openssl)/lib" pyenv install -v 2.7.15
+#pyenv global 3.6.5 2.7.15
 
 pip3 install --upgrade pip
 pip2 install --upgrade pip
@@ -43,7 +43,7 @@ wget https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
 ls -1 | xargs -n1 chmod +x
 
 # some config
-ls -s $HOME/.ghq/github.com/xztaityozx/dotfiles/config/* $HOME/.config/
+ln -s $HOME/.ghq/github.com/xztaityozx/dotfiles/config/* $HOME/.config/
 
 
 # complete
