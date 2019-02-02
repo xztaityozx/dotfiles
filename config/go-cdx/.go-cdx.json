@@ -12,7 +12,7 @@
     },
     {
       "Name":".",
-      "Command":"find -path '*/.*' -prune -o -type -d -print",
+      "Command":"find -path '*/.*' -prune -o -type d -print",
       "BeginColumn":"1"
     }
   ],
