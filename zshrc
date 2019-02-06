@@ -39,6 +39,9 @@ SAVEHIST=10000
 # binding
 source ~/.ghq/github.com/xztaityozx/dotfiles/bind.zsh
 
+# functions
+source ~/.ghq/github.com/xztaityozx/dotfiles/function.zsh
+
 # alias
 source $HOME/.ghq/github.com/xztaityozx/dotfiles/alias.zsh
 
