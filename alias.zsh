@@ -10,6 +10,9 @@ type bat &> /dev/null && alias cat="bat --theme TwoDark"
 [[ -f $HOME/.utils/nvim.appimage ]] && alias nvim="$HOME/.utils/nvim.appimage" && alias vim="$HOME/.utils/nvim.appimage"
 type hexyl &> /dev/null && alias xxd=hexyl
 type httpie &> /dev/null && alias curl=httpie
+[[ -f "/mnt/c/Users/sldl77/App/SeikaCenter20190108u/SeikaSay/seikasay.exe" ]] && alias seikasay=/mnt/c/Users/sldl77/App/SeikaCenter20190108u/SeikaSay/seikasay.exe
+
+
 
 # typo
 alias ks=ls
