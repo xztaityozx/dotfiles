@@ -8,6 +8,8 @@ alias millitime="$HOME/.ghq/github.com/xztaityozx/dotfiles/millitime.sh"
 type bat &> /dev/null && alias cat="bat --theme TwoDark"
 [[ -f "$HOME/.utils/diff-so-fancy" ]] && alias diff="$HOME/.utils/diff-so-fancy"
 [[ -f $HOME/.utils/nvim.appimage ]] && alias nvim="$HOME/.utils/nvim.appimage" && alias vim="$HOME/.utils/nvim.appimage"
+type hexyl &> /dev/null && alias xxd=hexyl
+type httpie &> /dev/null && alias curl=httpie
 
 # typo
 alias ks=ls
@@ -20,6 +22,8 @@ alias cb="cdx -b"
 
 # hub
 alias hc="hub checkout"
+alias hs="hub status"
+alias hac="hub add -A && hub commit -m"
 
 # complete
 type heroku &> /dev/null && HEROKU_AC_ZSH_SETUP_PATH=/home/xztaityozx/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
