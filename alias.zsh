@@ -27,6 +27,8 @@ alias cb="cdx -b"
 alias hc="hub checkout"
 alias hs="hub status"
 alias hac="hub add -A && hub commit -m"
+alias hpl="hub pull"
+alias hps="hub push"
 
 # complete
 type heroku &> /dev/null && HEROKU_AC_ZSH_SETUP_PATH=/home/xztaityozx/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
