@@ -5,8 +5,8 @@ type brew &> /dev/null || . ~/.zprofile
 export fpath=($fpath /home/linuxbrew/.linuxbrew/Cellar/hub/$(hub version|tail -n1|awk '{print $NF}')/share/zsh/site-functions /home/linuxbrew/.linuxbrew/Homebrew/completions/zsh/)
 
 # zplug
-[ -d /home/linuxbrew/.linuxbrew/Cellar/zplug/2.4.2/init.zsh ] && source /home/linuxbrew/.linuxbrew/Cellar/zplug/2.4.2/init.zsh
-[ -d $HOME/.zplug/init.zsh ] && source $HOME/.zplug/init.zsh
+[ -f /home/linuxbrew/.linuxbrew/Cellar/zplug/2.4.2/init.zsh ] && source /home/linuxbrew/.linuxbrew/Cellar/zplug/2.4.2/init.zsh
+[ -f $HOME/.zplug/init.zsh ] && source $HOME/.zplug/init.zsh
 touch $ZPLUG_LOADFILE
 
 zplug "zsh-users/zsh-syntax-highlighting"
