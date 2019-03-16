@@ -20,3 +20,11 @@ function ci-status(){
   fi
   echo "$MSG" | seikasay -cid ${2:-"2002"} -stdin
 }
+
+# ggc user/repo
+# ghq get hoge/fuga && cd $(ghq root)/github.com/hoge/fuga
+function ggc() {
+  local repo="$1"
+  ghq get $repo &&
+    cd $(ghq root)/github.com/$repo
+}
