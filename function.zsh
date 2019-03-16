@@ -28,3 +28,8 @@ function ggc() {
   ghq get $repo &&
     cd $(ghq root)/github.com/$repo
 }
+
+function hub-remote-set-ssh() {
+  local repo="$(basename $(pwd))"
+  hub remote set-url origin git@github.com:xztaityozx/$repo
+}

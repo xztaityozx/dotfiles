@@ -30,7 +30,6 @@ alias hac="hub add -A && hub commit -m"
 alias hpl="hub pull"
 alias hps="hub push"
 alias hub-update="hub add -A && hub commit -m 'update' && hub push"
-alias hub-remote-ssh="hub remote set-url origin git@github.com:xztaityozx/$(basename $(pwd))"
 
 # complete
 type heroku &> /dev/null && HEROKU_AC_ZSH_SETUP_PATH=/home/xztaityozx/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
