@@ -12,6 +12,7 @@ touch $ZPLUG_LOADFILE
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
+zplug "b4b4r07/emoji-cli"
 zplug "b4b4r07/zsh-gomi", if:"which fzf"
 zplug load 
 
