@@ -1,0 +1,30 @@
+set surround
+set showmode
+set cmdheight=2
+
+nnoremap s <NOP>
+vnoremap s <NOP>
+nmap c <NOP>
+vmap c <NOP>
+nnoremap / <NOP>
+
+inoremap <silent> jj <C-\><C-n>
+vnoremap <silent> jj <C-\><C-n>
+
+nnoremap sc :action CommentByLineComment<CR>
+vnoremap sc :action CommentByLineComment<CR>
+nnoremap s/ :action AceAction<CR>
+nnoremap sw <C-w>k<C-\><C-n>
+nnoremap sd <C-w>l<C-\><C-n>
+nnoremap ss <C-w>j<C-\><C-n>
+nnoremap sa <C-w>h<C-\><C-n>
+nnoremap s= :action ReformatCode<CR>
+nnoremap sv :action SplitVertically<CR>
+nnoremap <C-o> :<C-u>action Back<CR>
+nnoremap <C-i> :<C-u>action Forward<CR>
+
+inoremap <C-s> <Esc>:w<CR>
+nnoremap <C-s> :w<CR>
+
+inoremap <C-d> <Esc>:q<CR>
+nnoremap <C-d> :q<CR>
