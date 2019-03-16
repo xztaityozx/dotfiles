@@ -54,9 +54,3 @@ __edit_line__(){
 zle -N __edit_line__
 bindkey "^Xe" __edit_line__
 
-__emoji-cli-emojify__(){
-  emoji::cli|emojify
-}
-
-zle -N __emoji-cli-emojify__
-bindkey "^f" __emoji-cli-emojify__

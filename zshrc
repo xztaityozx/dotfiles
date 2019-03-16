@@ -13,6 +13,7 @@ zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "b4b4r07/emoji-cli"
+  export EMOJI_CLI_KEYBIND="^f"
 zplug "b4b4r07/zsh-gomi", if:"which fzf"
 zplug load 
 
