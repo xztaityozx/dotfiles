@@ -25,8 +25,8 @@ zplug load
 eval "$($GOPATH/bin/go-cdx --init)"
 
 # fzf
-. /home/linuxbrew/.linuxbrew/Cellar/fzf/0.17.5/shell/key-bindings.zsh
-. /home/linuxbrew/.linuxbrew/Cellar/fzf/0.17.5/shell/completion.zsh
+. /home/linuxbrew/.linuxbrew/Cellar/fzf/$(fzf --version|awk '{print $1}')/shell/key-bindings.zsh
+. /home/linuxbrew/.linuxbrew/Cellar/fzf/$(fzf --version|awk '{print $1}')/shell/completion.zsh
 
 # powerline
 #powerline-daemon -q
