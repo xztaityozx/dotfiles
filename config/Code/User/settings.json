@@ -1,0 +1,52 @@
+{
+    "editor.fontSize": 24,
+    "editor.fontFamily": "'Ricty for Powerline'",
+    "workbench.sideBar.location": "right",
+    "workbench.colorTheme": "Iceberg",
+    "window.zoomLevel": 0,
+    "debug.console.fontSize": 24,
+    "vim.easymotion": true,
+    "vim.easymotionMarkerFontSize": "24",
+    "vim.easymotionMarkerHeight": 24,
+    "vim.enableNeovim": true,
+    "vim.easymotionMarkerBackgroundColor": "#000000",
+    "vim.easymotionMarkerForegroundColorOneChar": "#FFAA00",
+    "vim.easymotionMarkerForegroundColorTwoChar": "#FFAA00",
+    "vim.insertModeKeyBindingsNonRecursive": [
+        {
+            "before":["j","j"],
+            "after":["<ESC>"]
+        },
+        {
+            "before":["<C-d>"],
+            "after":["<ESC>:q<CR>"]
+        }
+    ],
+    "vim.leader": "s",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before":["s","/"],
+            "after":["<leader>","<leader>","/"],
+        },
+        {
+            "before":["<C-d>"],
+            "after":[":q<CR>"]
+        },
+        {
+            "before":["s","c"],
+            "after":["g","c","c"]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before":["s","c"],
+            "after":["g","c","c"]
+        }
+    ],
+    "vim.neovimPath": "/home/linuxbrew/.linuxbrew/bin/nvim",
+    "vim.easymotionMarkerWidthPerChar": 16,
+    "vim.easymotionMarkerFontFamily": "Ricty for Powerline",
+    "[csharp]": {
+        "editor.defaultFormatter": "Leopotam.csharpfixformat"
+    }
+}
