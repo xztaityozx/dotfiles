@@ -2,7 +2,6 @@
 
 type brew &> /dev/null || . ~/.zprofile
 
-export fpath=($fpath /home/linuxbrew/.linuxbrew/Cellar/hub/$(hub version|tail -n1|awk '{print $NF}')/share/zsh/site-functions /home/linuxbrew/.linuxbrew/Homebrew/completions/zsh/)
 
 # zplug
 [ -f /home/linuxbrew/.linuxbrew/Cellar/zplug/2.4.2/init.zsh ] && source /home/linuxbrew/.linuxbrew/Cellar/zplug/2.4.2/init.zsh
