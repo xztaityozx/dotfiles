@@ -50,4 +50,4 @@ source $HOME/.ghq/github.com/xztaityozx/dotfiles/alias.zsh
 
 true
 
-
+#type zprof &> /dev/null && zprof | less
