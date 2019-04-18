@@ -1,10 +1,9 @@
 # Created by newuser for 5.5
 
-type brew &> /dev/null || . ~/.zprofile
+type brew &> /dev/null || . ~/.zshenv
 
 
 # zplug
-[ -f /home/linuxbrew/.linuxbrew/Cellar/zplug/2.4.2/init.zsh ] && source /home/linuxbrew/.linuxbrew/Cellar/zplug/2.4.2/init.zsh
 [ -f $HOME/.zplug/init.zsh ] && source $HOME/.zplug/init.zsh
 touch $ZPLUG_LOADFILE
 
