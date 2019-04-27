@@ -105,6 +105,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 "{{{
   Plug 'liquidz/ctrlp-gonosen.vim'
   nnoremap sg :CtrlPGonosen<CR>
+  Plug 'tacahiroy/ctrlp-funky'
+  nnoremap sf :CtrlPFunky<CR>
 "}}}
 Plug 'kassio/neoterm'
 Plug 'airblade/vim-gitgutter'
@@ -123,6 +125,7 @@ Plug 'scrooloose/nerdtree'
 " {{{
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'nightsense/seabird'
+Plug 'cocopon/iceberg.vim'
 " }}}
 
 " QuickRun

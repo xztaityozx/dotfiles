@@ -5,7 +5,7 @@ brew tap sanemat/font
 brew install ricty --with-powerline
 
 # any tools
-brew install fzf hub ghq zplug go hexyl httpie rargs emojify
+brew install fzf hub ghq go hexyl httpie rargs emojify
 type wlinux-setup &> /dev/null || brew install python@2 python neovim node yarn 
 
 # neovim integration
