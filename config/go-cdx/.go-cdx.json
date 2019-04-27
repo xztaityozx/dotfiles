@@ -17,8 +17,8 @@
     },
     {
       "Name":"G",
-      "Command":"ls -1 $GOPATH/src/github.com/xztaityozx",
-      "BeginColumn":"1"
+      "Command":"ls -1 $GOPATH/src/github.com/xztaityozx|xargs -n1 -I@ echo \"@ $GOPATH/src/github.com/xztaityozx/@\"",
+      "BeginColumn":"2"
     }
   ],
   "FuzzyFinder":{
