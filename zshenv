@@ -1,4 +1,4 @@
-export GOPATH="$HOME/.go"
+[ -d $HOME/.go ] && export GOPATH="$HOME/.go" || export GOPATH="$HOME/go"
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH:/home/xztaityozx/.local/bin:$GOPATH/bin"
 export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --ansi"
 export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
