@@ -31,6 +31,13 @@ alias hpl="hub pull"
 alias hps="hub push"
 alias hub-update="hub add -A && hub commit -m 'update' && hub push"
 
+# docker
+alias dps="docker ps"
+alias dr="docker run"
+
+# docker-compose
+alias d-compose=docker-compose
+
 # complete
 type heroku &> /dev/null && HEROKU_AC_ZSH_SETUP_PATH=/home/xztaityozx/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 
