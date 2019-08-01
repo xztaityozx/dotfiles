@@ -74,6 +74,7 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
   let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
   Plug 'tjdevries/coc-zsh'
+
 "}}}
 
 Plug 'scrooloose/nerdcommenter'
