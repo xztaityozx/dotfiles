@@ -7,3 +7,12 @@ export POWERLINE_CONFIG_COMMAND="$HOME/.local/bin/powerline-config"
 # Append Path
 
 . ~/.ghq/github.com/xztaityozx/dotfiles/path.sh
+
+mount | grep -i "drvfs" &> /dev/null && {
+  export DISPLAY=:0.0
+  export GTK_IM_MODULE=fcitx
+  export QT_IM_MODULE=fcitx
+  export XMODIFIERS="@im=fcitx"
+  export DefaultIMModule=fcitx
+  xset -r 49 # 半角全角点滅防止
+}
