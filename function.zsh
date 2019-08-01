@@ -33,3 +33,9 @@ function hub-remote-set-ssh() {
   local repo="$(basename $(pwd))"
   hub remote set-url origin git@github.com:xztaityozx/$repo
 }
+
+function gen-passwd(){
+  local cnt=${2:-10}
+  local w=${1:-10}
+  cat /dev/urandom|base64|head -n5| fold -w$w | head -n$cnt
+}
