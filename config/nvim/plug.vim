@@ -18,6 +18,12 @@ Plug 'junegunn/goyo.vim'
 
 "}}}
 
+Plug 'OmniSharp/omnisharp-vim'
+"{{{
+  let g:OmniSharp_server_stdio=1
+  let g:OmniSharp_selector_ui = 'ctrlp'
+"}}}
+
 "Plug 'SirVer/ultisnips'
 ""{{{
   "Plug 'honza/vim-snippets'
