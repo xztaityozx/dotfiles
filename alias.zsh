@@ -37,6 +37,8 @@ alias dr="sudo docker run"
 
 # docker-compose
 alias d-compose="sudo docker-compose"
+alias dcd="sudo docker-compose down"
+alias dcu="sudo docker-compose up"
 
 # complete
 type heroku &> /dev/null && HEROKU_AC_ZSH_SETUP_PATH=/home/xztaityozx/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
