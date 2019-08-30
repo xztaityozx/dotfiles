@@ -41,4 +41,9 @@ alias d-compose="sudo docker-compose"
 # complete
 type heroku &> /dev/null && HEROKU_AC_ZSH_SETUP_PATH=/home/xztaityozx/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 
+# for wsl
+mount | grep -i "drvfs" &> /dev/null && {
+  alias powershell="/mnt/c/Program\ Files/PowerShell/6/pwsh.exe"
+}
+
 true

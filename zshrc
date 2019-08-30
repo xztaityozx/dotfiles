@@ -11,9 +11,9 @@ zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "b4b4r07/emoji-cli"
-  export EMOJI_CLI_KEYBIND="^f"
+export EMOJI_CLI_KEYBIND="^f"
 zplug "b4b4r07/zsh-gomi", if:"which fzf"
-zplug load 
+  zplug load 
 
 # pyenv
 #type pyenv &> /dev/null && eval "$(pyenv init --no-rehash -)"
@@ -25,10 +25,6 @@ eval "$($GOPATH/bin/go-cdx --init)"
 # fzf
 . /home/linuxbrew/.linuxbrew/Cellar/fzf/$(fzf --version|awk '{print $1}')/shell/key-bindings.zsh
 . /home/linuxbrew/.linuxbrew/Cellar/fzf/$(fzf --version|awk '{print $1}')/shell/completion.zsh
-
-# powerline
-#powerline-daemon -q
-#. $HOME/.local/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
 
 source $HOME/.ghq/github.com/xztaityozx/dotfiles/powerline.sh
 
