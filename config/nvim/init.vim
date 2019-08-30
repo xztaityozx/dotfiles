@@ -8,8 +8,8 @@ set completeopt+=noselect
 
 " vim-plug
 " {{{
-  if filereadable(expand('$HOME/.config/nvim/plug.vim'))
-    source $HOME/.config/nvim/plug.vim
+  if filereadable(expand('$XDG_CONFIG_HOME/nvim/plug.vim'))
+    source $XDG_CONFIG_HOME/nvim/plug.vim
   endif
 " }}}
 
@@ -79,9 +79,9 @@ nnoremap bd :bdelete<CR>
 nnoremap <C-a> gg<S-V>G
 inoremap <C-a> <ESC>gg<S-V>G
 
-command! OpenPlugFile edit ~/.config/nvim/plug.vim
-command! OpenInitFile edit ~/.config/nvim/init.vim
-command! Reload source ~/.config/nvim/init.vim
+command! OpenPlugFile edit $XDG_CONFIG_HOME/nvim/plug.vim
+command! OpenInitFile edit $XDG_CONFIG_HOME/nvim/init.vim
+command! Reload source $XDG_CONFIG_HOME/nvim/init.vim
 
 autocmd FileType * colorscheme iceberg
 autocmd FileType py setfiletype python
