@@ -114,6 +114,7 @@ function Write-Theme {
             $box.Add([PoshCode.Pansies.Text]@{
                 Object = ' ' + $index.Length + [char]::ConvertFromUtf32(0x2714) + ' ';
                 Foreground = "#E0E0E0"
+                Background = $indexBack
             })
             $box.Add([PoshCode.Pansies.Text]@{
                 Object = $segmentSeparator;
