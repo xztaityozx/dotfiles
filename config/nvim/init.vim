@@ -1,15 +1,15 @@
 filetype on
 filetype plugin on
 
-let g:python_host_prog='/home/linuxbrew/.linuxbrew/Cellar/python@2/2.7.15_1/bin/python'
-let g:python3_host_prog='/home/linuxbrew/.linuxbrew/Cellar/python/3.7.1/bin/python3'
+let g:python_host_prog=expand('$PYTHON2_HOST_PROG')
+"let g:python3_host_prog='/home/linuxbrew/.linuxbrew/Cellar/python/3.7.1/bin/python3'
 let g:python3_host_skip_check = 1
 set completeopt+=noselect
 
 " vim-plug
 " {{{
-  if filereadable(expand('$XDG_CONFIG_HOME/nvim/plug.vim'))
-    source $XDG_CONFIG_HOME/nvim/plug.vim
+  if filereadable(expand('$NVIM_CONFIG_DIR/plug.vim'))
+    source $NVIM_CONFIG_DIR/plug.vim
   endif
 " }}}
 
@@ -79,9 +79,9 @@ nnoremap bd :bdelete<CR>
 nnoremap <C-a> gg<S-V>G
 inoremap <C-a> <ESC>gg<S-V>G
 
-command! OpenPlugFile edit $XDG_CONFIG_HOME/nvim/plug.vim
-command! OpenInitFile edit $XDG_CONFIG_HOME/nvim/init.vim
-command! Reload source $XDG_CONFIG_HOME/nvim/init.vim
+command! OpenPlugFile edit $NVIM_CONFIG_DIR/plug.vim
+command! OpenInitFile edit $NVIM_CONFIG_DIR/init.vim
+command! Reload source $NVIM_CONFIG_DIR/init.vim
 
 autocmd FileType * colorscheme iceberg
 autocmd FileType py setfiletype python
