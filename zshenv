@@ -4,6 +4,8 @@ export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --ansi"
 export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
 export POWERLINE_CONFIG_COMMAND="$HOME/.local/bin/powerline-config"
+export NVIM_CONFIG_DIR="$HOME/.config/nvim"
+export PYTHON2_HOST_PROG="/home/linuxbrew/.linuxbrew/bin/python2"
 # Append Path
 
 . ~/.ghq/github.com/xztaityozx/dotfiles/path.sh
