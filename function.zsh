@@ -68,7 +68,7 @@ function yy() {
   # wsl
   type clip.exe 2>&1 > /dev/null && echo -n "$text" | clip.exe && return 0
   # xclip
-  type xclip 2>&1 > /dev/null && echo -n "$text" | xclip -selection c return 0
+  type xclip 2>&1 > /dev/null && echo -n "$text" | xclip -selection c && return 0
   # xsel 
   type xsel 2>&1 > /dev/null && echo -n "$text" | xsel -b && return 0
 
