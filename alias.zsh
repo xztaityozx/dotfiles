@@ -48,4 +48,9 @@ mount | grep -i "drvfs" &> /dev/null && {
   alias powershell="/mnt/c/Program\ Files/PowerShell/6/pwsh.exe"
 }
 
+# vpn
+type openfortivpn &> /dev/null && {
+  alias vpn="sudo openfortivpn -c $HOME/.config/FortiClient/OIT"
+}
+
 true
