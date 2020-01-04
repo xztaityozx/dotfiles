@@ -1,0 +1,2 @@
+" neoterm
+Plug 'kassio/neoterm'
