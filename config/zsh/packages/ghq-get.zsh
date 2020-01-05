@@ -2,11 +2,13 @@
 
 type ghq &> /dev/null || exit
 
+ROOT="$(ghq root)"
 
 type tilix &> /dev/null && {
   ghq get storm119/Tilix-Themes
-  mkdir -p ~/.config/tilix/schemes
+  tilixConfig="$HOME/.config/tilix/schemes"
+  mkdir -p $tilixConfig
 
-  cp ~/.ghq/github.com/storm119/Tilix-Themes/Themes/* ~/.config/tilix/schemes/
-  cp ~/.ghq/github.com/storm119/Tilix-Themes/Themes-2/* ~/.config/tilix/schemes/
+  cp $ROOT/github.com/storm119/Tilix-Themes/Themes/*   $tilixConfig 
+  cp $ROOT/github.com/storm119/Tilix-Themes/Themes-2/* $tilixConfig 
 }
