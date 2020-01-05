@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 type go &> /dev/null || (echo "go not installed" && exit 1)
 
