@@ -13,7 +13,7 @@ export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
 export fpath=($fpath /home/linuxbrew/.linuxbrew/Homebrew/completions/zsh /home/linuxbrew/.linuxbrew/share/zsh/site-functions)
 
 # for WSL
-mount | grep -i "drvfs" &> /dev/null && {
+[ "$WT_SESSION" = "" ] && mount | grep -i "drvfs" &> /dev/null && {
   export DISPLAY=:0.0
   export GTK_IM_MODULE=fcitx
   export QT_IM_MODULE=fcitx

@@ -31,3 +31,5 @@ alias hsw="hub switch"
 
 # for touchpad gesture
 alias gesrestart="libinput-gestures-setup restart"
+
+[ "$WT_SESSION" != "" ] && alias open-wterm-settiong="nvim /home/xztaityozx/winhome/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/profiles.json"
