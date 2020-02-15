@@ -14,7 +14,7 @@ true
 
 
 # zplugins
-source "$ZDOTDIR/.zplugin/bin/zplugin.zsh"
+source "$ZDOTDIR/.zinit/bin/zplugin.zsh"
 autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 
