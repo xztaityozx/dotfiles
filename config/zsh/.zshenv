@@ -5,7 +5,10 @@
 export GOPATH=$HOME/go
 
 # add PATH
-export PATH="$PATH:$GOPATH/bin:$HOME/.nimble/bin:/home/linuxbrew/.linuxbrew/bin:$HOME/.local/bin"
+export PATH="$PATH:$GOPATH/bin:$HOME/.nimble/bin:/home/linuxbrew/.linuxbrew/bin:$HOME/.local/bin:$HOME/.cargo/bin"
+
+# neovim
+export NVIM_CONFIG_DIR="$HOME/.config/nvim"
 
 # brew
 export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"

@@ -16,11 +16,6 @@ alias ch="cdx -h"
 alias cb="cdx -b"
 alias ..="cdx ../"
 
-# git
-[ -f "$(brew --prefix)/bin/git" ] && {
-  alias git=$(brew --prefix)/bin/git
-}
-
 # hub
 alias hc="hub checkout"
 alias hs="hub status"
