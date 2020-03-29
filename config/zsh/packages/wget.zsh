@@ -5,7 +5,7 @@ WORKDIR="/tmp/Cica"
 mkdir -p $WORKDIR
 cd $WORKDIR
 
-wget $URL
+wget "$URL"
 
 unzip ./Cica_*
 rm ./Cica_*

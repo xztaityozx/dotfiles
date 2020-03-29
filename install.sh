@@ -1,12 +1,21 @@
 #!/bin/bash
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
-echo 'export ZDOTDIR=$HOME/.config/zshi && source $ZDOTDIR/.zshenv' >> $HOME/.zshenv
+echo 'export ZDOTDIR=$HOME/.config/zsh && source $ZDOTDIR/.zshenv' >> $HOME/.zshenv
 
-#sudo apt update && sudo apt upgrade -y
-#sudo apt install -y build-essential wget curl git moreutils
+type apt &> /dev/null && {
+  echo debian/ubuntu
 
-ls $SCRIPT_DIR/config/zsh/packages/*.zsh | xargs -I@ "zsh @"
+  sudo apt update && sudo apt upgrade -y
+  sudo apt install -y build-essential wget curl git moreutils
+
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+  eval "$(brew shellenv)"
+  brew install hub exa go neovim python3 rargs ghq
+}
+
+ls $SCRIPT_DIR/config/zsh/packages/*.zsh | xargs -I@ zsh @
 
 ln -s $SCRIPT_DIR/config/* $HOME/.config/
 ln -s $SCRIPT_DIR/ideavimrc $HOME/.ideavimrc

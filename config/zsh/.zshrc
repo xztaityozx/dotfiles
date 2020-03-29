@@ -12,18 +12,17 @@ ls $ZDOTDIR/*.zsh | while read L; do source $L; done
 
 true
 
-
-# zplugins
+# zinit
 source "$ZDOTDIR/.zinit/bin/zplugin.zsh"
 autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 
-zplugin light zsh-users/zsh-autosuggestions
-zplugin light zdharma/fast-syntax-highlighting
-zplugin load zsh-users/zsh-autosuggestions
-zplugin load zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-syntax-highlighting
+zinit load zsh-users/zsh-autosuggestions
+zinit load zsh-users/zsh-completions
 
 # プロファイリング
-if (which zprof > /dev/null 2>&1) ;then
-  zprof
-fi
+#if (which zprof > /dev/null 2>&1) ;then
+  #zprof
+#fi
