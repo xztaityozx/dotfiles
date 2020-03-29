@@ -2,5 +2,5 @@ bin/
 config/nvim/plugged/
 config/go-cdx/bookmark
 config/go-cdx/history
-config/zsh/.zplugin/
+config/zsh/.zinit/
 config/zsh/.zcompdump

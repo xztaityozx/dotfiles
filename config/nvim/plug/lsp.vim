@@ -1,8 +1,16 @@
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+"{{{
+  nnoremap sgd :LspDefinition<CR>
+  nnoremap sact :LspCodeAction<CR>
+  nnoremap sre :LspRename<CR>
+"}}}
 Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-lsp-icons'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+"{{{
+  let g:deoplete#enable_at_startup=1
+"}}}
 Plug 'lighttiger2505/deoplete-vim-lsp'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
