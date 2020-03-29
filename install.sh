@@ -12,10 +12,18 @@ type apt &> /dev/null && {
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
   eval "$(brew shellenv)"
-  brew install hub exa go neovim python3 rargs ghq
 }
 
-ls $SCRIPT_DIR/config/zsh/packages/*.zsh | xargs -I@ zsh @
+type brew &> /dev/null && {
+  brew install git go python3 zsh moreutils
+}
+
+type pacman &> /dev/null && {
+  sudo pacman -Ss git go python3 zsh
+}
+
+# zinit
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 
 ln -s $SCRIPT_DIR/config/* $HOME/.config/
 ln -s $SCRIPT_DIR/ideavimrc $HOME/.ideavimrc
