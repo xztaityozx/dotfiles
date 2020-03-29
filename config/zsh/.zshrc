@@ -9,9 +9,6 @@ which sw_vers &> /dev/null && {
   ENV_FONT_DIR="$HOME/Library/Fonts"
 }
 
-# load
-ls $ZDOTDIR/*.zsh | while read L; do source $L; done
-
 true
 
 # zinit
@@ -67,7 +64,7 @@ zinit ice from"gh-r" as"program" bpick"*$ENV_OS*" cp"exa* -> exa"  atclone" \
 zinit light ogham/exa
 
 # ghq
-zinit ice has"go" atclone"go install" atpull'%atclone' as"program" pick"/dev/null"
+zinit ice has"go" atclone"go install" atpull'%atclone' pick"/dev/null"
 zinit light x-motemen/ghq
 
 # pynvim
@@ -79,8 +76,15 @@ zinit ice from"gh-r" bpick"*$ENV_OS*" pick"./*/*/nvim" as"program"
 zinit light neovim/neovim
 
 # hub
-zinit ice from"gh-r" bpick"*$ENV_OS*" pick"./*/*/hub" atclone"cp ./*/etc/hub.zsh_completion $ZDOTDIR/.zinit/completions/_hub" atpull"%atclone" as"program"
+zinit ice from"gh-r" bpick"*$ENV_OS*" pick"./*/*/hub" cp"./*/etc/hub.zsh_completion -> $ZDOTDIR/.zinit/completions/_hub" as"program"
 zinit load github/hub
+
+# bat
+zinit ice from"gh-r" bpick"*x86_64*$ENV_OS*" as"program" pick"./*/bat"
+zinit light sharkdp/bat
 
 # enable completions
 autoload -U compinit && compinit
+
+# load
+ls $ZDOTDIR/*.zsh | while read L; do source $L; done
