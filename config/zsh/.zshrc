@@ -38,7 +38,7 @@ zinit ice from"gh-r" cloneonly bpick"*_with_emoji.zip" atclone" \
 zinit load miiton/Cica
 
 # vim-plug
-zinit ice cloneonly cp"plug.vim -> ~/.local/share/nvim/site/autoload/plug.vim"
+zinit ice cloneonly cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim" as"null"
 zinit light junegunn/vim-plug
 
 # choosenim
