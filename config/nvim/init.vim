@@ -74,11 +74,7 @@ set completeopt=menuone,noselect,preview
 set signcolumn=yes
 
 " shell設定
-if executable('zsh') 
-  setglobal shell=/usr/bin/zsh
-elseif executable('pwsh.exe')
-  setglobal shell=pwsh.exe
-endif
+setglobal shell=$SHELL
 
 " いくつかのdefault-pluginを読み込まない
 " {{{
