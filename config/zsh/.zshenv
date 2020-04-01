@@ -7,6 +7,9 @@ export GOPATH=$HOME/go
 # add PATH
 export PATH="$PATH:$GOPATH/bin:$HOME/.nimble/bin:/home/linuxbrew/.linuxbrew/bin:$HOME/.local/bin:$HOME/.cargo/bin"
 
+# for plenv
+export PLENV_ROOT="$ZDOTDIR/.zinit/plugins/tokuhirom---plenv/"
+
 # neovim
 export NVIM_CONFIG_DIR="$HOME/.config/nvim"
 

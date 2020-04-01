@@ -22,7 +22,10 @@ zinit for \
     light-mode zsh-users/zsh-completions
 
 # fzf
-zinit ice from"gh-r" as"program"
+FZF_PREFIX="$ZDOTDIR/.zinit/plugins/junegunn---fzf-bin"
+zinit ice from"gh-r" as"program" atclone" \
+  curl -fLo $FZF_PREFIX/scripts/completion.zsh --create-dirs https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh && curl -fLo $FZF_PREFIX/scripts/key-bindings.zsh --create-dirs https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh" \
+  atpull'%atclone' atload"source $FZF_PREFIX/scripts/key-bindings.zsh && source $FZF_PREFIX/scripts/completion.zsh"
 zinit load junegunn/fzf-bin
 
 # plenv
