@@ -18,6 +18,9 @@ export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
 export fpath=($fpath /home/linuxbrew/.linuxbrew/Homebrew/completions/zsh /home/linuxbrew/.linuxbrew/share/zsh/site-functions)
 
+# fzf
+export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --ansi"
+
 # for WSL
 [ "$WT_SESSION" = "" ] && [[ "$WSL_DISTRO_NAME" != "" ]] && {
   export DISPLAY=:0.0
