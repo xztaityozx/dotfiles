@@ -91,3 +91,4 @@ autoload -U compinit && compinit
 
 # load
 ls $ZDOTDIR/*.zsh | while read L; do source $L; done
+

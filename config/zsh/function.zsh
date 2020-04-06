@@ -41,8 +41,10 @@ function yy() {
   type xclip 2>&1 > /dev/null && echo -n "$text" | xclip -selection c && return 0
   # xsel 
   type xsel 2>&1 > /dev/null && echo -n "$text" | xsel -b && return 0
+  # pbcopy
+  type pbcopy 2>&1 > /dev/null && echo -n "$text" | pbcopy && return 0
 
-  logger.warn "clip.exe, xclip or xsel not found"
+  logger.warn "clip.exe, xclip, pbcopy or xsel not found"
 }
 
 # reconfigure
