@@ -29,6 +29,13 @@ nnoremap s <NOP>
   tnoremap <silent> sb <C-\><C-n>:CtrlPBuffer<CR>
 " }}}
 
+" インデント
+nnoremap <Tab> <S-v>>
+nnoremap <S-Tab> <S-v><
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+inoremap <S-Tab> <ESC><S-v><<ESC>i
+
 " 行の先頭と最後尾への移動
 inoremap <silent> ^^ <HOME>
 inoremap <silent> ^\ <END>
