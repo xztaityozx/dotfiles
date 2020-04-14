@@ -86,6 +86,10 @@ zinit load github/hub
 zinit ice from"gh-r" bpick"*x86_64*$ENV_OS*" as"program" pick"./*/bat"
 zinit light sharkdp/bat
 
+# gibo
+zinit ice pick"gibo" atclone"chmod +x gibo && gibo update" atpull"%atclone" as"program"
+zinit light simonwhitaker/gibo
+
 # enable completions
 autoload -U compinit && compinit
 

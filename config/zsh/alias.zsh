@@ -34,5 +34,8 @@ alias gesrestart="libinput-gestures-setup restart"
 # go
 alias -s go="go run "
 
+# perl
+alias -s pl=perl
+
 # windows terminal
 [ "$WT_SESSION" != "" ] && alias open-wterm-settiong="nvim /home/xztaityozx/winhome/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/profiles.json"
