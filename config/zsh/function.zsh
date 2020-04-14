@@ -59,3 +59,17 @@ function rescale() {
   xrandr --output DSI1 --scale 1.2x1.2
   xrandr --output DSI1 --panning 2304x1536
 }
+
+# awk for csv
+function cawk() {
+  awk -F, "$@"
+}
+
+function ohiru() {
+  local verb="${1:-begin}"
+  local emoji=":ohiru"
+  [[ "$verb" = "end" ]] && emoji="${emoji}_owari"
+
+  echo "$emoji: $(date)"
+}
+
