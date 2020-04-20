@@ -5,6 +5,8 @@ type exa &> /dev/null && alias ls="exa --git"
 type bat &> /dev/null && alias cat="bat --theme TwoDark"
 type hexyl &> /dev/null && alias xxd=hexyl
 type httpie &> /dev/null && alias curl=httpie
+type gsed &> /dev/null && alias sed=gsed
+type ggrep &> /dev/null && alias grep=ggrep
 
 # typo
 alias ks=ls
@@ -35,8 +37,11 @@ alias gesrestart="libinput-gestures-setup restart"
 alias -s go="go run "
 
 # perl
-alias -s pl=perl
-alias -s psgi="carton -- exec plackup"
+alias -s pl="perl -Ilib"
+alias -s psgi="carton exec -- plackup -Ilib"
+alias care="carton exec"
+alias ple="plenv exec"
+
 
 # windows terminal
 [ "$WT_SESSION" != "" ] && alias open-wterm-settiong="nvim /home/xztaityozx/winhome/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/profiles.json"

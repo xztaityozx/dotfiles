@@ -90,6 +90,10 @@ zinit light sharkdp/bat
 zinit ice pick"gibo" atclone"chmod +x gibo && gibo update" atpull"%atclone" as"program"
 zinit light simonwhitaker/gibo
 
+# forest
+zinit ice from"gh-r" bpick"*$ENV_OS*.zip" as"program" pick"./*/forest"
+zinit light KoharaKazuya/forest
+
 # enable completions
 autoload -U compinit && compinit
 
