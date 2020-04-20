@@ -73,3 +73,34 @@ function ohiru() {
   echo "$emoji: $(date)"
 }
 
+function path-list() {
+  echo "$PATH" | tr : \\n
+}
+
+function notifier() {
+  local title=${1}
+  local msg=${2+"$@"}
+  [[ -f /usr/bin/osascript ]] && /usr/bin/osascript -e 'display notification "'$msg'" with title "'$title'"'
+}
+
+function __pomodoro-notifier() {
+  notifier "pomodoro さん" ${1+"$@"}
+}
+
+function pomodoro() {
+  local s=${1:-25}
+  local t=${2:-5}
+  local p=${3:-15}
+
+  seq 4 | while read x; do
+    __pomodoro-notifier "ほら！第 $x ポモドーロよ！！時間は $s 分！始めなさい！"
+    gsleep ${s}m
+    __pomodoro-notifier "休憩時間よ！時間は $t 分！"
+    gsleep ${t}m
+  done
+
+  __pomodoro-notifier "長めの休憩ね。時間は $p 分。ちゃんと休むのよ。"
+  gsleep ${p}m
+
+  __pomodoro-notifier "はい！休憩終わり！！次よ！次！！"
+}

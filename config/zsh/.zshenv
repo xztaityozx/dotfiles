@@ -31,6 +31,9 @@ export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --ansi"
   xset -r 49
 }
 
+# mysql
+[[ -d /usr/local/opt/mysql@5.7/bin ]] && export PATH="/usr/local/opt/mysql@5.7/bin/:$PATH"
+
 # history
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000
