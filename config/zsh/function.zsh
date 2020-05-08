@@ -104,3 +104,7 @@ function pomodoro() {
 
   __pomodoro-notifier "はい！休憩終わり！！次よ！次！！"
 }
+
+function fujitatsulize() {
+  cat | sed 's/./&゛/g'
+}
