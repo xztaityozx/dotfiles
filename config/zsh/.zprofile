@@ -9,11 +9,8 @@ function start_agent {
     ls -1 ~/.ssh/*|xargs file |grep "OpenSSH private key"|awk -F: '{print $1}'|xargs ssh-add 
 }
 
-# Source SSH settings, if applicable
-
 if [ -f "${SSH_ENV}" ]; then
     . "${SSH_ENV}" > /dev/null
-    #ps ${SSH_AGENT_PID} doesn't work under cywgin
     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
         start_agent;
     }
