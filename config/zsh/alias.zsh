@@ -7,6 +7,7 @@ type hexyl &> /dev/null && alias xxd=hexyl
 type httpie &> /dev/null && alias curl=httpie
 type gsed &> /dev/null && alias sed=gsed
 type ggrep &> /dev/null && alias grep=ggrep
+type grm &> /dev/null && alias rm=grm
 
 # typo
 alias ks=ls
@@ -31,7 +32,7 @@ alias hsw="hub switch"
 alias fcitx-autostart="fcitx-autostart &> /dev/null"
 
 # for touchpad gesture
-alias gesrestart="libinput-gestures-setup restart"
+type libinput-gestures-setup &> /dev/null && alias gesrestart="libinput-gestures-setup restart"
 
 # go
 alias -s go="go run "
@@ -41,6 +42,16 @@ alias -s pl="perl -Ilib"
 alias -s psgi="carton exec -- plackup -Ilib"
 alias care="carton exec"
 alias ple="plenv exec"
+
+# docker
+type docker &> /dev/null && {
+  alias d=docker
+  alias dr=docker run
+}
+
+type docker-compose &> /dev/null && {
+  alias dc=docker-compose
+}
 
 
 # windows terminal
