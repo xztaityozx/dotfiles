@@ -47,6 +47,34 @@ function yy() {
   logger.warn "clip.exe, xclip, pbcopy or xsel not found"
 }
 
+# nvim
+function tnvim() {
+  mkdir -p /tmp/tnvim
+  local file="/tmp/tnvim/$(date '+%s')"
+  nvim ${file}
+}
+
+# cat last $_
+function tt() {
+  local file="$(history | tail -n1|awk '{print $NF}')"
+  cat ${file}
+}
+
+# icat STDINからやってきた文字列をパスとしてcatにわたす。複数行あるなら fzf で選択する
+function icat() {
+  local file="$(fzf)"
+  cat $file
+}
+
+# config, open config file
+function config() {
+  cd $ZDOTDIR
+  local file="$(ls -la|grep -v "^d"|awk '{print $NF}'|fzf)"
+  [[ "$file" = "" ]] && logger.warn "fzf was canceled" && return 1
+
+  nvim $file
+}
+
 # reconfigure
 function rescale() {
   [ "$1" = "HDMI" ] && gsettings set org.gnome.desktop.interface scaling-factor 2 &&
@@ -63,6 +91,11 @@ function rescale() {
 # awk for csv
 function cawk() {
   awk -F, "$@"
+}
+
+# awk のセパレータを : にしたやつ
+function :awk() {
+  awk -F: "$@"
 }
 
 function ohiru() {
@@ -108,3 +141,53 @@ function pomodoro() {
 function fujitatsulize() {
   cat | sed 's/./&゛/g'
 }
+
+# wget-tmp wgetのラッパー、自動で/tmp/zsh/wgetに移動して、作業ディレクトリとしてつかう
+function wget-tmp() {
+  local path="$TMPPREFIX/wget"
+  mkdir -p ${path}
+  cd ${path}
+  wget "$@"
+}
+
+# YYYYmmddを出力するだけ
+function simple-date() {
+  date '+%Y%m%d'
+}
+
+# 本日分のドキュメントを編集/作成するコマンド
+# 日報とかTODOとかを $HOME/Documents/cli-doc/以下に作る
+# flags:
+#   -f | --file: ファイル名をSTDOUTに出力して終了する
+#   -r | --root: ドキュメントルートへのパスをSTDOUTに出力して終了する
+function doc() {
+  local docDir="$HOME/Documents/cli-doc"
+
+  : "-r | --root" && [[ "$1" =~ "^(-r|--root)$" ]] && echo $docDir && return 0;
+
+  local date="$(simple-date)"
+
+  # 種類とテンプレの連想配列
+  typeset -A template=(
+    "worklog" "${date} 作業ログ($USER)\n# ひとこと\n\n# やったこと\n"
+    "todo"    "TODO:\n[] "
+  )
+  
+  # fzfで編集したいのを選択
+  local target=$(echo ${(k)template} |fmt -1| column -t | fzf | awk '{print $1}')
+  [[ "$target" = "" ]] && logger.warn "doc command was canceled" && return 1
+
+
+  local dir="$docDir/${target}"
+  : "ディレクトリがなければ作る。失敗したら死ぬ" && [[ -d "$dir" ]] || mkdir -p $dir || {
+    logger.warn "failed to mkdir $dir"
+    return 1
+  }
+  local file="$dir/${date}.md"
+
+  : "-f|--fileが有効ならSTDOUTに出して終了。それ以外ならテンプレを吐き出したりしてnvimにわたす" && [[ "$1" =~ "^(-f|--file)$" ]] && echo $file || {
+    [[ -f "$file" ]] || echo -e "${template[$target]}" > $file
+    nvim $file
+  }
+}
+
