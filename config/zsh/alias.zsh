@@ -3,6 +3,9 @@
 # 置き換えツール
 type exa &> /dev/null && alias ls="exa --git"
 type bat &> /dev/null && alias cat="bat --theme TwoDark"
+# {{{
+  alias -s cat='(){cat ${1/.cat/}}'
+# }}}
 type hexyl &> /dev/null && alias xxd=hexyl
 type httpie &> /dev/null && alias curl=httpie
 type gsed &> /dev/null && alias sed=gsed
@@ -29,7 +32,7 @@ alias hub-update="hub add -A && hub commit -m 'update' && hub push"
 alias hsw="hub switch"
 
 # fcitx
-alias fcitx-autostart="fcitx-autostart &> /dev/null"
+type fcitx &> /dev/null && alias fcitx-autostart="fcitx-autostart &> /dev/null"
 
 # for touchpad gesture
 type libinput-gestures-setup &> /dev/null && alias gesrestart="libinput-gestures-setup restart"
@@ -42,16 +45,6 @@ alias -s pl="perl -Ilib"
 alias -s psgi="carton exec -- plackup -Ilib"
 alias care="carton exec"
 alias ple="plenv exec"
-
-# docker
-type docker &> /dev/null && {
-  alias d=docker
-  alias dr=docker run
-}
-
-type docker-compose &> /dev/null && {
-  alias dc=docker-compose
-}
 
 
 # windows terminal
