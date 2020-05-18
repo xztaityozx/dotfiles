@@ -6,14 +6,14 @@ export GOPATH=$HOME/go
 
 # add PATH
 export path=(
-$path
+/home/linuxbrew/.linuxbrew/bin(N-/)
 $GOPATH/bin(N-/)
 $HOME/.nimble/bin(N-/)
-/home/linuxbrew/.linuxbrew/bin(N-/)
 $HOME/.local/bin(N-/)
 $HOME/.cargo/bin(N-/)
 /usr/local/opt/mysql@5.7/bin(N-/)
 /usr/local/opt/icu4c/bin(N-/)
+$path
 )
 
 # for plenv
@@ -25,9 +25,9 @@ export NVIM_CONFIG_DIR="$HOME/.config/nvim"
 # brew
 export MANPATH="$MANPATH:/home/linuxbrew/.linuxbrew/share/man"
 export fpath=(
-$fpath
 /home/linuxbrew/.linuxbrew/Homebrew/completions/zsh(N-/)
 /home/linuxbrew/.linuxbrew/share/zsh/site-functions(N-/)
+$fpath
 )
 
 # fzf
