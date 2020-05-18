@@ -12,7 +12,8 @@ which sw_vers &> /dev/null && {
 true
 
 # zinit
-source "$ZDOTDIR/.zinit/bin/zplugin.zsh"
+[[ -f "$ZDOTDIR/.zinit/zinit.zsh" ]] && source "$ZDOTDIR/.zinit/zinit.zsh"
+[[ -f "$ZDOTDIR/.zinit/bin/zinit.zsh" ]] && source "$ZDOTDIR/.zinit/bin/zinit.zsh" 
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -23,8 +24,9 @@ zinit for \
 
 # fzf
 FZF_PREFIX="$ZDOTDIR/.zinit/plugins/junegunn---fzf-bin"
+FZF_URL="https://raw.githubusercontent.com/junegunn/fzf/master/shell"
 zinit ice from"gh-r" as"program" atclone" \
-  curl -fLo $FZF_PREFIX/scripts/completion.zsh --create-dirs https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh && curl -fLo $FZF_PREFIX/scripts/key-bindings.zsh --create-dirs https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh" \
+  curl -fLo $FZF_PREFIX/scripts/completion.zsh --create-dirs $FZF_URL/completion.zsh && curl -fLo $FZF_PREFIX/scripts/key-bindings.zsh --create-dirs $FZF_URL/key-bindings.zsh" \
   atpull'%atclone' atload"source $FZF_PREFIX/scripts/key-bindings.zsh && source $FZF_PREFIX/scripts/completion.zsh"
 zinit load junegunn/fzf-bin
 
@@ -75,11 +77,14 @@ zinit ice has"pip3" atclone"pip3 install ." atpull"%atclone" pick"/dev/null"
 zinit light neovim/pynvim
 
 # neovim
-zinit ice from"gh-r" bpick"*$ENV_OS*" pick"./*/*/nvim" as"program"
+zinit ice from"gh-r" bpick"*$ENV_OS*" as"command" pick"./*/bin/nvim"
 zinit light neovim/neovim
 
 # hub
-zinit ice from"gh-r" bpick"*$ENV_OS*" pick"./*/*/hub" cp"./*/etc/hub.zsh_completion -> $ZDOTDIR/.zinit/completions/_hub" as"program"
+zinit ice from"gh-r" atclone"tar xzf *.tgz && cp ./*/*/hub ./hub && rm -rf hub-*" \
+  bpick"*$ENV_OS*" pick"./*/*/hub" cp"./*/etc/hub.zsh_completion -> $ZDOTDIR/.zinit/completions/_hub" \
+  as"program" \
+  atpull"%atclone"
 zinit load github/hub
 
 # bat
@@ -89,10 +94,6 @@ zinit light sharkdp/bat
 # gibo
 zinit ice pick"gibo" atclone"chmod +x gibo && gibo update" atpull"%atclone" as"program"
 zinit light simonwhitaker/gibo
-
-# forest
-zinit ice from"gh-r" bpick"*$ENV_OS*.zip" as"program" pick"./*/forest"
-zinit light KoharaKazuya/forest
 
 # enable completions
 autoload -U compinit && compinit
