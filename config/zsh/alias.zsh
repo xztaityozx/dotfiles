@@ -4,6 +4,7 @@
 type exa &> /dev/null && alias ls="exa --git"
 type bat &> /dev/null && alias cat="bat --theme TwoDark"
 # {{{
+  # $_.cat とすれば、直前にlsとかnvimしたファイルをcatできる。あんまつかわん
   alias -s cat='(){cat ${1/.cat/}}'
 # }}}
 type hexyl &> /dev/null && alias xxd=hexyl
@@ -21,6 +22,7 @@ alias cg="cdx -c g"
 alias ch="cdx -h"
 alias cb="cdx -b"
 alias ..="cdx ../"
+alias cdoc='cdx $(doc -r)'
 
 # hub
 alias hc="hub checkout"
@@ -28,7 +30,6 @@ alias hs="hub status"
 alias hac="hub add -A && hub commit -m"
 alias hpl="hub pull"
 alias hps="hub push"
-alias hub-update="hub add -A && hub commit -m 'update' && hub push"
 alias hsw="hub switch"
 
 # fcitx
@@ -45,7 +46,5 @@ alias -s pl="perl -Ilib"
 alias -s psgi="carton exec -- plackup -Ilib"
 alias care="carton exec"
 alias ple="plenv exec"
+alias care-run="carton exec perl -Ilib"
 
-
-# windows terminal
-[ "$WT_SESSION" != "" ] && alias open-wterm-settiong="nvim /home/xztaityozx/winhome/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/profiles.json"
