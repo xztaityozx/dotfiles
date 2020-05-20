@@ -7,11 +7,13 @@ abbreviations=(
     "G"    "| grep"
     "X"    "| xargs"
     "T"    "| tail"
+    "H"    "| head"
     "C"    "| cat"
     "W"    "| wc"
     "A"    "| awk '{}'"
     "S"    "| sed ''"
-    "DN"    "&> /dev/null"
+    "DN"   "&> /dev/null"
+    "YY"   "| yy"
 )
 
 magic-abbrev-expand() {
