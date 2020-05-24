@@ -95,6 +95,10 @@ zinit light sharkdp/bat
 zinit ice pick"gibo" atclone"chmod +x gibo && gibo update" atpull"%atclone" as"program"
 zinit light simonwhitaker/gibo
 
+# rg
+zinit ice pick"*/rg" from"gh-r" as"program"
+zinit load BurntSushi/ripgrep
+
 # enable completions
 autoload -U compinit && compinit
 

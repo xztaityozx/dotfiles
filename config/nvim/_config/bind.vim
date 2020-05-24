@@ -24,9 +24,6 @@ nnoremap s <NOP>
   nnoremap ss <C-w>j
   " ドキュメント全体をフォーマット
   nnoremap s= gg=G
-  " CtrlPでバッファを開く
-  nnoremap sb :CtrlPBuffer<CR>
-  tnoremap <silent> sb <C-\><C-n>:CtrlPBuffer<CR>
 " }}}
 
 " インデント
@@ -58,7 +55,8 @@ inoremap <C-s> <ESC>:w<CR>
 nnoremap <C-s> :w<CR>
 
 " terminalでESCを使う
-tnoremap <silent> <ESC> <C-\><C-n>
+" fzf ならESCのまま
+tnoremap <expr> <ESC> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 
 " Ctrl-d でバッファを閉じる
 nnoremap <C-d> :q<CR>

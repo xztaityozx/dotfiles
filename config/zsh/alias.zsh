@@ -6,6 +6,7 @@ type bat &> /dev/null && alias cat="bat --theme TwoDark"
 # {{{
   # $_.cat とすれば、直前にlsとかnvimしたファイルをcatできる。あんまつかわん
   alias -s cat='(){cat ${1/.cat/}}'
+  alias catf="(){tail -f ${@} | cat -l log --paging=never}"
 # }}}
 type hexyl &> /dev/null && alias xxd=hexyl
 type httpie &> /dev/null && alias curl=httpie
