@@ -99,6 +99,10 @@ zinit light simonwhitaker/gibo
 zinit ice pick"*/rg" from"gh-r" as"program"
 zinit load BurntSushi/ripgrep
 
+# delta
+zinit ice from"gh-r" as"program" pick"*/delta"
+zinit load dandavison/delta
+
 # enable completions
 autoload -U compinit && compinit
 
