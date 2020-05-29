@@ -2,7 +2,6 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 "{{{
   nnoremap sgd :LspDefinition<CR>
-  nnoremap sact :LspCodeAction<CR>
   nnoremap sre :LspRename<CR>
 "}}}
 Plug 'mattn/vim-lsp-settings'
