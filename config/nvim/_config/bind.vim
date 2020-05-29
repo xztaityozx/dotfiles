@@ -55,8 +55,7 @@ inoremap <C-s> <ESC>:w<CR>
 nnoremap <C-s> :w<CR>
 
 " terminalでESCを使う
-" fzf ならESCのまま
-tnoremap <expr> <ESC> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+tnoremap <ESC> <c-\><c-n>
 
 " Ctrl-d でバッファを閉じる
 nnoremap <C-d> :q<CR>
