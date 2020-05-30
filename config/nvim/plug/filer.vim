@@ -8,6 +8,7 @@ Plug 'ctrlpvim/ctrlp.vim'
   " CtrlPでバッファを開く
   nnoremap sb :CtrlPBuffer<CR>
   tnoremap <silent> sb <C-\><C-n>:CtrlPBuffer<CR>
+  nnoremap sl :CtrlPLine<CR>
 "}}}
 
 " nerdtree
