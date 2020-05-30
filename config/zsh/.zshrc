@@ -103,6 +103,10 @@ zinit load BurntSushi/ripgrep
 zinit ice from"gh-r" as"program" pick"*/delta"
 zinit load dandavison/delta
 
+# fd
+zinit ice from"gh-r" as"program" pick"*/fd"
+zinit load sharkdp/fd
+
 # enable completions
 autoload -U compinit && compinit
 
