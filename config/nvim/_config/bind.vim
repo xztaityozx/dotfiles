@@ -58,7 +58,7 @@ nnoremap <C-s> :w<CR>
 tnoremap <ESC> <c-\><c-n>
 
 " Ctrl-d でバッファを閉じる
-nnoremap <C-d> :q<CR>
+nnoremap <silent> <C-d> :q<CR>
 
 " Ctrl-z でもとに戻す
 nnoremap <C-z> u
