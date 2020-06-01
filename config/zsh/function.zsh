@@ -166,3 +166,23 @@ function doc() {
   }
 }
 
+# inotify-toolとかを使わずに、ファイル変更を検知してコマンドを実行する君
+function watch-run() {
+  [[ "$#" != "2"  ]] && logger.warn "watch-run [file] [command]" && return 1
+
+  local file=${1}
+  shift
+  local cmd="${@}"
+  local duration=10s
+
+  local sha=""
+  while true do
+    sleep $duration
+    local current=$(sha256sum $file)
+    [[ "$sha" != "$current" ]] && {
+      eval $cmd
+      sha=$current
+    }
+  done
+}
+
