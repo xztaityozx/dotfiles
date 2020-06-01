@@ -32,6 +32,8 @@ alias hac="hub add -A && hub commit -m"
 alias hpl="hub pull"
 alias hps="hub push"
 alias hsw="hub switch"
+alias hg="hub grep"
+type rg &> /dev/null && unalias hg && alias hg="rg --vimgrep"
 
 # fcitx
 type fcitx &> /dev/null && alias fcitx-autostart="fcitx-autostart &> /dev/null"
