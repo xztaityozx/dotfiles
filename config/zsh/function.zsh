@@ -117,13 +117,19 @@ function fujitatsulize() {
   cat | sed 's/./&゛/g'
 }
 
-# wget-tmp wgetのラッパー、自動で/tmp/zsh/wgetに移動して、作業ディレクトリとしてつかう
+# wget wgetのラッパー、自動で/tmp/zsh/wgetに移動して、作業ディレクトリとしてつかう
 function wget-tmp() {
-  local path="$TMPPREFIX/wget"
-  mkdir -p ${path}
-  cd ${path}
-  wget "$@"
+  local dir="$TMPPREFIX/wget"
+
+  echo "$dirで作業する？"
+  yesno
+  [[ "$?" == "0" ]] && {
+    mkdir -p ${dir}
+    cd ${dir}
+  }
+  \wget "$@"
 }
+alias wget=wget-tmp
 
 # YYYYmmddを出力するだけ
 function simple-date() {
@@ -166,23 +172,10 @@ function doc() {
   }
 }
 
-# inotify-toolとかを使わずに、ファイル変更を検知してコマンドを実行する君
-function watch-run() {
-  [[ "$#" != "2"  ]] && logger.warn "watch-run [file] [command]" && return 1
-
-  local file=${1}
-  shift
-  local cmd="${@}"
-  local duration=10s
-
-  local sha=""
-  while true do
-    sleep $duration
-    local current=$(sha256sum $file)
-    [[ "$sha" != "$current" ]] && {
-      eval $cmd
-      sha=$current
-    }
-  done
+# fzf を使った yes/no プロンプト
+function yesno() {
+  local res="$(echo 'yes
+no' | fzf)"
+  [[ "$res" == yes ]] && return 0
+  return 1
 }
-
