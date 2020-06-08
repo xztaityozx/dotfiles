@@ -8,10 +8,6 @@ type apt &> /dev/null && {
 
   sudo apt update && sudo apt upgrade -y
   sudo apt install -y build-essential wget curl git moreutils
-
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-
-  eval "$(brew shellenv)"
 }
 
 type brew &> /dev/null && {

@@ -7,6 +7,8 @@ export GOPATH=$HOME/go
 # add PATH
 export path=(
 /home/linuxbrew/.linuxbrew/bin(N-/)
+$HOME/.linuxbrew/bin(N-/)
+$HOME/.linuxbrew/sbin(N-/)
 $GOPATH/bin(N-/)
 $HOME/.nimble/bin(N-/)
 $HOME/.local/bin(N-/)
