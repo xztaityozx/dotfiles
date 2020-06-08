@@ -9,6 +9,7 @@ Plug 'ctrlpvim/ctrlp.vim'
   nnoremap sb :CtrlPBuffer<CR>
   tnoremap <silent> sb <C-\><C-n>:CtrlPBuffer<CR>
   nnoremap sl :CtrlPLine<CR>
+  nnoremap <silent> sm <ESC>:<C-u>CtrlPMRUFiles<CR>
 "}}}
 
 " nerdtree
