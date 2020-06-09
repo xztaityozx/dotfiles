@@ -179,3 +179,23 @@ no' | fzf)"
   [[ "$res" == yes ]] && return 0
   return 1
 }
+
+function file-hook() {
+  local cmd="${1}"
+  local target=${2:-./}
+
+  [[ "$cmd" = "" ]] && logger.warn "コマンドが空です" && return 1;
+
+  local sha=""
+  local sum_cmd="sha256sum $target"
+  [[ -d "${target}" ]] && sum_cmd="fd . --full-path $target --type=file | xargs -n1 sha256sum | sha256sum"
+
+  while true do
+    local update="$(eval $sum_cmd)"
+    [[ "$update" != "$sha" ]] && {
+      sha="$update"
+      eval "$cmd"
+      sleep 10s
+    }
+  done
+}
