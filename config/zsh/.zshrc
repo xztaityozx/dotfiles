@@ -107,6 +107,10 @@ zinit load dandavison/delta
 zinit ice from"gh-r" as"program" pick"*/fd"
 zinit load sharkdp/fd
 
+# trigger
+zinit ice as"program" pick"*/trigger"
+zinit load sharkdp/trigger
+
 # enable completions
 autoload -U compinit && compinit
 
