@@ -29,6 +29,8 @@ export MANPATH="$MANPATH:/home/linuxbrew/.linuxbrew/share/man"
 export fpath=(
 /home/linuxbrew/.linuxbrew/Homebrew/completions/zsh(N-/)
 /home/linuxbrew/.linuxbrew/share/zsh/site-functions(N-/)
+$HOME/.linuxbrew/share/zsh/site-functions(N-/)
+$HOME/.linuxbrew/share/Homebrew/completions/zsh(N-/)
 $fpath
 )
 
