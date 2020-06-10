@@ -190,7 +190,7 @@ function file-hook() {
   local sum_cmd="sha256sum $target"
   [[ -d "${target}" ]] && sum_cmd="fd . --full-path $target --type=file | xargs -n1 sha256sum | sha256sum"
 
-  while true do
+  while true; do
     local update="$(eval $sum_cmd)"
     [[ "$update" != "$sha" ]] && {
       sha="$update"
