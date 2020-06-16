@@ -7,6 +7,7 @@ type bat &> /dev/null && alias cat="bat --theme TwoDark"
   # $_.cat とすれば、直前にlsとかnvimしたファイルをcatできる。あんまつかわん
   alias -s cat='(){cat ${1/.cat/}}'
   alias catf="(){tail -f ${@} | cat -l log --paging=never}"
+  alias fcat="fzf | :awk '{print \$1}' | icat"
 # }}}
 type hexyl &> /dev/null && alias xxd=hexyl
 type httpie &> /dev/null && alias curl=httpie
@@ -17,6 +18,7 @@ type grm &> /dev/null && alias rm=grm
 # typo
 alias ks=ls
 alias ka=ls
+alias lks=ls
 
 # cdx
 alias cg="cdx -c g"

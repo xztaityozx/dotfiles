@@ -1,9 +1,5 @@
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-"{{{
-  nnoremap sgd :LspDefinition<CR>
-  nnoremap sre :LspRename<CR>
-"}}}
 Plug 'mattn/vim-lsp-settings'
 "{{{
   let g:lsp_settings_rust='rls'
@@ -14,14 +10,12 @@ Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
   let g:deoplete#enable_at_startup=1
 "}}}
 Plug 'lighttiger2505/deoplete-vim-lsp'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> <f2> <plug>(lsp-rename)
+    nmap <buffer> sre <plug>(lsp-rename)
     " refer to doc to add more commands
 endfunction
 
@@ -35,11 +29,6 @@ augroup END
 let g:lsp_diagnostics_enabled = 1
 " ノーマルモードでカーソル行下のDiagnoticsを出力するようにする
 let g:lsp_diagnostics_echo_cursor = 1
- "自動補完
-"let g:asyncomplete_auto_popup = 1
-"let g:asyncomplete_auto_completeopt = 0
- "ポップアップ表示までのディレイ
-"let g:asyncomplete_popup_delay = 200
 " [実験的機能] textEditを有効にする
 let g:lsp_text_edit_enabled = 1
 " マーカーを表示する
