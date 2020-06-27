@@ -39,7 +39,6 @@ export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --ansi"
 
 # for WSL
 [ "$WT_SESSION" = "" ] && [[ "$WSL_DISTRO_NAME" != "" ]] && {
-  export DISPLAY=:0.0
   export GTK_IM_MODULE=fcitx
   export QT_IM_MODULE=fcitx
   export XMODIFIERS="@im=fcitx"
