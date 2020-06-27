@@ -111,6 +111,10 @@ zinit load sharkdp/fd
 zinit ice has"inotifywait" as"program" pick"*/trigger"
 zinit load sharkdp/trigger
 
+# tiep
+zinit ice from"gh-r" as"program" pick"bin/teip"
+zinit load greymd/teip
+
 # enable completions
 autoload -U compinit && compinit
 
