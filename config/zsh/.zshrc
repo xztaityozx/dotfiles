@@ -115,6 +115,19 @@ zinit load sharkdp/trigger
 zinit ice from"gh-r" as"program" pick"bin/teip"
 zinit load greymd/teip
 
+# yq
+zinit ice cloneonly has"pip3" atclone"pip3 install ." atpull"%atclone" 
+zinit load kislyuk/yq
+
+# trdsql
+zinit ice from"gh-r" as"program" pick"./*/trdsql"
+zinit load noborus/trdsql
+
+# lltsv
+# 更新されてないし後で自作してもいいかなあ
+zinit ice has"go" as"program" atclone"go install" atpull"%atclone"
+zinit load sonots/lltsv
+
 # enable completions
 autoload -U compinit && compinit
 
