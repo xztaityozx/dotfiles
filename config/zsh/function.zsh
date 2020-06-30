@@ -193,12 +193,12 @@ function file-hook() {
 
   local sha=""
   local sum_cmd="sha256sum $target"
-  [[ -d "${target}" ]] && sum_cmd="fd . --full-path $target --type=file | xargs -n1 sha256sum | sha256sum"
+  [[ -d "${target}" ]] && sum_cmd="fd . --full-path $target --type=file | sort | xargs -n1 sha256sum | sha256sum"
 
   while true; do
-    logger.info "file-hook >>> $cmd"
     local update="$(eval $sum_cmd)"
     [[ "$update" != "$sha" ]] && {
+      logger.info "file-hook >>> $cmd"
       sha="$update"
       eval "$cmd"
       sleep 10s
