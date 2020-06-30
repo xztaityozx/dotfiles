@@ -188,6 +188,7 @@ no' | fzf)"
 function file-hook() {
   local cmd="${1}"
   local target=${2:-./}
+  local interval=${3:-10}
 
   [[ "$cmd" = "" ]] && logger.warn "コマンドが空です" && return 1;
 
@@ -201,7 +202,7 @@ function file-hook() {
       logger.info "file-hook >>> $cmd"
       sha="$update"
       eval "$cmd"
-      sleep 10s
+      sleep ${interval}s
     }
   done
 }
