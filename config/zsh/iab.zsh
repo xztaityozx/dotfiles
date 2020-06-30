@@ -14,6 +14,7 @@ abbreviations=(
     "S"    "| sed ''"
     "DN"   "&> /dev/null"
     "YY"   "| yy"
+    "SRS"  "| sort | uniq -c | sort -rn"
 )
 
 magic-abbrev-expand() {
