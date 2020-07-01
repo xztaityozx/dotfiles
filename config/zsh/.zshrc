@@ -128,6 +128,10 @@ zinit load noborus/trdsql
 zinit ice has"go" as"program" atclone"go install" atpull"%atclone"
 zinit load sonots/lltsv
 
+# googler
+zinit ice as"program" pick"$ZPFX/bin/googler" make"install PREFIX=$ZPFX"
+zinit load jarun/googler
+
 # enable completions
 autoload -U compinit && compinit
 
