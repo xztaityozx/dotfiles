@@ -132,6 +132,7 @@ zinit load sonots/lltsv
 zinit ice as"program" pick"$ZPFX/bin/googler" make"install PREFIX=$ZPFX"
 zinit load jarun/googler
 
+
 # enable completions
 autoload -U compinit && compinit
 
