@@ -206,3 +206,22 @@ function file-hook() {
     }
   done
 }
+
+
+# hr
+# 水平線を出力するだけのコマンド
+# params:
+#   str: 文字
+#   width: 幅
+function hr() {
+  local str="${1:-=}";
+  local width="${2:-80}";
+  local length="${#str}"
+
+  local current=0
+  while :; do 
+    [[ "$current" -ge "$width" ]] && echo "" && return 0
+    echo -n "$str"
+    current=$((current+length))
+  done
+}
