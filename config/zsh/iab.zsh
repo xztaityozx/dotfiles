@@ -8,13 +8,13 @@ abbreviations=(
     "X"    "| xargs"
     "T"    "| tail"
     "H"    "| head"
-    "C"    "| cat"
     "W"    "| wc"
     "A"    "| awk '{}'"
     "S"    "| sed ''"
     "DN"   "&> /dev/null"
     "YY"   "| yy"
     "SRS"  "| sort | uniq -c | sort -rn"
+    "FC"   "| fcat"
 )
 
 magic-abbrev-expand() {
