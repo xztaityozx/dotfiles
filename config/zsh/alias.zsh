@@ -38,6 +38,7 @@ alias hg="hub grep"
 type rg &> /dev/null && unalias hg && alias hg="rg --vimgrep"
 alias hd="hub diff"
 alias hl="hub log"
+alias hst="hub stash"
 
 # fcitx
 type fcitx &> /dev/null && alias fcitx-autostart="fcitx-autostart &> /dev/null"
