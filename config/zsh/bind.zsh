@@ -24,3 +24,20 @@ __edit_line__(){
 zle -N __edit_line__
 bindkey "^Xe" __edit_line__
 
+__local_branch_widget__() {
+  local result="$(hub branch | sed 's/[ *]*//g' | fzf | xargs)"
+  BUFFER="${BUFFER} ${result}"
+  CURSOR=${#BUFFER}
+}
+
+zle -N __local_branch_widget__
+bindkey "^Xb" __local_branch_widget__
+
+__remote_branch_widget__() {
+  local result="$(hub branch --remotes | sed 's/[ *]*//g' | fzf)"
+  BUFFER="${BUFFER} ${result}"
+  CURSOR=${#BUFFER}
+}
+
+zle -N __remote_branch_widget__
+bindkey "^XB" __remote_branch_widget__
