@@ -47,21 +47,6 @@ function yy() {
   logger.warn "clip.exe, xclip, pbcopy or xsel not found"
 }
 
-# tnvim
-# シュッとメモをとるときに使う
-function tnvim() {
-  mkdir -p /tmp/tnvim
-  local file="/tmp/tnvim/$(date '+%s')"
-  nvim ${file}
-}
-
-# cat last $_
-# cat $_ するコマンド
-function tt() {
-  local file="$(history | tail -n1|awk '{print $NF}')"
-  cat ${file}
-}
-
 # icat STDINからやってきた文字列をパスとしてcatにわたす。複数行あるなら fzf で選択する
 function icat() {
   local file="$(fzf)"
@@ -194,7 +179,7 @@ function file-hook() {
 
   local sha=""
   local sum_cmd="sha256sum $target"
-  [[ -d "${target}" ]] && sum_cmd="fd . --full-path $target --type=file | sort | xargs -n1 sha256sum | sha256sum"
+  [[ -d "${target}" ]] && sum_cmd="fd . --full-path $target --type=file | xargs -P10 -n1 sha256sum | sort | sha256sum"
 
   while true; do
     local update="$(eval $sum_cmd)"
@@ -206,7 +191,6 @@ function file-hook() {
     }
   done
 }
-
 
 # hr
 # 水平線を出力するだけのコマンド
@@ -221,7 +205,7 @@ function hr() {
   local current=0
   while :; do 
     [[ "$current" -ge "$width" ]] && echo "" && return 0
-    echo -n "$str"
+    printf "%s" "$str"
     current=$((current+length))
   done
 }

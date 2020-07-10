@@ -1,8 +1,7 @@
 #!/usr/bin/zsh
 
-#zmodload zsh/zprof && zprof
-
 export GOPATH=$HOME/go
+export DOTFILES_PATH="$HOME/ghq/github.com/xztaityozx/dotfiles"
 
 # add PATH
 export path=(
