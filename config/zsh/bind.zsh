@@ -25,7 +25,7 @@ zle -N __edit_line__
 bindkey "^Xe" __edit_line__
 
 __local_branch_widget__() {
-  local result="$(hub branch | sed 's/[ *]*//g' | fzf | xargs)"
+  local result="$(hub branch | sed 's/[ *]*//g' | fzf)"
   local ret=$?
   zle reset-prompt
   BUFFER=${BUFFER}" "${result}
@@ -37,7 +37,7 @@ zle -N __local_branch_widget__
 bindkey "^Xb" __local_branch_widget__
 
 __remote_branch_widget__() {
-  local result="$(hub branch --remotes | sed 's/[ *]*//g' | head -n1)"
+  local result="$(hub branch --remotes | sed 's/[ *]*//g' | fzf)"
   local ret=$?
   zle reset-prompt
   BUFFER=${BUFFER}" "${result}
