@@ -13,7 +13,7 @@ abbreviations=(
     "S"    "| sed ''"
     "DN"   "&> /dev/null"
     "YY"   "| yy"
-    "SRS"  "| sort | uniq -c | sort -rn"
+    "SUS"  "| sort | uniq -c | sort -rn"
     "FC"   "| fcat"
 )
 
