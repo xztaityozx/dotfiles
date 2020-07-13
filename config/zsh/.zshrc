@@ -30,6 +30,13 @@ zinit ice from"gh-r" as"program" atclone" \
   atpull'%atclone' atload"source $FZF_PREFIX/scripts/key-bindings.zsh && source $FZF_PREFIX/scripts/completion.zsh"
 zinit load junegunn/fzf-bin
 
+type fzf &> /dev/null && {
+  # fzf
+  export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --border"
+  export FZF_DEFAULT_COMMAND="fd --type=f --exclude .git --hidden --follow"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+}
+
 # plenv
 zinit ice as"program" pick"bin/plenv" atload'eval "$(plenv init - zsh)"' \
   atclone"git clone git://github.com/tokuhirom/Perl-Build.git ./plugins/perl-build/" atpull"%atclone"
