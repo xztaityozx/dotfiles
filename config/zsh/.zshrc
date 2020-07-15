@@ -139,6 +139,10 @@ zinit load sonots/lltsv
 zinit ice as"program" pick"$ZPFX/bin/googler" make"install PREFIX=$ZPFX"
 zinit load jarun/googler
 
+# lazygit
+zinit ice as"program" from"gh-r"
+zinit load jesseduffield/lazygit
+
 
 # enable completions
 autoload -U compinit && compinit
