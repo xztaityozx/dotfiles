@@ -27,11 +27,10 @@ nnoremap s <NOP>
 " }}}
 
 " インデント
-nnoremap <Tab> <S-v>>
-nnoremap <S-Tab> <S-v><
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
-inoremap <S-Tab> <ESC><S-v><<ESC>i
+nnoremap >     <S-v>>
+nnoremap <     <S-v><
+vnoremap >     >gv
+vnoremap <     <gv
 
 " 行の先頭と最後尾への移動
 inoremap <silent> ^^ <HOME>
