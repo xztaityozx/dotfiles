@@ -28,3 +28,8 @@ nnoremap <C-s> :w<CR>
 
 inoremap <C-d> <Esc>:q<CR>
 nnoremap <C-d> :q<CR>
+
+nnoremap >     <S-v>>
+nnoremap <     <S-v><
+vnoremap >     >gv
+vnoremap <     <gv
