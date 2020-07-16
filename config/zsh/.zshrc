@@ -49,6 +49,12 @@ zinit ice from"gh-r" cloneonly bpick"*_with_emoji.zip" atclone" \
 " atpull"%atclone"
 zinit load miiton/Cica
 
+zinit ice from"gh-r" cloneonly bpick"*Nerd*" atclone" \
+  mkdir -p $ENV_FONT_DIR/HackGenNerd &> /dev/null && 
+  cp ./HackGenNerd_*/* $ENV_FONT_DIR/HackGenNerd
+" atpull"%atclone"
+zinit load yuru7/HackGen
+
 # vim-plug
 zinit ice cloneonly cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim" as"null"
 zinit light junegunn/vim-plug
