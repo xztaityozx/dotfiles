@@ -57,3 +57,11 @@ alias care="carton exec"
 alias ple="plenv exec"
 alias care-run="carton exec perl -Ilib"
 
+# シンプルなプロンプトなbash
+alias simple-bash='PS1="> " bash'
+
+# zinitとかをロードしないzshを起動
+alias simple-zsh='SIMPLE_MODE="yes" zsh'
+
+# 現在シェルを置き換え
+alias relaunch-shell="exec $SHELL -l"
