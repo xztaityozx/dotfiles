@@ -1,4 +1,9 @@
 
+[[ "$SIMPLE_MODE" = "yes" ]] && {
+  source $ZDOTDIR/.zshrc.minimal
+  return
+}
+
 # set environments
 ENV_OS="linux"
 ENV_FONT_DIR="$HOME/.local/share/fonts"
