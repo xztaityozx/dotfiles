@@ -1,0 +1,17 @@
+# 最小構成のzshrc
+type git &> /dev/null || return
+
+PURE_DIR="$ZDOTDIR/pure"
+
+[[ -e "$PURE_DIR" ]] || {
+  mkdir -p "$PURE_DIR"
+  git clone https://github.com/sindresorhus/pure.git "$PURE_DIR"
+}
+
+export fpath=(
+$fpath
+$PURE_DIR(N-/)
+)
+
+autoload -U promptinit; promptinit
+prompt pure
