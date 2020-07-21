@@ -209,3 +209,19 @@ function hr() {
     current=$((current+length))
   done
 }
+
+# コメントヘッダを出力するだけのコマンド
+# params:
+#   width: 幅(default: 80)
+#   type: ファイルタイプ(入力無しでのときfzfで選ぶ)
+function com-header() {
+  typeset -A header_dict=(
+    "sh" "$(hr '#' $width)\n# \n$(hr '#' $width)"
+    "tt2" "[%#\n$(hr '-' $width)\n\n$(hr '_' $width)\n$(hr '-' $width)\n#%]"
+  )
+
+  local width="${1:-80}"
+  local ft="${2:-$(echo ${(k)header_dict} | fmt -1 | fzf | awk '{print $1}')}"
+
+  echo -e ${header_dict[$ft]}
+}
