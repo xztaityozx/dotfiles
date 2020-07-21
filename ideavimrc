@@ -23,9 +23,6 @@ nnoremap sv :action SplitVertically<CR>
 nnoremap <C-o> :<C-u>action Back<CR>
 nnoremap <C-i> :<C-u>action Forward<CR>
 
-inoremap <C-s> <Esc>:w<CR>
-nnoremap <C-s> :w<CR>
-
 inoremap <C-d> <Esc>:q<CR>
 nnoremap <C-d> :q<CR>
 
