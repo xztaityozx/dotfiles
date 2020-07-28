@@ -225,3 +225,14 @@ function com-header() {
 
   echo -e ${header_dict[$ft]}
 }
+
+
+# 文字を大文字にするだけ
+function upper() {
+  sed 's/./\U&/g'
+}
+
+# 文字を小文字にするだけ
+function lower() {
+  sed 's/./\L&/g'
+}
