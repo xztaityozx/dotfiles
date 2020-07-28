@@ -67,3 +67,5 @@ inoremap <C-z> <ESC>ui
 vnoremap Y "+y
 " YY で行をクリップボードへヤンク
 nnoremap YY "+yy
+" AY でバッファ全体をクリップボードへヤンク
+nnoremap AY gg<S-V>G"+yy
