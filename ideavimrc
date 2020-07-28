@@ -30,3 +30,5 @@ nnoremap >     <S-v>>
 nnoremap <     <S-v><
 vnoremap >     >gv
 vnoremap <     <gv
+
+vnoremap Y     "+y
