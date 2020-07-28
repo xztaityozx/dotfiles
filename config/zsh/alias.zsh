@@ -41,6 +41,9 @@ alias hl="hub log"
 alias hst="hub stash"
 alias hub-push-current="hub push origin HEAD"
 
+# lazygit
+type lazygit &> /dev/null && alias lg=lazygit
+
 # fcitx
 type fcitx &> /dev/null && alias fcitx-autostart="fcitx-autostart &> /dev/null"
 
