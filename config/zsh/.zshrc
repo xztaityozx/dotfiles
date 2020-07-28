@@ -154,6 +154,10 @@ zinit load jarun/googler
 zinit ice as"program" from"gh-r"
 zinit load jesseduffield/lazygit
 
+# grex
+zinit ice from"gh-r" as"program"
+zinit load pemistahl/grex
+
 
 # enable completions
 autoload -U compinit && compinit
