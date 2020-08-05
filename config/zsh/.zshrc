@@ -130,7 +130,7 @@ zinit ice has"inotifywait" as"program" pick"*/trigger"
 zinit load sharkdp/trigger
 
 # tiep
-zinit ice from"gh-r" as"program" pick"bin/teip"
+zinit ice from"gh-r" as"program" bpick"*.tar.gz" pick"bin/teip"
 zinit load greymd/teip
 
 # yq
