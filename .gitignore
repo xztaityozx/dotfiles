@@ -9,3 +9,4 @@ config/zsh/.iterm2/
 config/zsh/.iterm2_shell_integration.zsh
 config/nvim/.netrwhist
 config/zsh/pure/
+config/karabiner/automatic_backups/
