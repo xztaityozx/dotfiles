@@ -22,12 +22,6 @@ true
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit light zsh-users/zsh-autosuggestions
-# なんかロード時にエラー出しやがるので
-#zinit light-mode zdharma/fast-syntax-highlighting \
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-
 # fzf
 FZF_PREFIX="$ZDOTDIR/.zinit/plugins/junegunn---fzf-bin"
 FZF_URL="https://raw.githubusercontent.com/junegunn/fzf/master/shell"
@@ -159,6 +153,15 @@ zinit light jesseduffield/lazygit
 zinit ice from"gh-r" as"program"
 zinit light pemistahl/grex
 
+# ocs
+zinit ice from"gh-r" as"program" pick"*/ocs"
+zinit light xztaityozx/ocs
+
+# zsh-utils
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma/fast-syntax-highlighting
+#zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
 
 # enable completions
 autoload -U compinit && compinit
