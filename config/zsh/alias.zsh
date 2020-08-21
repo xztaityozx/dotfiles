@@ -50,6 +50,9 @@ type fcitx &> /dev/null && alias fcitx-autostart="fcitx-autostart &> /dev/null"
 # for touchpad gesture
 type libinput-gestures-setup &> /dev/null && alias gesrestart="libinput-gestures-setup restart"
 
+# python3
+alias py3=python3
+
 # go
 alias -s go="go run "
 
