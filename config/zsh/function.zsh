@@ -166,32 +166,6 @@ no' | fzf)"
   return 1
 }
 
-# file-hook [command] [target]
-# params:
-#   command: 実行したいコマンド
-#   target:  監視したいファイル、もしくはディレクトリ。空にするとカレント以下を再帰的に見る
-function file-hook() {
-  local cmd="${1}"
-  local target=${2:-./}
-  local interval=${3:-10}
-
-  [[ "$cmd" = "" ]] && logger.warn "コマンドが空です" && return 1;
-
-  local sha=""
-  local sum_cmd="sha256sum $target"
-  [[ -d "${target}" ]] && sum_cmd="fd . --full-path $target --type=file | xargs -P10 -n1 sha256sum | sort | sha256sum"
-
-  while true; do
-    local update="$(eval $sum_cmd)"
-    [[ "$update" != "$sha" ]] && {
-      logger.info "file-hook >>> $cmd"
-      sha="$update"
-      eval "$cmd"
-      sleep ${interval}s
-    }
-  done
-}
-
 # hr
 # 水平線を出力するだけのコマンド
 # params:
