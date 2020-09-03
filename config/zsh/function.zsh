@@ -210,3 +210,12 @@ function upper() {
 function lower() {
   sed 's/./\L&/g'
 }
+
+# wrap ( line  ) みたいな感じに包む
+#   params:
+#     $1: 開始記号
+#     $2: 終端記号、省略すると$1
+function wrap() {
+  sed "s/.*/${1}&${2:-1}/"
+}
+
