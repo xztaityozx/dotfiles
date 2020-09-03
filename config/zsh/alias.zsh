@@ -40,6 +40,7 @@ alias hd="hub diff"
 alias hl="hub log"
 alias hst="hub stash"
 alias hub-push-current="hub push origin HEAD"
+alias hsf="hub status --short | fzf -m"
 
 # lazygit
 type lazygit &> /dev/null && alias lg=lazygit
@@ -71,3 +72,7 @@ alias simple-zsh='SIMPLE_MODE="yes" zsh'
 
 # 現在シェルを置き換え
 alias relaunch-shell="exec $SHELL -l"
+
+# 文字列をURLエンコード
+alias urlize='nkf -WwMQ | tr = %'
+alias unurlize='nkf -w --url-input' 
