@@ -128,18 +128,9 @@ zinit light sharkdp/trigger
 zinit ice from"gh-r" as"program" bpick"*.tar.gz" pick"bin/teip"
 zinit light greymd/teip
 
-# yq
-zinit ice cloneonly has"pip3" atclone"pip3 install ." atpull"%atclone" 
-zinit light kislyuk/yq
-
 # trdsql
 zinit ice from"gh-r" as"program" pick"./*/trdsql"
 zinit light noborus/trdsql
-
-# lltsv
-# 更新されてないし後で自作してもいいかなあ
-zinit ice has"go" as"program" atclone"go install" atpull"%atclone"
-zinit light sonots/lltsv
 
 # googler
 zinit ice as"program" pick"$ZPFX/bin/googler" make"install PREFIX=$ZPFX"
@@ -160,7 +151,6 @@ zinit light xztaityozx/ocs
 # zsh-utils
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma/fast-syntax-highlighting
-#zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 
 # enable completions
