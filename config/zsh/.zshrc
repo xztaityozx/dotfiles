@@ -148,6 +148,10 @@ zinit light pemistahl/grex
 zinit ice from"gh-r" as"program" pick"*/ocs"
 zinit light xztaityozx/ocs
 
+# gron
+zinit ice from"gh-r" as"program"
+zinit light tomnomnom/gron
+
 # zsh-utils
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma/fast-syntax-highlighting
