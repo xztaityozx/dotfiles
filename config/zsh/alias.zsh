@@ -28,7 +28,6 @@ alias ..="cdx ../"
 alias cdoc='cdx $(doc -r)'
 
 # hub
-alias hc="hub checkout"
 alias hs="hub status"
 alias hac="hub add -A && hub commit -m"
 alias hpl="hub pull"
@@ -41,6 +40,7 @@ alias hl="hub log"
 alias hst="hub stash"
 alias hub-push-current="hub push origin HEAD"
 alias hsf="hub status --short | fzf -m"
+alias hswf="hub branch --list | fzf | xargs hub switch"
 
 # lazygit
 type lazygit &> /dev/null && alias lg=lazygit
@@ -76,3 +76,6 @@ alias relaunch-shell="exec $SHELL -l"
 # 文字列をURLエンコード
 alias urlize='nkf -WwMQ | tr = %'
 alias unurlize='nkf -w --url-input' 
+
+# googlerをw3mで起動したい
+type w3m &> /dev/null && type googler &> /dev/null && alias googler="BROWSER=w3m googler"
