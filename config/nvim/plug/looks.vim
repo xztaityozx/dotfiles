@@ -29,3 +29,6 @@ Plug 'simeji/winresizer'
   " Dで右に
   let g:winresizer_keycode_right=100
 "}}}
+
+" 起動画面
+Plug 'mhinz/vim-startify'
