@@ -11,5 +11,3 @@ Plug 'tpope/vim-surround'
 " カッコとかの自動補完
 Plug 'cohama/lexima.vim'
 
-" インデントライン
-Plug 'Yggdroot/indentLine'
