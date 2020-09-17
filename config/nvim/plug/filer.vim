@@ -16,7 +16,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 "{{{
   Plug 'Xuyuanp/nerdtree-git-plugin'
-  let g:NERDTreeShowIgnoredStatus = 1
+  let g:NERDTreeGitStatusShowIgnored = 1
 
   nnoremap so :NERDTreeToggle<CR>
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
