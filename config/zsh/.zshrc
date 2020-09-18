@@ -14,10 +14,8 @@ which sw_vers &> /dev/null && {
   ENV_FONT_DIR="$HOME/Library/Fonts"
 }
 
-true
-
 # zinit
-source ./zinit.zsh
+source $ZDOTDIR/zinit.zsh
 
 # enable completions
 autoload -U compinit && compinit
