@@ -79,3 +79,6 @@ alias unurlize='nkf -w --url-input'
 
 # googlerをw3mで起動したい
 type w3m &> /dev/null && type googler &> /dev/null && alias googler="BROWSER=w3m googler"
+
+# :e で EDITOR を起動する
+[[ -z "$EDITOR" ]] || alias :e="$EDITOR"
