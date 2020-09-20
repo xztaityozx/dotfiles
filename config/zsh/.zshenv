@@ -22,6 +22,7 @@ export PLENV_ROOT="$ZDOTDIR/.zinit/plugins/tokuhirom---plenv/"
 
 # neovim
 export NVIM_CONFIG_DIR="$HOME/.config/nvim"
+export EDITOR="nvim"
 
 # brew
 export MANPATH="$MANPATH:/home/linuxbrew/.linuxbrew/share/man"
