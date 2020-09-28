@@ -20,6 +20,8 @@ source $ZDOTDIR/zinit.zsh
 # enable completions
 autoload -U compinit && compinit
 
+set -o emacs
+
 # load
 ls $ZDOTDIR/*.zsh | while read L; do source $L; done
 
