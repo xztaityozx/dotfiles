@@ -2,6 +2,7 @@
 
 export GOPATH=$HOME/go
 export DOTFILES_PATH="$HOME/ghq/github.com/xztaityozx/dotfiles"
+export PYTHTONUSERBASE="$HOME/.local/python/"
 
 # add PATH
 export path=(
@@ -14,6 +15,7 @@ $HOME/.local/bin(N-/)
 $HOME/.cargo/bin(N-/)
 /usr/local/opt/mysql@5.7/bin(N-/)
 /usr/local/opt/icu4c/bin(N-/)
+$PYTHTONUSERBASE/bin(N-/)
 $path
 )
 
