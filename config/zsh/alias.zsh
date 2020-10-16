@@ -14,6 +14,8 @@ type httpie &> /dev/null && alias curl=httpie
 type gsed &> /dev/null && alias sed=gsed
 type ggrep &> /dev/null && alias grep=ggrep
 type grm &> /dev/null && alias rm=grm
+type gpaste &> /dev/null && alias paste=gpaste
+type gmkdir &> /dev/null && alias mkdir=gmkdir
 
 # typo
 alias ks=ls
