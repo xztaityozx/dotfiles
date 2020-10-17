@@ -36,10 +36,6 @@ zinit cloneonly as"null" for \
 
 
 zinit as"program" from"gh-r" for \
-  pick"./*/bin/nvim" neovim/neovim \
-  pick"./*/bat"      @sharkdp/bat \
-  pick"*/fd"         @sharkdp/fd \
-  pick"*/trigger"    has"inotifywait" @sharkdp/trigger \
   pick"*/rg"         BurntSushi/ripgrep \
   pick"*/delta"      dandavison/delta \
   pick"./*/trdsql"   noborus/trdsql \
@@ -47,6 +43,10 @@ zinit as"program" from"gh-r" for \
   pick"*/ocs" xztaityozx/ocs \
   bpick"*.tar.gz" pick"bin/teip" greymd/teip \
   pick"*/bin/gh" cli/cli \
+  pick"./*/bin/nvim" neovim/neovim \
+  pick"./*/bat"      @sharkdp/bat \
+  pick"*/fd"         @sharkdp/fd \
+  pick"*/trigger"    has"inotifywait" @sharkdp/trigger \
   jesseduffield/lazygit \
   pemistahl/grex \
   tomnomnom/gron \
