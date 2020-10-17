@@ -27,7 +27,7 @@ zinit from"gh-r" cloneonly for \
 # go install系
 zinit has"go" atclone"go install" atpull"%atclone" as"null" for \
   atload'eval "$(go-cdx --init)"'       xztaityozx/go-cdx \
-  atload'source $ZDOTDIR/powerline.zsh' justjanne/powerline-go
+  atload'source $ZDOTDIR/powerline.zsh' justjanne/powerline-go \
                                         x-motemen/ghq
 
 zinit cloneonly as"null" for \
@@ -40,7 +40,6 @@ zinit as"program" from"gh-r" for \
   pick"./*/bat"      @sharkdp/bat \
   pick"*/fd"         @sharkdp/fd \
   pick"*/trigger"    has"inotifywait" @sharkdp/trigger \
-  pick"gibo"         atclone"chmod +x gibo && gibo update" atpull"%atclone" simonwhitaker/gibo \
   pick"*/rg"         BurntSushi/ripgrep \
   pick"*/delta"      dandavison/delta \
   pick"./*/trdsql"   noborus/trdsql \
@@ -53,7 +52,8 @@ zinit as"program" from"gh-r" for \
   tomnomnom/gron \
   lotabout/rargs 
 
-
+zinit ice as"program" pick"gibo" atclone"chmod +x gibo && gibo update" atpull"%atclone"
+zinit light simonwhitaker/gibo
 
 
 # choosenim
