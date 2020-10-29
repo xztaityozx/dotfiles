@@ -34,31 +34,31 @@ zinit cloneonly as"null" for \
   cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim" junegunn/vim-plug \
   has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"     storm119/Tilix-Themes
 
+zinit lucid as'command' pick'bin/pyenv' atinit'export PYENV_ROOT="$PWD"' \
+    atclone'PYENV_ROOT="$PWD" ./libexec/pyenv init - > zpyenv.zsh' \
+    atpull"%atclone" src"zpyenv.zsh" nocompile'!' for \
+        pyenv/pyenv
 
 zinit as"program" from"gh-r" for \
   pick"*/rg"         BurntSushi/ripgrep \
   pick"*/delta"      dandavison/delta \
   pick"./*/trdsql"   noborus/trdsql \
   pick"$ZPFX/bin/googler" make"install PREFIX=$ZPFX" jarun/googler \
-  pick"*/ocs" xztaityozx/ocs \
-  bpick"*.tar.gz" pick"bin/teip" greymd/teip \
-  pick"*/bin/gh" cli/cli \
-  pick"./*/bin/nvim" neovim/neovim \
-  pick"./*/bat"      @sharkdp/bat \
-  pick"*/fd"         @sharkdp/fd \
-  pick"*/trigger"    has"inotifywait" @sharkdp/trigger \
+  pick"*/ocs"                      xztaityozx/ocs \
+  bpick"*.tar.gz" pick"bin/teip"   greymd/teip \
+  pick"*/bin/gh"                   cli/cli \
+  pick"./*/bin/nvim"               neovim/neovim \
+  pick"./*/bat"                    @sharkdp/bat \
+  pick"*/fd"                       @sharkdp/fd \
+  pick"*/trigger" has"inotifywait" @sharkdp/trigger \
   jesseduffield/lazygit \
   pemistahl/grex \
   tomnomnom/gron \
-  lotabout/rargs 
+  lotabout/rargs \
+  dom96/choosenim
 
 zinit ice as"program" pick"gibo" atclone"chmod +x gibo && gibo update" atpull"%atclone"
 zinit light simonwhitaker/gibo
-
-
-# choosenim
-zinit ice as"program" from"gh-r" bpick"*$ENV_OS*_amd64"
-zinit light dom96/choosenim
 
 # exa
 zinit ice from"gh-r" as"program" bpick"*$ENV_OS*" cp"exa* -> exa"  atclone" \
