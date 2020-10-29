@@ -23,5 +23,5 @@ autoload -U compinit && compinit
 set -o emacs
 
 # load
-ls $ZDOTDIR/*.zsh | while read L; do source $L; done
+ls $ZDOTDIR/*.zsh | grep -v zinit | while read L; do source $L; done
 
