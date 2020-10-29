@@ -137,7 +137,7 @@ function doc() {
   # 種類とテンプレの連想配列
   typeset -A template=(
     "worklog" "${date} 作業ログ($USER)\n# ひとこと\n\n# やったこと\n"
-    "todo"    "TODO:\n[] "
+    "todo"    "TODO:\n[] \n[] 出勤ボタン\n[] 退勤ボタン\n終了目安：17:00"
   )
   
   # fzfで編集したいのを選択
