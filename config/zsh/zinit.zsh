@@ -78,8 +78,8 @@ zinit ice from"gh-r" atclone"tar xzf *.tgz && cp ./*/*/hub ./hub && rm -rf hub-*
 zinit light github/hub
 
 # httpie
-zinit ice has"pip3" as"program" atclone"pip3 install . --user" pick"/dev/null" atpull"%atclone" atdelete"pip3 uninstall -y httpie"
-zinit light httpie/httpie
+#zinit ice has"pip3" as"program" atclone"pip3 install . --user" pick"/dev/null" atpull"%atclone" atdelete"pip3 uninstall -y httpie"
+#zinit light httpie/httpie
 
 # zsh-utils
 zinit light zsh-users/zsh-autosuggestions
