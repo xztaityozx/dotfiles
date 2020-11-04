@@ -11,5 +11,9 @@ source:
     alias: "G"
     skipcolumn: 1
     command: "ls $GOPATH/src/github.com/xztaityozx/ | awk -v D=\"$GOPATH/src/github.com/xztaityozx\" '{print $1,D\"/\"$1}'|column -t"
+  - name: "fd"
+    alias: "f"
+    skipcolumn: 0
+    command: "fd --type=d"
 fuzzyfinder:
   command: "fzf"
