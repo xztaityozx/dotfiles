@@ -5,8 +5,17 @@
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+type zinit &> /dev/null && {
+  mkdir -p $ZPFX/{bin,man/man1,share}
+}
+
 # fzf
-zinit pack"default+keys" for fzf
+zinit ice as"program" \
+  pick"$ZPFX/bin/fzf" \
+  atclone"cp -vf bin/fzf $ZPFX/bin/; cp -vf man/man1/fzf $ZPFX/man/man1" \
+  atpull"%atclone" \
+  make"!PREFIX=$ZPFX install"
+zinit load junegunn/fzf
 type fzf &> /dev/null && {
   # fzf
   export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --border"
@@ -51,6 +60,7 @@ zinit as"program" from"gh-r" for \
   pick"./*/bat"                    @sharkdp/bat \
   pick"*/fd"                       @sharkdp/fd \
   pick"*/trigger" has"inotifywait" @sharkdp/trigger \
+  pick"*/sel"     cp"*/sel-completion.zsh -> _sel" xztaityozx/sel \
   jesseduffield/lazygit \
   pemistahl/grex \
   tomnomnom/gron \
@@ -85,3 +95,5 @@ zinit light github/hub
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-completions
+
+zinit compinit
