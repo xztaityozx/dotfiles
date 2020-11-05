@@ -18,10 +18,12 @@ which sw_vers &> /dev/null && {
 source $ZDOTDIR/zinit.zsh
 
 # enable completions
-autoload -U compinit && compinit
+# autoload -U compinit && compinit
 
 set -o emacs
 
 # load
 ls $ZDOTDIR/*.zsh | grep -v zinit | while read L; do source $L; done
 
+# なんかここに置かないと有効にならないんだが
+eval "$(cat $ZDOTDIR/.zinit/plugins/junegunn---fzf/shell/*.zsh)"
