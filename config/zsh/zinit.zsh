@@ -23,10 +23,20 @@ type fzf &> /dev/null && {
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 }
 
-# plenv
-zinit ice as"program" pick"bin/plenv" atload'eval "$(plenv init - zsh)"' \
-  atclone"git clone https://github.com/skaji/plenv-download ./plugins/perl-download/" atpull"%atclone"
-zinit light tokuhirom/plenv
+zinit ice as"program" pick"bin/anyenv" atload'eval "$(anyenv init -)"' \
+  atclone"anyenv install --init"
+zinit light anyenv/anyenv
+
+type anyenv &> /dev/null && {
+  echo {pl,py,go}env | fmt 1 | while read XENV; do 
+    type $XENV &> /dev/null || anyenv install $XENV
+  done
+}
+
+zinit ice has"plenv" cloneonly \
+  atclone"mkdir -p $(plenv root)/plugins/perl-download && cp -r * $(plenv root)/plugins/perl-download" \
+  atpull"%atclone"
+zinit light skaji/plenv-download
 
 # フォント系
 zinit from"gh-r" cloneonly for \
@@ -42,11 +52,6 @@ zinit has"go" atclone"go install" atpull"%atclone" as"null" for \
 zinit cloneonly as"null" for \
   cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim" junegunn/vim-plug \
   has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"     storm119/Tilix-Themes
-
-zinit lucid as'command' pick'bin/pyenv' atinit'export PYENV_ROOT="$PWD"' \
-    atclone'PYENV_ROOT="$PWD" ./libexec/pyenv init - > zpyenv.zsh' \
-    atpull"%atclone" src"zpyenv.zsh" nocompile'!' for \
-        pyenv/pyenv
 
 zinit as"program" from"gh-r" for \
   pick"*/rg"         BurntSushi/ripgrep \
