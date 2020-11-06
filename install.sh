@@ -11,11 +11,11 @@ type apt &> /dev/null && {
 }
 
 type brew &> /dev/null && {
-  brew install git go python3 zsh moreutils
+  brew install git zsh moreutils
 }
 
 type pacman &> /dev/null && {
-  sudo pacman -Ss git go python3 zsh
+  sudo pacman -Ss git zsh
 }
 
 mkdir -p $HOME/.local/share/nvim/site/autoload
