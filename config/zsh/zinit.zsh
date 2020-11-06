@@ -23,7 +23,7 @@ type fzf &> /dev/null && {
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 }
 
-zinit ice as"program" pick"bin/anyenv" atload'eval "$(anyenv init -)"' \
+zinit ice as"program" pick"bin/anyenv" atload'export ANYENV_ROOT=$PWD; eval "$(anyenv init -)"' \
   atclone"anyenv install --init"
 zinit light anyenv/anyenv
 
