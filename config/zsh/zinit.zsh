@@ -28,7 +28,7 @@ zinit ice as"program" pick"bin/anyenv" atload'export ANYENV_ROOT=$PWD; eval "$(a
 zinit light anyenv/anyenv
 
 type anyenv &> /dev/null && {
-  echo {pl,py,go}env | fmt 1 | while read XENV; do 
+  echo {pl,py,go}env | fmt -1 | while read XENV; do 
     type $XENV &> /dev/null || anyenv install $XENV
   done
 }
