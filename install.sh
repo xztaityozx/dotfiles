@@ -25,3 +25,5 @@ mkdir -p $HOME/.local/share/nvim/site/autoload
 
 ln -s $SCRIPT_DIR/config/* $HOME/.config/
 ln -s $SCRIPT_DIR/ideavimrc $HOME/.ideavimrc
+
+cd ./config/zsh/ && make
