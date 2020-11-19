@@ -100,5 +100,3 @@ zinit light github/hub
 zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-completions
-
-zinit compinit
