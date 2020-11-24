@@ -476,6 +476,67 @@ function wrap() {
   sed "s/.*/${1}&${2:-$1}/"
 }
 
+# dulp: dbasectl upload latest png
+# 特定パス以下の*.pngファイルをリネームしてdbasectlでUploadする
+# options:
+#   -D, --directory [PATH]   検索するディレクトリ
+function dulp() {
+  type dbasectl &> /dev/null || { logger.warn "dbasectlが有りません" && return 1 }
+  
+  declare -a args
+  TARGET_DIR=$HOME/Desktop
+  YES=0
+  DELETE=0
+  while ((${#} > 0)); do
+    opt="${1}"
+    shift
+    
+    case "${opt}" in
+      --directory | -D)
+        TARGET_DIR="${1}"
+        ;;
+      -y | --yes)
+        YES=1
+        ;;
+      -d | --delete)
+        DELETE=1
+        ;;
+      -*)
+        logger.warn "不正なオプションです"
+        return 1
+        ;;
+      *)
+        args+=("$opt")
+        ;;
+    esac
+  done
+
+  [[ ! -d "${TARGET_DIR}" ]] && {
+    logger.warn "${TARGET_DIR}は存在しません"
+    return 1
+  }
+
+  [[ "${#args}" == 0 ]] && {
+    logger.warn "リネーム後のファイル名を指定して下さい"
+    return 1
+  }
+
+  NEW_FILE="${args[1]}"
+
+  [[ -e "${NEW_FILE}" ]] && [[ "${YES}" == 0 ]] && {
+    logger.info "${NEW_FILE}は既に存在します。上書きしますか？"
+    read '?y/n> ' ANS
+    [[ "${ANS}" != "y" ]] && {
+      logger.warn "キャンセルします"
+      return 1
+    }
+  }
+
+  TARGET_FILE="$(exa --sort newest ${TARGET_DIR})"
+  mv "${TARGET_DIR}/${TARGET_FILE}" "${NEW_FILE}" && dbasectl upload "${NEW_FILE}" | jq -r '.[].markdown' && {
+    [[ "${DELETE}" == "1" ]] && rm "${NEW_FILE}"
+  }
+}
 #!/usr/bin/zsh
 
 setopt extended_glob
