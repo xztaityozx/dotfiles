@@ -20,7 +20,7 @@ $(ZSHRC_MINIMAL): clean-minimal
 $(ZSHRC): clean
 	cat ./main.zsh > $(ZSHRC)
 	cat ./zinit.zsh >> $(ZSHRC)
-	echo {alias,bind,function,iab}.zsh | xargs cat >> $(ZSHRC)
+	echo {alias,bind,function,iab,eval}.zsh | xargs cat >> $(ZSHRC)
 	[[ "$(OS)" == "Darwin" ]] && cat ./iterm2.zsh >> $(ZSHRC) || echo "ok"
 
 .PHONY: clean

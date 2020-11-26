@@ -573,4 +573,8 @@ zle -N magic-abbrev-expand
 zle -N no-magic-abbrev-expand
 bindkey " " magic-abbrev-expand
 bindkey "^x " no-magic-abbrev-expand
+#!/usr/bin/env zsh
+
+eval "$(cat $ZDOTDIR/.zinit/plugins/junegunn---fzf/shell/*.zsh)"
+
 test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
