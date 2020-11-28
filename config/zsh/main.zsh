@@ -13,8 +13,5 @@ which sw_vers &> /dev/null && {
   ENV_FONT_DIR="$HOME/Library/Fonts"
 }
 
-# enable completions
-autoload -U compinit && compinit
-
 set -o emacs
 

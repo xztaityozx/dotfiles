@@ -1,7 +1,6 @@
 # zinit
 
 [[ -f "$ZDOTDIR/.zinit/zinit.zsh" ]] && source "$ZDOTDIR/.zinit/zinit.zsh"
-[[ -f "$ZDOTDIR/.zinit/bin/zinit.zsh" ]] && source "$ZDOTDIR/.zinit/bin/zinit.zsh" 
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
@@ -23,23 +22,25 @@ type fzf &> /dev/null && {
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 }
 
-zinit ice as"program" pick"bin/anyenv" atload'export ANYENV_ROOT=$PWD; eval "$(anyenv init -)"' \
-  atclone"anyenv install --init"
-zinit light anyenv/anyenv
+function _zinit_anyenv_atload() {
+  eval "$(anyenv init - zsh)"
+  echo {go,pl,py}env | fmt -1 | xargs -n1 anyenv install --skip-existing
+  
+  zinit ice has"plenv" cloneonly nocompile \
+    atclone"mkdir -p $(plenv root)/plugins/perl-download && cp -r * $(plenv root)/plugins/perl-download" \
+    atpull"%atclone"
+  zinit light skaji/plenv-download
 
-type anyenv &> /dev/null && {
-  echo {pl,py,go}env | fmt -1 | while read XENV; do 
-    type $XENV &> /dev/null || anyenv install $XENV
-  done
+  unfunction $0
 }
 
-zinit ice has"plenv" cloneonly \
-  atclone"mkdir -p $(plenv root)/plugins/perl-download && cp -r * $(plenv root)/plugins/perl-download" \
-  atpull"%atclone"
-zinit light skaji/plenv-download
+zinit ice wait lucid as"program" pick"bin/anyenv" \
+  atload'export ANYENV_ROOT=$PWD;_zinit_anyenv_atload' \
+  atclone"anyenv install --init" atpull"anyenv install --update;%atclone"
+zinit light anyenv/anyenv
 
 # フォント系
-zinit from"gh-r" cloneonly for \
+zinit from"gh-r" cloneonly nocompile for \
   cp"./*.ttf -> $ENV_FONT_DIR/Cica" bpick"*_with_emoji.zip"            miiton/Cica \
   cp"./HackGenNerd_*/*.ttf -> $ENV_FONT_DIR/HackGenNerd" bpick"*Nerd*" yuru7/HackGen
 
@@ -53,7 +54,13 @@ zinit cloneonly as"null" for \
   cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim" junegunn/vim-plug \
   has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"     storm119/Tilix-Themes
 
-zinit as"program" from"gh-r" for \
+
+function _zinit_bat_atload() {
+  export MANPAGER="sh -c 'col -xb | bat --theme TwoDark -l man -p'"
+  unfunction $0
+}
+
+zinit wait lucid as"program" from"gh-r" for \
   pick"*/rg"         BurntSushi/ripgrep \
   pick"*/delta"      dandavison/delta \
   pick"./*/trdsql"   noborus/trdsql \
@@ -62,7 +69,7 @@ zinit as"program" from"gh-r" for \
   bpick"*.tar.gz" pick"bin/teip"   greymd/teip \
   pick"*/bin/gh"                   cli/cli \
   pick"./*/bin/nvim"               neovim/neovim \
-  pick"./*/bat"                    @sharkdp/bat \
+  pick"./*/bat" cp"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"  @sharkdp/bat \
   pick"*/fd"                       @sharkdp/fd \
   pick"*/trigger" has"inotifywait" @sharkdp/trigger \
   pick"*/sel"     cp"*/sel-completion.zsh -> _sel" xztaityozx/sel \
@@ -72,31 +79,32 @@ zinit as"program" from"gh-r" for \
   lotabout/rargs \
   dom96/choosenim
 
-zinit ice as"program" pick"gibo" atclone"chmod +x gibo && gibo update" atpull"%atclone"
+zinit ice wait lucid as"program" pick"gibo" atclone"chmod +x gibo && gibo update" atpull"%atclone"
 zinit light simonwhitaker/gibo
 
 # exa
-zinit ice from"gh-r" as"program" bpick"*$ENV_OS*" cp"exa* -> exa"  atclone" \
+zinit ice wait lucid from"gh-r" as"program" bpick"*$ENV_OS*" cp"exa* -> exa"  atclone" \
   curl -fLo $ZDOTDIR/.zinit/completions/_exa https://raw.githubusercontent.com/ogham/exa/master/contrib/completions.zsh" \
   atpull"%atclone"
 zinit light ogham/exa
 
 # pynvim
-zinit ice has"pip3" atclone"pip3 install ." atpull"%atclone" pick"/dev/null"
+zinit ice lucid wait has"pip3" atclone"pip3 install ." atpull"%atclone" pick"/dev/null"
 zinit light neovim/pynvim
 
 # hub
-zinit ice from"gh-r" atclone"tar xzf *.tgz && cp ./*/*/hub ./hub && rm -rf hub-*" \
-  bpick"*$ENV_OS*" pick"./*/*/hub" cp"./*/etc/hub.zsh_completion -> $ZDOTDIR/.zinit/completions/_hub" \
+zinit ice lucid wait from"gh-r" atclone"tar xzf *.tgz && cp ./*/*/hub ./hub && rm -rf hub-*" \
+  bpick"*$ENV_OS*" pick"./*/*/hub" cp"./*/etc/hub.zsh_completion -> $ZINIT[COMPLETIONS_DIR]/_hub" \
   as"program" \
   atpull"%atclone"
 zinit light github/hub
 
 # httpie
-#zinit ice has"pip3" as"program" atclone"pip3 install . --user" pick"/dev/null" atpull"%atclone" atdelete"pip3 uninstall -y httpie"
-#zinit light httpie/httpie
+zinit ice wait lucid has"pip3" as"program" atclone"pip3 install ." pick"/dev/null" atpull"%atclone" atdelete"pip3 uninstall -y httpie"
+zinit light httpie/httpie
 
 # zsh-utils
-zinit light zsh-users/zsh-autosuggestions
-zinit light zdharma/fast-syntax-highlighting
-zinit light zsh-users/zsh-completions
+zinit wait lucid for \
+  light-mode zsh-users/zsh-autosuggestions \
+  light-mode zdharma/fast-syntax-highlighting \
+  light-mode atload'zicompinit;zicdreplay' blockf zsh-users/zsh-completions
