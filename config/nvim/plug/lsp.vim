@@ -8,6 +8,7 @@ Plug 'mattn/vim-lsp-icons'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 "{{{
   let g:deoplete#enable_at_startup=1
+  set completeopt-=preview
 "}}}
 Plug 'lighttiger2505/deoplete-vim-lsp'
 
@@ -16,7 +17,6 @@ function! s:on_lsp_buffer_enabled() abort
     setlocal signcolumn=yes
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> sre <plug>(lsp-rename)
-    " refer to doc to add more commands
 endfunction
 
 augroup lsp_install
