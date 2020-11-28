@@ -44,9 +44,6 @@ alias hub-push-current="hub push origin HEAD"
 alias hsf="hub status --short | fzf -m"
 alias hswf="hub branch --list | fzf | xargs hub switch"
 
-# lazygit
-type lazygit &> /dev/null && alias lg=lazygit
-
 # fcitx
 type fcitx &> /dev/null && alias fcitx-autostart="fcitx-autostart &> /dev/null"
 

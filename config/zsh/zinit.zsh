@@ -46,7 +46,6 @@ zinit from"gh-r" cloneonly nocompile for \
 
 # go install系
 zinit has"go" atclone"go install" atpull"%atclone" as"null" for \
-  atload'eval "$(go-cdx --init)"'       xztaityozx/go-cdx \
   atload'source $ZDOTDIR/powerline.zsh' justjanne/powerline-go \
                                         x-motemen/ghq
 
@@ -73,7 +72,8 @@ zinit wait lucid as"program" from"gh-r" for \
   pick"*/fd"                       @sharkdp/fd \
   pick"*/trigger" has"inotifywait" @sharkdp/trigger \
   pick"*/sel"     cp"*/sel-completion.zsh -> _sel" xztaityozx/sel \
-  jesseduffield/lazygit \
+  pick"*/go-cdx"  atload"eval '$(go-cdx --init)'"  xztaityozx/go-cdx \
+  atload"alias lg=lazygit" jesseduffield/lazygit \
   pemistahl/grex \
   tomnomnom/gron \
   lotabout/rargs \
