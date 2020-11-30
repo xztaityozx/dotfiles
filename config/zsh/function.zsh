@@ -48,9 +48,8 @@ function yy() {
 }
 
 # icat STDINからやってきた文字列をパスとしてcatにわたす。複数行あるなら fzf で選択する
-function icat() {
-  local file="$(fzf)"
-  cat $file
+function fcat() {
+  fzf --preview 'bat --theme Nord --style=numbers --color=always --line-range :500 {}' | awk -F: '{print $1}' | xargs bat --theme Nord 
 }
 
 # config, open config file
@@ -217,6 +216,15 @@ function lower() {
 #     $2: 終端記号、省略すると$1
 function wrap() {
   sed "s/.*/${1}&${2:-$1}/"
+}
+
+# wrapper for tail -f
+function catf() {
+  type bat &> /dev/null && {
+    tail -f ${@} | bat --theme Nord -l log --paging=never
+  } || {
+    tail -f ${@}
+  }
 }
 
 # dulp: dbasectl upload latest png

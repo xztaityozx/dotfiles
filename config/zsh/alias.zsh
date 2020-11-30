@@ -1,16 +1,7 @@
 #!bin/zsh
 
 # 置き換えツール
-type exa &> /dev/null && alias ls="exa --git"
-type bat &> /dev/null && alias cat="bat --theme TwoDark"
-# {{{
-  # $_.cat とすれば、直前にlsとかnvimしたファイルをcatできる。あんまつかわん
-  alias -s cat='(){cat ${1/.cat/}}'
-  alias catf="(){tail -f \${@} | cat -l log --paging=never}"
-  alias fcat="fzf --preview 'bat --theme TwoDark --style=numbers --color=always --line-range :500 {}' | :awk '{print \$1}' | icat"
-# }}}
 type hexyl &> /dev/null && alias xxd=hexyl
-type httpie &> /dev/null && alias curl=httpie
 type gsed &> /dev/null && alias sed=gsed
 type ggrep &> /dev/null && alias grep=ggrep
 type grm &> /dev/null && alias rm=grm
