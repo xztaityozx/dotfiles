@@ -49,7 +49,7 @@ function yy() {
 
 # icat STDINからやってきた文字列をパスとしてcatにわたす。複数行あるなら fzf で選択する
 function fcat() {
-  fzf --preview 'bat --theme Nord --style=numbers --color=always --line-range :500 {}' | awk -F: '{print $1}' | xargs bat --theme Nord 
+  fzf --preview 'bat --theme Nord --style=numbers --color=always --line-range :500 $(echo {}|awk -F: "{print \$1}")' | awk -F: '{print $1}' | xargs bat --theme Nord 
 }
 
 # config, open config file
