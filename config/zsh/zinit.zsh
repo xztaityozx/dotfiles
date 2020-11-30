@@ -57,6 +57,7 @@ zinit cloneonly as"null" for \
 
 function _zinit_bat_atload() {
   export MANPAGER="sh -c 'col -xb | bat --theme TwoDark -l man -p'"
+  alias cat="bat --theme TwoDark"
   unfunction $0
 }
 
@@ -84,9 +85,14 @@ zinit ice wait lucid as"program" pick"gibo" atclone"chmod +x gibo && gibo update
 zinit light simonwhitaker/gibo
 
 # exa
+function _zinit_exa_atload() {
+  alias ls="exa --git"
+  unfunction $0
+}
 zinit ice wait lucid from"gh-r" as"program" bpick"*$ENV_OS*" cp"exa* -> exa"  atclone" \
   curl -fLo $ZDOTDIR/.zinit/completions/_exa https://raw.githubusercontent.com/ogham/exa/master/contrib/completions.zsh" \
-  atpull"%atclone"
+  atpull"%atclone" \
+  atload"_zinit_exa_atload"
 zinit light ogham/exa
 
 # pynvim
