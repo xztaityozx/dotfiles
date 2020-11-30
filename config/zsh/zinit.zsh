@@ -9,6 +9,9 @@ type zinit &> /dev/null && {
   mkdir -p $ZPFX/{bin,man/man1,share}
 }
 
+zinit ice as"program" nocompletions pick"powerline-go" cp"powerline-go* -> powerline-go" nocompile atload"source $ZDOTDIR/powerline.zsh"
+zinit load justjanne/powerline-go
+
 # fzf
 zinit ice as"program" \
   pick"$ZPFX/bin/fzf" \
@@ -47,8 +50,7 @@ zinit from"gh-r" cloneonly nocompile for \
 
 # go install系
 zinit has"go" atclone"go install" atpull"%atclone" as"null" for \
-  atload'source $ZDOTDIR/powerline.zsh' justjanne/powerline-go \
-                                        x-motemen/ghq
+  x-motemen/ghq
 
 zinit cloneonly as"null" for \
   cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim" junegunn/vim-plug \
