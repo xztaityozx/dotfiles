@@ -3,6 +3,7 @@ ZSHRC := $(ZDOTDIR)/.zshrc
 ZSHRC_MINIMAL := $(ZSHRC).minimal
 ENABLE_ZPROF := $(shell echo ${ENABLE_ZPROF})
 OS := $(shell uname -s)
+SHELL = zsh
 
 .PHONY: all
 all: build build-minimal
