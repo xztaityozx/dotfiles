@@ -66,7 +66,6 @@ function _zinit_bat_atload() {
 zinit wait lucid as"program" from"gh-r" for \
   pick"*/rg"         BurntSushi/ripgrep \
   pick"*/delta"      dandavison/delta \
-  pick"./*/trdsql"   noborus/trdsql \
   pick"$ZPFX/bin/googler" make"install PREFIX=$ZPFX" jarun/googler \
   pick"*/ocs"                      xztaityozx/ocs \
   bpick"*.tar.gz" pick"bin/teip"   greymd/teip \
@@ -78,6 +77,7 @@ zinit wait lucid as"program" from"gh-r" for \
   pick"*/sel"     cp"*/sel-completion.zsh -> _sel" xztaityozx/sel \
   pick"*/go-cdx"  atload"eval '$(go-cdx --init)'"  xztaityozx/go-cdx \
   atload"alias lg=lazygit" jesseduffield/lazygit \
+  pick"*/csvq" mithrandie/csvq \
   pemistahl/grex \
   tomnomnom/gron \
   lotabout/rargs \
