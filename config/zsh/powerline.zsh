@@ -2,8 +2,9 @@
 
 function powerline_precmd() {
   PS1="$($GOPATH/bin/powerline-go -error $? -shell zsh \
-    -modules 'plenv,rbenv,newline,ssh,host,docker,cwd,git,jobs,exit,newline,user,root' \
+    -modules 'ssh,docker,cwd,git,jobs,exit,newline,user,root' \
     -theme $HOME/.config/powerline-go/default.json \
+    -shell zsh \
     -cwd-max-depth 3\
     -cwd-max-dir-size -1)"
   }
