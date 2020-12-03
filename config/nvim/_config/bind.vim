@@ -43,7 +43,7 @@ tnoremap <silent> jj <C-\><C-n>
 inoremap <silent> jj <ESC>
 
 " バッファの削除
-nnoremap bd :bp\|bd #<CR>
+nnoremap <silent><expr> bd (BufferCnt() <= 2) ? "bdeleteM<CR>" : ":bp\|bd #<CR>"
 
 " Ctrl-a で全選択
 nnoremap <C-a> gg<S-V>G
@@ -57,7 +57,7 @@ nnoremap <C-s> :w<CR>
 tnoremap <ESC> <c-\><c-n>
 
 " Ctrl-d でバッファを閉じる
-nnoremap <silent><expr> <C-d> (BufferCnt() == 1) ? ":q<CR>" : ":bp\|bd #<CR>"
+nnoremap <silent><expr> <C-d> (BufferCnt() <= 2) ? ":q<CR>" : ":bp\|bd #<CR>"
 
 " Ctrl-z でもとに戻す
 nnoremap <C-z> u
