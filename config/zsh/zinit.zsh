@@ -86,6 +86,9 @@ zinit wait lucid as"program" from"gh-r" for \
 zinit ice wait lucid as"program" pick"gibo" atclone"chmod +x gibo && gibo update" atpull"%atclone"
 zinit light simonwhitaker/gibo
 
+zinit ice wait lucid depth"1" as"program" cp"share/zsh.txt -> _cht" atclone"curl https://cht.sh/:cht.sh > cht.sh" atpull"%atclone" pick"cht.sh"
+zinit light chubin/cheat.sh
+
 # exa
 function _zinit_exa_atload() {
   alias ls="exa --git"
