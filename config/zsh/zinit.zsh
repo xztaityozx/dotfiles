@@ -63,6 +63,11 @@ function _zinit_bat_atload() {
   unfunction $0
 }
 
+function _zinit_csvq_atload() {
+  alias ltsvq="csvq -i LTSV"
+  unfunction $0
+}
+
 zinit wait lucid as"program" from"gh-r" for \
   pick"*/rg"         BurntSushi/ripgrep \
   pick"*/delta"      dandavison/delta \
@@ -77,7 +82,7 @@ zinit wait lucid as"program" from"gh-r" for \
   pick"*/sel"     cp"*/sel-completion.zsh -> _sel" xztaityozx/sel \
   pick"*/go-cdx"  atload"eval '$(go-cdx --init)'"  xztaityozx/go-cdx \
   atload"alias lg=lazygit" jesseduffield/lazygit \
-  pick"*/csvq" mithrandie/csvq \
+  pick"*/csvq" atload"_zinit_csvq_atload"  mithrandie/csvq \
   pick"jq" cp"jq-* -> jq" nocompile stedolan/jq \
   pemistahl/grex \
   tomnomnom/gron \
