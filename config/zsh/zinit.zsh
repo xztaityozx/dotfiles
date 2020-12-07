@@ -78,6 +78,7 @@ zinit wait lucid as"program" from"gh-r" for \
   pick"*/go-cdx"  atload"eval '$(go-cdx --init)'"  xztaityozx/go-cdx \
   atload"alias lg=lazygit" jesseduffield/lazygit \
   pick"*/csvq" mithrandie/csvq \
+  pick"jq" cp"jq-* -> jq" nocompile stedolan/jq \
   pemistahl/grex \
   tomnomnom/gron \
   lotabout/rargs \
