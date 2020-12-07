@@ -117,7 +117,8 @@ zinit ice wait lucid has"pip3" as"program" atclone"pip3 install ." pick"/dev/nul
 zinit light httpie/httpie
 
 # zsh-utils
-zinit wait lucid for \
+zinit for \
   light-mode zsh-users/zsh-autosuggestions \
-  light-mode zdharma/fast-syntax-highlighting \
+  light-mode zdharma/fast-syntax-highlighting
+zinit wait lucid for \
   light-mode atload'zicompinit;zicdreplay' blockf zsh-users/zsh-completions
