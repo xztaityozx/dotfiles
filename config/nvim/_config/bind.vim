@@ -11,8 +11,12 @@ nnoremap s <NOP>
   nnoremap sn :new<CR>
   " 右にバッファを開く
   nnoremap sv :vnew<CR>
+  " 右に現在バッファを複製する
+  nnoremap sV :vnew %<CR>
   " 今のバッファにターミナルを開く
   nnoremap stt :terminal<CR>
+  " 右に新しいTerminalを開く
+  nnoremap <silent><expr> stv ":vsplit term://$SHELL \| startinsert<CR>"
   " バッファ移動
   " 左
   nnoremap sa <C-w>h 
@@ -43,7 +47,9 @@ tnoremap <silent> jj <C-\><C-n>
 inoremap <silent> jj <ESC>
 
 " バッファの削除
-nnoremap <silent><expr> bd (BufferCnt() <= 2) ? "bdeleteM<CR>" : ":bp\|bd #<CR>"
+nnoremap <silent><expr> bd IsClosable() ? ":bdelete<CR>" : ":bp\|bd #<CR>"
+" Ctrl-d でバッファを閉じる
+nnoremap <silent><expr> <C-d> IsClosable() ? ":q<CR>" : ":bp\|bd #<CR>"
 
 " Ctrl-a で全選択
 nnoremap <C-a> gg<S-V>G
@@ -56,9 +62,6 @@ nnoremap <C-s> :w<CR>
 " terminalでESCを使う
 tnoremap <ESC> <c-\><c-n>
 
-" Ctrl-d でバッファを閉じる
-nnoremap <silent><expr> <C-d> (BufferCnt() <= 2) ? ":q<CR>" : ":bp\|bd #<CR>"
-
 " Ctrl-z でもとに戻す
 nnoremap <C-z> u
 inoremap <C-z> <ESC>ui
@@ -69,3 +72,6 @@ vnoremap Y "+y
 nnoremap YY "+yy
 " AY でバッファ全体をクリップボードへヤンク
 nnoremap AY gg<S-V>G"+yy
+
+" xを虚無へ捨てる
+noremap x "_x
