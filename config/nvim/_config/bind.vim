@@ -74,4 +74,4 @@ nnoremap YY "+yy
 nnoremap AY gg<S-V>G"+yy
 
 " xを虚無へ捨てる
-noremap x "_x
+nnoremap x "_x
