@@ -4,7 +4,7 @@ Plug 'sheerun/vim-polyglot'
 "
 "}}}
 
-" cheet.sh
+" cheat.sh
 Plug 'dbeniamine/cheat.sh-vim'
 "{{{
   nnoremap <silent> skk :Cheat<CR><C-w>j
