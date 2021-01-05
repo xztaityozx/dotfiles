@@ -84,6 +84,7 @@ zinit wait lucid as"program" from"gh-r" for \
   atload"alias lg=lazygit" jesseduffield/lazygit \
   pick"*/csvq" atload"_zinit_csvq_atload"  mithrandie/csvq \
   pick"jq" cp"jq-* -> jq" nocompile stedolan/jq \
+  pick"uni" cp"uni-* -> uni" nocompile arp242/uni \
   pemistahl/grex \
   tomnomnom/gron \
   lotabout/rargs \
@@ -120,6 +121,10 @@ zinit light github/hub
 # httpie
 zinit ice wait lucid has"pip3" as"program" atclone"pip3 install ." pick"/dev/null" atpull"%atclone" atdelete"pip3 uninstall -y httpie"
 zinit light httpie/httpie
+
+# bpytop
+zinit ice wait lucid has"pip3" as"program" atclone"pip3 install ." piack"/dev/null" atpull"%atclone" atdelete"pip3 uninstall -y bpytop"
+zinit light aristocratos/bpytop
 
 # zsh-utils
 zinit for \
