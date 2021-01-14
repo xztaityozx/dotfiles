@@ -283,7 +283,7 @@ function dulp() {
     }
   }
 
-  TARGET_FILE="$(exa --sort newest ${TARGET_DIR})"
+  TARGET_FILE="$(exa --sort newest ${TARGET_DIR} | fzf )"
   mv "${TARGET_DIR}/${TARGET_FILE}" "${NEW_FILE}" && dbasectl upload "${NEW_FILE}" | jq -r '.[].markdown' && {
     [[ "${DELETE}" == "1" ]] && rm "${NEW_FILE}"
   }
