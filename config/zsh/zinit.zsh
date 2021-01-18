@@ -54,8 +54,7 @@ zinit has"go" atclone"go install" atpull"%atclone" as"null" for \
 
 zinit cloneonly as"null" for \
   cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim" junegunn/vim-plug \
-  has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"     storm119/Tilix-Themes
-
+  has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"     storm119/Tilix-Themes 
 
 function _zinit_bat_atload() {
   export MANPAGER="sh -c 'col -xb | bat --theme TwoDark -l man -p'"
@@ -123,8 +122,18 @@ zinit ice wait lucid has"pip3" as"program" atclone"pip3 install ." pick"/dev/nul
 zinit light httpie/httpie
 
 # bpytop
-zinit ice wait lucid has"pip3" as"program" atclone"pip3 install ." piack"/dev/null" atpull"%atclone" atdelete"pip3 uninstall -y bpytop"
+zinit ice wait lucid has"pip3" as"program" atclone"pip3 install ." pick"/dev/null" atpull"%atclone" atdelete"pip3 uninstall -y bpytop"
 zinit light aristocratos/bpytop
+
+function _zinit_tpm_atclone() {
+  
+  unfunction $0
+}
+
+zinit ice wait lucid has"tmux" as"null" \
+  atclone'sed -i "s@DEFAULT_TPM_PATH=.*$@DEFAULT_TPM_PATH=\"${TPM_ROOT:-$HOME/.tmux/plugins/}\"@" $PWD/scripts/variable.sh' atpull'%atload' \
+  atload'export TPM_ROOT="$PWD"'
+zinit light tmux-plugins/tpm
 
 # zsh-utils
 zinit for \
