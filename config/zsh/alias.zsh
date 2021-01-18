@@ -72,3 +72,8 @@ type w3m &> /dev/null && type googler &> /dev/null && alias googler="BROWSER=w3m
 
 # :e で EDITOR を起動する
 [[ -z "$EDITOR" ]] || alias :e="$EDITOR"
+
+# tmuxをコンフィグを持たせながら起動する
+alias tmux="tmux -f $DOTFILES_PATH/config/tmux/tmux.conf"
+alias tswf="$DOTFILES_PATH/config/zsh/bin/tmux-selector.zsh w"
+alias tspf="$DOTFILES_PATH/config/zsh/bin/tmux-selector.zsh p"

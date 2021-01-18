@@ -288,3 +288,12 @@ function dulp() {
     [[ "${DELETE}" == "1" ]] && rm "${NEW_FILE}"
   }
 }
+
+# tmux内でmanを見るとき、左に開く
+function man() {
+  if [[ ! -z "$TMUX" ]] then
+    tmux splitw -h man "$@"
+  else
+    command man "$@"
+  fi
+}

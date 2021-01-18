@@ -72,6 +72,8 @@ set cursorline
 set completeopt=menuone,noselect,preview
 " 目印行を表示する
 set signcolumn=yes
+" 折り畳み方を{{{}}}で囲まれた部分にする
+set foldmethod=marker
 
 " shell設定
 setglobal shell=$SHELL
