@@ -131,7 +131,7 @@ function _zinit_tpm_atclone() {
 }
 
 zinit ice wait lucid has"tmux" as"null" \
-  atclone'sed -i "s@DEFAULT_TPM_PATH=.*$@DEFAULT_TPM_PATH=\"${TPM_ROOT:-$HOME/.tmux/plugins/}\"@" $PWD/scripts/variable.sh' atpull'%atload' \
+  atclone'sed -i "s@DEFAULT_TPM_PATH=.*\$@DEFAULT_TPM_PATH=\"${TPM_ROOT:-$HOME/.tmux/plugins/}\"@" $PWD/scripts/variables.sh' atpull'%atload' \
   atload'export TPM_ROOT="$PWD"'
 zinit light tmux-plugins/tpm
 
