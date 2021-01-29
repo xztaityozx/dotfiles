@@ -13,18 +13,27 @@ zinit ice as"program" nocompletions pick"powerline-go" cp"powerline-go* -> power
 zinit load justjanne/powerline-go
 
 # fzf
+# {{{
+
+function _zinit_fzf_atload() {
+  export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --border"
+  export FZF_DEFAULT_COMMAND="fd --type=f --exclude .git --hidden --follow"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  unfunction $0
+}
+
 zinit ice as"program" \
   pick"$ZPFX/bin/fzf" \
   atclone"cp -vf bin/fzf $ZPFX/bin/; cp -vf man/man1/fzf $ZPFX/man/man1" \
   atpull"%atclone" \
+  atload"_zinit_fzf_atload" \
   make"!PREFIX=$ZPFX install"
 zinit load junegunn/fzf
-type fzf &> /dev/null && {
-  # fzf
-  export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --border"
-  export FZF_DEFAULT_COMMAND="fd --type=f --exclude .git --hidden --follow"
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-}
+
+# }}}
+
+# anyenv
+# {{{
 
 function _zinit_anyenv_atload() {
   eval "$(anyenv init - zsh)"
@@ -43,14 +52,17 @@ zinit ice wait lucid as"program" pick"bin/anyenv" \
   atclone"anyenv install --init" atpull"anyenv install --update;%atclone"
 zinit light anyenv/anyenv
 
+# }}}
+
+
 # フォント系
+# {{{
+
 zinit from"gh-r" cloneonly nocompile for \
   cp"./*.ttf -> $ENV_FONT_DIR/Cica" bpick"*_with_emoji.zip"            miiton/Cica \
   cp"./HackGenNerd_*/*.ttf -> $ENV_FONT_DIR/HackGenNerd" bpick"*Nerd*" yuru7/HackGen
 
-# go install系
-zinit has"go" atclone"go install" atpull"%atclone" as"null" for \
-  x-motemen/ghq
+# }}}
 
 zinit cloneonly as"null" for \
   cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim" junegunn/vim-plug \
@@ -67,27 +79,39 @@ function _zinit_csvq_atload() {
   unfunction $0
 }
 
+# プロンプトが出る前にロードして欲しいツール
+# {{{
+
+  zinit lucid as"program" from"gh-r" for \
+    pick"./*/bin/nvim"               neovim/neovim \
+    pick"./*/bat" cp"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"  @sharkdp/bat \
+    pick"*/fd"                       @sharkdp/fd \
+    pick"*/go-cdx"  atload"eval '$(go-cdx --init)'"  xztaityozx/go-cdx \
+    atload"alias lg=lazygit" jesseduffield/lazygit
+
+# }}}
+
 zinit wait lucid as"program" from"gh-r" for \
   pick"*/rg"         BurntSushi/ripgrep \
   pick"*/delta"      dandavison/delta \
-  pick"$ZPFX/bin/googler" make"install PREFIX=$ZPFX" jarun/googler \
-  pick"*/ocs"                      xztaityozx/ocs \
   bpick"*.tar.gz" pick"bin/teip"   greymd/teip \
-  pick"*/bin/gh"                   cli/cli \
-  pick"./*/bin/nvim"               neovim/neovim \
-  pick"./*/bat" cp"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"  @sharkdp/bat \
-  pick"*/fd"                       @sharkdp/fd \
-  pick"*/trigger" has"inotifywait" @sharkdp/trigger \
   pick"*/sel"     cp"*/sel-completion.zsh -> _sel" xztaityozx/sel \
-  pick"*/go-cdx"  atload"eval '$(go-cdx --init)'"  xztaityozx/go-cdx \
-  atload"alias lg=lazygit" jesseduffield/lazygit \
   pick"*/csvq" atload"_zinit_csvq_atload"  mithrandie/csvq \
-  pick"jq" cp"jq-* -> jq" nocompile stedolan/jq \
-  pick"uni" cp"uni-* -> uni" nocompile arp242/uni \
-  pemistahl/grex \
-  tomnomnom/gron \
-  lotabout/rargs \
-  dom96/choosenim
+  lotabout/rargs
+
+# そんなに急いでロードしなくていいツール
+# {{{
+  zinit wait"2" lucid as"program" from"gh-r" for \
+    pick"jq" cp"jq-* -> jq" nocompile stedolan/jq \
+    pick"uni" cp"uni-* -> uni" nocompile arp242/uni \
+    pick"$ZPFX/bin/googler" make"install PREFIX=$ZPFX" jarun/googler \
+    pick"*/ocs"                      xztaityozx/ocs \
+    pick"*/bin/gh"                   cli/cli \
+    pick"*/ghq" cp"*/misc/zsh/_ghq -> _ghq" "x-motemen/ghq" \
+    pemistahl/grex \
+    tomnomnom/gron \
+    dom96/choosenim
+# }}}
 
 zinit ice wait lucid as"program" pick"gibo" atclone"chmod +x gibo && gibo update" atpull"%atclone"
 zinit light simonwhitaker/gibo
