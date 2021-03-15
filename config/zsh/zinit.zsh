@@ -111,6 +111,14 @@ zinit wait lucid as"program" from"gh-r" for \
     pemistahl/grex \
     tomnomnom/gron \
     dom96/choosenim
+
+  # httpie
+  zinit ice wait"2" lucid has"pip3" as"program" atclone"pip3 install ." pick"/dev/null" atpull"%atclone" atdelete"pip3 uninstall -y httpie"
+  zinit light httpie/httpie
+
+  # image2ascii
+  zinit ice wait"2" lucid has"go" as"program" atclone"go get; go build -o $ZPFX/bin/image2ascii" atpull"%atclone"  pick"$ZPFX/bin/image2asci"
+  zinit light qeesung/image2ascii
 # }}}
 
 zinit ice wait lucid as"program" pick"gibo" atclone"chmod +x gibo && gibo update" atpull"%atclone"
@@ -141,9 +149,6 @@ zinit ice lucid wait from"gh-r" atclone"tar xzf *.tgz && cp ./*/*/hub ./hub && r
   atpull"%atclone"
 zinit light github/hub
 
-# httpie
-zinit ice wait lucid has"pip3" as"program" atclone"pip3 install ." pick"/dev/null" atpull"%atclone" atdelete"pip3 uninstall -y httpie"
-zinit light httpie/httpie
 
 # bpytop
 zinit ice wait lucid has"pip3" as"program" atclone"pip3 install ." pick"/dev/null" atpull"%atclone" atdelete"pip3 uninstall -y bpytop"
