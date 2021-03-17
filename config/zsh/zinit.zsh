@@ -141,6 +141,7 @@ type zinit &> /dev/null && {
 
   zinit wait"1" lucid as"program" for \
     pick"gibo"                             atclone"chmod +x gibo && gibo update"         atpull"%atclone"  simonwhitaker/gibo \
+    pick"bin/xpanes"                                                                                       greymd/tmux-xpanes \
     pick"cht.sh" cp"share/zsh.txt -> _cht" atclone"curl https://cht.sh/:cht.sh > cht.sh" atpull"%atclone"  chubin/cheat.sh
 
 # }}}
