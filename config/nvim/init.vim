@@ -74,6 +74,7 @@ set completeopt=menuone,noselect,preview
 set signcolumn=yes
 " 折り畳み方を{{{}}}で囲まれた部分にする
 set foldmethod=marker
+set foldlevel=2
 
 " shell設定
 setglobal shell=$SHELL
