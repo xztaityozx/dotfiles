@@ -34,4 +34,4 @@ Plug 'simeji/winresizer'
 Plug 'mhinz/vim-startify'
 
 " Vimade
-Plug 'TaDaa/vimade'
+" Plug 'TaDaa/vimade'
