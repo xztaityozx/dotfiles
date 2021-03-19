@@ -6,6 +6,7 @@ export PYTHTONUSERBASE="$HOME/.local/python/"
 
 # add PATH
 export path=(
+$DOTFILES_PATH/config/zsh/bin(N-/)
 /home/linuxbrew/.linuxbrew/bin(N-/)
 $HOME/.linuxbrew/bin(N-/)
 $HOME/.linuxbrew/sbin(N-/)
