@@ -74,6 +74,7 @@ function main() {
   else
     
     local fifo=$HOME/.tmux/fifo-$RANDOM
+    mkfifo $fifo
     trap defer
 
     tmux splitw "$filter > $fifo" && target=$(cat $fifo)
