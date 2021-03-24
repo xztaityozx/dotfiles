@@ -23,7 +23,7 @@ type zinit &> /dev/null && {
     pick"./*/bat"      cp"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"  @sharkdp/bat \
     pick"*/fd"                                                                         @sharkdp/fd \
     pick"*/go-cdx"     atload"eval '$(go-cdx --init)'"                                 xztaityozx/go-cdx \
-                       atload"alias lg=lazygit"                                        jesseduffield/lazygit
+                       atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"             jesseduffield/lazygit
 
   # powerline
   # {{{

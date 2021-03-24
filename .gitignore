@@ -11,3 +11,4 @@ config/zsh/pure/
 config/karabiner/automatic_backups/
 config/zsh/.zcompcache/
 config/tmux/plugins/
+config/lazygit/state.yml
