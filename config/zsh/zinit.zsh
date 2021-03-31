@@ -44,11 +44,11 @@ type zinit &> /dev/null && {
     }
 
     zinit ice has"go" as"program" \
-      pick"$ZPFX/bin/fzf" \
+      pick"bin/fzf" \
       atclone"cp -vf bin/fzf $ZPFX/bin/; cp -vf man/man1/fzf $ZPFX/man/man1" \
       atpull"%atclone" \
       atload"_zinit_fzf_atload" \
-      make"!PREFIX=$ZPFX install"
+      make"!install"
     zinit load junegunn/fzf
 
   # }}}
