@@ -22,7 +22,7 @@ type zinit &> /dev/null && {
     pick"./*/bin/nvim"                                                                 neovim/neovim \
     pick"./*/bat"      cp"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"  @sharkdp/bat \
     pick"*/fd"                                                                         @sharkdp/fd \
-    pick"*/go-cdx"     atload"eval '$(go-cdx --init)'"                                 xztaityozx/go-cdx \
+    pick"*/go-cdx"     atload'eval "$(go-cdx --init)"'                                 xztaityozx/go-cdx \
                        atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"             jesseduffield/lazygit
 
   # powerline
@@ -43,7 +43,7 @@ type zinit &> /dev/null && {
       unfunction $0
     }
 
-    zinit ice as"program" \
+    zinit ice has"go" as"program" \
       pick"$ZPFX/bin/fzf" \
       atclone"cp -vf bin/fzf $ZPFX/bin/; cp -vf man/man1/fzf $ZPFX/man/man1" \
       atpull"%atclone" \
