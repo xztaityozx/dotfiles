@@ -44,7 +44,7 @@ type zinit &> /dev/null && {
     }
 
     zinit ice has"go" as"program" \
-      pick"bin/fzf" \
+      pick"$ZPFX/bin/fzf" \
       atclone"cp -vf bin/fzf $ZPFX/bin/; cp -vf man/man1/fzf $ZPFX/man/man1" \
       atpull"%atclone" \
       atload"_zinit_fzf_atload" \
@@ -169,7 +169,8 @@ type zinit &> /dev/null && {
     zinit wait"3" lucid has"pip3" nocompile as"null" cloneonly atclone"pip3 install ." atpull"%atclone" for \
       atdelete"pip3 uninstall -y pynvim" neovim/pynvim \
       atdelete"pip3 uninstall -y httpie" httpie/httpie \
-      atdelete"pip3 uninstall -y bpytop" aristocratos/bpytop
+      atdelete"pip3 uninstall -y bpytop" aristocratos/bpytop \
+      atdelete"pip3 uninstall -y tqdm"   tqdm/tqdm
 
   # }}}
 
