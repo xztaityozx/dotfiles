@@ -2,7 +2,8 @@
 
 function powerline_precmd() {
   PS1="$(powerline-go -error $? -shell zsh \
-    -modules 'ssh,docker,cwd,git,jobs,exit,newline,user,root' \
+    -hostname-only-if-ssh \
+    -modules 'ssh,host,docker,cwd,git,jobs,exit,newline,user,root' \
     -theme $HOME/.config/powerline-go/default.json \
     -shell zsh \
     -cwd-max-depth 3\
