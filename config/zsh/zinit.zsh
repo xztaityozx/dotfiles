@@ -23,7 +23,7 @@ type zinit &> /dev/null && {
     pick"./*/bat"      cp"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"  @sharkdp/bat \
     pick"*/fd"                                                                         @sharkdp/fd \
     pick"*/go-cdx"     atload'eval "$(go-cdx --init)"'                                 xztaityozx/go-cdx \
-                       atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"             jesseduffield/lazygit
+                       atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit
 
   # powerline
   # {{{
@@ -64,6 +64,24 @@ type zinit &> /dev/null && {
         atclone"mkdir -p $(plenv root)/plugins/perl-download && cp -r * $(plenv root)/plugins/perl-download" \
         atpull"%atclone"
       zinit light skaji/plenv-download
+
+      zinit ice has"anyenv" cloneonly nocompile \
+        atclone"mkdir -p $(anyenv root)/plugins/anyenv-update && cp -r * $(anyenv root)/plugins/anyenv-update" \
+        atpull"%atclone"
+      zinit light znz/anyenv-update
+
+      unfunction $0
+      type _zinit_anyenv_atclone &> /dev/null && unfunction _zinit_anyenv_atclone
+    }
+
+    function _zinit_anyenv_atclone() {
+      goenv install 1.16.0
+      plenv install 5.32.0
+      pyenv install 3.9.0
+
+      goenv global 1.16.0
+      plenv global 5.32.0
+      pyenv global 3.9.0
 
       unfunction $0
     }
