@@ -21,7 +21,8 @@ type pacman &> /dev/null && {
 mkdir -p $HOME/.local/share/nvim/site/autoload
 
 # zinit
-#sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+mkdir -p $SCRIPT_DIR/config/zsh/.zinit
+git clone https://github.com/zdharma/zinit.git $SCRIPT_DIR/config/zsh/.zinit/bin
 
 ln -s $SCRIPT_DIR/config/* $HOME/.config/
 ln -s $SCRIPT_DIR/ideavimrc $HOME/.ideavimrc
