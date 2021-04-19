@@ -11,3 +11,5 @@ Plug 'tpope/vim-surround'
 " カッコとかの自動補完
 Plug 'cohama/lexima.vim'
 
+" vim-expand-region
+Plug 'terryma/vim-expand-region'
