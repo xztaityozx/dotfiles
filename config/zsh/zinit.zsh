@@ -101,7 +101,7 @@ type zinit &> /dev/null && {
       unfunction $0
     }
 
-    zinit ice wait lucid from"gh-r" as"program" bpick"*$ENV_OS*" cp"exa* -> exa"  atclone" \
+    zinit ice wait lucid from"gh-r" as"program" bpick"*$ENV_OS*" cp"exa* -> ./bin/exa" pick"bin/exa"  atclone" \
       curl -fLo $ZDOTDIR/.zinit/completions/_exa https://raw.githubusercontent.com/ogham/exa/master/contrib/completions.zsh" \
       atpull"%atclone" \
       atload"_zinit_exa_atload"
