@@ -21,6 +21,21 @@
               {
                 "type": "basic",
                 "from": {
+                  "key_code": "f7",
+                  "modifiers": {
+                    "mandatory": [
+                      "option"
+                    ],
+                    "optional": ["caps_lock"]
+                  }
+                },
+                "to": [
+                  {"shell_command": "open -a 'Finder.app'"}
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
                   "key_code": "f6",
                   "modifiers": {
                     "mandatory": [
