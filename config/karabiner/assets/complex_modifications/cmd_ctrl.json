@@ -1,0 +1,59 @@
+{
+  "title": "Swap Command Control",
+  "rules": [
+    {
+      "description": "right_command to left_control",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "right_command",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {"key_code": "left_control"}
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.googlecode\\.iterm2"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "left_control to right_command",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_control",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {"key_code": "right_command"}
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.googlecode\\.iterm2"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
