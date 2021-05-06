@@ -205,8 +205,15 @@ type zinit &> /dev/null && {
 # }}}
 
 # zsh-utils
+function _zinit_zsh-history-substring-search_atload() {
+  bindkey "^[[A" history-substring-search-up
+  bindkey "^[[B" history-substring-search-down
+  unfunction $0
+}
+
 zinit for \
   light-mode zsh-users/zsh-autosuggestions \
-  light-mode zdharma/fast-syntax-highlighting
+  light-mode zdharma/fast-syntax-highlighting \
+  light-mode atload'_zinit_zsh-history-substring-search_atload' zsh-users/zsh-history-substring-search
 zinit wait lucid for \
   light-mode atload'zicompinit;zicdreplay' blockf zsh-users/zsh-completions
