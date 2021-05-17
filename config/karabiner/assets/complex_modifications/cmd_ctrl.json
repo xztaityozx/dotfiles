@@ -21,7 +21,8 @@
             {
               "type": "frontmost_application_unless",
               "bundle_identifiers": [
-                "^com\\.googlecode\\.iterm2"
+                "^com\\.googlecode\\.iterm2",
+                "^com\\.jetbrains\\.intellij"
               ]
             }
           ]
@@ -48,7 +49,8 @@
             {
               "type": "frontmost_application_unless",
               "bundle_identifiers": [
-                "^com\\.googlecode\\.iterm2"
+                "^com\\.googlecode\\.iterm2",
+                "^com\\.jetbrains\\.intellij"
               ]
             }
           ]
