@@ -67,7 +67,7 @@ type zinit &> /dev/null && {
 
       declare -A versions=(
         "goenv" "1.16.2"
-        "plenv" "5.32.0"
+        #"plenv" "5.32.0"
         "pyenv" "3.9.0"
       )
 
