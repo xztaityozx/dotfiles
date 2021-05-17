@@ -57,31 +57,33 @@ type zinit &> /dev/null && {
   # {{{
 
     function _zinit_anyenv_atload() {
+      anyenv install --init &> /dev/null
       eval "$(anyenv init - zsh)"
-      echo {go,pl,py}env | fmt -1 | xargs -n1 anyenv install --skip-existing
-
-      zinit ice has"plenv" cloneonly nocompile \
-        atclone"mkdir -p $(plenv root)/plugins/perl-download && cp -r * $(plenv root)/plugins/perl-download" \
-        atpull"%atclone"
-      zinit light skaji/plenv-download
 
       zinit ice has"anyenv" cloneonly nocompile \
         atclone"mkdir -p $(anyenv root)/plugins/anyenv-update && cp -r * $(anyenv root)/plugins/anyenv-update" \
         atpull"%atclone"
       zinit light znz/anyenv-update
 
-      unfunction $0
-      type _zinit_anyenv_atclone &> /dev/null && unfunction _zinit_anyenv_atclone
-    }
+      declare -A versions=(
+        "goenv" "1.16.2"
+        "plenv" "5.32.0"
+        "pyenv" "3.9.0"
+      )
 
-    function _zinit_anyenv_atclone() {
-      goenv install 1.16.0
-      plenv install 5.32.0
-      pyenv install 3.9.0
+      for key in ${(k)versions}; do
+        anyenv install --skip-existing $key
+      done
 
-      goenv global 1.16.0
-      plenv global 5.32.0
-      pyenv global 3.9.0
+      zinit ice has"plenv" cloneonly nocompile \
+        atclone"mkdir -p $(plenv root)/plugins/perl-download && cp -r * $(plenv root)/plugins/perl-download" \
+        atpull"%atclone"
+      zinit light skaji/plenv-download
+      
+      for key in ${(k)versions}; do
+        $key install ${versions[$key]} --skip-existing 
+        $key global ${versions[$key]}
+      done
 
       unfunction $0
     }
