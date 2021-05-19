@@ -13,3 +13,6 @@ Plug 'cohama/lexima.vim'
 
 " vim-expand-region
 Plug 'terryma/vim-expand-region'
+
+" targets.vim
+Plug 'wellle/targets.vim'
