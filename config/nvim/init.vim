@@ -13,6 +13,9 @@ if (&ft=='md')
   set formatoptions+=n
 endif
 
+
+" UTF-8
+set encoding=UTF-8
 " 行番号
 set number
 " Tab入力時にスペースを使う
