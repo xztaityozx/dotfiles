@@ -86,10 +86,16 @@ function :awk() {
 
 function ohiru() {
   local verb="${1:-begin}"
-  local emoji=":ohiru"
-  [[ "$verb" = "end" ]] && emoji="${emoji}_owari"
+  local date="$(date)"
+  local msg=""
 
-  echo "$emoji: $(date)"
+  [[ "$verb" == "end" ]] &&  msg=":ohiru_owari: $date"
+  [[ "$verb" == "begin" ]] && msg=":ohiru: $date :afk:"
+
+  yy "$msg"
+
+  echo "copied!!"
+
 }
 
 # $PATH を見やすく表示するだけ
