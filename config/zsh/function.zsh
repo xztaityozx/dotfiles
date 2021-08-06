@@ -316,3 +316,10 @@ function hex2color() {
 function zshaddhistory() {
   [[ ! "${1}" =~ "shutdown|history" ]]
 }
+
+function text2slackemoji() {
+  local text="${1}"
+  [[ "$text" == "" ]] && text="$(cat)"
+
+  sed 's/[a-zA-Z]/:alphabet-yellow-\L&:/g;s/#/:alphabet-yellow-hash:/g;s/@/:alphabet-yellow-at:/g;s/!/:alphabet-yellow-exclamation:/g;s/?/:alphabet-yellow-question:/g' <<< "$text"
+}
