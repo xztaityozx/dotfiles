@@ -1,5 +1,7 @@
 # zinit
 
+type zip tar curl wget git unzip &> /dev/null || return 127;
+
 [[ -f "$ZDOTDIR/.zinit/zinit.zsh" ]] && source "$ZDOTDIR/.zinit/zinit.zsh"
 [[ -f "$ZDOTDIR/.zinit/bin/zinit.zsh" ]] && source "$ZDOTDIR/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
@@ -55,9 +57,10 @@ type zinit &> /dev/null && {
 
   # anyenv
   # {{{
-
-    function _zinit_anyenv_atload() {
+  
+    function _zinit_anyenv_atclone() {
       anyenv install --init &> /dev/null
+      
       eval "$(anyenv init - zsh)"
 
       zinit ice has"anyenv" cloneonly nocompile \
@@ -66,8 +69,8 @@ type zinit &> /dev/null && {
       zinit light znz/anyenv-update
 
       declare -A versions=(
-        "goenv" "1.16.2"
-        #"plenv" "5.32.0"
+        "goenv" "1.16.5"
+        "plenv" "5.32.0"
         "pyenv" "3.9.0"
       )
 
@@ -84,13 +87,17 @@ type zinit &> /dev/null && {
         $key install ${versions[$key]} --skip-existing 
         $key global ${versions[$key]}
       done
+    }
 
+    function _zinit_anyenv_atload() {
+      eval "$(anyenv init - zsh)"
       unfunction $0
+      unfunction _zinit_anyenv_atclone
     }
 
     zinit ice wait lucid as"program" pick"bin/anyenv" \
       atload'export ANYENV_ROOT=$PWD;_zinit_anyenv_atload' \
-      atclone"anyenv install --init" atpull"anyenv install --update;%atclone"
+      atclone"_zinit_anyenv_atclone" atpull"anyenv install --update;%atclone"
     zinit light anyenv/anyenv
 
   # }}}
@@ -147,6 +154,10 @@ type zinit &> /dev/null && {
   # image2ascii
   zinit ice wait"1" lucid has"go" as"program" atclone"go get; go build -o $ZPFX/bin/image2ascii" atpull"%atclone" pick"$ZPFX/bin/image2ascii"
   zinit light qeesung/image2ascii
+
+  # align
+  zinit ice wait"1" lucid has"go" as"program" atclone"go get; go build -o $ZPFX/bin/align" atpull"%atclone" pick"$ZPFX/bin/align"
+  zinit light jiro4989/align
 
   zinit wait"1" lucid as"program" from"gh-r" for \
     pick"jq"                cp"jq-* -> jq"   nocompile  stedolan/jq \
