@@ -16,3 +16,6 @@ Plug 'terryma/vim-expand-region'
 
 " targets.vim
 Plug 'wellle/targets.vim'
+
+" peekaboo
+Plug 'junegunn/vim-peekaboo'
