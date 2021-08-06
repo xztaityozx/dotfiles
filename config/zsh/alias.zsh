@@ -77,3 +77,5 @@ type w3m &> /dev/null && type googler &> /dev/null && alias googler="BROWSER=w3m
 alias tmux="tmux -f $DOTFILES_PATH/config/tmux/tmux.conf"
 alias tswf="$DOTFILES_PATH/config/zsh/bin/tmux-selector.zsh w"
 alias tspf="$DOTFILES_PATH/config/zsh/bin/tmux-selector.zsh p"
+
+alias zws='echo -e "\U200B"'
