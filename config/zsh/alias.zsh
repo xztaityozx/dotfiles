@@ -58,6 +58,8 @@ alias simple-bash='PS1="> " bash'
 
 # zinitとかをロードしないzshを起動
 alias simple-zsh='SIMPLE_MODE="yes" zsh'
+# powerlineだけシンプルにする
+alias simple-powerline='SIMPLE_POWERLINE=1 zsh'
 
 # 現在シェルを置き換え
 alias relaunch-shell="exec $SHELL -l"
