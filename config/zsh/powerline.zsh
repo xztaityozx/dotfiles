@@ -1,14 +1,22 @@
 #!/usr/bin/zsh
 
 function powerline_precmd() {
-  PS1="$(powerline-go -error $? -shell zsh \
-    -hostname-only-if-ssh \
-    -modules 'ssh,host,docker,cwd,git,jobs,exit,newline,user,root' \
-    -theme $HOME/.config/powerline-go/default.json \
-    -shell zsh \
-    -cwd-max-depth 3\
-    -cwd-max-dir-size -1)"
-  }
+  local err=$?
+  if [[ "$SIMPLE_POWERLINE" == 1 ]]; then
+    PS1="$(powerline-go -shell zsh -error $err \
+      -modules 'root' \
+      -theme $HOME/.config/powerline-go/default.json)"
+  else
+    PS1="$(powerline-go -error $err -shell zsh \
+      -hostname-only-if-ssh \
+      -modules 'ssh,host,docker,cwd,git,jobs,exit,newline,user,root' \
+      -theme $HOME/.config/powerline-go/default.json \
+      -shell zsh \
+      -cwd-max-depth 3\
+      -cwd-max-dir-size -1)"
+  fi
+  true
+}
 
 function install_powerline_precmd() {
   for s in "${precmd_functions[@]}"; do
