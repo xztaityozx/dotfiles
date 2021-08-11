@@ -18,7 +18,6 @@ alias cg="cdx -c g"
 alias ch="cdx -h"
 alias cb="cdx -b"
 alias ..="cdx ../"
-alias cdoc='cdx $(doc -r)'
 
 # hub
 alias hs="hub status"
