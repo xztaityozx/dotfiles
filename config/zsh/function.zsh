@@ -134,6 +134,7 @@ function simple-date() {
 #   -r | --root: ドキュメントルートへのパスをSTDOUTに出力して終了する
 function doc() {
   local docDir="$HOME/Documents/cli-doc"
+  cd $docDir
 
   : "-r | --root" && [[ "$1" =~ "^(-r|--root)$" ]] && echo $docDir && return 0;
 
