@@ -162,7 +162,6 @@ type zinit &> /dev/null && {
   zinit wait"1" lucid as"program" from"gh-r" for \
     pick"jq"                cp"jq-* -> jq"   nocompile  stedolan/jq \
     pick"uni"               cp"uni-* -> uni" nocompile  arp242/uni \
-    pick"$ZPFX/bin/googler" make"install PREFIX=$ZPFX"  jarun/googler \
     pick"*/ocs"                                         xztaityozx/ocs \
     pick"*/bin/gh"                                      cli/cli \
     pick"*/ghq"             cp"*/misc/zsh/_ghq -> _ghq" x-motemen/ghq \
@@ -174,6 +173,9 @@ type zinit &> /dev/null && {
     pick"gibo"                             atclone"chmod +x gibo && gibo update"         atpull"%atclone"  simonwhitaker/gibo \
     pick"bin/xpanes"                                                                                       greymd/tmux-xpanes \
     pick"cht.sh" cp"share/zsh.txt -> _cht" atclone"curl https://cht.sh/:cht.sh > cht.sh" atpull"%atclone"  chubin/cheat.sh
+
+  zinit wait"1" lucid as"program" cloneonly for \
+    pick"$ZPFX/bin/googler" make"install PREFIX=$ZPFX"  jarun/googler
 
 # }}}
 
