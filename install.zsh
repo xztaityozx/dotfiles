@@ -7,7 +7,7 @@ type apt &> /dev/null && {
   echo debian/ubuntu
 
   sudo apt update && sudo apt upgrade -y
-  sudo apt install -y build-essential wget curl git moreutils
+  sudo apt install -y build-essential wget curl git moreutils zip unzip tar
   # pyenv
   sudo apt-get install make build-essential libssl-dev zlib1g-dev \
                             libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
@@ -15,14 +15,14 @@ type apt &> /dev/null && {
 }
 
 type brew &> /dev/null && {
-  brew install git zsh moreutils
+  brew install git zsh moreutils coreutils unzip zip
 
   # pyenv
   brew install openssl readline sqlite3 xz zlib
 }
 
 type pacman &> /dev/null && {
-  sudo pacman -Ss git zsh
+  sudo pacman -Ss git zsh wget curl moreutils zip unzip tar
 }
 
 mkdir -p $HOME/.local/share/nvim/site/autoload
