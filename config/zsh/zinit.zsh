@@ -106,7 +106,8 @@ type zinit &> /dev/null && {
   # {{{
 
     function _zinit_exa_atload() {
-      alias ls="exa --git"
+      alias ls="exa --git --icons"
+      alias ll="exa --time-style=long-iso -mUuhla --icons --changed --git"
       unfunction $0
     }
 
@@ -192,7 +193,7 @@ type zinit &> /dev/null && {
   # }}}
 
     zinit wait"3" lucid as"null" cloneonly nocompile for \
-      cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim"     junegunn/vim-plug \
+      atinit"mkdir -p $HOME/.local/share/nvim/site/autoload" cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim"     junegunn/vim-plug \
       has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"         storm119/Tilix-Themes 
 
 
