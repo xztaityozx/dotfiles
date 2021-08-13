@@ -324,3 +324,9 @@ function text2slackemoji() {
 
   sed 's/[a-zA-Z]/:alphabet-yellow-\L&:/g;s/#/:alphabet-yellow-hash:/g;s/@/:alphabet-yellow-at:/g;s/!/:alphabet-yellow-exclamation:/g;s/?/:alphabet-yellow-question:/g' <<< "$text"
 }
+
+function cdx-history-clean-up() {
+  [[ -e $HOME/.config/go-cdx/history ]] && {
+    sort -u $HOME/.config/go-cdx/history | xargs -n1 -I@ -P5 zsh -c "ls @ &>/dev/null && echo @" | sponge $HOME/.config/go-cdx/history
+  }
+}
