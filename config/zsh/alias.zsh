@@ -18,6 +18,7 @@ alias cg="cdx -c g"
 alias ch="cdx -h"
 alias cb="cdx -b"
 alias ..="cdx ../"
+alias dotfiles="cdx $DOTFILES_PATH"
 
 # hub
 alias hs="hub status"
