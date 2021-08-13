@@ -49,3 +49,5 @@ Plug 'vim-syntastic/syntastic'
 " VimDevIcons
 Plug 'ryanoasis/vim-devicons'
 
+" cursorword
+Plug 'itchyny/vim-cursorword'
