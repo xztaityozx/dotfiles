@@ -161,14 +161,15 @@ type zinit &> /dev/null && {
   zinit light jiro4989/align
 
   zinit wait"1" lucid as"program" from"gh-r" for \
-    pick"jq"                cp"jq-* -> jq"   nocompile  stedolan/jq \
-    pick"uni"               cp"uni-* -> uni" nocompile  arp242/uni \
-    pick"*/ocs"                                         xztaityozx/ocs \
-    pick"*/bin/gh"                                      cli/cli \
-    pick"*/ghq"             cp"*/misc/zsh/_ghq -> _ghq" x-motemen/ghq \
-                                                        pemistahl/grex \
-                                                        tomnomnom/gron \
-                                                        dom96/choosenim
+    pick"jq"                cp"jq-* -> jq"   nocompile           stedolan/jq \
+    pick"uni"               cp"uni-* -> uni" nocompile           arp242/uni \
+    pick"*/ocs"                                                  xztaityozx/ocs \
+    pick"*/bin/gh"                                               cli/cli \
+    pick"*/ghq"             cp"*/misc/zsh/_ghq -> _ghq"          x-motemen/ghq \
+    pick"$ZPFX/bin/hexyl"   cp"hexyl-*/hexyl -> $ZPFX/bin/hexyl" @sharkdp/hexyl \
+                                                                 pemistahl/grex \
+                                                                 tomnomnom/gron \
+                                                                 dom96/choosenim
 
   zinit wait"1" lucid as"program" for \
     pick"gibo"                             atclone"chmod +x gibo && gibo update"         atpull"%atclone"  simonwhitaker/gibo \
