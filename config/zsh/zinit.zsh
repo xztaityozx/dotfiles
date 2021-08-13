@@ -167,6 +167,7 @@ type zinit &> /dev/null && {
     pick"*/bin/gh"                                               cli/cli \
     pick"*/ghq"             cp"*/misc/zsh/_ghq -> _ghq"          x-motemen/ghq \
     pick"$ZPFX/bin/hexyl"   cp"hexyl-*/hexyl -> $ZPFX/bin/hexyl" @sharkdp/hexyl \
+    pick"$ZPFX/bin/pastel"   cp"pastel-*/pastel -> $ZPFX/bin/pastel" @sharkdp/pastel \
                                                                  pemistahl/grex \
                                                                  tomnomnom/gron \
                                                                  dom96/choosenim
