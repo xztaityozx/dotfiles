@@ -305,14 +305,6 @@ function man() {
   fi
 }
 
-function hex2color() {
-  local SED=sed
-  local AWK=awk
-  type gsed &> /dev/null && SED=gsed
-  type gawk &> /dev/null && AWK=gawk
-  $SED -E 's/#(..)(..)(..)/0x\1 0x\2 0x\3/g' | awk --non-decimal-data '{printf "\033[48;2;%d;%d;%dm\033[38;2;%d;%d;%dm%02X%02X%02X\033[0m\n", $1,$2,$3,255-$1,255-$2,255-$3,$1,$2,$3}'
-}
-
 # historyコマンドとshutdownコマンドは履歴に残さない
 function zshaddhistory() {
   [[ ! "${1}" =~ "shutdown|history" ]]
