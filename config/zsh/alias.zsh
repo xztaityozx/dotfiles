@@ -31,7 +31,6 @@ type rg &> /dev/null && unalias hg && alias hg="rg --vimgrep"
 alias hd="hub diff"
 alias hl="hub log"
 alias hst="hub stash"
-alias hub-push-current="hub push origin HEAD"
 alias hsf="hub status --short | fzf -m"
 alias hswf="hub branch --list | fzf | xargs hub switch"
 
@@ -46,13 +45,6 @@ alias py3=python3
 
 # go
 alias -s go="go run "
-
-# perl
-alias -s pl="perl -Ilib"
-alias -s psgi="carton exec -- plackup -Ilib"
-alias care="carton exec"
-alias ple="plenv exec"
-alias care-run="carton exec perl -Ilib"
 
 # シンプルなプロンプトなbash
 alias simple-bash='PS1="> " bash'
@@ -77,7 +69,6 @@ type w3m &> /dev/null && type googler &> /dev/null && alias googler="BROWSER=w3m
 
 # tmuxをコンフィグを持たせながら起動する
 alias tmux="tmux -f $DOTFILES_PATH/config/tmux/tmux.conf"
-alias tswf="$DOTFILES_PATH/config/zsh/bin/tmux-selector.zsh w"
-alias tspf="$DOTFILES_PATH/config/zsh/bin/tmux-selector.zsh p"
 
+# ゼロ幅スペース
 alias zws='echo -e "\U200B"'
