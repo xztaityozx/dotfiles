@@ -84,20 +84,6 @@ function :awk() {
   awk -F: "$@"
 }
 
-function ohiru() {
-  local verb="${1:-begin}"
-  local date="$(date)"
-  local msg=""
-
-  [[ "$verb" == "end" ]] &&  msg=":ohiru_owari: $date"
-  [[ "$verb" == "begin" ]] && msg=":ohiru: $date :afk:"
-
-  yy "$msg"
-
-  echo "copied!!"
-
-}
-
 # $PATH を見やすく表示するだけ
 function path-list() {
   echo "$PATH" | tr : \\n
@@ -142,7 +128,6 @@ function doc() {
 
   # 種類とテンプレの連想配列
   typeset -A template=(
-    "worklog" "${date} 作業ログ($USER)\n# ひとこと\n\n# やったこと\n"
     "todo"    "TODO:\n[] \n[] 出勤ボタン\n[] 退勤ボタン\n終了目安：17:00"
   )
   
@@ -189,23 +174,6 @@ function hr() {
     current=$((current+length))
   done
 }
-
-# コメントヘッダを出力するだけのコマンド
-# params:
-#   width: 幅(default: 80)
-#   type: ファイルタイプ(入力無しでのときfzfで選ぶ)
-function com-header() {
-  typeset -A header_dict=(
-    "sh" "$(hr '#' $width)\n# \n$(hr '#' $width)"
-    "tt2" "[%#\n$(hr '-' $width)\n\n$(hr '_' $width)\n$(hr '-' $width)\n#%]"
-  )
-
-  local width="${1:-80}"
-  local ft="${2:-$(echo ${(k)header_dict} | fmt -1 | fzf | awk '{print $1}')}"
-
-  echo -e ${header_dict[$ft]}
-}
-
 
 # 文字を大文字にするだけ
 function upper() {
