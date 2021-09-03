@@ -1,17 +1,14 @@
 {
-    "editor.fontSize": 24,
-    "editor.fontFamily": "'Ricty for Powerline'",
-    "workbench.sideBar.location": "right",
     "workbench.colorTheme": "Iceberg",
-    "window.zoomLevel": 0,
-    "debug.console.fontSize": 24,
+    "workbench.sideBar.location": "right",
+    "editor.fontFamily": "HackGenNerd",
+    "editor.fontSize": 16,
     "vim.easymotion": true,
-    "vim.easymotionMarkerFontSize": "24",
-    "vim.easymotionMarkerHeight": 24,
     "vim.enableNeovim": true,
-    "vim.easymotionMarkerBackgroundColor": "#000000",
-    "vim.easymotionMarkerForegroundColorOneChar": "#FFAA00",
-    "vim.easymotionMarkerForegroundColorTwoChar": "#FFAA00",
+    "vim.easymotionMarkerBackgroundColor": "#33374c",
+    "vim.easymotionMarkerForegroundColorOneChar": "#c57339",
+    "vim.easymotionMarkerForegroundColorTwoCharFirst": "#cc3768",
+    "vim.easymotionMarkerForegroundColorTwoCharSecond": "#cc517a",
     "vim.insertModeKeyBindingsNonRecursive": [
         {
             "before":["j","j"],
@@ -43,10 +40,7 @@
             "after":["g","c","c"]
         }
     ],
-    "vim.neovimPath": "/home/linuxbrew/.linuxbrew/bin/nvim",
-    "vim.easymotionMarkerWidthPerChar": 16,
-    "vim.easymotionMarkerFontFamily": "Ricty for Powerline",
-    "[csharp]": {
-        "editor.defaultFormatter": "Leopotam.csharpfixformat"
-    }
+    "vim.neovimPath": "/Users/takemura/.config/zsh/.zinit/plugins/neovim---neovim/./nvim-osx64/bin/nvim",
+    "scm.diffDecorations": "gutter",
+    "editor.minimap.enabled": false,
 }
