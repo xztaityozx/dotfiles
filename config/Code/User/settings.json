@@ -40,7 +40,7 @@
             "after":["g","c","c"]
         }
     ],
-    "vim.neovimPath": "/Users/takemura/.config/zsh/.zinit/plugins/neovim---neovim/./nvim-osx64/bin/nvim",
+    "vim.neovimPath": "$HOME/.config/zsh/.zinit/plugins/neovim---neovim/./nvim-osx64/bin/nvim",
     "scm.diffDecorations": "gutter",
-    "editor.minimap.enabled": false,
+    "editor.minimap.enabled": false
 }
