@@ -72,6 +72,7 @@ type zinit &> /dev/null && {
         "goenv" "1.16.5"
         "plenv" "5.32.0"
         "pyenv" "3.9.0"
+        "nodenv" "16.8.0"
       )
 
       for key in ${(k)versions}; do
