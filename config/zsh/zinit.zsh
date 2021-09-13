@@ -197,8 +197,7 @@ type zinit &> /dev/null && {
 
     zinit wait"3" lucid as"null" cloneonly nocompile for \
       atinit"mkdir -p $HOME/.local/share/nvim/site/autoload" cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim"     junegunn/vim-plug \
-      has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"         storm119/Tilix-Themes 
-
+      has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"         storm119/Tilix-Themes
 
   # pip3 install
   # {{{
@@ -209,6 +208,13 @@ type zinit &> /dev/null && {
       atdelete"pip3 uninstall -y bpytop" aristocratos/bpytop \
       atdelete"pip3 uninstall -y tqdm"   tqdm/tqdm
 
+  # }}}
+  
+  # tmux plugins
+  # {{{
+    
+    zinit wait"3" lucid has"tmux" nocompile as"null" cloneonly atclone"mkdir -p $DOTFILES_PATH/config/tmux/plugins/" atpull"%atclone" for \
+      cp"prefix_highlight.tmux -> $DOTFILES_PATH/config/tmux/plugins/" tmux-plugins/tmux-prefix-highlight
   # }}}
 
 
