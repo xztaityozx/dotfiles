@@ -6,6 +6,7 @@ config/zsh/.zcompdump
 config/zsh/.zsh_history
 config/zsh/.iterm2/
 config/zsh/.iterm2_shell_integration.zsh
+config/zsh/.zsh_sessions/
 config/nvim/.netrwhist
 config/zsh/pure/
 config/karabiner/automatic_backups/
