@@ -62,8 +62,15 @@ type zinit &> /dev/null && {
   
   # {{{
   # dienv
-    
-    zinit ice from"gh-r" as"program" cp"direnv.* -> $ZPFX/bin/direnv" pick"$ZPFX/bin/direnv" atload'eval "$(direnv hook zsh)"'
+
+    function _zinit_direnv_atload() {
+      [[ -f "$ZPFX/script/direnv-rc.zsh" ]] || direnv hook zsh > $ZPFX/script/direnv-rc.zsh
+
+      source $ZPFX/script/direnv-rc.zsh
+      unfunction $0
+    }
+
+    zinit ice from"gh-r" as"program" cp"direnv.* -> $ZPFX/bin/direnv" pick"$ZPFX/bin/direnv" atload'_zinit_direnv_atload'
     zinit light direnv/direnv
   
   # }}}
@@ -114,8 +121,7 @@ type zinit &> /dev/null && {
 
     # anyenv install した後initスクリプトを更新するHook
     function __hook-anyenv-post-install-env() {
-      [[ "${1}" =~ "anyenv install" ]] && 
-        anyenv init --no-rehash - zsh > $ZPFX/script/anyenv-rc.zsh
+      [[ "${1}" =~ "anyenv install" ]] && anyenv init --no-rehash - zsh > $ZPFX/script/anyenv-rc.zsh
       true
     }
 
