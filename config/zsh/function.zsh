@@ -292,3 +292,10 @@ function cdx-history-clean-up() {
     sort -u $HOME/.config/go-cdx/history | xargs -n1 -I@ -P5 zsh -c "ls @ &>/dev/null && echo @" | sponge $HOME/.config/go-cdx/history
   }
 }
+
+function :e() {
+  local files="${*}"
+  [[ -p /dev/fd/0 ]] && xargs $EDITOR <(cat -)
+
+  [[ "$files" == "" ]] && $EDITOR || xargs $EDITOR <<< $files
+}
