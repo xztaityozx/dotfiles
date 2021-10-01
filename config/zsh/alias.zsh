@@ -65,7 +65,7 @@ alias unurlize='nkf -w --url-input'
 type w3m &> /dev/null && type googler &> /dev/null && alias googler="BROWSER=w3m googler"
 
 # :e で EDITOR を起動する
-[[ -z "$EDITOR" ]] || alias :e="$EDITOR"
+#[[ -z "$EDITOR" ]] || alias :e="$EDITOR"
 
 # tmuxをコンフィグを持たせながら起動する
 alias tmux="tmux -f $DOTFILES_PATH/config/tmux/tmux.conf"
