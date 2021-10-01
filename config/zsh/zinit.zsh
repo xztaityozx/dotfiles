@@ -116,6 +116,7 @@ type zinit &> /dev/null && {
     function __hook-anyenv-post-install-env() {
       [[ "${1}" =~ "anyenv install" ]] && 
         anyenv init --no-rehash - zsh > $ZPFX/script/anyenv-rc.zsh
+      true
     }
 
     zinit ice wait lucid as"program" pick"bin/anyenv" \
