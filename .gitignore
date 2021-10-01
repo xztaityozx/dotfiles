@@ -13,4 +13,4 @@ config/karabiner/automatic_backups/
 config/zsh/.zcompcache/
 config/tmux/plugins/
 config/lazygit/state.yml
-config/lazygit/dotfiles/
+config/lazygit/**/*.patch
