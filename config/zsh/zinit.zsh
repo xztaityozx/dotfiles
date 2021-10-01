@@ -8,7 +8,7 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 type zinit &> /dev/null && {
-  mkdir -p $ZPFX/{bin,man/man1,share}
+  mkdir -p $ZPFX/{bin,man/man1,share,script}
 }
 
 # プロンプトが出る前にロードして欲しいツール
@@ -20,17 +20,22 @@ type zinit &> /dev/null && {
     unfunction $0
   }
 
-  zinit as"program" from"gh-r" for \
-    pick"./*/bin/nvim"                                                                 neovim/neovim \
-    pick"./*/bat"      cp"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"  @sharkdp/bat \
-    pick"*/fd"                                                                         @sharkdp/fd \
-    pick"*/go-cdx"     atload'eval "$(go-cdx --init)"'                                 xztaityozx/go-cdx \
-                       atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit
+  function _zinit_go-cdx_atclone() {
+    go-cdx --init > $ZPFX/script/go-cdx-rc.zsh
+    unfunction $0
+  }
+
+  zinit as"program" from"gh-r" for cloneonly \
+    cp"./*/bin/nvim -> $ZFPX/bin/nvim" pick"$ZPFX/bin/nvim"                                                                       neovim/neovim \
+    cp"./*/bat -> $ZFPX/bin/bat"       pick"$ZPFX/bin/bat"      mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"    @sharkdp/bat \
+    cp"*/fd -> $ZFPX/bin/fd"           pick"$ZPFX/bin/fd"                                                                         @sharkdp/fd \
+    cp"*/go-cdx -> $ZFPX/bin/go-cdx"   pick"$ZPFX/bin/go-cdx"     atload'source $ZPFX/script/go-cdx-rc.zsh' atclone"_zinit_go-cdx_atclone" atpull"%atclone"                                xztaityozx/go-cdx \
+    cp"lazygit -> $ZFPX/bin/lazygit"   pick"$ZPFX/bin/lazygit"    atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit
 
   # powerline
   # {{{
   
-    zinit ice as"program" nocompletions from"gh-r" pick"powerline-go" cp"powerline-go* -> powerline-go" nocompile atload"source $ZDOTDIR/powerline.zsh"
+    zinit ice as"program" nocompletions from"gh-r" pick"$ZPFX/bin/powerline-go" cp"powerline-go* -> $ZPFX/bin/powerline-go" nocompile atload"source $ZDOTDIR/powerline.zsh"
     zinit load justjanne/powerline-go
   
   # }}}
@@ -54,10 +59,19 @@ type zinit &> /dev/null && {
     zinit load junegunn/fzf
 
   # }}}
+  
+  # {{{
+  # dienv
+    
+    zinit ice from"gh-r" as"program" cp"direnv.* -> $ZPFX/bin/direnv" pick"$ZPFX/bin/direnv" atload'eval "$(direnv hook zsh)"'
+    zinit light direnv/direnv
+  
+  # }}}
 
   # anyenv
   # {{{
-  
+ 
+    # anyenvの初回/更新後セットアップ
     function _zinit_anyenv_atclone() {
       anyenv install --init &> /dev/null
       
@@ -90,10 +104,18 @@ type zinit &> /dev/null && {
       done
     }
 
+    # anyenvのzshを起動するたびに実行する部分
     function _zinit_anyenv_atload() {
-      eval "$(anyenv init - zsh)"
+      [[ -e "$ZPFX/script/anyenv-rc.zsh" ]] && source "$ZPFX/script/anyenv-rc.zsh"
       unfunction $0
       unfunction _zinit_anyenv_atclone
+      add-zsh-hook zshaddhistory __hook-anyenv-post-install-env
+    }
+
+    # anyenv install した後initスクリプトを更新するHook
+    function __hook-anyenv-post-install-env() {
+      [[ "${1}" =~ "anyenv install" ]] && 
+        anyenv init --no-rehash - zsh > $ZPFX/script/anyenv-rc.zsh
     }
 
     zinit ice wait lucid as"program" pick"bin/anyenv" \
@@ -189,20 +211,20 @@ type zinit &> /dev/null && {
   # フォント系
   # {{{
 
-    zinit wait"3" lucid as"null" from"gh-r" cloneonly nocompile for \
+    zinit lucid as"null" from"gh-r" cloneonly nocompile for \
       cp"./*.ttf -> $ENV_FONT_DIR/Cica"                      bpick"*_with_emoji.zip"  miiton/Cica \
       cp"./HackGenNerd_*/*.ttf -> $ENV_FONT_DIR/HackGenNerd" bpick"*Nerd*"            yuru7/HackGen
 
   # }}}
 
-    zinit wait"3" lucid as"null" cloneonly nocompile for \
+    zinit lucid as"null" cloneonly nocompile for \
       atinit"mkdir -p $HOME/.local/share/nvim/site/autoload" cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim"     junegunn/vim-plug \
       has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"         storm119/Tilix-Themes
 
   # pip3 install
   # {{{
 
-    zinit wait"3" lucid has"pip3" nocompile as"null" cloneonly atclone"pip3 install ." atpull"%atclone" for \
+    zinit lucid has"pip3" nocompile as"null" cloneonly atclone"pip3 install ." atpull"%atclone" for \
       atdelete"pip3 uninstall -y pynvim" neovim/pynvim \
       atdelete"pip3 uninstall -y httpie" httpie/httpie \
       atdelete"pip3 uninstall -y bpytop" aristocratos/bpytop \
@@ -213,7 +235,7 @@ type zinit &> /dev/null && {
   # tmux plugins
   # {{{
     
-    zinit wait"3" lucid has"tmux" nocompile as"null" cloneonly atclone"mkdir -p $DOTFILES_PATH/config/tmux/plugins/" atpull"%atclone" for \
+    zinit lucid has"tmux" nocompile as"null" cloneonly atclone"mkdir -p $DOTFILES_PATH/config/tmux/plugins/" atpull"%atclone" for \
       cp"prefix_highlight.tmux -> $DOTFILES_PATH/config/tmux/plugins/" tmux-plugins/tmux-prefix-highlight
   # }}}
 
