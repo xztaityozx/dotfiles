@@ -25,12 +25,12 @@ type zinit &> /dev/null && {
     unfunction $0
   }
 
-  zinit as"program" from"gh-r" for cloneonly \
-    cp"./*/bin/nvim -> $ZFPX/bin/nvim" pick"$ZPFX/bin/nvim"                                                                       neovim/neovim \
-    cp"./*/bat -> $ZFPX/bin/bat"       pick"$ZPFX/bin/bat"      mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"    @sharkdp/bat \
-    cp"*/fd -> $ZFPX/bin/fd"           pick"$ZPFX/bin/fd"                                                                         @sharkdp/fd \
-    cp"*/go-cdx -> $ZFPX/bin/go-cdx"   pick"$ZPFX/bin/go-cdx"     atload'source $ZPFX/script/go-cdx-rc.zsh' atclone"_zinit_go-cdx_atclone" atpull"%atclone"                                xztaityozx/go-cdx \
-    cp"lazygit -> $ZFPX/bin/lazygit"   pick"$ZPFX/bin/lazygit"    atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit
+  zinit as"program" from"gh-r" for \
+    pick"./*/bin/nvim"                                                                       neovim/neovim \
+    pick"./*/bat"      mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"    @sharkdp/bat \
+    pick"*/fd"                                                                         @sharkdp/fd \
+    pick"*/go-cdx"     atload'source $ZPFX/script/go-cdx-rc.zsh' atclone"_zinit_go-cdx_atclone" atpull"%atclone"                                xztaityozx/go-cdx \
+    pick"lazygit"    atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit
 
   # powerline
   # {{{
