@@ -244,6 +244,26 @@
                         ]
                     },
                     {
+                        "description": "no convert key to Ctrl-k(kana conv)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "japanese_pc_nfer",
+                                    "modifiers": {}
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "k",
+                                        "modifiers": [
+                                            "control"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "left_control to right_command",
                         "manipulators": [
                             {
@@ -251,7 +271,8 @@
                                     {
                                         "bundle_identifiers": [
                                             "^com\\.googlecode\\.iterm2",
-                                            "^com\\.jetbrains\\.intellij"
+                                            "^com\\.jetbrains\\.",
+                                            "^com\\.microsoft\\.VSCode"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
