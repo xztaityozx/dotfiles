@@ -22,6 +22,7 @@ nnoremap s= :action ReformatCode<CR>
 nnoremap sv :action SplitVertically<CR>
 nnoremap <C-o> :<C-u>action Back<CR>
 nnoremap <C-i> :<C-u>action Forward<CR>
+nnoremap sf :action FileStructurePopup<CR>
 
 inoremap <C-d> <Esc>:q<CR>
 nnoremap <C-d> :q<CR>
