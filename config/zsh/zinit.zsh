@@ -228,7 +228,10 @@ type zinit &> /dev/null && {
 
     zinit lucid as"null" cloneonly nocompile for \
       atinit"mkdir -p $HOME/.local/share/nvim/site/autoload" cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim"     junegunn/vim-plug \
-      has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"         storm119/Tilix-Themes
+      has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"         storm119/Tilix-Themes 
+
+    zinit wait"3" lucid as"program" from"gh-r" for \
+      cp"*/hyperfine -> $ZPFX/bin/hyperfine" pick"$ZPFX/bin/hyperfine" @sharkdp/hyperfine
 
   # pip3 install
   # {{{
