@@ -136,7 +136,7 @@ type zinit &> /dev/null && {
   # {{{
 
     function _zinit_exa_atload() {
-      alias ls="exa --git --icons"
+      alias ls="exa --git"
       alias ll="exa --time-style=long-iso -mUuhla --icons --changed --git"
       unfunction $0
     }
@@ -200,7 +200,9 @@ type zinit &> /dev/null && {
     pick"$ZPFX/bin/pastel" atload"export COLORTERM=24bit"  cp"pastel-*/pastel -> $ZPFX/bin/pastel" @sharkdp/pastel \
                                                                  pemistahl/grex \
                                                                  tomnomnom/gron \
-                                                                 dom96/choosenim
+                                                                 dom96/choosenim \
+    pick"$ZPFX/bin/sad" cp"sad -> $ZPFX/bin/sad" atload"alias sad='sad --fzf=\"--height=100%\"'"                ms-jpq/sad
+
 
   zinit wait"1" lucid as"program" for \
     pick"gibo"                             atclone"chmod +x gibo && gibo update"         atpull"%atclone"  simonwhitaker/gibo \
