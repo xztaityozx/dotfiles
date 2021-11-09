@@ -6,7 +6,7 @@ function start_agent {
     echo succeeded
     chmod 600 "${SSH_ENV}"
     . "${SSH_ENV}" > /dev/null
-    ls -1 ~/.ssh/*|xargs file |grep "OpenSSH private key"|awk -F: '{print $1}'|xargs ssh-add 
+    file ~/.ssh/*|grep "private key"|awk -F: '{print $1}'|xargs ssh-add 
 }
 
 if [ -f "${SSH_ENV}" ]; then
