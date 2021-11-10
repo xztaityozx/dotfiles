@@ -31,12 +31,6 @@ type zinit &> /dev/null && {
     pick"*/fd"                                                                         @sharkdp/fd \
     pick"*/go-cdx"     atload'source $ZPFX/script/go-cdx-rc.zsh' atclone"_zinit_go-cdx_atclone" atpull"%atclone"                                xztaityozx/go-cdx \
     pick"lazygit"    atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit
-
-  # powerline
-  # {{{
-  
-    zinit ice as"program" nocompletions from"gh-r" pick"$ZPFX/bin/powerline-go" cp"powerline-go* -> $ZPFX/bin/powerline-go" nocompile atload"source $ZDOTDIR/powerline.zsh"
-    zinit load justjanne/powerline-go
   
   # }}}
 
@@ -146,6 +140,14 @@ type zinit &> /dev/null && {
       atpull"%atclone" \
       atload"_zinit_exa_atload"
     zinit light ogham/exa
+
+  # }}}
+
+  # powerline
+  # {{{
+  
+    zinit ice has"go" as"program" pick"$GOPATH/bin/powerline-go" nocompletions nocompile atclone"go install" atpull"%atclone" atload"source $ZDOTDIR/powerline.zsh"
+    zinit load justjanne/powerline-go
 
   # }}}
 # }}}
@@ -261,9 +263,8 @@ function _zinit_zsh-history-substring-search_atload() {
   unfunction $0
 }
 
-zinit for \
-  light-mode zsh-users/zsh-autosuggestions \
-  light-mode zdharma/fast-syntax-highlighting \
-  light-mode atload'_zinit_zsh-history-substring-search_atload' zsh-users/zsh-history-substring-search
 zinit wait lucid for \
-  light-mode atload'zicompinit;zicdreplay' blockf zsh-users/zsh-completions
+  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
+  blockf zsh-users/zsh-completions \
+  atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
+  atload'_zinit_zsh-history-substring-search_atload' zsh-users/zsh-history-substring-search
