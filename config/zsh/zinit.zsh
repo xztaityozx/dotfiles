@@ -20,18 +20,28 @@ type zinit &> /dev/null && {
     unfunction $0
   }
 
-  function _zinit_go-cdx_atclone() {
-    go-cdx --init > $ZPFX/script/go-cdx-rc.zsh
-    unfunction $0
-  }
+  #function _zinit_go-cdx_atclone() {
+    #go-cdx --init > $ZPFX/script/go-cdx-rc.zsh
+    #unfunction $0
+  #}
 
   zinit as"program" from"gh-r" for \
     pick"./*/bin/nvim"                                                                       neovim/neovim \
     pick"./*/bat"      mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"    @sharkdp/bat \
     pick"*/fd"                                                                         @sharkdp/fd \
-    pick"*/go-cdx"     atload'source $ZPFX/script/go-cdx-rc.zsh' atclone"_zinit_go-cdx_atclone" atpull"%atclone"                                xztaityozx/go-cdx \
     pick"lazygit"    atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit
-  
+    #pick"*/go-cdx"     atload'source $ZPFX/script/go-cdx-rc.zsh' atclone"_zinit_go-cdx_atclone" atpull"%atclone"                                xztaityozx/go-cdx \
+
+
+  function _zinit_zoxide_atload() {
+    [[ -e "$ZPFX/script/zoxide-rc.zsh" ]] && source "$ZPFX/script/zoxide-rc.zsh"
+    export _ZO_DATA_DIR="$PWD/.local/share/"
+    unfunction $0
+  }
+
+  zinit ice as"program" from"gh-r" pick"$ZPFX/bin/zoxide" atclone"zoxide init zsh > $ZPFX/script/zoxide-rc.zsh" atload"_zinit_zoxide_atload" atpull"%atclone"
+  zinit light ajeetdsouza/zoxide
+
   # }}}
 
   # fzf
@@ -44,7 +54,7 @@ type zinit &> /dev/null && {
       unfunction $0
     }
 
-    zinit ice has"go" as"program" \
+    zinit ice as"program" \
       pick"$ZPFX/bin/fzf" \
       atclone"cp -vf bin/fzf $ZPFX/bin/; cp -vf man/man1/fzf $ZPFX/man/man1" \
       atpull"%atclone" \
@@ -143,24 +153,10 @@ type zinit &> /dev/null && {
 
   # }}}
   
-  # starship
-  # {{{ 
-  
-  #function _zinit_starship_atload() {
-    #[[ -e "$ZPFX/script/starship-init.zsh" ]] && source "$ZPFX/script/starship-init.zsh"
-    #export STARSHIP_CONFIG="$DOTFILES_PATH/config/starship/starship.toml"
-    #unfunction $0
-  #}
-
-  #zinit ice from"gh-r" as"program" cp"starship -> $ZPFX/bin/starship" pick"$ZPFX/bin/starship" atclone"starship init zsh --print-full-init > $ZPFX/script/starship-init.zsh" atpull"%atclone" atload"_zinit_starship_atload"
-  #zinit light starship/starship
-
-  # }}}
-
   # powerline
   # {{{
   
-    zinit ice has"go" as"program" pick"$GOPATH/bin/powerline-go" nocompletions nocompile atclone"go install" atpull"%atclone" atload"source $ZDOTDIR/powerline.zsh"
+    zinit ice as"program" pick"$GOPATH/bin/powerline-go" nocompletions nocompile atclone"go install" atpull"%atclone" atload"source $ZDOTDIR/powerline.zsh"
     zinit load justjanne/powerline-go
 
   # }}}
