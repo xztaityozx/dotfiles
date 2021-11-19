@@ -9,7 +9,7 @@ function powerline_precmd() {
   else
     PS1="$(powerline-go -error $err -shell zsh \
       -hostname-only-if-ssh \
-      -modules 'ssh,host,docker,cwd,git,jobs,exit,newline,user,root' \
+      -modules 'aws,ssh,host,docker,cwd,git,jobs,exit,newline,user,root' \
       -theme $HOME/.config/powerline-go/default.json \
       -shell zsh \
       -cwd-max-depth 3\

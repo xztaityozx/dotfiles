@@ -142,6 +142,20 @@ type zinit &> /dev/null && {
     zinit light ogham/exa
 
   # }}}
+  
+  # starship
+  # {{{ 
+  
+  #function _zinit_starship_atload() {
+    #[[ -e "$ZPFX/script/starship-init.zsh" ]] && source "$ZPFX/script/starship-init.zsh"
+    #export STARSHIP_CONFIG="$DOTFILES_PATH/config/starship/starship.toml"
+    #unfunction $0
+  #}
+
+  #zinit ice from"gh-r" as"program" cp"starship -> $ZPFX/bin/starship" pick"$ZPFX/bin/starship" atclone"starship init zsh --print-full-init > $ZPFX/script/starship-init.zsh" atpull"%atclone" atload"_zinit_starship_atload"
+  #zinit light starship/starship
+
+  # }}}
 
   # powerline
   # {{{
@@ -203,7 +217,8 @@ type zinit &> /dev/null && {
                                                                  pemistahl/grex \
                                                                  tomnomnom/gron \
                                                                  dom96/choosenim \
-    pick"$ZPFX/bin/sad" cp"sad -> $ZPFX/bin/sad" atload"alias sad='sad --fzf=\"--height=100%\"'"                ms-jpq/sad
+    pick"$ZPFX/bin/sad" cp"sad -> $ZPFX/bin/sad" atload"alias sad='sad --fzf=\"--height=100%\"'"                ms-jpq/sad \
+    pick"$ZPFX/bin/sd"  cp"sd* -> $ZPFX/bin/sd" atload"alias sd='sd -p'"                 chmln/sd
 
 
   zinit wait"1" lucid as"program" for \
