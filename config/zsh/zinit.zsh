@@ -20,17 +20,17 @@ type zinit &> /dev/null && {
     unfunction $0
   }
 
-  #function _zinit_go-cdx_atclone() {
-    #go-cdx --init > $ZPFX/script/go-cdx-rc.zsh
-    #unfunction $0
-  #}
+  function _zinit_go-cdx_atclone() {
+    go-cdx --init > $ZPFX/script/go-cdx-rc.zsh
+    unfunction $0
+  }
 
   zinit as"program" from"gh-r" for \
     pick"./*/bin/nvim"                                                                       neovim/neovim \
     pick"./*/bat"      mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"    @sharkdp/bat \
     pick"*/fd"                                                                         @sharkdp/fd \
-    pick"lazygit"    atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit
-    #pick"*/go-cdx"     atload'source $ZPFX/script/go-cdx-rc.zsh' atclone"_zinit_go-cdx_atclone" atpull"%atclone"                                xztaityozx/go-cdx \
+    pick"lazygit"    atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit \
+    pick"*/go-cdx"     atload'source $ZPFX/script/go-cdx-rc.zsh' atclone"_zinit_go-cdx_atclone" atpull"%atclone"                                xztaityozx/go-cdx
 
 
   function _zinit_zoxide_atload() {
