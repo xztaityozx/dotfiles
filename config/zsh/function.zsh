@@ -299,3 +299,9 @@ function :e() {
 
   [[ "$files" == "" ]] && $EDITOR || xargs $EDITOR <<< $files
 }
+
+# $1 桁のhexを取得する。lower case
+function randhex {
+  local digits=${1:-10}
+  shuf -re {a..f} {0..9} -n "$digits" | tr -d '\n' | awk 4
+}
