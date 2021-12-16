@@ -1,11 +1,11 @@
 " 言語パッケージ
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 "{{{
 "
 "}}}
 
 " cheat.sh
-Plug 'dbeniamine/cheat.sh-vim'
+"Plug 'dbeniamine/cheat.sh-vim'
 "{{{
-  nnoremap <silent> skk :Cheat<CR><C-w>j
+  "nnoremap <silent> skk :Cheat<CR><C-w>j
 "}}}
