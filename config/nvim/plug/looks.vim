@@ -31,7 +31,7 @@ Plug 'simeji/winresizer'
 "}}}
 
 " 起動画面
-Plug 'mhinz/vim-startify'
+" Plug 'mhinz/vim-startify'
 
 " syntastic
 Plug 'vim-syntastic/syntastic'

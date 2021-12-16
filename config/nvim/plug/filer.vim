@@ -25,15 +25,3 @@ Plug 'ctrlpvim/ctrlp.vim'
   nnoremap sl :CtrlPLine<CR>
   nnoremap <silent> sm <ESC>:<C-u>CtrlPMRUFiles<CR>
 "}}}
-
-" nerdtree
-Plug 'scrooloose/nerdtree'
-"{{{
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  let g:NERDTreeGitStatusShowIgnored = 1
-
-  nnoremap so :NERDTreeToggle<CR>
-  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-  let g:NERDTreeWinPos = "right"
-  let g:NERDTreeWinSize = 25
-"}}}
