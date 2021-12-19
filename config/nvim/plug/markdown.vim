@@ -1,9 +1,3 @@
-" Goyo
-Plug 'junegunn/goyo.vim'
-"{{{
-
-"}}}
-
 " PlantUML
 " {{{
   Plug 'tyru/open-browser.vim'

@@ -1,8 +1,4 @@
 filetype on
-filetype plugin on
-
-" シンタックスハイライトをON
-syntax enable
 
 " ステータス行を常に表示する
 set laststatus=2
@@ -13,6 +9,7 @@ if (&ft=='md')
   set formatoptions+=n
 endif
 
+let g:python3_host_prog = '$HOME/.config/zsh/.zinit/plugins/anyenv---anyenv/envs/pyenv/shims/python3'
 
 " UTF-8
 set encoding=UTF-8

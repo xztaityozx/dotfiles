@@ -72,3 +72,6 @@ alias tmux="tmux -f $DOTFILES_PATH/config/tmux/tmux.conf"
 
 # ゼロ幅スペース
 alias zws='echo -e "\U200B"'
+
+# date
+type gdate &> /dev/null && alias date=gdate

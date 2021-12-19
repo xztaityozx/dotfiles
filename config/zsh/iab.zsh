@@ -4,17 +4,12 @@ setopt extended_glob
 
 typeset -A abbreviations
 abbreviations=(
-    "G"    "| grep"
-    "X"    "| xargs"
-    "T"    "| tail"
-    "H"    "| head"
-    "W"    "| wc"
-    "A"    "| awk '{}'"
-    "S"    "| sed ''"
+    "GG"    "| grep"
+    "XX"    "| xargs"
+    "HH"    "| head"
     "DN"   "&> /dev/null"
     "YY"   "| yy"
     "SUS"  "| sort | uniq -c | sort -rn"
-    "FC"   "| fcat"
 )
 
 magic-abbrev-expand() {
