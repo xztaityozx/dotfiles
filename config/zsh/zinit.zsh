@@ -54,6 +54,16 @@ type zinit &> /dev/null && {
       unfunction $0
     }
 
+    function _fzf_compgen_path() {
+      echo "$1"
+      fd --type=f --exclude .git --hidden --follow
+    }
+    
+    function _fzf_compgen_dir() {
+      echo "$1"
+      fd --type=f --exclude .git --hidden --follow
+    }
+
     zinit ice as"program" \
       pick"$ZPFX/bin/fzf" \
       atclone"cp -vf bin/fzf $ZPFX/bin/; cp -vf man/man1/fzf $ZPFX/man/man1" \
