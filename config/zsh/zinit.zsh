@@ -155,8 +155,7 @@ type zinit &> /dev/null && {
       unfunction $0
     }
 
-    zinit ice wait lucid from"gh-r" as"program" bpick"*$ENV_OS*" cp"exa* -> ./bin/exa" pick"bin/exa"  atclone" \
-      curl -fLo $ZDOTDIR/.zinit/completions/_exa https://raw.githubusercontent.com/ogham/exa/master/contrib/completions.zsh" \
+    zinit ice wait lucid from"gh-r" as"program" bpick"*$ENV_OS*" cp"exa* -> ./bin/exa" pick"bin/exa"  atclone"cp ./completions/exa.zsh $ZDOTDIR/.zinit/completions/_exa" \
       atpull"%atclone" \
       atload"_zinit_exa_atload"
     zinit light ogham/exa
@@ -208,6 +207,10 @@ type zinit &> /dev/null && {
   zinit ice wait"1" lucid has"go" as"program" atclone"go get; go build -o $ZPFX/bin/image2ascii" atpull"%atclone" pick"$ZPFX/bin/image2ascii"
   zinit light qeesung/image2ascii
 
+  # rb
+  zinit ice wait"1" lucid as"program" pick"bin/rb" atclone"mkdir bin; mv rb bin/rb" 
+  zinit light thisredone/rb
+
   # align
   zinit ice wait"1" lucid has"go" as"program" atclone"go get; go build -o $ZPFX/bin/align" atpull"%atclone" pick"$ZPFX/bin/align"
   zinit light jiro4989/align
@@ -224,7 +227,7 @@ type zinit &> /dev/null && {
                                                                  tomnomnom/gron \
                                                                  dom96/choosenim \
     pick"$ZPFX/bin/sad" cp"sad -> $ZPFX/bin/sad" atload"alias sad='sad --fzf=\"--height=100%\"'"                ms-jpq/sad \
-    pick"$ZPFX/bin/sd"  cp"sd* -> $ZPFX/bin/sd" atload"alias sd='sd -p'"                 chmln/sd
+    pick"$ZPFX/bin/sd"  cp"sd* -> $ZPFX/bin/sd" atload"alias sd='sd -p'"                 chmln/sd \
 
 
   zinit wait"1" lucid as"program" for \
