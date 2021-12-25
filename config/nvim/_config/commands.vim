@@ -11,5 +11,5 @@
 " autocmd
 " {{{
   " ファイルを開くたびにAirLineをリフレッシュする
-  autocmd FileType * AirlineRefresh
+  " autocmd FileType * AirlineRefresh
 " }}}

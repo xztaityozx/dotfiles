@@ -103,11 +103,15 @@ endfunction
 
 " vim-plug
 " {{{
-  call plug#begin()
-    " 設定ファイルをいろいろ読み込む
-    call s:source_files('plug/*.vim')
-  call plug#end()
+  "call plug#begin()
+    "" 設定ファイルをいろいろ読み込む
+    "call s:source_files('plug/*.vim')
+  "call plug#end()
 " }}}
+
+" packer.nvim
+
+lua require('plugins')
 
 " 他の設定ファイルを読み込む
 " {{{
