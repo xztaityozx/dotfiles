@@ -10,7 +10,7 @@ nnoremap s <NOP>
   " 下にバッファを開く
   nnoremap sn :new<CR>
   " 右にバッファを開く
-  nnoremap sv :vnew<CR>
+  nnoremap sv :vnew %<CR>
   " 右に現在バッファを複製する
   nnoremap sV :vnew %<CR>
   " 今のバッファにターミナルを開く
