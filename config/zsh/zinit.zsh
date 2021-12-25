@@ -26,7 +26,7 @@ type zinit &> /dev/null && {
   }
 
   zinit as"program" from"gh-r" for \
-    pick"./*/bin/nvim"                                                                       neovim/neovim \
+    pick"./*/bin/nvim" ver"stable"                                                   neovim/neovim \
     pick"./*/bat"      mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"    @sharkdp/bat \
     pick"*/fd"                                                                         @sharkdp/fd \
     pick"lazygit"    atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit \
