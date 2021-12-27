@@ -253,7 +253,8 @@ type zinit &> /dev/null && {
   # }}}
 
     zinit lucid as"null" cloneonly nocompile for \
-      atinit"mkdir -p $HOME/.local/share/nvim/site/autoload" cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim"     junegunn/vim-plug \
+      #atinit"mkdir -p $HOME/.local/share/nvim/site/autoload" cp"plug.vim -> $HOME/.local/share/nvim/site/autoload/plug.vim"     junegunn/vim-plug \
+      atinit"mkdir -p $HOME/.local/share/nvim/site/pack/packer/start/" cp"* -> $HOME/.local/share/nvim/site/pack/packer/start/" wbthomason/packer.nvim
       has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"         storm119/Tilix-Themes 
 
     zinit wait"3" lucid as"program" from"gh-r" for \
