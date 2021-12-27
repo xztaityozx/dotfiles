@@ -27,8 +27,17 @@ return require('packer').startup({function()
   -- vim-surround
   use 'tpope/vim-surround'
 
+  -- bufdelete
+  use {
+    'famiu/bufdelete.nvim',
+    setup = function()
+      vim.api.nvim_set_keymap('n', 'bd', '<CMD>Bdelete<CR>', {noremap = true, silent = true})
+    end,
+  }
+
   -- カッコとかの自動補完
   use 'cohama/lexima.vim'
+
 
   -- Go言語向けの設定
   -- {{{
@@ -41,6 +50,14 @@ return require('packer').startup({function()
   -- Git関係
   -- {{{
   use 'airblade/vim-gitgutter'
+  -- lazygit
+  use {
+    'kdheepak/lazygit.nvim',
+    config = function()
+      --vim.g.lazygit_floating_window_use_plenary = 1
+      vim.api.nvim_set_keymap('n', 'lg', '<CMD>LazyGit<CR>', {noremap = true, silent = true})
+    end
+  }
   -- }}}
 
   -- ウインドウサイズ変更するやつ
@@ -64,7 +81,8 @@ return require('packer').startup({function()
     requires = {
       {'nvim-lua/lsp-status.nvim'},
       {'folke/lsp-colors.nvim'},
-      {'williamboman/nvim-lsp-installer'}
+      {'williamboman/nvim-lsp-installer'},
+      {'folke/lua-dev.nvim'}
     },
   }
   local on_attach = function()
@@ -78,24 +96,23 @@ return require('packer').startup({function()
     local opts = { noremap=true, silent=true }
 
     buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', 'gT', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', 'sR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', 'sA', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
     buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   end
   require('lspconfig').gopls.setup({ on_attach = on_attach })
+  require('lspconfig').sumneko_lua.setup(require('lua-dev').setup({
+    lspconfig = {
+      cmd = {'lua-language-server'},
+      on_attach = on_attach
+    }
+  }))
 
   use {
     'folke/trouble.nvim',
-    config = function() 
+    config = function()
     end
   }
   require('trouble').setup({})
@@ -129,7 +146,7 @@ return require('packer').startup({function()
               cmp.select_prev_item()
             else
               fallback()
-            end 
+            end
           end,
           -- Tabで一つ下を選択
           ['<TAB>'] = function(fallback)
@@ -137,16 +154,16 @@ return require('packer').startup({function()
               cmp.select_next_item()
             else
               fallback()
-            end 
+            end
           end
         },
         sources = cmp.config.sources({
           {name = 'nvim_lsp'}
         },
-        {
-          {name = 'buffer'},
-          {name = 'path'},
-        })
+          {
+            {name = 'buffer'},
+            {name = 'path'},
+          })
       })
       local cap = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
       require('lspconfig')['gopls'].setup({
@@ -159,7 +176,7 @@ return require('packer').startup({function()
   use {
     'nvim-lualine/lualine.nvim',
     requires = {
-      {'kyazdani42/nvim-web-devicons', opt = true}, 
+      {'kyazdani42/nvim-web-devicons', opt = true},
       {'kdheepak/tabline.nvim', config = function() require('tabline').setup({enable = false})end},
     },
     config = function()
@@ -189,9 +206,8 @@ return require('packer').startup({function()
         sections = {
           lualine_a = {'mode'},
           lualine_b = {
-            'branch', 
+            'branch',
             'diff',
-            'diagnostics'
           },
           lualine_c = {'filetype','filename'},
           lualine_x = {"require('lsp-status').status()"},
@@ -250,12 +266,87 @@ return require('packer').startup({function()
   -- カーソル下にある単語と同じ奴にアンダーラインがつくやつ
   use 'itchyny/vim-cursorword'
 
+  -- treesitter
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ":TSUpdate",
+    config = function()
+      require('nvim-treesitter.configs').setup({
+        indent = {
+          enable = true,
+        },
+        highlight = {
+          enable = true
+        },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "si",
+            node_incremental = "<F7>",
+            scope_incremental = "+",
+            node_decremental = "<F8>",
+          }
+        }
+      })
+    end
+  }
+
   -- colorscheme
   use {'cocopon/iceberg.vim', opt = true}
+  use 'sunjon/shade.nvim'
 
+  -- fuzzy finder
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      {'nvim-lua/plenary.nvim'},
+      use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+    },
+    config = function()
+      vim.api.nvim_set_keymap('n', '<C-p>', "<cmd>Telescope find_files<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'sb',    "<cmd>Telescope buffers<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'sg',    "<cmd>Telescope live_grep<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'sh',    "<cmd>Telescope help_tags<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'sx',    "<cmd>Telescope grep_string<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'sm',    "<cmd>Telescope oldfiles<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 's"',    "<cmd>Telescope registers<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'sQ',    "<cmd>Telescope quickfix<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'sf',    "<cmd>Telescope treesitter<CR>", {noremap = true, silent = true})
+
+      -- lsp系
+      vim.api.nvim_set_keymap('n', 'sA',    "<cmd>Telescope lsp_code_actions<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'gd',    "<cmd>Telescope lsp_definitions<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'gT',    "<cmd>Telescope lsp_type_definitions<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'sD',    "<cmd>Telescope diagnostics<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'gr',    "<cmd>Telescope lsp_references<CR>", {noremap = true, silent = true})
+
+      require('telescope').setup({
+        defaults = {
+          sorting_strategy = 'ascending',
+          layout_strategy = 'horizontal',
+          layout_config = { prompt_position = "top" },
+          mappings = {
+            i = {
+              ['<ESC>'] = require('telescope.actions').close,
+            }
+          }
+        },
+        extensions = {
+          fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = 'smart_case',
+          }
+        }
+      })
+
+      require('telescope').load_extension('fzf')
+    end
+  }
 
 end, config = {
-display = {
-  open_fn = require('packer.util').float,
-}
-}})
+    display = {
+      open_fn = require('packer.util').float,
+    }
+  }})
