@@ -102,6 +102,11 @@ return require('packer').startup({function()
     buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   end
   require('lspconfig').gopls.setup({ on_attach = on_attach })
+  require('lspconfig').omnisharp.setup(
+    { 
+      on_attach = on_attach,
+      cmd = { os.getenv("HOME").."/.local/lib/omnisharp/OmniSharp", "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) }
+    })
   require('lspconfig').sumneko_lua.setup(require('lua-dev').setup({
     lspconfig = {
       cmd = {'lua-language-server'},
