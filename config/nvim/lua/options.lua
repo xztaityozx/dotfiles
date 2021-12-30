@@ -70,7 +70,8 @@ o.foldmethod="marker"
 o.foldlevel=2
 
 -- シェルを設定
-o.shell="/usr/bin/env zsh|powershell.exe"
+o.shell="/usr/bin/env zsh"
+-- o.shell = "powershell.exe"
 
 -- カラースキームはicebergを使う
 vim.cmd('colorscheme iceberg')
