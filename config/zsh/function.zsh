@@ -315,3 +315,19 @@ function skip() {
   local number="${1:-10}"
   awk -v n="$number" 'NR==n,0'
 }
+
+function readme() {
+  local root="$(git rev-parse --show-cdup)"
+  if [[ "$?" != "0" ]]; then
+    root="$PWD"
+  fi
+
+  local selected="$(fd 'readme' $root | fzf)"
+
+  if [[ "$?" != "0" ]] || [[ "$selected" == "" ]]; then
+    logger.warn なかったかfzfがキャンセルされたっぽいね
+    return
+  fi
+
+  bat --theme=TwoDark -l markdown "$selected"
+}
