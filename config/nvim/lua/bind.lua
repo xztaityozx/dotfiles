@@ -27,7 +27,7 @@ map('t', 'jj', '<C-\\><C-n>', {noremap = true})
 map('i', 'jj', '<ESC>', {noremap = true})
 
 -- Ctrl-dで:q
-map('n', '<C-d>', '<CMD>q<CR>', {noremap = true})
+map('n', '<C-d>', "len(getbufinfo({'buflisted':1}))==1 ? '<CMD>q<CR>' : '<CMD>Bdelete<CR>'", {noremap = true, expr = true})
 
 -- Ctrl-aで全選択
 map('n', '<C-a>', 'gg<S-V>G', {noremap = true})
