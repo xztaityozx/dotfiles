@@ -305,3 +305,13 @@ function randhex {
   local digits=${1:-10}
   shuf -re {a..f} {0..9} -n "$digits" | tr -d '\n' | awk 4
 }
+
+function take() {
+  local number="${1:-10}"
+  awk -v n="$number" 'NR==1,NR==n'
+}
+
+function skip() {
+  local number="${1:-10}"
+  awk -v n="$number" 'NR==n,0'
+}
