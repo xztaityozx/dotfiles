@@ -7,7 +7,7 @@ map('n', 's', '<NOP', { silent = true, noremap = true })
 map('n', 'sv', '<CMD>vnew %<CR>', {noremap = true})
 
 -- ターミナルを右に開く
-map('n', 'st', '<CMD>vsplit term://$SHELL | startinsert<CR>', {silent = true, expr = true, noremap = true})
+map('n', 'st', '<CMD>vsplit term://$SHELL | startinsert<CR>', {silent = true, noremap = true})
 
 -- wasdでウィンドウ移動
 map('n', 'sa', '<C-w>h', {noremap = true})
