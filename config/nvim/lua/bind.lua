@@ -8,6 +8,7 @@ map('n', 'sv', '<CMD>vnew %<CR>', {noremap = true})
 
 -- ターミナルを右に開く
 map('n', 'st', '<CMD>vsplit term://$SHELL | startinsert<CR>', {silent = true, noremap = true})
+map('n', 'sT', '<CMD>split term://$SHELL | startinsert<CR>', {silent = true, noremap = true})
 
 -- wasdでウィンドウ移動
 map('n', 'sa', '<C-w>h', {noremap = true})
@@ -20,7 +21,7 @@ map('n', 's=', 'gg=G', {noremap = true})
 map('n', '>', '<S-v>>', {noremap = true})
 map('n', '<', '<S-v><', {noremap = true})
 map('v', '>', '>gv', {noremap = true})
-map('v', '>', '<gv', {noremap = true})
+map('v', '<', '<gv', {noremap = true})
 
 -- jjでESC
 map('t', 'jj', '<C-\\><C-n>', {noremap = true})
