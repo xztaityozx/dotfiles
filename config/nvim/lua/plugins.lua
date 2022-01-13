@@ -103,10 +103,10 @@ return require('packer').startup({function()
   end
   require('lspconfig').gopls.setup({ on_attach = on_attach })
   require('lspconfig').omnisharp.setup(
-  { 
-    on_attach = on_attach,
-    cmd = { os.getenv("HOME").."/.local/lib/omnisharp/OmniSharp", "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) }
-  })
+    { 
+      on_attach = on_attach,
+      cmd = { os.getenv("HOME").."/.local/lib/omnisharp/OmniSharp", "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) }
+    })
   require('lspconfig').sumneko_lua.setup(require('lua-dev').setup({
     lspconfig = {
       cmd = {'lua-language-server'},
@@ -172,10 +172,10 @@ return require('packer').startup({function()
           {name = 'nvim_lsp'},
           {name = 'luasnip'}
         },
-        {
-          {name = 'buffer'},
-          {name = 'path'},
-        })
+          {
+            {name = 'buffer'},
+            {name = 'path'},
+          })
       })
       local cap = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
       require('lspconfig')['gopls'].setup({
@@ -283,17 +283,17 @@ return require('packer').startup({function()
     'nvim-treesitter/nvim-treesitter',
     run = ":TSUpdate",
     config = function()
-    require('nvim-treesitter.configs').setup({
-      indent = {
-        enable = true,
-      },
-      highlight = {
-        enable = true
-      },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-          init_selection = "s:",
+      require('nvim-treesitter.configs').setup({
+        indent = {
+          enable = true,
+        },
+        highlight = {
+          enable = true
+        },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "s:",
             node_incremental = "<F7>",
             scope_incremental = "+",
             node_decremental = "<F8>",
@@ -339,7 +339,7 @@ return require('packer').startup({function()
           layout_config = { prompt_position = "top" },
           mappings = {
             i = {
-              ['<ESC>'] = require('telescope.actions').close,
+              ["<esc>"] = require('telescope.actions').close,
             }
           }
         },
@@ -358,7 +358,7 @@ return require('packer').startup({function()
   }
 
 end, config = {
-display = {
-  open_fn = require('packer.util').float,
-}
+    display = {
+      open_fn = require('packer.util').float,
+    }
   }})
