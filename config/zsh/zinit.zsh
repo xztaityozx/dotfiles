@@ -181,7 +181,7 @@ type zinit &> /dev/null && {
 
   zinit wait lucid as"program" from"gh-r" for \
     pick"*/rg"                                          BurntSushi/ripgrep \
-    pick"*/delta"                                       dandavison/delta \
+    pick"*/delta"   atload"compdef _gnu_generic delta"  dandavison/delta \
     bpick"*.tar.gz" pick"bin/teip"                      greymd/teip \
     pick"*/sel"     cp"*/sel-completion.zsh -> _sel"    xztaityozx/sel \
     pick"*/csvq"    atload"_zinit_csvq_atload"          mithrandie/csvq \
