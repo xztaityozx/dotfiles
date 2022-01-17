@@ -120,33 +120,12 @@ function simple-date() {
 #   -r | --root: ドキュメントルートへのパスをSTDOUTに出力して終了する
 function doc() {
   local docDir="$HOME/Documents/cli-doc"
+
+  [[ ! -e "$docDir" ]] && mkdir -p "$docDir"
+
   cd $docDir
 
-  : "-r | --root" && [[ "$1" =~ "^(-r|--root)$" ]] && echo $docDir && return 0;
-
-  local date="$(simple-date)"
-
-  # 種類とテンプレの連想配列
-  typeset -A template=(
-    "todo"    "TODO:\n[] \n[] 出勤ボタン\n[] 退勤ボタン\n終了目安：17:00"
-  )
-  
-  # fzfで編集したいのを選択
-  local target=$(echo ${(k)template} |fmt -1| column -t | fzf | awk '{print $1}')
-  [[ "$target" = "" ]] && logger.warn "doc command was canceled" && return 1
-
-
-  local dir="$docDir/${target}"
-  : "ディレクトリがなければ作る。失敗したら死ぬ" && [[ -d "$dir" ]] || mkdir -p $dir || {
-    logger.warn "failed to mkdir $dir"
-    return 1
-  }
-  local file="$dir/${date}.md"
-
-  : "-f|--fileが有効ならSTDOUTに出して終了。それ以外ならテンプレを吐き出したりしてnvimにわたす" && [[ "$1" =~ "^(-f|--file)$" ]] && echo $file || {
-    [[ -f "$file" ]] || echo -e "${template[$target]}" > $file
-    nvim $file
-  }
+  "$EDITOR" "$docDir/worklog/$(date +%Y/%m.md)"
 }
 
 # fzf を使った yes/no プロンプト
