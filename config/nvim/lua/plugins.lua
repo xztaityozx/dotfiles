@@ -35,7 +35,13 @@ return require('packer').startup({function()
   }
 
   -- カッコとかの自動補完
-  use 'cohama/lexima.vim'
+  --use 'cohama/lexima.vim'
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup({})
+    end
+  }
 
 
   -- Go言語向けの設定
@@ -300,6 +306,17 @@ return require('packer').startup({function()
           }
         }
       })
+    end
+  }
+
+  -- terminal系
+  use {
+    'akinsho/toggleterm.nvim',
+    config = function ()
+    require('toggleterm').setup({
+      direction = 'float',
+      open_mapping = [[<F3>]]
+    })
     end
   }
 
