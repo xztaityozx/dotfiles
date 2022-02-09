@@ -280,9 +280,14 @@ function :e() {
 }
 
 # $1 桁のhexを取得する。lower case
-function randhex {
+function randhex() {
   local digits=${1:-10}
   shuf -re {a..f} {0..9} -n "$digits" | tr -d '\n' | awk 4
+}
+
+function randid() {
+  local digits="${1:-10}"
+  shuf -re {0..9} {@..Z} {a..z} _ . : -n "$digits" | tr -d '\n' | awk 4
 }
 
 function take() {
