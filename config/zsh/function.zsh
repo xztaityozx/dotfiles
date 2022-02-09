@@ -310,3 +310,26 @@ function readme() {
 
   bat --theme=TwoDark -l markdown "$selected"
 }
+
+function hsw() {
+  if ! git status &> /dev/null; then
+    logger.warn "gitリポジトリじゃなくない？？？"
+    return 1
+  fi
+
+  local branch="${1}"
+  if [[ -z "$branch" ]]; then
+    branch="$(git branch --list | fzf | sel -- -1)"
+    [[ "$?" != 0 ]] && {
+      logger.warn キャンセルしたかgit branchが失敗したかな
+      return 1
+    }
+  fi
+
+  [[ "$branch" == "$(git branch --show-current)" ]] && {
+    logger.info "いま $branch なのでgit switchしなかったよ"
+    return 0
+  }
+
+  git switch "$branch"
+}
