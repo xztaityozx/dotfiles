@@ -276,7 +276,13 @@ function :e() {
   local files="${*}"
   [[ -p /dev/fd/0 ]] && xargs $EDITOR <(cat -)
 
-  [[ "$files" == "" ]] && $EDITOR || xargs $EDITOR <<< $files
+  [[ "$files" == "" ]] && $EDITOR || {
+    xargs $EDITOR <<< $files
+  }
+}
+
+function :ve() {
+  tmux splitw -h $EDITOR $*
 }
 
 # $1 桁のhexを取得する。lower case
