@@ -58,20 +58,7 @@ function config() {
   local file="$(ls -la|grep -v "^d"|awk '{print $NF}'|fzf)"
   [[ "$file" = "" ]] && logger.warn "fzf was canceled" && return 1
 
-  nvim $file
-}
-
-# reconfigure
-function rescale() {
-  [ "$1" = "HDMI" ] && gsettings set org.gnome.desktop.interface scaling-factor 2 &&
-  xrandr --output HDMI1 --scale 1x1 &&
-  xrandr --output HDMI1 --scale 1.2x1.2 &&
-  xrandr --output HDMI1 --panning 2304x1440 && exit
-
-  gsettings set org.gnome.desktop.interface scaling-factor 2
-  xrandr --output DSI1 --scale 1x1
-  xrandr --output DSI1 --scale 1.2x1.2
-  xrandr --output DSI1 --panning 2304x1536
+  $EDITOR $file
 }
 
 # awk for csv
