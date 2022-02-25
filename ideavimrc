@@ -18,7 +18,7 @@ nnoremap sw <C-w>k<C-\><C-n>
 nnoremap sd <C-w>l<C-\><C-n>
 nnoremap ss <C-w>j<C-\><C-n>
 nnoremap sa <C-w>h<C-\><C-n>
-nnoremap s= :action ReformatCode<CR>
+nnoremap s= :action ReformatWithPrettierAction<CR>
 nnoremap sv :action SplitVertically<CR>
 nnoremap <C-o> :<C-u>action Back<CR>
 nnoremap <C-i> :<C-u>action Forward<CR>
