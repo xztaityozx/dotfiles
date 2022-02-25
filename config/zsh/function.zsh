@@ -315,6 +315,16 @@ function hsw() {
     return 1
   fi
 
+  if [[ "${#}" == "2" ]]; then
+    if [[ "${1}" == "-c" ]]; then
+      hub switch -c "${2}"
+      return 0
+    else
+      logger.warn "引数2個渡されても困る"
+      return 1
+    fi
+  fi
+
   local branch="${1}"
   if [[ -z "$branch" ]]; then
     branch="$(git branch --list | fzf | sel -- -1)"
