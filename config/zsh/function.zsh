@@ -290,7 +290,7 @@ function take() {
 
 function skip() {
   local number="${1:-10}"
-  awk -v n="$number" 'NR==n,0'
+  awk -v n="$number" 'NR==n+1,0'
 }
 
 function readme() {
@@ -340,4 +340,31 @@ function hsw() {
   }
 
   git switch "$branch"
+}
+
+# 行を特定のルールで列に変形し、それを任意のコマンドに通し、その出力を行に戻すfunction
+function partial() {
+  zmodload zsh/zutil
+  local -A opthash
+  zparseopts -D -A opthash -- d: D: k -keep-line || exit 1
+
+  local KEEP_LINE=0
+  if [[ -n "${opthash[(i)-k]}" ]] || [[ -n "${opthash[(i)--keep-line]}" ]]; then
+    KEEP_LINE=1
+  fi
+
+  local inputDelimiter="${opthash[-d]:- }"
+  local outputDelimiter="${opthash[-D]:- }"
+  local cmd="${1}"
+
+  [[ -z "${cmd}" ]] && {
+    logger.warn "コマンドが無いよ？"
+    return 1
+  }
+
+  while read L; do
+    [[ "$KEEP_LINE" == "1" ]] && echo -n "$L "
+    echo $L | sd "$inputDelimiter" '\n' | eval "$cmd" | tr '\n' "$outputDelimiter"
+    echo
+  done
 }
