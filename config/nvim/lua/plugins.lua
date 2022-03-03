@@ -87,7 +87,7 @@ return require('packer').startup({function()
       {'nvim-lua/lsp-status.nvim'},
       {'folke/lsp-colors.nvim'},
       {'williamboman/nvim-lsp-installer'},
-      {'folke/lua-dev.nvim'}
+      {'folke/lua-dev.nvim'},
     },
   }
   local on_attach = function()
@@ -103,13 +103,14 @@ return require('packer').startup({function()
     buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<C-<space>>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
     buf_set_keymap('n', 'sR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
     buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   end
   require('lspconfig').gopls.setup({ on_attach = on_attach })
   require('lspconfig').omnisharp.setup(
-    { 
+    {
       on_attach = on_attach,
       cmd = { os.getenv("HOME").."/.local/lib/omnisharp/OmniSharp", "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) }
     })
@@ -119,6 +120,35 @@ return require('packer').startup({function()
       on_attach = on_attach
     }
   }))
+  require('lspconfig').rust_analyzer.setup({on_attach = on_attach, })
+
+  use {
+    'simrat39/rust-tools.nvim',
+    config = function ()
+      require('rust-tools').setup({
+        tools = {
+          autoSetHints = true,
+          hover_with_actions = true,
+          inlay_hints = {
+            show_parameter_hints = false,
+            parameter_hints_prefix = "",
+            other_hints_prefix = "",
+          },
+        },
+
+        server = {
+          on_attach = on_attach,
+          settings = {
+            ["rust-analyzer"] = {
+              checkOnSave = {
+                command = "clippy"
+              }
+            }
+          }
+        }
+      })
+    end
+  }
 
   use {
     'folke/trouble.nvim',
