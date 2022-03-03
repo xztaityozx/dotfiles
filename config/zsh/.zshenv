@@ -52,6 +52,6 @@ export HISTSIZE=10000
 export SAVEHIST=10000
 
 # rust
-[[ -e "$HOME/.cache/env" ]] source "$HOME/.cargo/env"
+[[ -e "$HOME/.cache/env" ]] && source "$HOME/.cargo/env"
 
 true
