@@ -124,6 +124,10 @@ return require('packer').startup({function()
 
   use {
     'simrat39/rust-tools.nvim',
+    setup = function() 
+      vim.g.rustfmt_autosave = 1;
+      vim.g.rustfmt_fail_silently = 1;
+    end,
     config = function ()
       require('rust-tools').setup({
         tools = {
