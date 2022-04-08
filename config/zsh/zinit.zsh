@@ -218,7 +218,6 @@ type zinit &> /dev/null && {
   zinit wait"1" lucid as"program" from"gh-r" for \
     pick"jq"                cp"jq-* -> jq"   nocompile           stedolan/jq \
     pick"uni"               cp"uni-* -> uni" nocompile           arp242/uni \
-    pick"*/ocs"                                                  xztaityozx/ocs \
     pick"*/bin/gh"                                               cli/cli \
     pick"*/ghq"             cp"*/misc/zsh/_ghq -> _ghq"          x-motemen/ghq \
     pick"$ZPFX/bin/hexyl"   cp"hexyl-*/hexyl -> $ZPFX/bin/hexyl" @sharkdp/hexyl \
@@ -229,6 +228,8 @@ type zinit &> /dev/null && {
     pick"$ZPFX/bin/sad" cp"sad -> $ZPFX/bin/sad" atload"alias sad='sad --fzf=\"--height=100%\"'"                ms-jpq/sad \
     pick"$ZPFX/bin/sd"  cp"sd* -> $ZPFX/bin/sd" atload"alias sd='sd -p'"                 chmln/sd \
 
+  zinit ice has"dotnet" wait"1" lucid as"program" atclone"make;make install"
+  zinit light xztaityozx/ocs
 
   zinit wait"1" lucid as"program" for \
     pick"gibo"                             atclone"chmod +x gibo && gibo update"         atpull"%atclone"  simonwhitaker/gibo \
