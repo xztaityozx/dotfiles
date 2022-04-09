@@ -11,6 +11,100 @@ type zinit &> /dev/null && {
   mkdir -p $ZPFX/{bin,man/man1,share,script}
 }
 
+# zinitに構文追加したりするやつ
+# {{{
+
+  zinit light NICHOLAS85/z-a-eval
+  zinit light NICHOLAS85/z-a-linkbin
+  zinit light zdharma-continuum/zinit-annex-bin-gem-node
+
+# }}}
+
+# 言語とかのruntime系
+# {{{
+
+  # anyenv
+  # {{{
+    # anyenvのzshを起動するたびに実行する部分
+    function _zinit_anyenv_atload() {
+      add-zsh-hook precmd __hook-anyenv-post-install-env
+      unfunction $0
+    }
+
+    # anyenv install した後initスクリプトを更新するHook
+    function __hook-anyenv-post-install-env() {
+      [[ "${1}" =~ "anyenv install" ]] && zinit recache anyenv/anyenv
+      true
+    }
+
+    zinit ice as"program" pick"bin/anyenv" atclone"yes | bin/anyenv install --init" eval"bin/anyenv init - zsh" \
+      atload'export ANYENV_ROOT=$PWD;_zinit_anyenv_atload' \
+      atpull"anyenv install --update"
+    zinit light anyenv/anyenv
+
+    zinit ice wait'[[ -n "$(type anyenv)" ]]' has"anyenv" cloneonly nocompile \
+      atclone"mkdir -p $(anyenv root)/plugins/anyenv-update && cp -r * $(anyenv root)/plugins/anyenv-update" \
+      atpull"%atclone"
+    zinit light znz/anyenv-update
+
+    # anyenvでなんもインストールされてなかったらセットアップ開始する
+    [[ -z "$(anyenv versions 2>&1)" ]] && {
+        VERSIONS="
+goenv 
+plenv 
+pyenv 
+nodenv
+tfenv
+rbenv"
+
+      echo "$VERSIONS" | while read L; do anyenv install "$L" --skip-existing ; done
+
+        zinit recache anyenv/anyenv
+        source "$(anyenv root)/evalcache.zsh"
+
+        zinit ice has"nodenv" cloneonly nocompile \
+          atclone'mkdir -p $(nodenv root)/plugins/nodenv-yarn-install && cp -r * $(nodenv root)/plugins/nodenv-yarn-install/' \
+          atpull"%atclone"
+        zinit light pine/nodenv-yarn-install
+
+        PYENV_GLOBAL_VERSION=3.10.4
+        pyenv install "$PYENV_GLOBAL_VERSION"
+        pyenv global "$PYENV_GLOBAL_VERSION"
+
+        goenv install 1.16.5 --skip-existing
+        goenv install 1.18.0 --skip-existing
+        goenv global 1.18.0
+
+        nodenv install 16.8.0 --skip-existing
+        nodenv global 16.8.0
+
+        rbenv install 3.1.1
+    }
+  # }}}
+  
+  # rust
+  #{{{
+    zinit light zdharma-continuum/zinit-annex-rust
+
+    zinit id-as"rust" wait=1 as=null sbin"bin/*" lucid rustup \
+      atload"[[ ! -f ${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && zinit creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup" for \
+        zdharma-continuum/null
+  #}}}
+
+# }}}
+
+
+function is_x86_64() {
+  [[ "$(uname -m)" == "x86_64" ]]
+}
+
+function zinit-creinstall-once() {
+  local CMD_NAME="${1}"
+  local FULL_NAME="${2:-$CMD_NAME}"
+  [[ -z "$CMD_NAME" ]] && {echo plugin is not specified; return 1}
+  [[ ! -f "$ZINIT[COMPLETIONS_DIR]/_${1}" ]] && zinit creinstall "$FULL_NAME"
+}
+
 # プロンプトが出る前にロードして欲しいツール
 # {{{
 
@@ -25,26 +119,37 @@ type zinit &> /dev/null && {
     unfunction $0
   }
 
-  zinit as"program" from"gh-r" for \
-    pick"./*/bin/nvim" ver"stable"                                                   neovim/neovim \
-    pick"./*/bat"      mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"    @sharkdp/bat \
-    pick"*/fd"                                                                         @sharkdp/fd \
-    pick"lazygit"    atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit \
-    pick"*/go-cdx"     atload'source $ZPFX/script/go-cdx-rc.zsh' atclone"_zinit_go-cdx_atclone" atpull"%atclone"                                xztaityozx/go-cdx
+  # x86系のバイナリしかないやつ
 
 
-  function _zinit_zoxide_atload() {
-    [[ -e "$ZPFX/script/zoxide-rc.zsh" ]] && source "$ZPFX/script/zoxide-rc.zsh"
-    export _ZO_DATA_DIR="$PWD/.local/share/"
-    unfunction $0
-  }
+  # x86にはバイナリがある場合
+  zinit if'is_x86_64' as"program" from"gh-r" for \
+    pick"*/fd"                                                                        @sharkdp/fd \
+    pick"./*/bat"  mv"./**/completions/bat.zsh.in -> _bat" atload"_zinit_bat_atload"  @sharkdp/bat
 
-  zinit ice as"program" from"gh-r" pick"$ZPFX/bin/zoxide" atclone"zoxide init zsh > $ZPFX/script/zoxide-rc.zsh" atload"_zinit_zoxide_atload" atpull"%atclone"
-  zinit light ajeetdsouza/zoxide
+  # x86系のバイナリが配布されてないので、自前でビルドするやつ
+  zinit if'[[ ! is_x86_64 ]]' rustup for \
+    id-as'bat' cargo'!bat' atload"_zinit_bat_atload" zdharma-continuum/null \
+    id-as'fd'  cargo'fd-find <- !fd-find -> fd' atclone"zinit-creinstall-once fd" zdharma-continuum/null
+
+  zinit if'[[ ! is_x86_64 ]]' has"go" atclone"go build" eval'go-cdx --init' lbin'!go-cdx' for xztaityozx/go-cdx
+  zinit if'is_x86_64' eval'go-cdx --init' lbin'!go-cdx' for xztaityozx/go-cdx
+
+  # aarchなバイナリも配ってくれてるツール群
+  zinit from"gh-r" for \
+    lbin'!zoxide'  eval"zoxide init zsh" atload'export _ZO_DATA_DIR="$PWD/.local/share/"' ajeetdsouza/zoxide \
+    lbin'!lazygit' atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"                  jesseduffield/lazygit \
+    lbin'!direnv.* -> direnv' eval'direnv hook zsh' direnv/direnv
+
+  # nvim
+  # zinitにrelaeseの名前を解決させることができないのでなんとかする
+  zinit ice from"gh-r" ver"stable" bpick"nvim-$ENV_OS*.tar.gz" lbin'!./*/bin/nvim -> nvim'
+  zinit light neovim/neovim
 
   # }}}
 
   # fzf
+  # fzfは補完とかを提供してくれるスクリプトがReleaseのアーカイブに含まれてないのでビルド
   # {{{
 
     function _zinit_fzf_atload() {
@@ -55,94 +160,18 @@ type zinit &> /dev/null && {
     }
 
     function _fzf_compgen_path() {
-      echo "$1"
       fd --type=f --exclude .git --hidden --follow
     }
     
     function _fzf_compgen_dir() {
-      echo "$1"
       fd --type=f --exclude .git --hidden --follow
     }
 
-    zinit ice as"program" \
-      pick"$ZPFX/bin/fzf" \
-      atclone"cp -vf bin/fzf $ZPFX/bin/; cp -vf man/man1/fzf $ZPFX/man/man1" \
-      atpull"%atclone" \
-      atload"_zinit_fzf_atload" \
-      make"!install"
-    zinit load junegunn/fzf
-
-  # }}}
-  
-  # {{{
-  # dienv
-
-    function _zinit_direnv_atload() {
-      [[ -f "$ZPFX/script/direnv-rc.zsh" ]] || direnv hook zsh > $ZPFX/script/direnv-rc.zsh
-
-      source $ZPFX/script/direnv-rc.zsh
-      unfunction $0
-    }
-
-    zinit ice from"gh-r" as"program" cp"direnv.* -> $ZPFX/bin/direnv" pick"$ZPFX/bin/direnv" atload'_zinit_direnv_atload'
-    zinit light direnv/direnv
-  
-  # }}}
-
-  # anyenv
-  # {{{
- 
-    # anyenvの初回/更新後セットアップ
-    function _zinit_anyenv_atclone() {
-      anyenv install --init &> /dev/null
-      
-      eval "$(anyenv init - zsh)"
-
-      zinit ice has"anyenv" cloneonly nocompile \
-        atclone"mkdir -p $(anyenv root)/plugins/anyenv-update && cp -r * $(anyenv root)/plugins/anyenv-update" \
-        atpull"%atclone"
-      zinit light znz/anyenv-update
-
-      declare -A versions=(
-        "goenv" "1.16.5"
-        "plenv" "5.32.0"
-        "pyenv" "3.9.0"
-        "nodenv" "16.8.0"
-      )
-
-      for key in ${(k)versions}; do
-        anyenv install --skip-existing $key
-      done
-
-      zinit ice has"plenv" cloneonly nocompile \
-        atclone"mkdir -p $(plenv root)/plugins/perl-download && cp -r * $(plenv root)/plugins/perl-download" \
-        atpull"%atclone"
-      zinit light skaji/plenv-download
-      
-      for key in ${(k)versions}; do
-        $key install ${versions[$key]} --skip-existing 
-        $key global ${versions[$key]}
-      done
-    }
-
-    # anyenvのzshを起動するたびに実行する部分
-    function _zinit_anyenv_atload() {
-      [[ -e "$ZPFX/script/anyenv-rc.zsh" ]] && source "$ZPFX/script/anyenv-rc.zsh"
-      unfunction $0
-      unfunction _zinit_anyenv_atclone
-      add-zsh-hook zshaddhistory __hook-anyenv-post-install-env
-    }
-
-    # anyenv install した後initスクリプトを更新するHook
-    function __hook-anyenv-post-install-env() {
-      [[ "${1}" =~ "anyenv install" ]] && anyenv init --no-rehash - zsh > $ZPFX/script/anyenv-rc.zsh
-      true
-    }
-
-    zinit ice wait lucid as"program" pick"bin/anyenv" \
-      atload'export ANYENV_ROOT=$PWD;_zinit_anyenv_atload' \
-      atclone"_zinit_anyenv_atclone" atpull"anyenv install --update;%atclone"
-    zinit light anyenv/anyenv
+    # fzf本体はmakeでインストールされるけど、fzf-tmuxはされないのでlbinでsoft link貼る
+    zinit has"go" atload"_zinit_fzf_atload" \
+      lbin'!bin/fzf-tmux -> fzf-tmux' \
+      make'!install PREFIX=$ZPFX' eval'cat shell/*.zsh' \
+        for junegunn/fzf
 
   # }}}
 
@@ -162,11 +191,14 @@ type zinit &> /dev/null && {
 
   # }}}
   
-  # powerline
+  # powerline-go
+  # リリースに最新のものがアップロードされないので自前でビルド
   # {{{
   
-    zinit ice as"program" pick"$GOPATH/bin/powerline-go" nocompletions nocompile atclone"go install" atpull"%atclone" atload"source $ZDOTDIR/powerline.zsh"
-    zinit load justjanne/powerline-go
+    zinit has"go" lbin'!powerline-go' nocompletions nocompile \
+      atclone"go build" atpull"%atclone" \
+      atload"source $ZDOTDIR/powerline.zsh" \
+        for justjanne/powerline-go
 
   # }}}
 # }}}
