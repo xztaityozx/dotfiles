@@ -43,5 +43,3 @@ mkdir -p $HOME/.config
 ln -s $SCRIPT_DIR/config/* $HOME/.config/
 ln -s $SCRIPT_DIR/ideavimrc $HOME/.ideavimrc
 
-export ZDOTDIR=$HOME/.config/zsh
-make
