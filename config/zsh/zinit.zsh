@@ -167,10 +167,12 @@ function zinit-rust-ready() {
       fd --type=f --exclude .git --hidden --follow
     }
 
-    # fzf本体はmakeでインストールされるけど、fzf-tmuxはされないのでlbinでsoft link貼る
-    zinit has"go" atload"_zinit_fzf_atload" nocompile \
-      lbin'!bin/fzf-tmux -> fzf-tmux' \
-      make'!install PREFIX=$ZPFX' eval'cat $(zinit cd junegunn/fzf &>/dev/null && pwd)/shell/*.zsh' \
+    # fzf
+    zinit atload"_zinit_fzf_atload" nocompile \
+      cloneopts"--depth 1" \
+      lbin'!bin/{fzf,fzf-tmux}' \
+      atclone"./install --bin --no-{zsh,bash,fish,completion,key-bindings}" atpull"%atclone" \
+      eval'cat shell/*.zsh' \
         for junegunn/fzf
 
   # }}}
