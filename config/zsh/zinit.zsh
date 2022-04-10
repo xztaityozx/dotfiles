@@ -97,8 +97,19 @@ tfenv"
 # }}}
 
 
+#function is_x86_64() {
+  #[[ "$(uname -m)" == "x86_64" ]]
+#}
+
+#function is_not_x86_64() {
+  #[[ "$(uname -m)" != "x86_64" ]]
+#}
 function is_x86_64() {
   [[ "$(uname -m)" != "x86_64" ]]
+}
+
+function is_not_x86_64() {
+  [[ "$(uname -m)" == "x86_64" ]]
 }
 
 function zinit-creinstall-once() {
@@ -128,15 +139,15 @@ function zinit-rust-ready() {
     lbin'!./*/bat -> bat'  mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"     @sharkdp/bat
 
   # x86系のバイナリが配布されてないので、自前でビルドするやつ
-  zinit if'[[ ! is_x86_64 ]]' rustup wait'zinit-rust-ready' for \
+  zinit if'is_not_x86_64' rustup wait'zinit-rust-ready' for \
     id-as'bat' cargo'!bat' atload"_zinit_bat_atload" xztaityozx/null \
     id-as'fd'  cargo'fd-find <- !fd-find -> fd' atclone"zinit-creinstall-once fd" xztaityozx/null
 
-  zinit if'[[ ! is_x86_64 ]]' has"go" atclone"go build" eval'./go-cdx --init' lbin'!go-cdx' for xztaityozx/go-cdx
+  zinit if'is_not_x86_64' has"go" atclone"go build" eval'./go-cdx --init' lbin'!go-cdx' for xztaityozx/go-cdx
   zinit if'is_x86_64' from"gh-r"  eval'linux/go-cdx --init' lbin'!linux/go-cdx -> go-cdx' for xztaityozx/go-cdx
 
   # aarchなバイナリも配ってくれてるツール群
-  zinit from"gh-r" for \
+  zinit from"gh-r" nocompile for \
     lbin'!zoxide'  eval"zoxide init zsh" atload'export _ZO_DATA_DIR="$PWD/.local/share/"' ajeetdsouza/zoxide \
     lbin'!lazygit' atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"                  jesseduffield/lazygit \
     lbin'!direnv.* -> direnv' eval'direnv hook zsh' direnv/direnv
@@ -224,7 +235,7 @@ function zinit-rust-ready() {
         atload"_zinit_exa_atload" \
           ogham/exa
 
-    zinit if'[[ ! is_x86_64 ]]' wait'zinit-rust-ready' nocompile lucid rustup for \
+    zinit if'is_not_x86_64' wait'zinit-rust-ready' nocompile lucid rustup for \
       id-as'ripgrep' cargo'rg <- !ripgrep -> rg'                       xztaityozx/null \
       id-as'delta'   cargo'delta <- !git-delta -> delta'               xztaityozx/null \
       id-as'teip'    cargo'!teip'                                      xztaityozx/null \
@@ -235,7 +246,7 @@ function zinit-rust-ready() {
       id-as'grex'    cargo'!grex'                                      xztaityozx/null \
       id-as'hyperfine'    cargo'!hyperfine'                            xztaityozx/null \
 
-    zinit has"go" if'[[ ! is_x86_64 ]]' wait lucid nocompile lucid atclone"go build" atpull"%atclone" for \
+    zinit has"go" if'is_not_x86_64' wait lucid nocompile lucid atclone"go build" atpull"%atclone" for \
       lbin'!sel' atclone'go build && sel completion zsh > _sel' xztaityozx/sel
 
   # }}}
@@ -289,13 +300,13 @@ function zinit-rust-ready() {
 
   # gh-rにx86_64系のバイナリしかないので自前でビルドしないとダメな奴
   # Go製のツール
-  zinit if'[[ ! is_x86_64 ]]' wait"1" lucid nocompile has"go" atpull'%atclone' for \
+  zinit if'is_not_x86_64' wait"1" lucid nocompile has"go" atpull'%atclone' for \
     make'!install prefix=$ZPFX' atclone'gh completion -s zsh > _gh' atload'zinit-creinstall-once gh cli/cli' cli/cli \
     make'!build' lbin'!ghq' atload'zinit-creinstall-once ghq x-motemen/ghq' x-motemen/ghq \
     atclone'go build' lbin'!gron' tomnomnom/gron
 
   # sdは最新のデフォルトブランチの内容がRelaeseにアップロードされていないので自前でビルド
-  zinit wait"zinit-rust-ready" lucid rustup for \
+  zinit wait"zinit-rust-ready" lucid rustup nocompile for \
     id-as'sd' cargo'sd' atload"alias sd='sd -p'" chmln/sd
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
