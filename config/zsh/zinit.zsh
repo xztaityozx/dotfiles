@@ -291,7 +291,7 @@ function zinit-rust-ready() {
 
   # sdは最新のデフォルトブランチの内容がRelaeseにアップロードされていないので自前でビルド
   zinit wait"zinit-rust-ready" lucid rustup for \
-    id-sa'sd' cargo'sd' atload"alias sd='sd -p'" chmln/sd
+    id-as'sd' cargo'sd' atload"alias sd='sd -p'" chmln/sd
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zinit wait'1' nocompile lucid atpull'%atclone' for \
