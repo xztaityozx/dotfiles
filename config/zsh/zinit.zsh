@@ -14,7 +14,7 @@ type zinit &> /dev/null && {
 # zinitに構文追加したりするやつ
 # {{{
 
-  zinit light NICHOLAS85/z-a-eval
+  zinit atinit'Z_A_USECOMP=1' light NICHOLAS85/z-a-eval
   zinit light NICHOLAS85/z-a-linkbin
   zinit light zdharma-continuum/zinit-annex-bin-gem-node
 
