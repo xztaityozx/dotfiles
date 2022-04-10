@@ -247,7 +247,7 @@ function zinit-rust-ready() {
   # Releaseに最新のバイナリをおいてないのでどっちにしろビルドしないといけない
   # {{{
 
-    zinit has"go" ice nocompile lucid wait \
+    zinit has"go" nocompile lucid wait \
       cloneopts"--config transfer.fsckobjects=false --config receive.fsckobjects=false --config fetch.fsckobjects=false" \
       cp'etc/hub.zsh_completion -> _hub' \
       atclone"go build; zinit-creinstall-once hub github/hub" atpull"%atclone" \
