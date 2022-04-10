@@ -296,7 +296,7 @@ function zinit-rust-ready() {
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zinit wait'1' nocompile lucid atpull'%atclone' for \
     lbin'!gibo' atclone'./gibo update; cp shell-completions/gibo-completion.zsh _gibo' atload'zinit-creinstall-once gibo simonwhitaker/gibo'        simonwhitaker/gibo \
-    lbin'!bin/xpanes'                                                                      greymd/tmux-xpanes
+    lbin'!bin/xpanes' as'null' has'tmux' greymd/tmux-xpanes
 
 # }}}
 
