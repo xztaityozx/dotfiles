@@ -45,7 +45,7 @@ type zinit &> /dev/null && {
       atpull"anyenv install --update"
     zinit light anyenv/anyenv
 
-    zinit ice wait'[[ -n "$(type anyenv)" ]]' has"anyenv" cloneonly nocompile \
+    zinit ice wait'[[ -n "$(type anyenv)" ]]' lucid has"anyenv" cloneonly nocompile \
       atclone"mkdir -p $(anyenv root)/plugins/anyenv-update && cp -r * $(anyenv root)/plugins/anyenv-update" \
       atpull"%atclone"
     zinit light znz/anyenv-update
