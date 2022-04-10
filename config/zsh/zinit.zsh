@@ -312,8 +312,8 @@ function zinit-rust-ready() {
 
   # }}}
 
-    zinit lucid as"null" cloneonly nocompile for \
-      atinit"mkdir -p $HOME/.local/share/nvim/site/pack/packer/start/" cp"* -> $HOME/.local/share/nvim/site/pack/packer/start/" wbthomason/packer.nvim
+    zinit lucid as'null' cloneonly nocompile for \
+      atclone'mkdir -p $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim && cp -r * $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim' wbthomason/packer.nvim
 
 
   # pip3 install
