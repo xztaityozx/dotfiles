@@ -37,7 +37,7 @@ type zinit &> /dev/null && {
       true
     }
 
-    zinit ice lbin'!bin/anyenv' atclone"yes | bin/anyenv install --init" eval"bin/anyenv init - zsh" \
+    zinit ice lbin'!libexec/anyenv' atclone"yes | bin/anyenv install --init" eval"bin/anyenv init - zsh" \
       atload'export ANYENV_ROOT=$PWD;_zinit_anyenv_atload' \
       atpull"anyenv install --update"
     zinit light anyenv/anyenv
