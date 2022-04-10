@@ -27,7 +27,10 @@ type zinit &> /dev/null && {
   # {{{
     # anyenvのzshを起動するたびに実行する部分
     function _zinit_anyenv_atload() {
-      add-zsh-hook precmd __hook-anyenv-post-install-env
+
+      add-zsh-hook -L precmd | grep __hook-anyenv-post-install-env &>/dev/null || {
+        add-zsh-hook precmd __hook-anyenv-post-install-env
+      }
       unfunction $0
     }
 
