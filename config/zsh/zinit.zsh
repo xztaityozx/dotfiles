@@ -88,7 +88,7 @@ tfenv"
 
     zinit id-as"rust" wait=1 as=null sbin"bin/*" lucid rustup \
       atload"[[ ! -f ${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && zinit creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup" for \
-        zdharma-continuum/null
+        xztaityozx/null
   #}}}
 
 # }}}
@@ -126,8 +126,8 @@ function zinit-rust-ready() {
 
   # x86系のバイナリが配布されてないので、自前でビルドするやつ
   zinit if'[[ ! is_x86_64 ]]' rustup wait'zinit-rust-ready' for \
-    id-as'bat' cargo'!bat' atload"_zinit_bat_atload" zdharma-continuum/null \
-    id-as'fd'  cargo'fd-find <- !fd-find -> fd' atclone"zinit-creinstall-once fd" zdharma-continuum/null
+    id-as'bat' cargo'!bat' atload"_zinit_bat_atload" xztaityozx/null \
+    id-as'fd'  cargo'fd-find <- !fd-find -> fd' atclone"zinit-creinstall-once fd" xztaityozx/null
 
   zinit if'[[ ! is_x86_64 ]]' has"go" atclone"go build" eval'./go-cdx --init' lbin'!go-cdx' for xztaityozx/go-cdx
   zinit if'is_x86_64' from"gh-r"  eval'linux/go-cdx --init' lbin'!linux/go-cdx -> go-cdx' for xztaityozx/go-cdx
@@ -220,15 +220,15 @@ function zinit-rust-ready() {
           ogham/exa
 
     zinit if'[[ ! is_x86_64 ]]' wait'zinit-rust-ready' nocompile lucid rustup for \
-      id-as'ripgrep' cargo'rg <- !ripgrep -> rg'                       zdharma-continuum/null \
-      id-as'delta'   cargo'delta <- !git-delta -> delta'               zdharma-continuum/null \
-      id-as'teip'    cargo'!teip'                                      zdharma-continuum/null \
-      id-as'rargs'   cargo'!rargs'                                     zdharma-continuum/null \
-      id-as'exa'     cargo'!exa' atload'zinit-creinstall-once exa;_zinit_exa_atload'  zdharma-continuum/null \
-      id-as'hexyl'   cargo'!hexyl'                                     zdharma-continuum/null \
-      id-as'pastel'  cargo'!pastel' atload'_zinit_pastel_atload'       zdharma-continuum/null \
-      id-as'grex'    cargo'!grex'                                      zdharma-continuum/null \
-      id-as'hyperfine'    cargo'!hyperfine'                            zdharma-continuum/null \
+      id-as'ripgrep' cargo'rg <- !ripgrep -> rg'                       xztaityozx/null \
+      id-as'delta'   cargo'delta <- !git-delta -> delta'               xztaityozx/null \
+      id-as'teip'    cargo'!teip'                                      xztaityozx/null \
+      id-as'rargs'   cargo'!rargs'                                     xztaityozx/null \
+      id-as'exa'     cargo'!exa' atload'zinit-creinstall-once exa;_zinit_exa_atload'  xztaityozx/null \
+      id-as'hexyl'   cargo'!hexyl'                                     xztaityozx/null \
+      id-as'pastel'  cargo'!pastel' atload'_zinit_pastel_atload'       xztaityozx/null \
+      id-as'grex'    cargo'!grex'                                      xztaityozx/null \
+      id-as'hyperfine'    cargo'!hyperfine'                            xztaityozx/null \
 
     zinit has"go" if'[[ ! is_x86_64 ]]' wait lucid nocompile lucid atclone"go build" atpull"%atclone" for \
       lbin'!sel' atclone'go build && sel completion zsh > _sel' xztaityozx/sel
