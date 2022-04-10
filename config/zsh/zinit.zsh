@@ -70,19 +70,19 @@ tfenv"
           atpull"%atclone"
         zinit light pine/nodenv-yarn-install
 
-        PYENV_GLOBAL_VERSION=3.10.4
-        pyenv install "$PYENV_GLOBAL_VERSION"
-        pyenv global "$PYENV_GLOBAL_VERSION"
+        #PYENV_GLOBAL_VERSION=3.10.4
+        #pyenv install "$PYENV_GLOBAL_VERSION"
+        #pyenv global "$PYENV_GLOBAL_VERSION"
 
-        goenv install 1.16.5 --skip-existing
-        goenv install 1.18.0 --skip-existing
-        goenv global 1.18.0
+        #goenv install 1.16.5 --skip-existing
+        #goenv install 1.18.0 --skip-existing
+        #goenv global 1.18.0
 
-        nodenv install 16.8.0 --skip-existing
-        nodenv global 16.8.0
+        #nodenv install 16.8.0 --skip-existing
+        #nodenv global 16.8.0
 
-        rbenv install 3.1.1
-        rbenv global 3.1.1
+        #rbenv install 3.1.1
+        #rbenv global 3.1.1
     }
   # }}}
   
