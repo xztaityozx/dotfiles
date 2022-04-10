@@ -23,17 +23,18 @@ USER ${DOCKER_USER}
 WORKDIR /home/docker
 RUN mkdir -p /home/docker/ghq/github.com/xztaityozx/
 WORKDIR /home/docker/ghq/github.com/xztaityozx
-RUN git clone https://github.com/xztaityozx/dotfiles 
+
+ADD .git/index /data/
+RUN git clone --depth 1 --branch refactor/zinit  https://github.com/xztaityozx/dotfiles 
 WORKDIR /home/docker/ghq/github.com/xztaityozx/dotfiles
 RUN git checkout refactor/zinit
 RUN zsh -c "echo docker | sudo -S echo do; zsh install.zsh"
+RUN zsh -c make
 
-WORKDIR /home/docker/ghq/github.com/xztaityozx/dotfiles/config/zsh
-#RUN mkdir .zinit
-#RUN git clone https://github.com/zdharma-continuum/zinit.git .zinit/bin
-RUN echo "source $PWD/.zinit/bin/zinit.zsh" > ~/.zshrc
-RUN echo "autoload -Uz _zinit" >> ~/.zshrc
-RUN echo '(( ${+_comps} )) && _comps[zinit]=_zinit' >> ~/.zshrc
-ENV PATH="$PATH:$ZPFX/bin"
+#WORKDIR /home/docker/ghq/github.com/xztaityozx/dotfiles/config/zsh
+#RUN echo "source $PWD/.zinit/bin/zinit.zsh" > ~/.zshrc
+#RUN echo "autoload -Uz _zinit" >> ~/.zshrc
+#RUN echo '(( ${+_comps} )) && _comps[zinit]=_zinit' >> ~/.zshrc
+#ENV PATH="$PATH:$ZPFX/bin"
 
 CMD ["zsh"]
