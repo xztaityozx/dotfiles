@@ -165,7 +165,7 @@ function zinit-rust-ready() {
     }
 
     # fzf本体はmakeでインストールされるけど、fzf-tmuxはされないのでlbinでsoft link貼る
-    zinit has"go" atload"_zinit_fzf_atload" \
+    zinit has"go" atload"_zinit_fzf_atload" nocompile \
       lbin'!bin/fzf-tmux -> fzf-tmux' \
       make'!install PREFIX=$ZPFX' eval'cat shell/*.zsh' \
         for junegunn/fzf
