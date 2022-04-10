@@ -174,9 +174,10 @@ function zinit-rust-ready() {
   
   # powerline-go
   # リリースに最新のものがアップロードされないので自前でビルド
+  # as"null" をつけないと謎のpreviewスクリプトが暴走してえらいことになる
   # {{{
   
-    zinit has"go" lbin'!powerline-go' nocompletions nocompile \
+    zinit has"go" lbin'!powerline-go' nocompletions nocompile as"null" \
       atclone"go build" atpull"%atclone" \
       atload"source $ZDOTDIR/powerline.zsh" \
         for justjanne/powerline-go
