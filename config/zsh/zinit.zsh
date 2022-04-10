@@ -70,46 +70,39 @@ tfenv"
           atpull"%atclone"
         zinit light pine/nodenv-yarn-install
 
-        #PYENV_GLOBAL_VERSION=3.10.4
-        #pyenv install "$PYENV_GLOBAL_VERSION"
-        #pyenv global "$PYENV_GLOBAL_VERSION"
+        PYENV_GLOBAL_VERSION=3.10.4
+        pyenv install "$PYENV_GLOBAL_VERSION"
+        pyenv global "$PYENV_GLOBAL_VERSION"
 
-        #goenv install 1.16.5 --skip-existing
-        #goenv install 1.18.0 --skip-existing
-        #goenv global 1.18.0
+        goenv install 1.16.5 --skip-existing
+        goenv install 1.18.0 --skip-existing
+        goenv global 1.18.0
 
-        #nodenv install 16.8.0 --skip-existing
-        #nodenv global 16.8.0
+        nodenv install 16.8.0 --skip-existing
+        nodenv global 16.8.0
 
-        #rbenv install 3.1.1
-        #rbenv global 3.1.1
+        rbenv install 3.1.1
+        rbenv global 3.1.1
     }
   # }}}
   
   # rust
   #{{{
 
-    zinit id-as"rust" wait=1 as=null sbin"bin/*" lucid rustup \
-      atload"[[ ! -f ${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && zinit creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup" for \
+    zinit id-as"rust" as=null sbin"bin/*" lucid rustup \
+      atload"[[ ! -f ${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && zinit creinstall -Q rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup" for \
         xztaityozx/null
   #}}}
 
 # }}}
 
 
-#function is_x86_64() {
-  #[[ "$(uname -m)" == "x86_64" ]]
-#}
-
-#function is_not_x86_64() {
-  #[[ "$(uname -m)" != "x86_64" ]]
-#}
 function is_x86_64() {
-  [[ "$(uname -m)" != "x86_64" ]]
+  [[ "$(uname -m)" == "x86_64" ]]
 }
 
 function is_not_x86_64() {
-  [[ "$(uname -m)" == "x86_64" ]]
+  [[ "$(uname -m)" != "x86_64" ]]
 }
 
 function zinit-creinstall-once() {
@@ -134,12 +127,12 @@ function zinit-rust-ready() {
 
 
   # x86にはバイナリがある場合
-  zinit if'is_x86_64' as"program" from"gh-r" for \
+  zinit if'is_x86_64' nocompile from"gh-r" for \
     lbin'!*/fd -> fd'                                                                         @sharkdp/fd \
     lbin'!./*/bat -> bat'  mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"     @sharkdp/bat
 
-  # x86系のバイナリが配布されてないので、自前でビルドするやつ
-  zinit if'is_not_x86_64' rustup wait'zinit-rust-ready' for \
+  # aarchは配布されてないので、自前でビルドするやつ
+  zinit if'is_not_x86_64' nocompile rustup wait'zinit-rust-ready' lucid for \
     id-as'bat' cargo'!bat' atload"_zinit_bat_atload" xztaityozx/null \
     id-as'fd'  cargo'fd-find <- !fd-find -> fd' atclone"zinit-creinstall-once fd" xztaityozx/null
 
@@ -240,11 +233,18 @@ function zinit-rust-ready() {
       id-as'delta'   cargo'delta <- !git-delta -> delta'               xztaityozx/null \
       id-as'teip'    cargo'!teip'                                      xztaityozx/null \
       id-as'rargs'   cargo'!rargs'                                     xztaityozx/null \
-      id-as'exa'     cargo'!exa' atload'zinit-creinstall-once exa;_zinit_exa_atload'  xztaityozx/null \
       id-as'hexyl'   cargo'!hexyl'                                     xztaityozx/null \
       id-as'pastel'  cargo'!pastel' atload'_zinit_pastel_atload'       xztaityozx/null \
       id-as'grex'    cargo'!grex'                                      xztaityozx/null \
       id-as'hyperfine'    cargo'!hyperfine'                            xztaityozx/null \
+
+    # cargo install exaだとビルド失敗するので、HEADでビルド
+    zinit if'is_not_x86_64' wait'zinit-rust-ready' nocompile lucid \
+      atload'zinit-creinstall-once exa ogham/exa;_zinit_exa_atload' \
+      lbin'!target/release/exa' \
+      atclone"cargo build --release" atpull'%atclone' for \
+        ogham/exa
+
 
     zinit has"go" if'is_not_x86_64' wait lucid nocompile lucid atclone"go build" atpull"%atclone" for \
       lbin'!sel' atclone'go build && sel completion zsh > _sel' xztaityozx/sel
