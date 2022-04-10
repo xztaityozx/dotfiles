@@ -17,6 +17,7 @@ type zinit &> /dev/null && {
   zinit atinit'Z_A_USECOMP=1' light NICHOLAS85/z-a-eval
   zinit light NICHOLAS85/z-a-linkbin
   zinit light zdharma-continuum/zinit-annex-bin-gem-node
+  zinit light zdharma-continuum/zinit-annex-rust
 
 # }}}
 
@@ -85,7 +86,6 @@ tfenv"
   
   # rust
   #{{{
-    zinit light zdharma-continuum/zinit-annex-rust
 
     zinit id-as"rust" wait=1 as=null sbin"bin/*" lucid rustup \
       atload"[[ ! -f ${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && zinit creinstall rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup" for \
