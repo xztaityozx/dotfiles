@@ -167,7 +167,7 @@ function zinit-rust-ready() {
     # fzf本体はmakeでインストールされるけど、fzf-tmuxはされないのでlbinでsoft link貼る
     zinit has"go" atload"_zinit_fzf_atload" nocompile \
       lbin'!bin/fzf-tmux -> fzf-tmux' \
-      make'!install PREFIX=$ZPFX' eval'cat shell/*.zsh' \
+      make'!install PREFIX=$ZPFX' eval'cat $(zinit cd junegunn/fzf &>/dev/null && pwd)/shell/*.zsh' \
         for junegunn/fzf
 
   # }}}
@@ -252,7 +252,7 @@ function zinit-rust-ready() {
       cp'etc/hub.zsh_completion -> _hub' \
       atclone"go build; zinit-creinstall-once hub github/hub" atpull"%atclone" \
       lbin'!hub' \
-        for github/hub
+        for @github/hub
 
   # }}}
 
