@@ -24,7 +24,7 @@ $(ZSHRC): clean
 	[[ "$(ENABLE_ZPROF)" == "1" ]] && echo 'zmodload zsh/zprof && zprof' >> $(ZSHRC) || echo "zprof disable"
 	cat ./main.zsh >> $(ZSHRC)
 	cat ./zinit.zsh >> $(ZSHRC)
-	echo {alias,bind,function,iab,eval}.zsh | xargs cat >> $(ZSHRC)
+	echo {alias,bind,function,iab}.zsh | xargs cat >> $(ZSHRC)
 	[[ "$(OS)" == "Darwin" ]] && cat ./iterm2.zsh >> $(ZSHRC) || echo "ok"
 	[[ "$(ENABLE_ZPROF)" == "1" ]] && echo 'type zprof &>/dev/null && zprof | less' >> $(ZSHRC) || echo "zprof disable"
 

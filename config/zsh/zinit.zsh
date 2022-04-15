@@ -2,13 +2,118 @@
 
 type zip tar curl wget git unzip &> /dev/null || return 127;
 
-[[ -f "$ZDOTDIR/.zinit/zinit.zsh" ]] && source "$ZDOTDIR/.zinit/zinit.zsh"
 [[ -f "$ZDOTDIR/.zinit/bin/zinit.zsh" ]] && source "$ZDOTDIR/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 type zinit &> /dev/null && {
   mkdir -p $ZPFX/{bin,man/man1,share,script}
+}
+
+# zinitに構文追加したりするやつ
+# {{{
+
+  zinit atinit'Z_A_USECOMP=1' light-mode for NICHOLAS85/z-a-eval
+  zinit light NICHOLAS85/z-a-linkbin
+  zinit light zdharma-continuum/zinit-annex-bin-gem-node
+  zinit light zdharma-continuum/zinit-annex-rust
+
+# }}}
+
+# 言語とかのruntime系
+# {{{
+
+  # anyenv
+  # {{{
+    # anyenvのzshを起動するたびに実行する部分
+    function _zinit_anyenv_atload() {
+
+      add-zsh-hook -L precmd | grep __hook-anyenv-post-install-env &>/dev/null || {
+        add-zsh-hook precmd __hook-anyenv-post-install-env
+      }
+      unfunction $0
+    }
+
+    # anyenv install した後initスクリプトを更新するHook
+    function __hook-anyenv-post-install-env() {
+      [[ "${1}" =~ "anyenv install" ]] && zinit recache anyenv/anyenv
+      true
+    }
+
+    zinit ice pick'bin/anyenv' as"program" atclone"yes | bin/anyenv install --init" eval"bin/anyenv init - zsh" \
+      atload'export ANYENV_ROOT=$PWD;_zinit_anyenv_atload' \
+      atpull"anyenv install --update"
+    zinit light anyenv/anyenv
+
+    zinit ice wait'[[ -n "$(type anyenv)" ]]' lucid has"anyenv" cloneonly nocompile \
+      atclone"mkdir -p $(anyenv root)/plugins/anyenv-update && cp -r * $(anyenv root)/plugins/anyenv-update" \
+      atpull"%atclone"
+    zinit light znz/anyenv-update
+
+    # anyenvでなんもインストールされてなかったらセットアップ開始する
+    [[ -z "$(anyenv versions 2>&1)" ]] && {
+        VERSIONS="
+goenv 
+plenv 
+pyenv 
+nodenv
+rbenv
+tfenv"
+
+      echo "$VERSIONS" | while read L; do anyenv install "$L" --skip-existing ; done
+
+        zinit recache anyenv/anyenv
+        source "$(anyenv root)/evalcache.zsh"
+
+        zinit ice has"nodenv" cloneonly nocompile \
+          atclone'mkdir -p $(nodenv root)/plugins/nodenv-yarn-install && cp -r * $(nodenv root)/plugins/nodenv-yarn-install/' \
+          atpull"%atclone"
+        zinit light pine/nodenv-yarn-install
+
+        PYENV_GLOBAL_VERSION=3.10.4
+        pyenv install "$PYENV_GLOBAL_VERSION"
+        pyenv global "$PYENV_GLOBAL_VERSION"
+
+        goenv install 1.16.5 --skip-existing
+        goenv install 1.18.0 --skip-existing
+        goenv global 1.18.0
+
+        nodenv install 16.8.0 --skip-existing
+        nodenv global 16.8.0
+
+        rbenv install 3.1.1
+        rbenv global 3.1.1
+    }
+  # }}}
+  
+  # rust
+  #{{{
+
+    zinit id-as"rust" as=null sbin"bin/*" lucid rustup \
+      atload"[[ ! -f ${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && zinit creinstall -Q rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup" for \
+        xztaityozx/null
+  #}}}
+
+# }}}
+
+
+function is_x86_64() {
+  [[ "$(uname -m)" == "x86_64" ]]
+}
+
+function is_not_x86_64() {
+  [[ "$(uname -m)" != "x86_64" ]]
+}
+
+function zinit-creinstall-once() {
+  local CMD_NAME="${1}"
+  local FULL_NAME="${2:-$CMD_NAME}"
+  [[ -z "$CMD_NAME" ]] && {echo plugin is not specified; return 1}
+  [[ ! -f "$ZINIT[COMPLETIONS_DIR]/_${1}" ]] && zinit creinstall "$FULL_NAME"
+}
+
+function zinit-rust-ready() {
+  [[ -v CARGO_HOME ]] && [[ -v RUSTUP_HOME ]]
 }
 
 # プロンプトが出る前にロードして欲しいツール
@@ -20,31 +125,35 @@ type zinit &> /dev/null && {
     unfunction $0
   }
 
-  function _zinit_go-cdx_atclone() {
-    go-cdx --init > $ZPFX/script/go-cdx-rc.zsh
-    unfunction $0
-  }
 
-  zinit as"program" from"gh-r" for \
-    pick"./*/bin/nvim" ver"stable"                                                   neovim/neovim \
-    pick"./*/bat"      mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"    @sharkdp/bat \
-    pick"*/fd"                                                                         @sharkdp/fd \
-    pick"lazygit"    atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"           jesseduffield/lazygit \
-    pick"*/go-cdx"     atload'source $ZPFX/script/go-cdx-rc.zsh' atclone"_zinit_go-cdx_atclone" atpull"%atclone"                                xztaityozx/go-cdx
+  # x86にはバイナリがある場合
+  zinit if'is_x86_64' nocompile from"gh-r" for \
+    lbin'!*/fd -> fd'                                                                         @sharkdp/fd \
+    lbin'!./*/bat -> bat'  mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"     @sharkdp/bat
 
+  # aarchは配布されてないので、自前でビルドするやつ
+  zinit if'is_not_x86_64' nocompile rustup wait'zinit-rust-ready' lucid for \
+    id-as'bat' cargo'!bat' atload"_zinit_bat_atload" xztaityozx/null \
+    id-as'fd'  cargo'fd-find <- !fd-find -> fd' atclone"zinit-creinstall-once fd" xztaityozx/null
 
-  function _zinit_zoxide_atload() {
-    [[ -e "$ZPFX/script/zoxide-rc.zsh" ]] && source "$ZPFX/script/zoxide-rc.zsh"
-    export _ZO_DATA_DIR="$PWD/.local/share/"
-    unfunction $0
-  }
+  zinit if'is_not_x86_64' has"go" atclone"go build" eval'./go-cdx --init' lbin'!go-cdx' for xztaityozx/go-cdx
+  zinit if'is_x86_64' from"gh-r"  eval'linux/go-cdx --init' lbin'!linux/go-cdx -> go-cdx' for xztaityozx/go-cdx
 
-  zinit ice as"program" from"gh-r" pick"$ZPFX/bin/zoxide" atclone"zoxide init zsh > $ZPFX/script/zoxide-rc.zsh" atload"_zinit_zoxide_atload" atpull"%atclone"
-  zinit light ajeetdsouza/zoxide
+  # aarchなバイナリも配ってくれてるツール群
+  zinit from"gh-r" nocompile for \
+    lbin'!zoxide'  eval"zoxide init zsh" atload'export _ZO_DATA_DIR="$PWD/.local/share/"' ajeetdsouza/zoxide \
+    lbin'!lazygit' atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"                  jesseduffield/lazygit \
+    lbin'!direnv.* -> direnv' eval'direnv hook zsh' direnv/direnv
+
+  # nvim
+  # zinitにrelaeseの名前を解決させることができないのでなんとかする
+  zinit ice from"gh-r" ver"stable" bpick"nvim-$ENV_OS*.tar.gz" lbin'!./*/bin/nvim -> nvim'
+  zinit light neovim/neovim
 
   # }}}
 
   # fzf
+  # fzfは補完とかを提供してくれるスクリプトがReleaseのアーカイブに含まれてないのでビルド
   # {{{
 
     function _zinit_fzf_atload() {
@@ -55,118 +164,32 @@ type zinit &> /dev/null && {
     }
 
     function _fzf_compgen_path() {
-      echo "$1"
       fd --type=f --exclude .git --hidden --follow
     }
     
     function _fzf_compgen_dir() {
-      echo "$1"
       fd --type=f --exclude .git --hidden --follow
     }
 
-    zinit ice as"program" \
-      pick"$ZPFX/bin/fzf" \
-      atclone"cp -vf bin/fzf $ZPFX/bin/; cp -vf man/man1/fzf $ZPFX/man/man1" \
-      atpull"%atclone" \
-      atload"_zinit_fzf_atload" \
-      make"!install"
-    zinit load junegunn/fzf
+    # fzf
+    zinit atload"_zinit_fzf_atload" nocompile \
+      cloneopts"--depth 1" \
+      lbin'!bin/{fzf,fzf-tmux}' \
+      atclone"./install --bin --no-{zsh,bash,fish,completion,key-bindings}" atpull"%atclone" \
+      eval'cat shell/*.zsh' \
+        for junegunn/fzf
 
   # }}}
   
-  # {{{
-  # dienv
-
-    function _zinit_direnv_atload() {
-      [[ -f "$ZPFX/script/direnv-rc.zsh" ]] || direnv hook zsh > $ZPFX/script/direnv-rc.zsh
-
-      source $ZPFX/script/direnv-rc.zsh
-      unfunction $0
-    }
-
-    zinit ice from"gh-r" as"program" cp"direnv.* -> $ZPFX/bin/direnv" pick"$ZPFX/bin/direnv" atload'_zinit_direnv_atload'
-    zinit light direnv/direnv
-  
-  # }}}
-
-  # anyenv
-  # {{{
- 
-    # anyenvの初回/更新後セットアップ
-    function _zinit_anyenv_atclone() {
-      anyenv install --init &> /dev/null
-      
-      eval "$(anyenv init - zsh)"
-
-      zinit ice has"anyenv" cloneonly nocompile \
-        atclone"mkdir -p $(anyenv root)/plugins/anyenv-update && cp -r * $(anyenv root)/plugins/anyenv-update" \
-        atpull"%atclone"
-      zinit light znz/anyenv-update
-
-      declare -A versions=(
-        "goenv" "1.16.5"
-        "plenv" "5.32.0"
-        "pyenv" "3.9.0"
-        "nodenv" "16.8.0"
-      )
-
-      for key in ${(k)versions}; do
-        anyenv install --skip-existing $key
-      done
-
-      zinit ice has"plenv" cloneonly nocompile \
-        atclone"mkdir -p $(plenv root)/plugins/perl-download && cp -r * $(plenv root)/plugins/perl-download" \
-        atpull"%atclone"
-      zinit light skaji/plenv-download
-      
-      for key in ${(k)versions}; do
-        $key install ${versions[$key]} --skip-existing 
-        $key global ${versions[$key]}
-      done
-    }
-
-    # anyenvのzshを起動するたびに実行する部分
-    function _zinit_anyenv_atload() {
-      [[ -e "$ZPFX/script/anyenv-rc.zsh" ]] && source "$ZPFX/script/anyenv-rc.zsh"
-      unfunction $0
-      unfunction _zinit_anyenv_atclone
-      add-zsh-hook zshaddhistory __hook-anyenv-post-install-env
-    }
-
-    # anyenv install した後initスクリプトを更新するHook
-    function __hook-anyenv-post-install-env() {
-      [[ "${1}" =~ "anyenv install" ]] && anyenv init --no-rehash - zsh > $ZPFX/script/anyenv-rc.zsh
-      true
-    }
-
-    zinit ice wait lucid as"program" pick"bin/anyenv" \
-      atload'export ANYENV_ROOT=$PWD;_zinit_anyenv_atload' \
-      atclone"_zinit_anyenv_atclone" atpull"anyenv install --update;%atclone"
-    zinit light anyenv/anyenv
-
-  # }}}
-
-  # exa
-  # {{{
-
-    function _zinit_exa_atload() {
-      alias ls="exa --git"
-      alias ll="exa --time-style=long-iso -mUuhla --icons --changed --git"
-      unfunction $0
-    }
-
-    zinit ice wait lucid from"gh-r" as"program" bpick"*$ENV_OS*" cp"exa* -> ./bin/exa" pick"bin/exa"  atclone"cp ./completions/exa.zsh $ZDOTDIR/.zinit/completions/_exa" \
-      atpull"%atclone" \
-      atload"_zinit_exa_atload"
-    zinit light ogham/exa
-
-  # }}}
-  
-  # powerline
+  # powerline-go
+  # リリースに最新のものがアップロードされないので自前でビルド
+  # as"null" をつけないと謎のpreviewスクリプトが暴走してえらいことになる
   # {{{
   
-    zinit ice as"program" pick"$GOPATH/bin/powerline-go" nocompletions nocompile atclone"go install" atpull"%atclone" atload"source $ZDOTDIR/powerline.zsh"
-    zinit load justjanne/powerline-go
+    zinit has"go" lbin'!powerline-go' nocompletions nocompile as"null" \
+      atclone"go build" atpull"%atclone" \
+      atload"source $ZDOTDIR/powerline.zsh" \
+        for justjanne/powerline-go
 
   # }}}
 # }}}
@@ -178,23 +201,74 @@ type zinit &> /dev/null && {
     alias ltsvq="csvq -i LTSV"
     unfunction $0
   }
+  function _zinit_exa_atload() {
+    alias ls="exa --git"
+    alias ll="exa --time-style=long-iso -mUuhla --icons --changed --git"
+    unfunction $0
+  }
+  function _zinit_pastel_atload() {
+    export COLORTERM=24bit
+    unfunction $0
+  }
 
-  zinit wait lucid as"program" from"gh-r" for \
-    pick"*/rg"                                          BurntSushi/ripgrep \
-    pick"*/delta"                                       dandavison/delta \
-    bpick"*.tar.gz" pick"bin/teip"                      greymd/teip \
-    pick"*/sel"     cp"*/sel-completion.zsh -> _sel"    xztaityozx/sel \
-    pick"*/csvq"    atload"_zinit_csvq_atload"          mithrandie/csvq \
-                                                        lotabout/rargs
 
-  # hub
+  # x86_64向けにしかバイナリがないので、自前でビルドしたりダウンロードしたりする
   # {{{
 
-    zinit ice lucid wait from"gh-r" atclone"tar xzf *.tgz && cp ./*/*/hub ./hub && rm -rf hub-*" \
-      bpick"*$ENV_OS*" pick"./*/*/hub" cp"./*/etc/hub.zsh_completion -> $ZINIT[COMPLETIONS_DIR]/_hub" \
-      as"program" \
-      atpull"%atclone"
-    zinit light github/hub
+    zinit if'is_x86_64' wait nocompile lucid from"gh-r" for \
+      lbin'!*/rg -> rg' \
+        atload'zinit-creinstall-once rg BurntSushi/ripgrep' BurntSushi/ripgrep \
+      lbin'!*/delta -> delta' dandavison/delta \
+      bpick'*.tar.gz' lbin'!bin/teip -> teip' \
+        atload'zinit-creinstall-once teip greymd/teip' greymd/teip \
+      lbin'!*/sel -> sel' cp'*/sel-completion.zsh -> _sel' \
+        atload'zinit-creinstall-once sel xztaityozx/sel' xztaityozx/sel \
+      lbin'!rargs' lotabout/rargs \
+      lbin'!bin/exa -> exa' cp"completions/exa.zsh -> _exa" \
+        atload"_zinit_exa_atload" \
+          ogham/exa
+
+    zinit if'is_not_x86_64' wait'zinit-rust-ready' nocompile lucid rustup for \
+      id-as'ripgrep' cargo'rg <- !ripgrep -> rg'                       xztaityozx/null \
+      id-as'delta'   cargo'delta <- !git-delta -> delta'               xztaityozx/null \
+      id-as'teip'    cargo'!teip'                                      xztaityozx/null \
+      id-as'rargs'   cargo'!rargs'                                     xztaityozx/null \
+      id-as'hexyl'   cargo'!hexyl'                                     xztaityozx/null \
+      id-as'pastel'  cargo'!pastel' atload'_zinit_pastel_atload'       xztaityozx/null \
+      id-as'grex'    cargo'!grex'                                      xztaityozx/null \
+      id-as'hyperfine'    cargo'!hyperfine'                            xztaityozx/null \
+
+    # cargo install exaだとビルド失敗するので、HEADでビルド
+    zinit if'is_not_x86_64' wait'zinit-rust-ready' nocompile lucid \
+      atload'zinit-creinstall-once exa ogham/exa;_zinit_exa_atload' \
+      lbin'!target/release/exa' \
+      atclone"cargo build --release" atpull'%atclone' for \
+        ogham/exa
+
+
+    zinit has"go" if'is_not_x86_64' wait lucid nocompile lucid atclone"go build" atpull"%atclone" for \
+      lbin'!sel' atclone'go build && sel completion zsh > _sel' xztaityozx/sel
+
+  # }}}
+  #
+  # x86_64向けにもarm向けにもバイナリを配ってくれているありがたいツール
+  # {{{
+
+    zinit wait nocompile lucid from"gh-r" for \
+      lbin'!*/csvq -> csvq' atload'_zinit_csvq_atload' mithrandie/csvq
+
+  # }}}
+
+  # hub
+  # Releaseに最新のバイナリをおいてないのでどっちにしろビルドしないといけない
+  # {{{
+
+    zinit has"go" nocompile lucid wait \
+      cloneopts"--config transfer.fsckobjects=false --config receive.fsckobjects=false --config fetch.fsckobjects=false" \
+      cp'etc/hub.zsh_completion -> _hub' \
+      atclone"go build; zinit-creinstall-once hub github/hub" atpull"%atclone" \
+      lbin'!hub' \
+        for @github/hub
 
   # }}}
 
@@ -203,41 +277,42 @@ type zinit &> /dev/null && {
 # そんなに急いでロードしなくていいツール
 # {{{
 
-  # image2ascii
-  zinit ice wait"1" lucid has"go" as"program" atclone"go get; go build -o $ZPFX/bin/image2ascii" atpull"%atclone" pick"$ZPFX/bin/image2ascii"
-  zinit light qeesung/image2ascii
-
-  # rb
-  zinit ice wait"1" lucid as"program" pick"bin/rb" atclone"mkdir bin; mv rb bin/rb" 
-  zinit light thisredone/rb
+  zinit wait"1" nocompile lucid for \
+    has"ruby" lbin'!rb' thisredone/rb
 
   # align
-  zinit ice wait"1" lucid has"go" as"program" atclone"go get; go build -o $ZPFX/bin/align" atpull"%atclone" pick"$ZPFX/bin/align"
-  zinit light jiro4989/align
+  zinit wait"1" nocompile lucid has"go" lbin'!align' atclone"go build" atpull"%atclone" for jiro4989/align
 
-  zinit wait"1" lucid as"program" from"gh-r" for \
-    pick"jq"                cp"jq-* -> jq"   nocompile           stedolan/jq \
-    pick"uni"               cp"uni-* -> uni" nocompile           arp242/uni \
-    pick"*/bin/gh"                                               cli/cli \
-    pick"*/ghq"             cp"*/misc/zsh/_ghq -> _ghq"          x-motemen/ghq \
-    pick"$ZPFX/bin/hexyl"   cp"hexyl-*/hexyl -> $ZPFX/bin/hexyl" @sharkdp/hexyl \
-    pick"$ZPFX/bin/pastel" atload"export COLORTERM=24bit"  cp"pastel-*/pastel -> $ZPFX/bin/pastel" @sharkdp/pastel \
-                                                                 pemistahl/grex \
-                                                                 tomnomnom/gron \
-                                                                 dom96/choosenim \
-    pick"$ZPFX/bin/sad" cp"sad -> $ZPFX/bin/sad" atload"alias sad='sad --fzf=\"--height=100%\"'"                ms-jpq/sad \
-    pick"$ZPFX/bin/sd"  cp"sd* -> $ZPFX/bin/sd" atload"alias sd='sd -p'"                 chmln/sd \
+  # gh-rにバイナリがあるやつ
+  zinit wait"1" nocompile lucid from"gh-r" for \
+    lbin'!*/gojq' atload'alias jq=gojq' itchyny/gojq \
+    lbin'!uni-* -> uni' arp242/uni \
+    lbin'!*/bin/gh' if'is_x86_64' bpick'*.tar.gz' \
+      atclone'*/bin/gh completion -s zsh > _gh' atpull'%atclone' atload'zinit-creinstall-once gh cli/cli' cli/cli \
+    lbin'!*/ghq'       if'is_x86_64' atload'zinit-creinstall-once ghq x-motemen/ghq' x-motemen/ghq \
+    lbin'!*/hexyl'     if'is_x86_64'                              @sharkdp/hexyl \
+    lbin'!*/hyperfine' if'is_x86_64'                              @sharkdp/hyperfine \
+    lbin'!*/pastel'    if'is_x86_64' atload'_zinit_pastel_atload' @sharkdp/pastel \
+    lbin'!grex'        if'is_x86_64'                              pemistahl/grex \
+    lbin'!gron'                                  tomnomnom/gron \
+    lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'" ms-jpq/sad \
+    lbin'!ocs' has"dotnet"                       xztaityozx/ocs
 
-  zinit ice has"dotnet" wait"1" lucid as"program" atclone"make;make install"
-  zinit light xztaityozx/ocs
+  # gh-rにx86_64系のバイナリしかないので自前でビルドしないとダメな奴
+  # Go製のツール
+  zinit if'is_not_x86_64' wait"1" lucid nocompile has"go" atpull'%atclone' for \
+    make'!install prefix=$ZPFX' atclone'gh completion -s zsh > _gh' atload'zinit-creinstall-once gh cli/cli' cli/cli \
+    make'!build' lbin'!ghq' atload'zinit-creinstall-once ghq x-motemen/ghq' x-motemen/ghq \
+    atclone'go build' lbin'!gron' tomnomnom/gron
 
-  zinit wait"1" lucid as"program" for \
-    pick"gibo"                             atclone"chmod +x gibo && gibo update"         atpull"%atclone"  simonwhitaker/gibo \
-    pick"bin/xpanes"                                                                                       greymd/tmux-xpanes \
-    pick"cht.sh" cp"share/zsh.txt -> _cht" atclone"curl https://cht.sh/:cht.sh > cht.sh" atpull"%atclone"  chubin/cheat.sh
+  # sdは最新のデフォルトブランチの内容がRelaeseにアップロードされていないので自前でビルド
+  zinit wait"zinit-rust-ready" lucid rustup nocompile for \
+    id-as'sd' cargo'sd' atload"alias sd='sd -p'" chmln/sd
 
-  zinit wait"1" lucid as"program" cloneonly for \
-    pick"$ZPFX/bin/googler" make"install PREFIX=$ZPFX"  jarun/googler
+  # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
+  zinit wait'1' nocompile lucid atpull'%atclone' for \
+    lbin'!gibo' atclone'./gibo update; cp shell-completions/gibo-completion.zsh _gibo' atload'zinit-creinstall-once gibo simonwhitaker/gibo'        simonwhitaker/gibo \
+    lbin'!bin/xpanes' as'null' has'tmux' greymd/tmux-xpanes
 
 # }}}
 
@@ -248,17 +323,14 @@ type zinit &> /dev/null && {
   # {{{
 
     zinit lucid as"null" from"gh-r" cloneonly nocompile for \
-      cp"./*.ttf -> $ENV_FONT_DIR/Cica"                      bpick"*_with_emoji.zip"  miiton/Cica \
-      cp"./HackGenNerd_*/*.ttf -> $ENV_FONT_DIR/HackGenNerd" bpick"*Nerd*"            yuru7/HackGen
+      atclone"mkdir -p $ENV_FONT_DIR/Cica; cp ./*.ttf $ENV_FONT_DIR/Cica/"                                           bpick"Cica_*.zip"  miiton/Cica \
+      bpick"*Nerd*" atclone"mkdir -p $ENV_FONT_DIR/HackGenNerd; cp ./HackGenNerd_*/*.ttf $ENV_FONT_DIR/HackGenNerd/" yuru7/HackGen
 
   # }}}
 
-    zinit lucid as"null" cloneonly nocompile for \
-      atinit"mkdir -p $HOME/.local/share/nvim/site/pack/packer/start/" cp"* -> $HOME/.local/share/nvim/site/pack/packer/start/" wbthomason/packer.nvim \
-      has"tilix" cp"./*/*.json -> $ENV_DOT_CONFIG/tilix/schemes"         storm119/Tilix-Themes 
+    zinit lucid as'null' cloneonly nocompile for \
+      atclone'mkdir -p $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim && cp -r * $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim' wbthomason/packer.nvim
 
-    zinit wait"3" lucid as"program" from"gh-r" for \
-      cp"*/hyperfine -> $ZPFX/bin/hyperfine" pick"$ZPFX/bin/hyperfine" @sharkdp/hyperfine
 
   # pip3 install
   # {{{
