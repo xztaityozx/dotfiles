@@ -40,7 +40,7 @@ type zinit &> /dev/null && {
       true
     }
 
-    zinit ice pick'bin/anyenv' as"program" atclone"yes | bin/anyenv install --init" eval"bin/anyenv init - zsh" \
+    zinit ice pick'bin/anyenv' as"program" atclone"yes | bin/anyenv install --init" eval"bin/anyenv init --no-rehash - zsh" \
       atload'export ANYENV_ROOT=$PWD;_zinit_anyenv_atload' \
       atpull"anyenv install --update"
     zinit light anyenv/anyenv
