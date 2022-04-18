@@ -134,7 +134,7 @@ function zinit-rust-ready() {
   # aarchは配布されてないので、自前でビルドするやつ
   zinit if'is_not_x86_64' nocompile rustup wait'zinit-rust-ready' lucid for \
     id-as'bat' cargo'!bat' atload"_zinit_bat_atload" xztaityozx/null \
-    id-as'fd'  cargo'fd-find <- !fd-find -> fd' atclone"zinit-creinstall-once fd" xztaityozx/null
+    id-as'fd'  cargo'fd <- !fd-find -> fd' atclone"zinit-creinstall-once fd" xztaityozx/null
 
   zinit if'is_not_x86_64' has"go" atclone"go build" eval'./go-cdx --init' lbin'!go-cdx' for xztaityozx/go-cdx
   zinit if'is_x86_64' from"gh-r"  eval'linux/go-cdx --init' lbin'!linux/go-cdx -> go-cdx' for xztaityozx/go-cdx
