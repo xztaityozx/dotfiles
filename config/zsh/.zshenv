@@ -17,8 +17,13 @@ $HOME/.cargo/bin(N-/)
 /usr/local/opt/mysql@5.7/bin(N-/)
 /usr/local/opt/icu4c/bin(N-/)
 $PYTHTONUSERBASE/bin(N-/)
+/opt/homebrew/opt/icu4c/bin(N-/)
+/opt/homebrew/opt/icu4c/sbin(N-/)
 $path
 )
+
+# 単語の区切りを変更
+export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
 
 # for plenv
 export PLENV_ROOT="$ZDOTDIR/.zinit/plugins/tokuhirom---plenv/"
@@ -52,6 +57,6 @@ export HISTSIZE=10000
 export SAVEHIST=10000
 
 # rust
-[[ -e "$HOME/.cache/env" ]] && source "$HOME/.cargo/env"
+#[[ -e "$HOME/.cache/env" ]] && source "$HOME/.cargo/env"
 
 true
