@@ -40,7 +40,7 @@ type zinit &> /dev/null && {
       true
     }
 
-    zinit ice pick'bin/anyenv' as"program" atclone"yes | bin/anyenv install --init" eval"bin/anyenv init --no-rehash - zsh" \
+    zinit ice pick'bin/anyenv' as"program" atclone"yes | bin/anyenv install --init" eval"bin/anyenv init --no-rehash - zsh | sed 's@goenv rehash --only-manage-paths@#&@'" \
       atload'export ANYENV_ROOT=$PWD;_zinit_anyenv_atload' \
       atpull"anyenv install --update"
     zinit light anyenv/anyenv
@@ -98,11 +98,23 @@ tfenv"
 
 
 function is_x86_64() {
-  [[ "$(uname -m)" == "x86_64" ]]
+  [[ -z "$IS_X86_64_CACHE" ]] && {
+    [[ "$(uname -m)" == "x86_64" ]]
+    IS_X86_64_CACHE=$?
+  }
+
+  [[ "$IS_X86_64_CACHE" == 0 ]] && true
+  false
 }
 
 function is_not_x86_64() {
-  [[ "$(uname -m)" != "x86_64" ]]
+  [[ -z "$IS_X86_64_CACHE" ]] && {
+    [[ "$(uname -m)" == "x86_64" ]]
+    IS_X86_64_CACHE=$?
+  }
+
+  [[ "$IS_X86_64_CACHE" == 0 ]] && false
+  true
 }
 
 function zinit-creinstall-once() {
@@ -127,20 +139,20 @@ function zinit-rust-ready() {
 
 
   # x86にはバイナリがある場合
-  zinit if'is_x86_64' nocompile from"gh-r" for \
+  zinit if'is_x86_64' light-mode nocompile from"gh-r" for \
     lbin'!*/fd -> fd'                                                                         @sharkdp/fd \
     lbin'!./*/bat -> bat'  mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"     @sharkdp/bat
 
   # aarchは配布されてないので、自前でビルドするやつ
-  zinit if'is_not_x86_64' nocompile rustup wait'zinit-rust-ready' lucid for \
+  zinit if'is_not_x86_64' light-mode nocompile rustup wait'zinit-rust-ready' lucid for \
     id-as'bat' cargo'!bat' atload"_zinit_bat_atload" xztaityozx/null \
     id-as'fd'  cargo'fd <- !fd-find -> fd' atclone"zinit-creinstall-once fd" xztaityozx/null
 
-  zinit if'is_not_x86_64' has"go" atclone"go build" eval'./go-cdx --init' lbin'!go-cdx' for xztaityozx/go-cdx
-  zinit if'is_x86_64' from"gh-r"  eval'linux/go-cdx --init' lbin'!linux/go-cdx -> go-cdx' for xztaityozx/go-cdx
+  zinit if'is_not_x86_64' has"go" light-mode atclone"go build" eval'./go-cdx --init' lbin'!go-cdx' for xztaityozx/go-cdx
+  zinit if'is_x86_64' from"gh-r" light-mode eval'linux/go-cdx --init' lbin'!linux/go-cdx -> go-cdx' for xztaityozx/go-cdx
 
   # aarchなバイナリも配ってくれてるツール群
-  zinit from"gh-r" nocompile for \
+  zinit from"gh-r" light-mode nocompile for \
     lbin'!zoxide'  eval"zoxide init zsh" atload'export _ZO_DATA_DIR="$PWD/.local/share/"' ajeetdsouza/zoxide \
     lbin'!lazygit' atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"                  jesseduffield/lazygit \
     lbin'!direnv.* -> direnv' eval'direnv hook zsh' direnv/direnv
@@ -172,7 +184,7 @@ function zinit-rust-ready() {
     }
 
     # fzf
-    zinit atload"_zinit_fzf_atload" nocompile \
+    zinit atload"_zinit_fzf_atload" light-mode nocompile \
       cloneopts"--depth 1" \
       lbin'!bin/{fzf,fzf-tmux}' \
       atclone"./install --bin --no-{zsh,bash,fish,completion,key-bindings}" atpull"%atclone" \
@@ -186,7 +198,7 @@ function zinit-rust-ready() {
   # as"null" をつけないと謎のpreviewスクリプトが暴走してえらいことになる
   # {{{
   
-    zinit has"go" lbin'!powerline-go' nocompletions nocompile as"null" \
+    zinit has"go" lbin'!powerline-go' light-mode nocompletions nocompile as"null" \
       atclone"go build" atpull"%atclone" \
       atload"source $ZDOTDIR/powerline.zsh" \
         for justjanne/powerline-go
@@ -215,7 +227,7 @@ function zinit-rust-ready() {
   # x86_64向けにしかバイナリがないので、自前でビルドしたりダウンロードしたりする
   # {{{
 
-    zinit if'is_x86_64' wait nocompile lucid from"gh-r" for \
+    zinit if'is_x86_64' wait light-mode nocompile lucid from"gh-r" for \
       lbin'!*/rg -> rg' \
         atload'zinit-creinstall-once rg BurntSushi/ripgrep' BurntSushi/ripgrep \
       lbin'!*/delta -> delta' dandavison/delta \
@@ -228,7 +240,7 @@ function zinit-rust-ready() {
         atload"_zinit_exa_atload" \
           ogham/exa
 
-    zinit if'is_not_x86_64' wait'zinit-rust-ready' nocompile lucid rustup for \
+    zinit if'is_not_x86_64' light-mode wait'zinit-rust-ready' nocompile lucid rustup for \
       id-as'ripgrep' cargo'rg <- !ripgrep -> rg'                       xztaityozx/null \
       id-as'delta'   cargo'delta <- !git-delta -> delta'               xztaityozx/null \
       id-as'teip'    cargo'!teip'                                      xztaityozx/null \
@@ -239,14 +251,14 @@ function zinit-rust-ready() {
       id-as'hyperfine'    cargo'!hyperfine'                            xztaityozx/null \
 
     # cargo install exaだとビルド失敗するので、HEADでビルド
-    zinit if'is_not_x86_64' wait'zinit-rust-ready' nocompile lucid \
+    zinit if'is_not_x86_64' light-mode wait'zinit-rust-ready' nocompile lucid \
       atload'zinit-creinstall-once exa ogham/exa;_zinit_exa_atload' \
       lbin'!target/release/exa' \
       atclone"cargo build --release" atpull'%atclone' for \
         ogham/exa
 
 
-    zinit has"go" if'is_not_x86_64' wait lucid nocompile lucid atclone"go build" atpull"%atclone" for \
+    zinit has"go" if'is_not_x86_64' light-mode wait lucid nocompile lucid atclone"go build" atpull"%atclone" for \
       lbin'!sel' atclone'go build && sel completion zsh > _sel' xztaityozx/sel
 
   # }}}
@@ -254,7 +266,7 @@ function zinit-rust-ready() {
   # x86_64向けにもarm向けにもバイナリを配ってくれているありがたいツール
   # {{{
 
-    zinit wait nocompile lucid from"gh-r" for \
+    zinit wait nocompile light-mode lucid from"gh-r" for \
       lbin'!*/csvq -> csvq' atload'_zinit_csvq_atload' mithrandie/csvq
 
   # }}}
@@ -263,7 +275,7 @@ function zinit-rust-ready() {
   # Releaseに最新のバイナリをおいてないのでどっちにしろビルドしないといけない
   # {{{
 
-    zinit has"go" nocompile lucid wait \
+    zinit has"go" light-mode nocompile lucid wait \
       cloneopts"--config transfer.fsckobjects=false --config receive.fsckobjects=false --config fetch.fsckobjects=false" \
       cp'etc/hub.zsh_completion -> _hub' \
       atclone"go build; zinit-creinstall-once hub github/hub" atpull"%atclone" \
@@ -277,14 +289,14 @@ function zinit-rust-ready() {
 # そんなに急いでロードしなくていいツール
 # {{{
 
-  zinit wait"1" nocompile lucid for \
+  zinit wait"1" light-mode nocompile lucid for \
     has"ruby" lbin'!rb' thisredone/rb
 
   # align
-  zinit wait"1" nocompile lucid has"go" lbin'!align' atclone"go build" atpull"%atclone" for jiro4989/align
+  zinit wait"1" nocompile lucid has"go" light-mode lbin'!align' atclone"go build" atpull"%atclone" for jiro4989/align
 
   # gh-rにバイナリがあるやつ
-  zinit wait"1" nocompile lucid from"gh-r" for \
+  zinit wait"1" light-mode nocompile lucid from"gh-r" for \
     lbin'!*/gojq' atload'alias jq=gojq' itchyny/gojq \
     lbin'!uni-* -> uni' arp242/uni \
     lbin'!*/bin/gh' if'is_x86_64' bpick'*.tar.gz' \
@@ -300,17 +312,17 @@ function zinit-rust-ready() {
 
   # gh-rにx86_64系のバイナリしかないので自前でビルドしないとダメな奴
   # Go製のツール
-  zinit if'is_not_x86_64' wait"1" lucid nocompile has"go" atpull'%atclone' for \
+  zinit if'is_not_x86_64' wait"1" light-mode lucid nocompile has"go" atpull'%atclone' for \
     make'!install prefix=$ZPFX' atclone'gh completion -s zsh > _gh' atload'zinit-creinstall-once gh cli/cli' cli/cli \
     make'!build' lbin'!ghq' atload'zinit-creinstall-once ghq x-motemen/ghq' x-motemen/ghq \
     atclone'go build' lbin'!gron' tomnomnom/gron
 
   # sdは最新のデフォルトブランチの内容がRelaeseにアップロードされていないので自前でビルド
-  zinit wait"zinit-rust-ready" lucid rustup nocompile for \
+  zinit wait"zinit-rust-ready" light-mode lucid rustup nocompile for \
     id-as'sd' cargo'sd' atload"alias sd='sd -p'" chmln/sd
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
-  zinit wait'1' nocompile lucid atpull'%atclone' for \
+  zinit wait'1' nocompile light-mode lucid atpull'%atclone' for \
     lbin'!gibo' atclone'./gibo update; cp shell-completions/gibo-completion.zsh _gibo' atload'zinit-creinstall-once gibo simonwhitaker/gibo'        simonwhitaker/gibo \
     lbin'!bin/xpanes' as'null' has'tmux' greymd/tmux-xpanes
 
@@ -322,20 +334,20 @@ function zinit-rust-ready() {
   # フォント系
   # {{{
 
-    zinit lucid as"null" from"gh-r" cloneonly nocompile for \
+    zinit lucid as"null" light-mode from"gh-r" cloneonly nocompile for \
       atclone"mkdir -p $ENV_FONT_DIR/Cica; cp ./*.ttf $ENV_FONT_DIR/Cica/"                                           bpick"Cica_*.zip"  miiton/Cica \
       bpick"*Nerd*" atclone"mkdir -p $ENV_FONT_DIR/HackGenNerd; cp ./HackGenNerd_*/*.ttf $ENV_FONT_DIR/HackGenNerd/" yuru7/HackGen
 
   # }}}
 
-    zinit lucid as'null' cloneonly nocompile for \
+    zinit lucid as'null' light-mode cloneonly nocompile for \
       atclone'mkdir -p $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim && cp -r * $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim' wbthomason/packer.nvim
 
 
   # pip3 install
   # {{{
 
-    zinit lucid has"pip3" nocompile as"null" cloneonly atclone"pip3 install ." atpull"%atclone" for \
+    zinit lucid has"pip3" light-mode nocompile as"null" cloneonly atclone"pip3 install ." atpull"%atclone" for \
       atdelete"pip3 uninstall -y pynvim" neovim/pynvim \
       atdelete"pip3 uninstall -y httpie" httpie/httpie \
       atdelete"pip3 uninstall -y bpytop" aristocratos/bpytop \
@@ -346,7 +358,7 @@ function zinit-rust-ready() {
   # tmux plugins
   # {{{
     
-    zinit lucid has"tmux" nocompile as"null" cloneonly atclone"mkdir -p $DOTFILES_PATH/config/tmux/plugins/" atpull"%atclone" for \
+    zinit lucid has"tmux" nocompile as"null" light-mode cloneonly atclone"mkdir -p $DOTFILES_PATH/config/tmux/plugins/" atpull"%atclone" for \
       cp"prefix_highlight.tmux -> $DOTFILES_PATH/config/tmux/plugins/" tmux-plugins/tmux-prefix-highlight
   # }}}
 
