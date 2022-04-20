@@ -26,6 +26,7 @@ $(ZSHRC): clean
 	cat ./zinit.zsh >> $(ZSHRC)
 	echo {alias,bind,function,iab}.zsh | xargs cat >> $(ZSHRC)
 	[[ "$(OS)" == "Darwin" ]] && cat ./iterm2.zsh >> $(ZSHRC) || echo "ok"
+	echo true >> $(ZSHRC)
 	[[ "$(ENABLE_ZPROF)" == "1" ]] && echo 'type zprof &>/dev/null && zprof | less' >> $(ZSHRC) || echo "zprof disable"
 
 .PHONY: clean
