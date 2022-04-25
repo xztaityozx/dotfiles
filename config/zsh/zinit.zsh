@@ -103,18 +103,16 @@ function is_x86_64() {
     IS_X86_64_CACHE=$?
   }
 
-  [[ "$IS_X86_64_CACHE" == 0 ]] && true
-  false
+  [[ "$IS_X86_64_CACHE" == 0 ]]
 }
 
 function is_not_x86_64() {
   [[ -z "$IS_X86_64_CACHE" ]] && {
-    [[ "$(uname -m)" == "x86_64" ]]
+    [[ "$(uname -m)" != "x86_64" ]]
     IS_X86_64_CACHE=$?
   }
 
-  [[ "$IS_X86_64_CACHE" == 0 ]] && false
-  true
+  [[ "$IS_X86_64_CACHE" != 0 ]]
 }
 
 function zinit-creinstall-once() {
