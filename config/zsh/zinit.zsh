@@ -148,6 +148,9 @@ function zinit-rust-ready() {
 
   zinit if'is_not_x86_64' has"go" light-mode atclone"go build" eval'./go-cdx --init' lbin'!go-cdx' for xztaityozx/go-cdx
   zinit if'is_x86_64' from"gh-r" light-mode eval'linux/go-cdx --init' lbin'!linux/go-cdx -> go-cdx' for xztaityozx/go-cdx
+  
+  zinit if'is_not_x86_64' has"go" light-mode atclone"go build" lbin'!owari' for xztaityozx/owari
+  zinit if'is_x86_64' from"gh-r" light-mode lbin'!linux/owari -> owari' for xztaityozx/owari
 
   # aarchなバイナリも配ってくれてるツール群
   zinit from"gh-r" light-mode nocompile for \
