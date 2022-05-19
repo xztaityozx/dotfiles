@@ -27,24 +27,21 @@ function logger.warn() {
 
 # copy text to clipboard
 # usage:
-#   - yy [text] -> copy [text] to clipboard
 #   - [command] | yy -> copy [command]'s output to clipboard
 #   - yy -> copy last command
 function yy() {
-  local text="${*}"
-  [ -p /dev/fd/0 ] && text=$(cat -)
-  [ "$text" = "" ] && text="$(history | tail -n1 |cut -d' ' -f4-)"
+  CMD=""
+  type clip.exe &> /dev/null  && CMD=clip.exe
+  type pbcopy &> /dev/null  && CMD=pbcopy
+  [[ $"$CMD" == "" ]] && logger.warn "clip.exe, or pbcopy not found" && exit 1
 
-  # wsl
-  type clip.exe 2>&1 > /dev/null && echo -n "$text" | clip.exe && return 0
-  # xclip
-  type xclip 2>&1 > /dev/null && echo -n "$text" | xclip -selection c && return 0
-  # xsel 
-  type xsel 2>&1 > /dev/null && echo -n "$text" | xsel -b && return 0
-  # pbcopy
-  type pbcopy 2>&1 > /dev/null && echo -n "$text" | pbcopy && return 0
+  [ -p /dev/fd/0 ] && $CMD && return
+  history | tail -n1 | cut -d ' ' -f4- | $CMD
+}
 
-  logger.warn "clip.exe, xclip, pbcopy or xsel not found"
+function p() {
+  type clip.exe &> /dev/null && logger.warn clip.exeのpaste版はまだ実装してないです
+  type pbpaste &> /dev/null && pbpaste
 }
 
 # icat STDINからやってきた文字列をパスとしてcatにわたす。複数行あるなら fzf で選択する
