@@ -1,0 +1,29 @@
+function _zinit_bat_atload() {
+  export MANPAGER="sh -c 'col -xb | bat --theme TwoDark -l man -p'"
+  alias cat="bat --theme TwoDark"
+  unfunction $0
+}
+
+function _zinit_fzf_atload() {
+  export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --border"
+  export FZF_DEFAULT_COMMAND="fd --type=f --exclude .git --hidden --follow"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  unfunction $0
+}
+
+function _zinit_csvq_atload() {
+  alias ltsvq="csvq -i LTSV"
+  unfunction $0
+}
+
+function _zinit_exa_atload() {
+  alias ls="exa --git"
+  alias ll="exa --time-style=long-iso -mUuhla --icons --changed --git"
+  unfunction $0
+}
+
+function _zinit_pastel_atload() {
+  export COLORTERM=24bit
+  unfunction $0
+}
+
