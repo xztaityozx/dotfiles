@@ -241,14 +241,6 @@ function zshaddhistory() {
   [[ ! "${1}" =~ "shutdown|history" ]]
 }
 
-# 英数字をSlackの絵文字に変換するやつ
-function text2slackemoji() {
-  local text="${1}"
-  [[ "$text" == "" ]] && text="$(cat)"
-
-  sed 's/[a-zA-Z]/:alphabet-yellow-\L&:/g;s/#/:alphabet-yellow-hash:/g;s/@/:alphabet-yellow-at:/g;s/!/:alphabet-yellow-exclamation:/g;s/?/:alphabet-yellow-question:/g' <<< "$text"
-}
-
 # cdxの履歴をdistinctする
 function cdx-history-clean-up() {
   [[ -e $HOME/.config/go-cdx/history ]] && {
@@ -339,29 +331,3 @@ function hsw() {
   git switch "$branch"
 }
 
-# 行を特定のルールで列に変形し、それを任意のコマンドに通し、その出力を行に戻すfunction
-function partial() {
-  zmodload zsh/zutil
-  local -A opthash
-  zparseopts -D -A opthash -- d: D: k -keep-line || exit 1
-
-  local KEEP_LINE=0
-  if [[ -n "${opthash[(i)-k]}" ]] || [[ -n "${opthash[(i)--keep-line]}" ]]; then
-    KEEP_LINE=1
-  fi
-
-  local inputDelimiter="${opthash[-d]:- }"
-  local outputDelimiter="${opthash[-D]:- }"
-  local cmd="${1}"
-
-  [[ -z "${cmd}" ]] && {
-    logger.warn "コマンドが無いよ？"
-    return 1
-  }
-
-  while read L; do
-    [[ "$KEEP_LINE" == "1" ]] && echo -n "$L "
-    echo $L | sd "$inputDelimiter" '\n' | eval "$cmd" | tr '\n' "$outputDelimiter"
-    echo
-  done
-}
