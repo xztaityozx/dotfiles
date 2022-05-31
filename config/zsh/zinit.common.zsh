@@ -1,15 +1,14 @@
 
-# プロンプトが出る前にロードして欲しいツール
 # {{{
 
-  zinit from"gh-r" light-mode nocompile for \
-    lbin'!zoxide'  eval"zoxide init zsh" atload'export _ZO_DATA_DIR="$PWD/.local/share/"' ajeetdsouza/zoxide \
-    lbin'!lazygit' atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"                  jesseduffield/lazygit \
+  zinit from"gh-r" light-mode lucid nocompile for \
+    lbin'!zoxide'  wait"2" eval"zoxide init zsh" atload'export _ZO_DATA_DIR="$PWD/.local/share/"' ajeetdsouza/zoxide \
+    lbin'!lazygit' wait"2" atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"                  jesseduffield/lazygit \
     lbin'!direnv.* -> direnv' eval'direnv hook zsh' direnv/direnv
 
   # nvim
   # zinitにrelaeseの名前を解決させることができないのでなんとかする
-  zinit ice from"gh-r" ver"stable" bpick"nvim-$ENV_OS*.tar.gz" lbin'!./*/bin/nvim -> nvim'
+  zinit ice wait"2" lucid from"gh-r" ver"stable" bpick"nvim-$ENV_OS*.tar.gz" lbin'!./*/bin/nvim -> nvim'
   zinit light neovim/neovim
 
   # }}}
@@ -27,7 +26,7 @@
     }
 
     # fzf
-    zinit atload"_zinit_fzf_atload" light-mode nocompile \
+    zinit wait"2" atload"_zinit_fzf_atload" light-mode nocompile lucid \
       cloneopts"--depth 1" \
       lbin'!bin/{fzf,fzf-tmux}' \
       atclone"./install --bin --no-{zsh,bash,fish,completion,key-bindings}" atpull"%atclone" \
@@ -90,20 +89,20 @@
   # フォント系
   # {{{
 
-    zinit lucid as"null" light-mode from"gh-r" nocompile for \
+    zinit wait"2" lucid as"null" light-mode from"gh-r" nocompile for \
       bpick"*Nerd*" atclone"mkdir -p $ENV_FONT_DIR/HackGenNerd; cp ./HackGenNerd_*/*.ttf $ENV_FONT_DIR/HackGenNerd/" yuru7/HackGen
       #atclone"mkdir -p $ENV_FONT_DIR/Cica; cp ./*.ttf $ENV_FONT_DIR/Cica/"                        bpick"Cica_*.zip"  miiton/Cica \
 
   # }}}
 
-    zinit lucid as'null' light-mode nocompile for \
+    zinit wait"2" lucid as'null' light-mode nocompile for \
       atclone'mkdir -p $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim && cp -r * $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim' wbthomason/packer.nvim
 
 
   # pip3 install
   # {{{
 
-    zinit lucid has"pip3" light-mode nocompile as"null" atclone"pip3 install ." atpull"%atclone" for \
+    zinit wait"2" lucid has"pip3" light-mode nocompile as"null" atclone"pip3 install ." atpull"%atclone" for \
       atdelete"pip3 uninstall -y pynvim" neovim/pynvim \
       atdelete"pip3 uninstall -y httpie" httpie/httpie \
       atdelete"pip3 uninstall -y bpytop" aristocratos/bpytop \
@@ -114,7 +113,7 @@
   # tmux plugins
   # {{{
     
-    zinit lucid has"tmux" nocompile as"null" light-mode atclone"mkdir -p $DOTFILES_PATH/config/tmux/plugins/" atpull"%atclone" for \
+    zinit wait"2" lucid has"tmux" nocompile as"null" light-mode atclone"mkdir -p $DOTFILES_PATH/config/tmux/plugins/" atpull"%atclone" for \
       cp"prefix_highlight.tmux -> $DOTFILES_PATH/config/tmux/plugins/" tmux-plugins/tmux-prefix-highlight
   # }}}
 

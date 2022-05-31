@@ -20,7 +20,7 @@ $(ZSHRC_MINIMAL): clean-minimal
 	cat ./main.minimal.zsh > $(ZSHRC_MINIMAL)
 
 zinit:
-	[[ -e zinit.generated.zsh ]] && rm zinit.zsh || echo ok
+	[[ -e zinit.generated.zsh ]] && rm zinit.generated.zsh || echo ok
 	cat ./zinit.main.zsh >> zinit.generated.zsh
 	cat ./zinit.runtime.zsh >> zinit.generated.zsh
 	cat ./zinit.functions.zsh >> zinit.generated.zsh
