@@ -23,68 +23,25 @@ type zinit &> /dev/null && {
 # 言語とかのruntime系
 # {{{
 
-  # anyenv
-  # {{{
-    # anyenvのzshを起動するたびに実行する部分
-    function _zinit_anyenv_atload() {
+  function _zinit_asdf_atinit() {
+    export ASDF_DIR=$PWD
+    export ASDF_DATA_DIR=$PWD
+    export ASDF_CONFIG_FILE=$DOTFILES_PATH/config/asdf/asdfrc
+    unfunction $0
+  }
 
-      add-zsh-hook -L precmd | grep __hook-anyenv-post-install-env &>/dev/null || {
-        add-zsh-hook precmd __hook-anyenv-post-install-env
-      }
-      unfunction $0
-    }
-
-    # anyenv install した後initスクリプトを更新するHook
-    function __hook-anyenv-post-install-env() {
-      [[ "${1}" =~ "anyenv install" ]] && zinit recache anyenv/anyenv
-      true
-    }
-
-    zinit ice pick'bin/anyenv' as"program" atclone"yes | bin/anyenv install --init" eval"bin/anyenv init --no-rehash - zsh | sed 's@goenv rehash --only-manage-paths@#&@'" \
-      atload'export ANYENV_ROOT=$PWD;_zinit_anyenv_atload' \
-      atpull"anyenv install --update"
-    zinit light anyenv/anyenv
-
-    zinit ice wait'[[ -n "$(type anyenv)" ]]' lucid has"anyenv" cloneonly nocompile \
-      atclone"mkdir -p $(anyenv root)/plugins/anyenv-update && cp -r * $(anyenv root)/plugins/anyenv-update" \
-      atpull"%atclone"
-    zinit light znz/anyenv-update
-
-    # anyenvでなんもインストールされてなかったらセットアップ開始する
-    [[ -z "$(anyenv versions 2>&1)" ]] && {
-        VERSIONS="
-goenv 
-plenv 
-pyenv 
-nodenv
-rbenv
-tfenv"
-
-      echo "$VERSIONS" | while read L; do anyenv install "$L" --skip-existing ; done
-
-        zinit recache anyenv/anyenv
-        source "$(anyenv root)/evalcache.zsh"
-
-        zinit ice has"nodenv" cloneonly nocompile \
-          atclone'mkdir -p $(nodenv root)/plugins/nodenv-yarn-install && cp -r * $(nodenv root)/plugins/nodenv-yarn-install/' \
-          atpull"%atclone"
-        zinit light pine/nodenv-yarn-install
-
-        PYENV_GLOBAL_VERSION=3.10.4
-        pyenv install "$PYENV_GLOBAL_VERSION"
-        pyenv global "$PYENV_GLOBAL_VERSION"
-
-        goenv install 1.16.5 --skip-existing
-        goenv install 1.18.0 --skip-existing
-        goenv global 1.18.0
-
-        nodenv install 16.8.0 --skip-existing
-        nodenv global 16.8.0
-
-        rbenv install 3.1.1
-        rbenv global 3.1.1
-    }
-  # }}}
+  function _zinit_asdf_setup() {
+    echo "
+golang 1.18
+python 3.10.4
+ruby 3.1.2
+" | while read PKG VERSION; do 
+        asdf plugin add "$PKG"
+        asdf install "$PKG" "$VERSION"
+        asdf global "$PKG" "$VERSION"
+      done
+  }
+  zinit atinit'_zinit_asdf_atinit' pick"asdf.sh" light-mode for @asdf-vm/asdf
   
   # rust
   #{{{
