@@ -121,6 +121,8 @@ return require('packer').startup({function()
     }
   }))
   require('lspconfig').rust_analyzer.setup({on_attach = on_attach, })
+  require('lspconfig').tsserver.setup({on_attach = on_attach, })
+  require('lspconfig').terraformls.setup({on_attach = on_attach, })
 
   use {
     'simrat39/rust-tools.nvim',
