@@ -8,9 +8,9 @@ function ggc() {
     cd $(ghq root)/github.com/$repo
 }
 
-function hub-remote-set-ssh() {
+function git-remote-set-ssh() {
   local repo="$(basename $(pwd))"
-  hub remote set-url origin git@github.com:xztaityozx/$repo
+  git remote set-url origin git@github.com:xztaityozx/$repo
 }
 
 # output information to stdout
@@ -40,8 +40,8 @@ function yy() {
 }
 
 function p() {
-  type clip.exe &> /dev/null && logger.warn clip.exeのpaste版はまだ実装してないです
-  type pbpaste &> /dev/null && pbpaste
+  type powershell.exe &>/dev/null && powershell.exe -c "Get-Clipboard" && return
+  type pbpaste &> /dev/null && pbpaste && return
 }
 
 # icat STDINからやってきた文字列をパスとしてcatにわたす。複数行あるなら fzf で選択する
@@ -241,14 +241,6 @@ function zshaddhistory() {
   [[ ! "${1}" =~ "shutdown|history" ]]
 }
 
-# 英数字をSlackの絵文字に変換するやつ
-function text2slackemoji() {
-  local text="${1}"
-  [[ "$text" == "" ]] && text="$(cat)"
-
-  sed 's/[a-zA-Z]/:alphabet-yellow-\L&:/g;s/#/:alphabet-yellow-hash:/g;s/@/:alphabet-yellow-at:/g;s/!/:alphabet-yellow-exclamation:/g;s/?/:alphabet-yellow-question:/g' <<< "$text"
-}
-
 # cdxの履歴をdistinctする
 function cdx-history-clean-up() {
   [[ -e $HOME/.config/go-cdx/history ]] && {
@@ -314,7 +306,7 @@ function hsw() {
 
   if [[ "${#}" == "2" ]]; then
     if [[ "${1}" == "-c" ]]; then
-      hub switch -c "${2}"
+      git switch -c "${2}"
       return 0
     else
       logger.warn "引数2個渡されても困る"
@@ -339,29 +331,3 @@ function hsw() {
   git switch "$branch"
 }
 
-# 行を特定のルールで列に変形し、それを任意のコマンドに通し、その出力を行に戻すfunction
-function partial() {
-  zmodload zsh/zutil
-  local -A opthash
-  zparseopts -D -A opthash -- d: D: k -keep-line || exit 1
-
-  local KEEP_LINE=0
-  if [[ -n "${opthash[(i)-k]}" ]] || [[ -n "${opthash[(i)--keep-line]}" ]]; then
-    KEEP_LINE=1
-  fi
-
-  local inputDelimiter="${opthash[-d]:- }"
-  local outputDelimiter="${opthash[-D]:- }"
-  local cmd="${1}"
-
-  [[ -z "${cmd}" ]] && {
-    logger.warn "コマンドが無いよ？"
-    return 1
-  }
-
-  while read L; do
-    [[ "$KEEP_LINE" == "1" ]] && echo -n "$L "
-    echo $L | sd "$inputDelimiter" '\n' | eval "$cmd" | tr '\n' "$outputDelimiter"
-    echo
-  done
-}
