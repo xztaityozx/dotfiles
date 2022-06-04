@@ -8,9 +8,9 @@ function ggc() {
     cd $(ghq root)/github.com/$repo
 }
 
-function hub-remote-set-ssh() {
+function git-remote-set-ssh() {
   local repo="$(basename $(pwd))"
-  hub remote set-url origin git@github.com:xztaityozx/$repo
+  git remote set-url origin git@github.com:xztaityozx/$repo
 }
 
 # output information to stdout
@@ -40,8 +40,8 @@ function yy() {
 }
 
 function p() {
-  type clip.exe &> /dev/null && logger.warn clip.exeのpaste版はまだ実装してないです
-  type pbpaste &> /dev/null && pbpaste
+  type powershell.exe &>/dev/null && powershell.exe -c "Get-Clipboard" && return
+  type pbpaste &> /dev/null && pbpaste && return
 }
 
 # icat STDINからやってきた文字列をパスとしてcatにわたす。複数行あるなら fzf で選択する
@@ -306,7 +306,7 @@ function hsw() {
 
   if [[ "${#}" == "2" ]]; then
     if [[ "${1}" == "-c" ]]; then
-      hub switch -c "${2}"
+      git switch -c "${2}"
       return 0
     else
       logger.warn "引数2個渡されても困る"
