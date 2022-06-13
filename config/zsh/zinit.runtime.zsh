@@ -31,8 +31,8 @@
         xztaityozx/null
 
     zinit light-mode nocompile lucid wait'zinit-rust-ready' lucid for \
-      id-as'fleet' cargo'fleet <- !fleet-rs' xztaityozx/null \
-      id-as'sccache' cargo'sccache' xztaityozx/null
+      id-as'fleet' cargo'fleet <- !fleet-rs' xztaityozx/null
+
   #}}}
 
 # }}}

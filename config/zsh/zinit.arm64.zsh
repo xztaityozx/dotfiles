@@ -16,16 +16,16 @@
 # {{{
 
   zinit has'fleet' light-mode nocompile lucid wait'zinit-rust-ready' depth=1 lucid \
-    atclone"fleet build --release" atpull"%atclone" for \
-      lbin'!target/release/bat'                                 @sharkdp/bat \
-      lbin'!target/release/hexyl'                               @sharkdp/hexyl \
-      lbin'!target/release/fd'                                  @sharkdp/fd \
-      lbin'!target/release/pastel' atload'_zinit_pastel_atload' @sharkdp/pastel \
-      lbin'!target/release/hyperfine'                           @sharkdp/hyperfine \
-      lbin'!target/release/exa' atload'zinit-creinstall-once exa ogham/exa;_zinit_exa_atload' ogham/exa \
-      lbin'!target/release/delta' dandavison/delta \
-      lbin'!target/release/rg'    BurntSushi/ripgrep \
-      lbin'!target/release/teip'  greymd/teip \
-      lbin'!target/release/grex'  pemistahl/grex
+    atclone"fleet build" atpull"%atclone" for \
+      lbin'!target/debug/bat'                                 @sharkdp/bat \
+      lbin'!target/debug/hexyl'                               @sharkdp/hexyl \
+      lbin'!target/debug/fd'                                  @sharkdp/fd \
+      lbin'!target/debug/pastel' atload'_zinit_pastel_atload' @sharkdp/pastel \
+      lbin'!target/debug/hyperfine'                           @sharkdp/hyperfine \
+      lbin'!target/debug/exa' atload'zinit-creinstall-once exa ogham/exa;_zinit_exa_atload' ogham/exa \
+      lbin'!target/debug/delta' dandavison/delta \
+      lbin'!target/debug/rg'    BurntSushi/ripgrep \
+      lbin'!target/debug/teip'  greymd/teip \
+      lbin'!target/debug/grex'  pemistahl/grex
 
 # }}}
