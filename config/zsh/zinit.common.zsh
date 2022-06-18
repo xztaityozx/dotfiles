@@ -69,7 +69,8 @@
     lbin'!gron'                                                tomnomnom/gron \
     lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'" ms-jpq/sad \
     lbin'!ocs' has"dotnet"                                     xztaityozx/ocs \
-    lbin'!*/csvq -> csvq' atload'_zinit_csvq_atload'           mithrandie/csvq
+    lbin'!*/csvq -> csvq' atload'_zinit_csvq_atload'           mithrandie/csvq \
+    lbin'!ojosama'                                             jiro4989/ojosama
 
 
   # sdは最新のデフォルトブランチの内容がRelaeseにアップロードされていないので自前でビルド
