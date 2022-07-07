@@ -27,3 +27,21 @@ function _zinit_pastel_atload() {
   unfunction $0
 }
 
+function _zinit_fzf-tab_atload() {
+  if [[ -n "$TMUX" ]]; then 
+    zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+    zstyle ':fzf-tab:*' fzf-flags "--border=none"
+    zstyle ':fzf-tab:*' continuous-trigger 'tab'
+    zstyle ':fzf-tab:complete:*' fzf-bindings 'ctrl-a:toggle'
+  fi
+
+  unfunction $0
+}
+
+# zsh-utils
+function _zinit_zsh-history-substring-search_atload() {
+  bindkey "^[[A" history-substring-search-up
+  bindkey "^[[B" history-substring-search-down
+  unfunction $0
+}
+

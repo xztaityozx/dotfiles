@@ -1,9 +1,10 @@
 
 # {{{
 
+  zinit lucid light-mode src"init.sh" for b4b4r07/enhancd
+
   zinit from"gh-r" light-mode lucid nocompile for \
-    lbin'!zoxide'  wait"2" eval"zoxide init zsh" atload'export _ZO_DATA_DIR="$PWD/.local/share/"' ajeetdsouza/zoxide \
-    lbin'!lazygit' wait"2" atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"                  jesseduffield/lazygit \
+    lbin'!lazygit' wait"2" atload"alias lg='lazygit -ucd $HOME/.config/lazygit'" jesseduffield/lazygit \
     lbin'!direnv.* -> direnv' eval'direnv hook zsh' direnv/direnv
 
   # nvim
@@ -70,7 +71,8 @@
     lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'" ms-jpq/sad \
     lbin'!ocs' has"dotnet"                                     xztaityozx/ocs \
     lbin'!*/csvq -> csvq' atload'_zinit_csvq_atload'           mithrandie/csvq \
-    lbin'!ojosama'                                             jiro4989/ojosama
+    lbin'!ojosama'                                             jiro4989/ojosama \
+    lbin'!yq_* -> yq' atclone'./yq_* shell-completion zsh > _yq' atpull'%atclone' mikefarah/yq
 
 
   # sdは最新のデフォルトブランチの内容がRelaeseにアップロードされていないので自前でビルド
@@ -121,14 +123,7 @@
 
 # }}}
 
-# zsh-utils
-function _zinit_zsh-history-substring-search_atload() {
-  bindkey "^[[A" history-substring-search-up
-  bindkey "^[[B" history-substring-search-down
-  unfunction $0
-}
-
-zinit light Aloxaf/fzf-tab
+zinit light-mode trackbinds bindmap"^I -> ^@" atload"_zinit_fzf-tab_atload" for Aloxaf/fzf-tab
 
 zinit wait lucid for \
   atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
