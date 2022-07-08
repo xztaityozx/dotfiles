@@ -78,7 +78,8 @@
   # sdは最新のデフォルトブランチの内容がRelaeseにアップロードされていないので自前でビルド
   zinit has'fleet' wait"zinit-rust-ready" light-mode lucid nocompile \
     atclone"fleet build" atpull"%atclone" for \
-      lbin'!target/debug/sd' atload"alias sd='sd -p'" chmln/sd
+      lbin'!target/debug/sd' atload"alias sd='sd -p'" chmln/sd \
+      lbin'!target/debug/as-tree' jez/as-tree
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
