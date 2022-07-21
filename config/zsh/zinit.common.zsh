@@ -9,7 +9,7 @@
 
   # nvim
   # zinitにrelaeseの名前を解決させることができないのでなんとかする
-  zinit ice wait"2" lucid from"gh-r" ver"stable" bpick"nvim-$ENV_OS*.tar.gz" lbin'!./*/bin/nvim -> nvim'
+  zinit ice wait"2" ver"latest" lucid from"gh-r" bpick"nvim-$ENV_OS*.tar.gz" lbin'!./*/bin/nvim -> nvim'
   zinit light neovim/neovim
 
   # }}}
