@@ -72,7 +72,8 @@
     lbin'!ocs' has"dotnet"                                     xztaityozx/ocs \
     lbin'!*/csvq -> csvq' atload'_zinit_csvq_atload'           mithrandie/csvq \
     lbin'!ojosama'                                             jiro4989/ojosama \
-    lbin'!yq_* -> yq' atclone'./yq_* shell-completion zsh > _yq' atpull'%atclone' mikefarah/yq
+    lbin'!yq_* -> yq' atclone'./yq_* shell-completion zsh > _yq' atpull'%atclone' mikefarah/yq \
+    lbin'!smug' has'tmux'                                      ivaaaan/smug
 
 
   # sdは最新のデフォルトブランチの内容がRelaeseにアップロードされていないので自前でビルド
