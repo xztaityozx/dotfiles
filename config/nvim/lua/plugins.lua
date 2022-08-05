@@ -358,7 +358,6 @@ return require('packer').startup({function()
 
   -- colorscheme
   use {'cocopon/iceberg.vim', opt = true}
-  use 'sunjon/shade.nvim'
 
   -- fuzzy finder
   use {
