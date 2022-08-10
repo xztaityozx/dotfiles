@@ -349,10 +349,10 @@ return require('packer').startup({function()
   use {
     'akinsho/toggleterm.nvim',
     config = function ()
-    require('toggleterm').setup({
-      direction = 'float',
-      open_mapping = [[<F3>]]
-    })
+      require('toggleterm').setup({
+        direction = 'float',
+        open_mapping = [[<F3>]]
+      })
     end
   }
 
@@ -408,6 +408,7 @@ return require('packer').startup({function()
       require('telescope').load_extension('fzf')
     end
   }
+  use 'nvim-treesitter/nvim-treesitter-context'
 
 end, config = {
     display = {
