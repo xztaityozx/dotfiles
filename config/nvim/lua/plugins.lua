@@ -335,7 +335,7 @@ return require('packer').startup({function()
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = "s:",
+            init_selection = "<F9>",
             node_incremental = "<F7>",
             scope_incremental = "+",
             node_decremental = "<F8>",
