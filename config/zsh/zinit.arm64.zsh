@@ -16,7 +16,7 @@
 # {{{
 
   zinit has'fleet' light-mode nocompile lucid wait'zinit-rust-ready' depth=1 lucid \
-    atclone"fleet build" atpull"%atclone" for \
+    atclone"hub restore ./;fleet build" atpull"%atclone" for \
       lbin'!target/debug/bat' atload"_zinit_bat_atload"       @sharkdp/bat \
       lbin'!target/debug/hexyl'                               @sharkdp/hexyl \
       lbin'!target/debug/fd'                                  @sharkdp/fd \
