@@ -90,16 +90,6 @@
 # }}}
 
 # {{{
-
-  # フォント系
-  # {{{
-
-    zinit wait"2" lucid as"null" light-mode from"gh-r" nocompile for \
-      bpick"*Nerd*" atclone"mkdir -p $ENV_FONT_DIR/HackGenNerd; cp ./HackGenNerd_*/*.ttf $ENV_FONT_DIR/HackGenNerd/" yuru7/HackGen
-      #atclone"mkdir -p $ENV_FONT_DIR/Cica; cp ./*.ttf $ENV_FONT_DIR/Cica/"                        bpick"Cica_*.zip"  miiton/Cica \
-
-  # }}}
-
     zinit wait"2" lucid as'null' light-mode nocompile for \
       atclone'mkdir -p $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim && cp -r * $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim' wbthomason/packer.nvim
 
