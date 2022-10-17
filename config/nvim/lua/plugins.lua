@@ -87,7 +87,7 @@ return require('packer').startup({function()
       {'nvim-lua/lsp-status.nvim'},
       {'folke/lsp-colors.nvim'},
       {'williamboman/nvim-lsp-installer'},
-      {'folke/lua-dev.nvim'},
+      {'folke/neodev.nvim'},
     },
   }
   local on_attach = function()
@@ -219,7 +219,7 @@ return require('packer').startup({function()
             {name = 'path'},
           })
       })
-      local cap = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local cap = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
       require('lspconfig')['gopls'].setup({
         capabilities = cap
       })
