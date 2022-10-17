@@ -82,79 +82,40 @@ return require('packer').startup({function()
 
   -- lspの設定
   use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+  }
+
+  require('mason').setup();
+  require('mason-lspconfig').setup_handlers({function(server) 
+    local opt = {
+      capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      on_attach = function(client, bufnr)
+        local opts = { noremap=true, silent=true }
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-<space>>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-R><C-R>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', 'sq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+      end
+    };
+    require('lspconfig')[server].setup(opt)
+  end})
+
+  use {
     'neovim/nvim-lspconfig',
     requires = {
       {'nvim-lua/lsp-status.nvim'},
       {'folke/lsp-colors.nvim'},
-      {'williamboman/nvim-lsp-installer'},
       {'folke/neodev.nvim'},
     },
   }
-  local on_attach = function()
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-    -- Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Mappings.
-    local opts = { noremap=true, silent=true }
-
-    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<C-<space>>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
-    buf_set_keymap('n', 'sR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  end
-  require('lspconfig').gopls.setup({ on_attach = on_attach })
-  require('lspconfig').omnisharp.setup(
-    {
-      on_attach = on_attach,
-      cmd = { os.getenv("HOME").."/.local/lib/omnisharp/OmniSharp", "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) }
-    })
-  require('lspconfig').sumneko_lua.setup(require('lua-dev').setup({
-    lspconfig = {
-      cmd = {'lua-language-server'},
-      on_attach = on_attach
-    }
-  }))
-  require('lspconfig').rust_analyzer.setup({on_attach = on_attach, })
-  require('lspconfig').tsserver.setup({on_attach = on_attach, })
-  require('lspconfig').terraformls.setup({on_attach = on_attach, })
-
-  use {
-    'simrat39/rust-tools.nvim',
-    setup = function() 
-      vim.g.rustfmt_autosave = 1;
-      vim.g.rustfmt_fail_silently = 1;
-    end,
-    config = function ()
-      require('rust-tools').setup({
-        tools = {
-          autoSetHints = true,
-          hover_with_actions = true,
-          inlay_hints = {
-            show_parameter_hints = false,
-            parameter_hints_prefix = "",
-            other_hints_prefix = "",
-          },
-        },
-
-        server = {
-          on_attach = on_attach,
-          settings = {
-            ["rust-analyzer"] = {
-              checkOnSave = {
-                command = "clippy"
-              }
-            }
-          }
-        }
-      })
-    end
-  }
+  require('lspconfig').sumneko_lua.setup{}
+  require('lspconfig').perlnavigator.setup{}
 
   use {
     'folke/trouble.nvim',
@@ -218,10 +179,6 @@ return require('packer').startup({function()
             {name = 'buffer'},
             {name = 'path'},
           })
-      })
-      local cap = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-      require('lspconfig')['gopls'].setup({
-        capabilities = cap
       })
     end
   }
@@ -414,4 +371,5 @@ end, config = {
     display = {
       open_fn = require('packer.util').float,
     }
-  }})
+  }});
+
