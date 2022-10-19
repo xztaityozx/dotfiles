@@ -127,6 +127,7 @@ return require('packer').startup({function()
     end
 
     if server == "perlnavigator" then
+      local pwd = os.getenv("PWD");
       opt.settings = {
         perlnavigator = {
           perlPath = 'perl',
@@ -134,7 +135,7 @@ return require('packer').startup({function()
           perltidyProfile = '',
           perlcriticProfile = '',
           perlcriticEnabled = false,
-          includePaths = { 'lib', 'local/lib/perl5' }
+          includePaths = { pwd .. '/lib', pwd .. '/local/lib/perl5' },
         }
       };
       opt.cmd = {"perlnavigator", "--stdio"}
