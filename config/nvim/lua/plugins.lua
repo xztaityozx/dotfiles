@@ -88,7 +88,7 @@ return require('packer').startup({function()
   }
 
   require('mason').setup();
-  require('mason-lspconfig').setup_handlers({function(server) 
+  require('mason-lspconfig').setup_handlers({function(server)
     local opt = {
       capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
       on_attach = function(client, bufnr)
@@ -96,13 +96,49 @@ return require('packer').startup({function()
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-<space>>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-<space>>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-R><C-R>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'sq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
       end
     };
+    if server == "sumneko_lua" then
+      local runtime_path = vim.split(package.path, ";", {});
+      table.insert(runtime_path, "lua/?.lua")
+      table.insert(runtime_path, "lua/*/init.lua")
+      opt.settings = {
+        Lua = {
+          runtime = {
+            version = "LuaJIT",
+            path = runtime_path,
+          },
+          diagnostics = {
+            globals = {"vim"},
+          },
+          workspace = {
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+          telemetry = {
+            enable = false,
+          },
+        }
+      }
+    end
+
+    if server == "perlnavigator" then
+      opt.settings = {
+        perlnavigator = {
+          perlPath = 'perl',
+          enableWarnings = true,
+          perltidyProfile = '',
+          perlcriticProfile = '',
+          perlcriticEnabled = false,
+          includePaths = { 'lib', 'local/lib/perl5' }
+        }
+      };
+      opt.cmd = {"perlnavigator", "--stdio"}
+    end
     require('lspconfig')[server].setup(opt)
   end})
 
@@ -114,30 +150,6 @@ return require('packer').startup({function()
       {'folke/neodev.nvim'},
     },
   }
-
-  local runtime_path = vim.split(package.path, ";");
-  table.insert(runtime_path, "lua/?.lua")
-  table.insert(runtime_path, "lua/*/init.lua")
-  require('lspconfig').sumneko_lua.setup{
-    settings = {
-      Lua = {
-        runtime = {
-          version = "LuaJIT",
-          path = runtime_path,
-        },
-        diagnostics = {
-          globals = {"vim"},
-        },
-        workspace = {
-          library = vim.api.nvim_get_runtime_file("", true),
-        },
-        telemetry = {
-          enable = false,
-        },
-      }
-    }
-  }
-  require('lspconfig').perlnavigator.setup{}
 
   use {
     'folke/trouble.nvim',
