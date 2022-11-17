@@ -105,17 +105,11 @@
 
   # }}}
   
-  # tmux plugins
-  # {{{
-    
-    zinit wait"2" lucid has"tmux" nocompile as"null" light-mode atclone"mkdir -p $DOTFILES_PATH/config/tmux/plugins/" atpull"%atclone" for \
-      cp"prefix_highlight.tmux -> $DOTFILES_PATH/config/tmux/plugins/" tmux-plugins/tmux-prefix-highlight
-  # }}}
-
 
 # }}}
 
 zinit light-mode trackbinds bindmap"^I -> ^@" atload"_zinit_fzf-tab_atload" for Aloxaf/fzf-tab
+zinit light-mode atload"zsh-defer zinit compinit" for romkatv/zsh-defer
 
 zinit wait lucid for \
   atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
