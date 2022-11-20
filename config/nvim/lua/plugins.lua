@@ -91,7 +91,7 @@ return require('packer').startup({function()
   require('mason-lspconfig').setup_handlers({function(server)
     local opt = {
       capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-      on_attach = function(client, bufnr)
+      on_attach = function(_, bufnr)
         local opts = { noremap=true, silent=true }
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
@@ -101,6 +101,7 @@ return require('packer').startup({function()
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'sq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        vim.keymap.set({"v","n"}, 'sA', require('actions-preview').code_actions, opts)
       end
     };
     if server == "sumneko_lua" then
@@ -315,15 +316,15 @@ return require('packer').startup({function()
   -- treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
-    run = ":TSUpdate",
     config = function()
       require('nvim-treesitter.configs').setup({
         indent = {
           enable = true,
         },
-        highlight = {
-          enable = true
-        },
+        --なんか急にハイライト死んだ
+        --highlight = {
+        --enable = true
+        --},
         incremental_selection = {
           enable = true,
           keymaps = {
@@ -370,7 +371,6 @@ return require('packer').startup({function()
       vim.api.nvim_set_keymap('n', 'sf',    "<cmd>Telescope treesitter<CR>", {noremap = true, silent = true})
 
       -- lsp系
-      vim.api.nvim_set_keymap('n', 'sA',    "<cmd>Telescope lsp_code_actions<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap('n', 'gd',    "<cmd>Telescope lsp_definitions<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap('n', 'gT',    "<cmd>Telescope lsp_type_definitions<CR>", {noremap = true, silent = true})
       vim.api.nvim_set_keymap('n', 'sD',    "<cmd>Telescope diagnostics<CR>", {noremap = true, silent = true})
@@ -401,6 +401,39 @@ return require('packer').startup({function()
     end
   }
   use 'nvim-treesitter/nvim-treesitter-context'
+  use {
+    'kosayoda/nvim-lightbulb',
+    config = function()
+      require('nvim-lightbulb').setup({
+        autocmd = {enabled = true},
+        virtual_text = {enabled = false}
+      })
+    end,
+  }
+
+  use {
+    "aznhe21/actions-preview.nvim",
+    config = function()
+      require("actions-preview").setup {
+        -- バックエンドに使うプラグインの優先順位。デフォルトではtelescopeを優先的に使う
+        -- backend = { "nui", "telescope" },
+        -- telescopeで表示する場合の設定。ウィンドウ小さめでもいい感じに出す
+        telescope = {
+          sorting_strategy = "ascending",
+          layout_strategy = "vertical",
+          layout_config = {
+            width = 0.8,
+            height = 0.9,
+            prompt_position = "top",
+            preview_cutoff = 20,
+            preview_height = function(_, _, max_lines)
+              return max_lines - 15
+            end,
+          },
+        },
+      }
+    end
+  }
 
 end, config = {
     display = {
