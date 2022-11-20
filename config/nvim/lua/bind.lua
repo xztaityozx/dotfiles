@@ -2,7 +2,7 @@ local api = vim.api
 local map = api.nvim_set_keymap
 
 -- sをトリガーに
-map('n', 's', '<NOP', { silent = true, noremap = true })
+map('n', 's', '<NOP>', { silent = true, noremap = true })
 -- 現在バッファを右に開く
 map('n', 'sv', '<CMD>vnew %<CR>', {noremap = true})
 
