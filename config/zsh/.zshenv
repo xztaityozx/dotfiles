@@ -42,14 +42,6 @@ $HOME/.linuxbrew/share/Homebrew/completions/zsh(N-/)
 $fpath
 )
 
-# for WSL
-[ "$WT_SESSION" = "" ] && [[ "$WSL_DISTRO_NAME" != "" ]] && {
-  export GTK_IM_MODULE=fcitx
-  export QT_IM_MODULE=fcitx
-  export XMODIFIERS="@im=fcitx"
-  export DefaultIMModule=fcitx
-  xset -r 49
-}
 
 # history
 export HISTFILE=$HOME/.zsh_history
