@@ -9,7 +9,7 @@
 
   # nvim
   # zinitにrelaeseの名前を解決させることができないのでなんとかする
-  zinit ice wait"2" lucid from"gh-r" bpick"nvim-$ENV_OS*.tar.gz" lbin'!./*/bin/nvim -> nvim'
+  zinit ice wait"2" lucid from"gh-r" lbin'!./*/bin/nvim -> nvim'
   zinit light neovim/neovim
 
   # }}}
@@ -72,8 +72,7 @@
     lbin'!ocs' has"dotnet"                                     xztaityozx/ocs \
     lbin'!*/csvq -> csvq' atload'_zinit_csvq_atload'           mithrandie/csvq \
     lbin'!ojosama'                                             jiro4989/ojosama \
-    lbin'!yq_* -> yq' atclone'./yq_* shell-completion zsh > _yq' atpull'%atclone' mikefarah/yq \
-    lbin'!smug' has'tmux'                                      ivaaaan/smug
+    lbin'!yq_* -> yq' atclone'./yq_* shell-completion zsh > _yq' atpull'%atclone' mikefarah/yq
 
 
   # sdは最新のデフォルトブランチの内容がRelaeseにアップロードされていないので自前でビルド
@@ -86,6 +85,8 @@
   zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
     lbin'!gibo' atclone'./gibo update; cp shell-completions/gibo-completion.zsh _gibo' atload'zinit-creinstall-once gibo simonwhitaker/gibo'        simonwhitaker/gibo \
     lbin'!bin/xpanes' as'null' has'tmux' greymd/tmux-xpanes
+
+  zinit wait'2' nocompile as"program" lucid make"all" lbin'!./bin/*' for ryuichiueda/glueutils
 
 # }}}
 
