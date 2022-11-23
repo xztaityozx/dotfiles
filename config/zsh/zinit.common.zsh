@@ -110,7 +110,7 @@
 # }}}
 
 zinit light-mode trackbinds bindmap"^I -> ^@" atload"_zinit_fzf-tab_atload" for Aloxaf/fzf-tab
-zinit light-mode atload"zsh-defer zinit compinit" for romkatv/zsh-defer
+zinit light-mode atload"zsh-defer zinit compinit &>/dev/null" for romkatv/zsh-defer
 
 zinit wait lucid for \
   atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \

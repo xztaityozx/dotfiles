@@ -13,7 +13,7 @@
     lbin'!*/delta -> delta' dandavison/delta \
     bpick'*.tar.gz' lbin'!bin/teip -> teip' \
       atload'zinit-creinstall-once teip greymd/teip' greymd/teip \
-    lbin'!*/sel -> sel' cp'*/sel-completion.zsh -> _sel' \
+    lbin'!sel -> sel' cp'*/sel-completion.zsh -> _sel' \
       atload'zinit-creinstall-once sel xztaityozx/sel' xztaityozx/sel \
     lbin'!rargs' lotabout/rargs \
     lbin'!*/fd -> fd'                                                                         @sharkdp/fd \
