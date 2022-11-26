@@ -16,7 +16,7 @@
     lbin'!sel -> sel' cp'*/sel-completion.zsh -> _sel' \
       atload'zinit-creinstall-once sel xztaityozx/sel' xztaityozx/sel \
     lbin'!rargs' lotabout/rargs \
-    lbin'!*/fd -> fd'                                                                         @sharkdp/fd \
+    lbin'!*/fd -> fd' @sharkdp/fd \
     lbin'!bin/exa -> exa' cp"completions/exa.zsh -> _exa" \
       atload"_zinit_exa_atload" \
         ogham/exa
