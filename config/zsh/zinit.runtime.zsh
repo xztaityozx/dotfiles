@@ -21,21 +21,7 @@
       unfunction $0
     }
 
-    function _zinit_asdf_atload() {
-      unfunction $0
-
-      [[ "$ZINIT_ATCLONE" != 1 ]] || return 0
-
-      cd "$ZDOTDIR"
-      asdf plugin add golang
-      asdf plugin add python
-      asdf install
-
-      asdf global golang 1.19.3
-      asdf global python 3.10.8
-    }
-
-    zinit atinit'_zinit_asdf_atinit' atclone"expor ZINIT_ATCLONE=1" pick"asdf.sh" atload"_zinit_asdf_atload" light-mode for @asdf-vm/asdf
+    zinit atinit'_zinit_asdf_atinit' pick"asdf.sh" light-mode for @asdf-vm/asdf
   # }}}
   
   # rust
