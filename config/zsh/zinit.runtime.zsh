@@ -31,9 +31,6 @@
       atload"[[ ! -f ${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && zinit creinstall -Q rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup" for \
         xztaityozx/null
 
-    zinit light-mode nocompile lucid wait'zinit-rust-ready' lucid for \
-      id-as'fleet' cargo'fleet <- !fleet-rs' atclone'cargo install sccache' xztaityozx/null
-
   #}}}
 
 # }}}

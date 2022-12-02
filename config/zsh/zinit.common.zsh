@@ -65,26 +65,28 @@
   zinit wait"2" nocompile lucid has"go" light-mode lbin'!align' atclone"go build" atpull"%atclone" for jiro4989/align
 
   zinit wait"2" light-mode nocompile lucid from"gh-r" for \
-    lbin'!*/gojq' atload'alias jq=gojq'                        itchyny/gojq \
-    lbin'!uni-* -> uni'                                        arp242/uni \
-    lbin'!gron'                                                tomnomnom/gron \
-    lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'" ms-jpq/sad \
-    lbin'!ocs' has"dotnet"                                     xztaityozx/ocs \
-    lbin'!*/csvq -> csvq' atload'_zinit_csvq_atload'           mithrandie/csvq \
-    lbin'!ojosama'                                             jiro4989/ojosama \
+    lbin'!*/gojq' atload'alias jq=gojq'                          itchyny/gojq \
+    lbin'!uni-* -> uni'                                          arp242/uni \
+    lbin'!gron'                                                  tomnomnom/gron \
+    lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'"   ms-jpq/sad \
+    lbin'!ocs' has"dotnet"                                       xztaityozx/ocs \
+    lbin'!*/csvq -> csvq' atload'_zinit_csvq_atload'             mithrandie/csvq \
+    lbin'!ojosama'                                               jiro4989/ojosama \
+    lbin'!owari' atclone'./owari completion zsh > _owari'        xztaityozx/owari \
+    lbin'!sel'   atclone'./sel completion zsh > _sel'            xztaityozx/sel \
     lbin'!yq_* -> yq' atclone'./yq_* shell-completion zsh > _yq' atpull'%atclone' mikefarah/yq
 
 
   # sdは最新のデフォルトブランチの内容がRelaeseにアップロードされていないので自前でビルド
-  zinit has'fleet' wait"zinit-rust-ready" light-mode lucid nocompile \
-    atclone"fleet build" atpull"%atclone" for \
+  zinit wait"zinit-rust-ready" light-mode lucid nocompile \
+    atclone"cargo build" atpull"%atclone" for \
       lbin'!target/debug/sd' atload"alias sd='sd -p'" chmln/sd \
-      lbin'!target/debug/as-tree' jez/as-tree
+      lbin'!target/debug/as-tree'                     jez/as-tree
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
-    lbin'!gibo' atclone'./gibo update; cp shell-completions/gibo-completion.zsh _gibo' atload'zinit-creinstall-once gibo simonwhitaker/gibo'        simonwhitaker/gibo \
-    lbin'!bin/xpanes' as'null' has'tmux' greymd/tmux-xpanes
+    lbin'!gibo' atclone'./gibo update;' cp'shell-completions/gibo-completion.zsh -> _gibo' simonwhitaker/gibo \
+    lbin'!bin/xpanes' as'null' has'tmux' cp'completion/zsh/_xpanes -> _xpanes'             greymd/tmux-xpanes
 
   zinit wait'2' nocompile as"program" lucid make"all" lbin'!./bin/*' for ryuichiueda/glueutils
 

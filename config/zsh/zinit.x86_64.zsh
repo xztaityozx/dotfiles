@@ -13,8 +13,6 @@
     lbin'!*/delta -> delta' dandavison/delta \
     bpick'*.tar.gz' lbin'!bin/teip -> teip' \
       atload'zinit-creinstall-once teip greymd/teip' greymd/teip \
-    lbin'!sel -> sel' atclone'./sel completion zsh > ./_sel' \
-      atload'zinit-creinstall-once sel xztaityozx/sel' xztaityozx/sel \
     lbin'!rargs' lotabout/rargs \
     lbin'!*/fd -> fd' @sharkdp/fd \
     lbin'!bin/exa -> exa' cp"completions/exa.zsh -> _exa" \
@@ -31,6 +29,5 @@
     lbin'!*/hexyl'                                  @sharkdp/hexyl \
     lbin'!*/hyperfine'                              @sharkdp/hyperfine \
     lbin'!*/pastel'    atload'_zinit_pastel_atload' @sharkdp/pastel \
-    lbin'!grex'                                     pemistahl/grex \
-    lbin'!linux/owari -> owari' xztaityozx/owari
+    lbin'!grex'                                     pemistahl/grex
 # }}}
