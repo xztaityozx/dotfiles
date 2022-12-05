@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+# tmux-popup-toggle は tmuxのpopupを使って中心にドンとターミナルを出す
+if ! tmux list-commands | grep -q popup; then
+  logger.warn "tmux popupコマンドが無いですね。tmuxのバージョンが低いのでは？"
+  exit 1
+fi
+
+width=80%
+height=80%
+session="$(tmux display-message -p -F '#{session_name}')"
+
+if [[ "$session" =~ "popup" ]]; then
+  tmux detach-client
+else
+  tmux popup -d '#{pane_current_path}' -xC -yC -w "$width" -h "$height" -T "(toggle: F12)" -E "tmux attach -t popup || tmux new -s popup"
+fi

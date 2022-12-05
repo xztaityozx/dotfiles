@@ -99,9 +99,6 @@ function simple-date() {
 
 # 本日分のドキュメントを編集/作成するコマンド
 # 日報とかTODOとかを $HOME/Documents/cli-doc/以下に作る
-# flags:
-#   -f | --file: ファイル名をSTDOUTに出力して終了する
-#   -r | --root: ドキュメントルートへのパスをSTDOUTに出力して終了する
 function doc() {
   local docDir="$HOME/Documents/cli-doc"
 
@@ -120,34 +117,6 @@ no' | fzf)"
   return 1
 }
 
-# hr
-# 水平線を出力するだけのコマンド
-# params:
-#   str: 文字
-#   width: 幅
-function hr() {
-  local str="${1:-=}";
-  local width="${2:-80}";
-  local length="${#str}"
-
-  local current=0
-  while :; do 
-    [[ "$current" -ge "$width" ]] && echo "" && return 0
-    printf "%s" "$str"
-    current=$((current+length))
-  done
-}
-
-# 文字を大文字にするだけ
-function upper() {
-  sed 's/./\U&/g'
-}
-
-# 文字を小文字にするだけ
-function lower() {
-  sed 's/./\L&/g'
-}
-
 # wrap ( line  ) みたいな感じに包む
 #   params:
 #     $1: 開始記号
@@ -162,68 +131,6 @@ function catf() {
     tail -f ${@} | bat --theme Nord -l log --paging=never
   } || {
     tail -f ${@}
-  }
-}
-
-# dulp: dbasectl upload latest png
-# 特定パス以下の*.pngファイルをリネームしてdbasectlでUploadする
-# options:
-#   -D, --directory [PATH]   検索するディレクトリ
-function dulp() {
-  type dbasectl &> /dev/null || { logger.warn "dbasectlが有りません" && return 1 }
-  
-  declare -a args
-  TARGET_DIR=$HOME/Desktop
-  YES=0
-  DELETE=0
-  while ((${#} > 0)); do
-    opt="${1}"
-    shift
-    
-    case "${opt}" in
-      --directory | -D)
-        TARGET_DIR="${1}"
-        ;;
-      -y | --yes)
-        YES=1
-        ;;
-      -d | --delete)
-        DELETE=1
-        ;;
-      -*)
-        logger.warn "不正なオプションです"
-        return 1
-        ;;
-      *)
-        args+=("$opt")
-        ;;
-    esac
-  done
-
-  [[ ! -d "${TARGET_DIR}" ]] && {
-    logger.warn "${TARGET_DIR}は存在しません"
-    return 1
-  }
-
-  [[ "${#args}" == 0 ]] && {
-    logger.warn "リネーム後のファイル名を指定して下さい"
-    return 1
-  }
-
-  NEW_FILE="${args[1]}"
-
-  [[ -e "${NEW_FILE}" ]] && [[ "${YES}" == 0 ]] && {
-    logger.info "${NEW_FILE}は既に存在します。上書きしますか？"
-    read '?y/n> ' ANS
-    [[ "${ANS}" != "y" ]] && {
-      logger.warn "キャンセルします"
-      return 1
-    }
-  }
-
-  TARGET_FILE="$(exa --sort newest ${TARGET_DIR} | fzf )"
-  mv "${TARGET_DIR}/${TARGET_FILE}" "${NEW_FILE}" && dbasectl upload "${NEW_FILE}" | jq -r '.[].markdown' && {
-    [[ "${DELETE}" == "1" ]] && rm "${NEW_FILE}"
   }
 }
 
@@ -330,4 +237,3 @@ function hsw() {
 
   git switch "$branch"
 }
-
