@@ -12,6 +12,9 @@
   zinit ice wait"2" lucid from"gh-r" lbin'!./*/bin/nvim -> nvim'
   zinit light neovim/neovim
 
+  zinit has"docker" lbin'!./dest/bin/tmux -> tmux' atpull"make clean" light-mode nocompile make'!!' \
+    cp"./dest/man/man1/tmux.1 -> $ZPFX/man/man1/tmux.1" for xztaityozx/tmux-builder
+
   # }}}
 
   # fzf
@@ -47,12 +50,6 @@
         for justjanne/powerline-go
 
   # }}}
-# }}}
-
-# プロンプトが出てから0秒後にロードして欲しいツール
-# {{{
-
-
 # }}}
 
 # そんなに急いでロードしなくていいツール
