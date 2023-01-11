@@ -322,9 +322,9 @@ return require('packer').startup({function()
           enable = true,
         },
         --なんか急にハイライト死んだ
-        --highlight = {
-        --enable = true
-        --},
+        highlight = {
+          enable = true
+        },
         incremental_selection = {
           enable = true,
           keymaps = {

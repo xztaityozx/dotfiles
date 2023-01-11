@@ -75,3 +75,8 @@ o.shell="/usr/bin/env zsh"
 
 -- カラースキームはicebergを使う
 vim.cmd('colorscheme iceberg')
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "tf",
+  callback = function() vim.bo.filetype = "terraform" end
+})
