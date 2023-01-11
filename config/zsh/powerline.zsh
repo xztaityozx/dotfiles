@@ -1,15 +1,38 @@
 #!/usr/bin/zsh
 
+zmodload zsh/datetime
+
+function powerline_preexec() {
+  __TIMER=$EPOCHREALTIME
+}
+
 function powerline_precmd() {
   local err=$?
+  local duration=0
+
+  if [[ -n $EPOCHREALTIME ]]; then
+    local __ERT=$EPOCHREALTIME;
+    duration="$(($__ERT - ${__TIMER:-__ERT}))"
+  fi
+
   if [[ "$SIMPLE_POWERLINE" == 1 ]]; then
     PS1="$(powerline-go -shell zsh -error $err \
       -modules 'root' \
       -theme $HOME/.config/powerline-go/default.json)"
   else
-    PS1="$(powerline-go -error $err -shell zsh \
+    #PS1="$(powerline-go -eval -error $err -shell zsh \
+      #-hostname-only-if-ssh \
+      #-modules 'aws,ssh,host,docker,cwd,git,jobs,exit,newline,user,root' \
+      #-modules-right 'time' \
+      #-theme $HOME/.config/powerline-go/default.json \
+      #-shell zsh \
+      #-cwd-max-depth 3\
+      #-cwd-max-dir-size -1)"
+    eval "$(powerline-go -eval -error $err -shell zsh \
       -hostname-only-if-ssh \
+      -duration $duration \
       -modules 'aws,ssh,host,docker,cwd,git,jobs,exit,newline,user,root' \
+      -modules-right 'duration,time' \
       -theme $HOME/.config/powerline-go/default.json \
       -shell zsh \
       -cwd-max-depth 3\
@@ -27,6 +50,16 @@ function install_powerline_precmd() {
   precmd_functions+=(powerline_precmd)
 }
 
+function install_powerline_preexec() {
+  for s in "${preexec_functions[@]}"; do
+    if [ "$s" = "powerline_preexec" ]; then
+      return
+    fi
+  done
+  preexec_functions+=(powerline_preexec)
+}
+
 if [ "$TERM" != "linux" ]; then
   install_powerline_precmd
+  install_powerline_preexec
 fi
