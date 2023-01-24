@@ -98,6 +98,8 @@
 
     zinit lucid as'null' light-mode nocompile for atload='export TPM_HOME=$PWD' tmux-plugins/tpm
 
+    zinit wait"2" lucid as'program' light-mode lbin'!shellspec' for @shellspec/shellspec
+
   # pip3 install
   # {{{
 
