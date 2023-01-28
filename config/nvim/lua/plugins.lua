@@ -1,7 +1,7 @@
 vim.cmd [[packadd packer.nvim]]
 local use = require("packer").use;
 
-return require('packer').startup({function()
+return require('packer').startup({ function()
   -- packer.nvim を packer.nvimで管理しちゃう
   use 'wbthomason/packer.nvim'
 
@@ -10,8 +10,8 @@ return require('packer').startup({function()
     'easymotion/vim-easymotion',
     setup = function()
       vim.g.EasyMotion_do_mapping = 0
-      vim.api.nvim_set_keymap('n', 's/', '<Plug>(easymotion-sn)', {noremap = false})
-      vim.api.nvim_set_keymap('x', 's/', '<Plug>(easymotion-sn)', {noremap = false})
+      vim.api.nvim_set_keymap('n', 's/', '<Plug>(easymotion-sn)', { noremap = false })
+      vim.api.nvim_set_keymap('x', 's/', '<Plug>(easymotion-sn)', { noremap = false })
     end,
   }
 
@@ -19,8 +19,8 @@ return require('packer').startup({function()
   use {
     'scrooloose/nerdcommenter',
     setup = function()
-      vim.api.nvim_set_keymap('n', 'sc', '<Plug>NERDCommenterToggle', {noremap = false})
-      vim.api.nvim_set_keymap('v', 'sc', '<Plug>NERDCommenterToggle', {noremap = false})
+      vim.api.nvim_set_keymap('n', 'sc', '<Plug>NERDCommenterToggle', { noremap = false })
+      vim.api.nvim_set_keymap('v', 'sc', '<Plug>NERDCommenterToggle', { noremap = false })
     end,
   }
 
@@ -31,7 +31,7 @@ return require('packer').startup({function()
   use {
     'famiu/bufdelete.nvim',
     setup = function()
-      vim.api.nvim_set_keymap('n', 'bd', '<CMD>Bdelete<CR>', {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'bd', '<CMD>Bdelete<CR>', { noremap = true, silent = true })
     end,
   }
 
@@ -44,15 +44,6 @@ return require('packer').startup({function()
     end
   }
 
-
-  -- Go言語向けの設定
-  -- {{{
-  use {
-    'mattn/vim-goimports',
-    run = 'go install golang.org/x/tools/cmd/goimports@latest'
-  }
-  -- }}}
-
   -- Git関係
   -- {{{
   use 'airblade/vim-gitgutter'
@@ -61,7 +52,7 @@ return require('packer').startup({function()
     'kdheepak/lazygit.nvim',
     config = function()
       --vim.g.lazygit_floating_window_use_plenary = 1
-      vim.api.nvim_set_keymap('n', 'lg', '<CMD>LazyGit<CR>', {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'lg', '<CMD>LazyGit<CR>', { noremap = true, silent = true })
     end
   }
   -- }}}
@@ -71,28 +62,38 @@ return require('packer').startup({function()
     'simeji/winresizer',
     setup = function()
       -- Aで左に
-      vim.g.winresizer_keycode_left=97
+      vim.g.winresizer_keycode_left = 97
       -- Wで上に
-      vim.g.winresizer_keycode_up=119
+      vim.g.winresizer_keycode_up = 119
       -- Sで下に
-      vim.g.winresizer_keycode_down=115
+      vim.g.winresizer_keycode_down = 115
       -- Dで右に
-      vim.g.winresizer_keycode_right=100
+      vim.g.winresizer_keycode_right = 100
     end
   }
 
   -- lspの設定
+  use {
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim"
+    },
+    config = function()
+      require("null-ls").setup()
+    end
+  }
+
   use {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
   }
 
   require('mason').setup();
-  require('mason-lspconfig').setup_handlers({function(server)
+  require('mason-lspconfig').setup_handlers({ function(server)
     local opt = {
       capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
       on_attach = function(_, bufnr)
-        local opts = { noremap=true, silent=true }
+        local opts = { noremap = true, silent = true }
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -101,7 +102,7 @@ return require('packer').startup({function()
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'sq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        vim.keymap.set({"v","n"}, 'sA', require('actions-preview').code_actions, opts)
+        vim.keymap.set({ "v", "n" }, 'sA', require('actions-preview').code_actions, opts)
       end
     };
     if server == "sumneko_lua" then
@@ -115,10 +116,11 @@ return require('packer').startup({function()
             path = runtime_path,
           },
           diagnostics = {
-            globals = {"vim"},
+            globals = { "vim" },
           },
           workspace = {
             library = vim.api.nvim_get_runtime_file("", true),
+            checkThirdParty = false
           },
           telemetry = {
             enable = false,
@@ -139,38 +141,65 @@ return require('packer').startup({function()
           includePaths = { pwd .. '/lib', pwd .. '/local/lib/perl5' },
         }
       };
-      opt.cmd = {"perlnavigator", "--stdio"}
+      opt.cmd = { "perlnavigator", "--stdio" }
     end
     require('lspconfig')[server].setup(opt)
-  end})
+  end })
 
   use {
     'neovim/nvim-lspconfig',
     requires = {
-      {'nvim-lua/lsp-status.nvim'},
-      {'folke/lsp-colors.nvim'},
-      {'folke/neodev.nvim'},
+      { 'nvim-lua/lsp-status.nvim' },
+      { 'folke/lsp-colors.nvim' },
+      { 'folke/neodev.nvim' },
     },
+  }
+
+  use {
+    "nvim-tree/nvim-web-devicons",
+    config = function()
+      require('nvim-web-devicons').setup({
+        color_icons = true
+      })
+    end
   }
 
   use {
     'folke/trouble.nvim',
     config = function()
+      local trouble = require('trouble')
+      trouble.setup({
+        icons = true,
+        fold_open = '',
+        fold_closed = '',
+        signs = {
+          error = '',
+          warning = '',
+          hint = '',
+          information = '',
+          other = ''
+        },
+        use_diagnostic_signs = false,
+        auto_open = false,
+        auto_close = true,
+      })
+    end,
+    setup = function()
+      vim.api.nvim_set_keymap('n', 's[', '<cmd>TroubleToggle<CR>', { silent = true, noremap = true })
     end
   }
-  require('trouble').setup({})
 
   -- 補完
   use {
     'hrsh7th/nvim-cmp',
     requires = {
-      {'neovim/nvim-lspconfig'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-path'},
-      {'hrsh7th/cmp-cmdline'},
-      {'L3MON4D3/LuaSnip'},
-      {'saadparwaiz1/cmp_luasnip'}
+      { 'neovim/nvim-lspconfig' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'L3MON4D3/LuaSnip' },
+      { 'saadparwaiz1/cmp_luasnip' }
     },
     config = function()
       local cmp = require('cmp')
@@ -208,13 +237,28 @@ return require('packer').startup({function()
           end
         },
         sources = cmp.config.sources({
-          {name = 'nvim_lsp'},
-          {name = 'luasnip'}
+          { name = 'nvim_lsp' },
+          { name = 'luasnip' }
         },
           {
-            {name = 'buffer'},
-            {name = 'path'},
+            { name = 'buffer' },
+            { name = 'path' },
           })
+      })
+    end
+  }
+
+  -- シグネチャヒント
+  use {
+    "ray-x/lsp_signature.nvim",
+    config = function ()
+      require('lsp_signature').setup({
+        bind = true,
+        handler_opts = {
+          border = "rounded"
+        },
+        floating_window = true,
+        toggle_key = '<C-l>'
       })
     end
   }
@@ -223,8 +267,7 @@ return require('packer').startup({function()
   use {
     'nvim-lualine/lualine.nvim',
     requires = {
-      {'kyazdani42/nvim-web-devicons', opt = true},
-      {'kdheepak/tabline.nvim', config = function() require('tabline').setup({enable = false})end},
+      { 'kdheepak/tabline.nvim', config = function() require('tabline').setup({ enable = false }) end },
     },
     config = function()
       local function custom_progress()
@@ -251,64 +294,61 @@ return require('packer').startup({function()
 
       require('lualine').setup({
         sections = {
-          lualine_a = {'mode'},
+          lualine_a = { 'mode' },
           lualine_b = {
             'branch',
             'diff',
           },
-          lualine_c = {'filetype','filename'},
-          lualine_x = {"require('lsp-status').status()"},
-          lualine_y = {'encoding', {'fileformat', symbols = { unix = ' Linux', dos = ' Windows', mac = ' macOS' }}},
-          lualine_z = {'location',custom_progress},
+          lualine_c = { 'filetype', 'filename' },
+          lualine_x = { "require('lsp-status').status()" },
+          lualine_y = { 'encoding', { 'fileformat', symbols = { unix = ' Linux', dos = ' Windows', mac = ' macOS' } } },
+          lualine_z = { 'location', custom_progress },
         },
         tabline = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = { require'tabline'.tabline_buffers },
+          lualine_c = { require 'tabline'.tabline_buffers },
           lualine_y = {},
-          lualine_z = {'tabs'},
+          lualine_z = { 'tabs' },
         },
         options = {
           theme = {
             normal = {
-              a = {fg = colors.fg.black, bg = colors.indicator.normal},
-              b = {fg = colors.fg.black, bg = colors.bg.b},
-              c = {fg = colors.fg.white, bg = colors.bg.c},
-              z = {fg = colors.fg.black, bg = colors.bg.z},
+              a = { fg = colors.fg.black, bg = colors.indicator.normal },
+              b = { fg = colors.fg.black, bg = colors.bg.b },
+              c = { fg = colors.fg.white, bg = colors.bg.c },
+              z = { fg = colors.fg.black, bg = colors.bg.z },
             },
             insert = {
-              a = {fg = colors.fg.black, bg = colors.indicator.insert},
-              b = {fg = colors.fg.black, bg = colors.bg.b},
-              c = {fg = colors.fg.white, bg = colors.bg.c},
-              z = {fg = colors.fg.black, bg = colors.bg.z},
+              a = { fg = colors.fg.black, bg = colors.indicator.insert },
+              b = { fg = colors.fg.black, bg = colors.bg.b },
+              c = { fg = colors.fg.white, bg = colors.bg.c },
+              z = { fg = colors.fg.black, bg = colors.bg.z },
             },
             visual = {
-              a = {fg = colors.fg.black, bg = colors.indicator.visual},
-              b = {fg = colors.fg.black, bg = colors.bg.b},
-              c = {fg = colors.fg.white, bg = colors.bg.c},
-              z = {fg = colors.fg.black, bg = colors.bg.z},
+              a = { fg = colors.fg.black, bg = colors.indicator.visual },
+              b = { fg = colors.fg.black, bg = colors.bg.b },
+              c = { fg = colors.fg.white, bg = colors.bg.c },
+              z = { fg = colors.fg.black, bg = colors.bg.z },
             },
             replace = {
-              a = {fg = colors.fg.black, bg = colors.indicator.replace},
-              b = {fg = colors.fg.black, bg = colors.bg.b},
-              c = {fg = colors.fg.white, bg = colors.bg.c},
-              z = {fg = colors.fg.black, bg = colors.bg.z},
+              a = { fg = colors.fg.black, bg = colors.indicator.replace },
+              b = { fg = colors.fg.black, bg = colors.bg.b },
+              c = { fg = colors.fg.white, bg = colors.bg.c },
+              z = { fg = colors.fg.black, bg = colors.bg.z },
             },
             inacive = {
-              a = {fg = colors.fg.black, bg = '#33374c'},
-              b = {fg = colors.fg.black, bg = '#262a3f'},
-              c = {fg = colors.fg.white, bg = '#1e2132'},
+              a = { fg = colors.fg.black, bg = '#33374c' },
+              b = { fg = colors.fg.black, bg = '#262a3f' },
+              c = { fg = colors.fg.white, bg = '#1e2132' },
             },
           },
-          component_separators = { left = '', right = ''},
-          section_separators = { left = '', right = ''},
+          component_separators = { left = '', right = '' },
+          section_separators = { left = '', right = '' },
         }
       })
     end
   }
-
-  -- VimDevIcons
-  use 'ryanoasis/vim-devicons'
 
   -- カーソル下にある単語と同じ奴にアンダーラインがつくやつ
   use 'itchyny/vim-cursorword'
@@ -341,7 +381,7 @@ return require('packer').startup({function()
   -- terminal系
   use {
     'akinsho/toggleterm.nvim',
-    config = function ()
+    config = function()
       require('toggleterm').setup({
         direction = 'float',
         open_mapping = [[<F3>]]
@@ -350,31 +390,31 @@ return require('packer').startup({function()
   }
 
   -- colorscheme
-  use {'cocopon/iceberg.vim', opt = true}
+  use { 'cocopon/iceberg.vim', opt = true }
 
   -- fuzzy finder
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
-      {'nvim-lua/plenary.nvim'},
-      use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+      { 'nvim-lua/plenary.nvim' },
+      use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     },
     config = function()
-      vim.api.nvim_set_keymap('n', '<C-p>', "<cmd>Telescope find_files<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('n', 'sb',    "<cmd>Telescope buffers<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('n', 'sg',    "<cmd>Telescope live_grep<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('n', 'sh',    "<cmd>Telescope help_tags<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('n', 'sx',    "<cmd>Telescope grep_string<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('n', 'sm',    "<cmd>Telescope oldfiles<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('n', 's"',    "<cmd>Telescope registers<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('n', 'sQ',    "<cmd>Telescope quickfix<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('n', 'sf',    "<cmd>Telescope treesitter<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', '<C-p>', "<cmd>Telescope find_files<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'sb', "<cmd>Telescope buffers<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'sg', "<cmd>Telescope live_grep<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'sh', "<cmd>Telescope help_tags<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'sx', "<cmd>Telescope grep_string<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'sm', "<cmd>Telescope oldfiles<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 's"', "<cmd>Telescope registers<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'sQ', "<cmd>Telescope quickfix<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'sf', "<cmd>Telescope treesitter<CR>", { noremap = true, silent = true })
 
       -- lsp系
-      vim.api.nvim_set_keymap('n', 'gd',    "<cmd>Telescope lsp_definitions<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('n', 'gT',    "<cmd>Telescope lsp_type_definitions<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('n', 'sD',    "<cmd>Telescope diagnostics<CR>", {noremap = true, silent = true})
-      vim.api.nvim_set_keymap('n', 'gr',    "<cmd>Telescope lsp_references<CR>", {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', 'gd', "<cmd>Telescope lsp_definitions<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'gT', "<cmd>Telescope lsp_type_definitions<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'sD', "<cmd>Telescope diagnostics<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'gr', "<cmd>Telescope lsp_references<CR>", { noremap = true, silent = true })
 
       require('telescope').setup({
         defaults = {
@@ -384,6 +424,10 @@ return require('packer').startup({function()
           mappings = {
             i = {
               ["<esc>"] = require('telescope.actions').close,
+              ["s@"] = require('trouble.providers.telescope').open_with_trouble
+            },
+            n = {
+              ["s@"] = require('trouble.providers.telescope').open_with_trouble
             }
           }
         },
@@ -405,8 +449,8 @@ return require('packer').startup({function()
     'kosayoda/nvim-lightbulb',
     config = function()
       require('nvim-lightbulb').setup({
-        autocmd = {enabled = true},
-        virtual_text = {enabled = false}
+        autocmd = { enabled = true },
+        virtual_text = { enabled = false }
       })
     end,
   }
@@ -436,8 +480,7 @@ return require('packer').startup({function()
   }
 
 end, config = {
-    display = {
-      open_fn = require('packer.util').float,
-    }
-  }});
-
+  display = {
+    open_fn = require('packer.util').float,
+  }
+} });
