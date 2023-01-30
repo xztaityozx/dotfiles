@@ -83,6 +83,12 @@ return require('packer').startup({ function()
     end
   }
 
+  -- outlineを表示したりできるやつ
+  use {
+    'stevearc/aerial.nvim',
+    config = function() require('aerial').setup() end
+  }
+
   use {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -97,10 +103,10 @@ return require('packer').startup({ function()
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-<space>>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-space>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-R><C-R>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'sq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
         vim.keymap.set({ "v", "n" }, 'sA', require('actions-preview').code_actions, opts)
       end
@@ -251,14 +257,15 @@ return require('packer').startup({ function()
   -- シグネチャヒント
   use {
     "ray-x/lsp_signature.nvim",
-    config = function ()
+    config = function()
       require('lsp_signature').setup({
         bind = true,
         handler_opts = {
           border = "rounded"
         },
         floating_window = true,
-        toggle_key = '<C-l>'
+        toggle_key = '<C-l>',
+        hint_prefix = ''
       })
     end
   }
@@ -442,6 +449,7 @@ return require('packer').startup({ function()
       })
 
       require('telescope').load_extension('fzf')
+      require('telescope').load_extension('aerial')
     end
   }
   use 'nvim-treesitter/nvim-treesitter-context'
