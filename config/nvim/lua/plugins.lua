@@ -204,17 +204,17 @@ return require('packer').startup({ function()
       { 'hrsh7th/cmp-buffer' },
       { 'hrsh7th/cmp-path' },
       { 'hrsh7th/cmp-cmdline' },
-      { 'L3MON4D3/LuaSnip' },
-      { 'saadparwaiz1/cmp_luasnip' }
+      --{ 'L3MON4D3/LuaSnip' },
+      --{ 'saadparwaiz1/cmp_luasnip' }
     },
     config = function()
       local cmp = require('cmp')
       cmp.setup({
-        snippet = {
-          expand = function(args)
-            require('luasnip').lsp_expand(args.body)
-          end
-        },
+        --snippet = {
+          --expand = function(args)
+            --require('luasnip').lsp_expand(args.body)
+          --end
+        --},
         -- キーマッピングここから
         mapping = {
           -- Enterで候補決定。選択されてなかったら無視して改行
@@ -242,14 +242,25 @@ return require('packer').startup({ function()
             end
           end
         },
+        window = {
+          documentation = cmp.config.window.bordered(),
+        },
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
-          { name = 'luasnip' }
+          --{ name = 'luasnip' }
         },
           {
             { name = 'buffer' },
             { name = 'path' },
           })
+      })
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          name = 'cmdline'
+        })
       })
     end
   }
@@ -431,11 +442,7 @@ return require('packer').startup({ function()
           mappings = {
             i = {
               ["<esc>"] = require('telescope.actions').close,
-              ["s@"] = require('trouble.providers.telescope').open_with_trouble
             },
-            n = {
-              ["s@"] = require('trouble.providers.telescope').open_with_trouble
-            }
           }
         },
         extensions = {
