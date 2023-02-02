@@ -144,7 +144,7 @@ return require('packer').startup({ function()
           perltidyProfile = '',
           perlcriticProfile = '',
           perlcriticEnabled = false,
-          includePaths = { pwd .. '/lib', pwd .. '/local/lib/perl5' },
+          includePaths = { pwd .. '/lib', pwd .. '/local/lib/perl5', pwd .. '/libt' },
         }
       };
       opt.cmd = { "perlnavigator", "--stdio" }
@@ -426,7 +426,7 @@ return require('packer').startup({ function()
       vim.api.nvim_set_keymap('n', 'sm', "<cmd>Telescope oldfiles<CR>", { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', 's"', "<cmd>Telescope registers<CR>", { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', 'sQ', "<cmd>Telescope quickfix<CR>", { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', 'sf', "<cmd>Telescope treesitter<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', 'sf', "<cmd>Telescope aerial<CR>", { noremap = true, silent = true })
 
       -- lsp系
       vim.api.nvim_set_keymap('n', 'gd', "<cmd>Telescope lsp_definitions<CR>", { noremap = true, silent = true })
