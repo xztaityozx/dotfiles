@@ -66,7 +66,6 @@
     lbin'!uni-* -> uni'                                          arp242/uni \
     lbin'!gron'                                                  tomnomnom/gron \
     lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'"   ms-jpq/sad \
-    lbin'!ocs' has"dotnet"                                       xztaityozx/ocs \
     lbin'!*/csvq -> csvq' atload'_zinit_csvq_atload'             mithrandie/csvq \
     lbin'!ojosama'                                               jiro4989/ojosama \
     lbin'!owari' atclone'./owari completion zsh > _owari'        xztaityozx/owari \
@@ -96,7 +95,7 @@
     zinit wait"2" lucid as'null' light-mode nocompile for \
       atclone'mkdir -p $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim && cp -r * $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim' wbthomason/packer.nvim
 
-    zinit lucid as'null' light-mode nocompile for atload='export TPM_HOME=$PWD' tmux-plugins/tpm
+    zinit wait"2" lucid as'null' has"tmux" light-mode nocompile cloneonly for atload='export TPM_HOME=$PWD' tmux-plugins/tpm
 
     zinit wait"2" lucid as'program' light-mode lbin'!shellspec' for @shellspec/shellspec
 
@@ -114,7 +113,7 @@
 
 # }}}
 
-zinit light-mode trackbinds bindmap"^I -> ^@" atload"_zinit_fzf-tab_atload" for Aloxaf/fzf-tab
+zinit light-mode has"tmux" trackbinds bindmap"^I -> ^@" atload"_zinit_fzf-tab_atload" for Aloxaf/fzf-tab
 zinit light-mode atload"zsh-defer zinit compinit &>/dev/null" for romkatv/zsh-defer
 
 zinit wait lucid for \
