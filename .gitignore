@@ -16,3 +16,4 @@ config/tmux/plugins/
 config/lazygit/state.yml
 config/lazygit/**/*.patch
 config/nvim/plugin/packer_compiled.lua
+*.zwc
