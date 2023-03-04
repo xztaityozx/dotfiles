@@ -20,21 +20,11 @@ function powerline_precmd() {
       -modules 'root' \
       -theme $HOME/.config/powerline-go/default.json)"
   else
-    #PS1="$(powerline-go -eval -error $err -shell zsh \
-      #-hostname-only-if-ssh \
-      #-modules 'aws,ssh,host,docker,cwd,git,jobs,exit,newline,user,root' \
-      #-modules-right 'time' \
-      #-theme $HOME/.config/powerline-go/default.json \
-      #-shell zsh \
-      #-cwd-max-depth 3\
-      #-cwd-max-dir-size -1)"
-    eval "$(powerline-go -eval -error $err -shell zsh \
+    PS1="$(powerline-go -error $err -shell zsh \
       -hostname-only-if-ssh \
-      -duration $duration \
-      -modules 'aws,ssh,host,docker,cwd,git,jobs,exit,newline,user,root' \
-      -modules-right 'duration,time' \
+      -modules 'aws,ssh,host,docker,cwd,git,jobs,duration,time,exit,newline,user,root' \
       -theme $HOME/.config/powerline-go/default.json \
-      -shell zsh \
+      -duration $duration \
       -cwd-max-depth 3\
       -cwd-max-dir-size -1)"
   fi
