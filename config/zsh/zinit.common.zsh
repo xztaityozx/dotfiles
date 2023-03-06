@@ -109,8 +109,8 @@
       atdelete"pip3 uninstall -y tqdm"   tqdm/tqdm
 
   # }}}
-  
 
+  zinit wait"2" lucid has"perl" nocompile as"program" lbin'!./cpm' for skaji/cpm
 # }}}
 
 zinit light-mode has"tmux" trackbinds bindmap"^I -> ^@" atload"_zinit_fzf-tab_atload" for Aloxaf/fzf-tab
