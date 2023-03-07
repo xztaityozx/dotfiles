@@ -28,14 +28,8 @@ alias hd="git diff"
 alias hl="git log"
 alias hst="git stash"
 
-# fcitx
-type fcitx &> /dev/null && alias fcitx-autostart="fcitx-autostart &> /dev/null"
-
 # python3
 alias py3=python3
-
-# go
-alias -s go="go run "
 
 # シンプルなプロンプトなbash
 alias simple-bash='PS1="> " bash'
@@ -57,3 +51,7 @@ alias tmux="tmux -f $DOTFILES_PATH/config/tmux/tmux.conf"
 
 # date
 type gdate &> /dev/null && alias date=gdate
+
+# エディタ系
+alias :e="$EDITOR"
+alias :ve="tmux splitw -h $EDITOR"

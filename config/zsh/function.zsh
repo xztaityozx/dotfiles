@@ -1,18 +1,5 @@
 #!/usr/bin/zsh
 
-# ggc user/repo
-# ghq get hoge/fuga && cd $(ghq root)/github.com/hoge/fuga
-function ggc() {
-  local repo="$1"
-  ghq get $repo &&
-    cd $(ghq root)/github.com/$repo
-}
-
-function git-remote-set-ssh() {
-  local repo="$(basename $(pwd))"
-  git remote set-url origin git@github.com:xztaityozx/$repo
-}
-
 # output information to stdout
 # usage: logger.info [text]
 function logger.info() {
@@ -36,7 +23,7 @@ function yy() {
   [[ $"$CMD" == "" ]] && logger.warn "clip.exe, or pbcopy not found" && exit 1
 
   [ -p /dev/fd/0 ] && $CMD && return
-  history | tail -n1 | cut -d ' ' -f4- | $CMD
+  history | tail -n1 | sel --remove-empty 2: | $CMD
 }
 
 function p() {
@@ -44,28 +31,9 @@ function p() {
   type pbpaste &> /dev/null && pbpaste && return
 }
 
-# icat STDINからやってきた文字列をパスとしてcatにわたす。複数行あるなら fzf で選択する
+# fcat STDINからやってきた文字列をパスとしてcatにわたす。複数行あるなら fzf で選択する
 function fcat() {
   fzf --preview 'bat --theme Nord --style=numbers --color=always --line-range :500 $(echo {}|awk -F: "{print \$1}")' | awk -F: '{print $1}' | xargs bat --theme Nord 
-}
-
-# config, open config file
-function config() {
-  cd $ZDOTDIR
-  local file="$(ls -la|grep -v "^d"|awk '{print $NF}'|fzf)"
-  [[ "$file" = "" ]] && logger.warn "fzf was canceled" && return 1
-
-  $EDITOR $file
-}
-
-# awk for csv
-function cawk() {
-  awk -F, "$@"
-}
-
-# awk のセパレータを : にしたやつ
-function :awk() {
-  awk -F: "$@"
 }
 
 # $PATH を見やすく表示するだけ
@@ -92,11 +60,6 @@ function wget-tmp() {
 }
 alias wget=wget-tmp
 
-# YYYYmmddを出力するだけ
-function simple-date() {
-  date '+%Y%m%d'
-}
-
 # 本日分のドキュメントを編集/作成するコマンド
 # 日報とかTODOとかを $HOME/Documents/cli-doc/以下に作る
 function doc() {
@@ -115,14 +78,6 @@ function yesno() {
 no' | fzf)"
   [[ "$res" == yes ]] && return 0
   return 1
-}
-
-# wrap ( line  ) みたいな感じに包む
-#   params:
-#     $1: 開始記号
-#     $2: 終端記号、省略すると$1
-function wrap() {
-  sed "s/.*/${1}&${2:-$1}/"
 }
 
 # wrapper for tail -f
@@ -155,19 +110,6 @@ function cdx-history-clean-up() {
   }
 }
 
-function :e() {
-  local files="${*}"
-  [[ -p /dev/fd/0 ]] && xargs $EDITOR <(cat -)
-
-  [[ "$files" == "" ]] && $EDITOR || {
-    xargs $EDITOR <<< $files
-  }
-}
-
-function :ve() {
-  tmux splitw -h $EDITOR $*
-}
-
 # $1 桁のhexを取得する。lower case
 function randhex() {
   local digits=${1:-10}
@@ -197,7 +139,7 @@ function readme() {
 
   local selected="$(fd 'readme' $root | fzf)"
 
-  if [[ "$?" != "0" ]] || [[ "$selected" == "" ]]; then
+  if [[ "$selected" == "" ]]; then
     logger.warn なかったかfzfがキャンセルされたっぽいね
     return
   fi
