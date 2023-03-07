@@ -160,6 +160,15 @@ return require('packer').startup({
         { 'folke/lsp-colors.nvim' },
         { 'folke/neodev.nvim' },
       },
+      config = function()
+        --require('lspconfig').perlls.setup {
+          --settings = {
+            --cacheDir = os.getenv('PWD'),
+            --cmd = { "perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--", "--port 13603",
+              --"--nostdio 0", "--version 2.5.0" }
+          --}
+        --};
+      end
     }
 
     use {
@@ -321,7 +330,8 @@ return require('packer').startup({
             },
             lualine_c = { 'filetype', 'filename' },
             lualine_x = { "require('lsp-status').status()" },
-            lualine_y = { 'encoding', { 'fileformat', symbols = { unix = ' Linux', dos = ' Windows', mac = ' macOS' } } },
+            lualine_y = { 'encoding',
+              { 'fileformat', symbols = { unix = ' Linux', dos = ' Windows', mac = ' macOS' } } },
             lualine_z = { 'location', custom_progress },
           },
           tabline = {
