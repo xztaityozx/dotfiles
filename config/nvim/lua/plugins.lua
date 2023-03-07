@@ -161,11 +161,14 @@ return require('packer').startup({
         { 'folke/neodev.nvim' },
       },
       config = function()
+        -- disableCacheしてもキャッシュが作成されるしつらい
         --require('lspconfig').perlls.setup {
+          --cmd = { "perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--", "--port 13603",
+            --"--nostdio 0", "--version 2.5.0" },
           --settings = {
-            --cacheDir = os.getenv('PWD'),
-            --cmd = { "perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--", "--port 13603",
-              --"--nostdio 0", "--version 2.5.0" }
+            --perl = {
+              --disableCache = true,
+            --}
           --}
         --};
       end
