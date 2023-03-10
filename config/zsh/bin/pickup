@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+FZF="fzf --preview 'bat --theme Nord --style=numbers --color=always --line-range :500 {}' --print0 --height=100% --multi"
+FD="fd . ./ --type={f,l} --exclude=\*.{jpg,jpeg,png,ttf,ogg,mp3,mp4,pdf} --exclude=.git --hidden --follow"
+
+if [[ -z "$TMUX" ]] || ! tmux list-commands | grep -q popup; then
+  RESULT=$($FD|$FZF)
+  if [[ -z "$RESULT" ]]; then
+    logger.warn "fzfをキャンセルしたか、fdが何もリストアップしなかったっぽいね"
+    exit 1
+  fi
+
+  $RESULT
+else
+  SESSION_NAME="$(tmux display-message -p -F '#{session_name}')"
+  if [[ "$SESSION_NAME" =~ "pickup" ]]; then
+    tmux detach-client
+  else
+    tmux deleteb -b tmux-pickup
+    tmux popup -d '#{pane_current_path}' -{x,y}C -{w,h}80% \
+      -T "(toggle: Ctrl+p)" \
+      -E "tmux attach -t pickup || tmux new -s pickup \"$FD|$FZF|tmux loadb -b tmux-pickup -\""
+
+    if tmux showb -b tmux-pickup 2>/dev/null | grep . -q; then
+      tmux showb -b tmux-pickup | xargs -0 $EDITOR
+    else
+      logger.warn "fzfをキャンセルしたか、fdが何も返してないっぽい"
+    fi
+  fi
+fi
+
