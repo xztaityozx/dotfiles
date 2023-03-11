@@ -5,7 +5,7 @@ function _zinit_bat_atload() {
 }
 
 function _zinit_fzf_atload() {
-  export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --border"
+  export FZF_DEFAULT_OPTS="-1 -0 --cycle --reverse --height=40% --border --bind 'ctrl-a:toggle-all'"
   export FZF_DEFAULT_COMMAND="fd --type=f --exclude .git --hidden --follow"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   unfunction $0

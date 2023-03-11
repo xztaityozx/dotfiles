@@ -18,3 +18,9 @@ __edit_line__(){
 zle -N __edit_line__
 bindkey "^Xe" __edit_line__
 
+__pickup__() {
+  $ZDOTDIR/bin/pickup
+}
+
+zle -N __pickup__
+bindkey "^p" __pickup__
