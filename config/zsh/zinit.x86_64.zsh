@@ -8,26 +8,14 @@
 # プロンプトが出てから0秒後にロードするツール
 # {{{
   zinit wait light-mode nocompile lucid from"gh-r" for \
-    lbin'!*/rg -> rg' \
-      atload'zinit-creinstall-once rg BurntSushi/ripgrep' BurntSushi/ripgrep \
-    lbin'!*/delta -> delta' dandavison/delta \
-    bpick'*.tar.gz' lbin'!bin/teip -> teip' \
-      atload'zinit-creinstall-once teip greymd/teip' greymd/teip \
     lbin'!rargs' lotabout/rargs \
-    lbin'!*/fd -> fd' @sharkdp/fd \
-    lbin'!bin/exa -> exa' cp"completions/exa.zsh -> _exa" \
-      atload"_zinit_exa_atload" \
-        ogham/exa
+    lbin'!*/fd -> fd' @sharkdp/fd
 # }}}
 
 # そんなに急いでロードしなくていいツール
 # {{{
   zinit wait"1" light-mode nocompile lucid from"gh-r" for \
-    lbin'!*/bin/gh' bpick'*.tar.gz' \
-      atclone'*/bin/gh completion -s zsh > _gh' atpull'%atclone' atload'zinit-creinstall-once gh cli/cli' cli/cli \
-    lbin'!*/ghq'       atload'zinit-creinstall-once ghq x-motemen/ghq' x-motemen/ghq \
     lbin'!*/hexyl'                                  @sharkdp/hexyl \
     lbin'!*/hyperfine'                              @sharkdp/hyperfine \
-    lbin'!*/pastel'    atload'_zinit_pastel_atload' @sharkdp/pastel \
-    lbin'!grex'                                     pemistahl/grex
+    lbin'!*/pastel'    atload'_zinit_pastel_atload' @sharkdp/pastel
 # }}}
