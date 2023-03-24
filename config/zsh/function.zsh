@@ -179,3 +179,11 @@ function hsw() {
 
   git switch "$branch"
 }
+
+function CamelCase() {
+  sed 's/\(_\)\([a-z]\)/\U\2/g;s/^\([a-z]\)/\U\1/g'
+}
+
+function snake_case() {
+  sed 's/\([a-z]\)\([A-Z]\)/\1_\2/g' | tr '[:upper:]' '[:lower:]'
+}
