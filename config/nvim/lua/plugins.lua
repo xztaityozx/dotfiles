@@ -56,6 +56,8 @@ return require('packer').startup({
         vim.api.nvim_set_keymap('n', 'lg', '<CMD>LazyGit<CR>', { noremap = true, silent = true })
       end
     }
+    use 'f-person/git-blame.nvim'
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
     -- }}}
 
     -- ウインドウサイズ変更するやつ
