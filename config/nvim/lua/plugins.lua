@@ -147,7 +147,7 @@ return require('packer').startup({
             perltidyProfile = pwd .. '/.perltidyrc',
             perlcriticProfile = pwd .. '/.perlcriticrc',
             perlcriticEnabled = true,
-            includePaths = { pwd .. '/lib', pwd .. '/local/lib/perl5', pwd .. '/libt' },
+            includePaths = { pwd .. '/lib', pwd .. '/local/lib/perl5', pwd .. '/.libt' },
           }
         };
         opt.cmd = { "perlnavigator", "--stdio" }
