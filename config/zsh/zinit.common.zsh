@@ -69,7 +69,6 @@
     lbin'!sel'   atclone'./sel completion zsh > _sel'            xztaityozx/sel \
     lbin'!yq_* -> yq' atclone'./yq_* shell-completion zsh > _yq' atpull'%atclone' mikefarah/yq \
     lbin'!bin/teip' greymd/teip \
-    lbin'!*/delta' dandavison/delta \
     lbin'!grex' pemistahl/grex \
     lbin'!./*/bin/gh' atclone'./*/bin/gh completion -s zsh > _gh' atpull"%atclone" cli/cli \
     lbin'!./*/ghq' atclone'rm ./*/misc/bash/_ghq' atpull"%atclone" x-motemen/ghq
@@ -81,7 +80,8 @@
       lbin'!target/release/sd' atload"alias sd='sd -p'" chmln/sd \
       lbin'!target/release/as-tree'                     jez/as-tree \
       lbin'!target/release/exa' atload"_zinit_exa_atload"  ogham/exa \
-      lbin'!target/release/rg' BurntSushi/ripgrep
+      lbin'!target/release/rg' BurntSushi/ripgrep \
+      lbin'!target/release/delta' dandavison/delta
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
