@@ -45,7 +45,7 @@
   # {{{
   
     zinit has"go" lbin'!powerline-go' light-mode nocompletions nocompile as"null" \
-      atclone"go build" atpull"%atclone" \
+      atclone"asdf local golang 1.19.3 && go build" atpull"%atclone" \
       atload"source $ZDOTDIR/powerline.zsh" \
         for justjanne/powerline-go
 
@@ -57,9 +57,6 @@
 
   zinit wait"2" light-mode nocompile lucid for \
     has"ruby" lbin'!rb' thisredone/rb
-
-  # align
-  zinit wait"2" nocompile lucid has"go" light-mode lbin'!align' atclone"go build" atpull"%atclone" for jiro4989/align
 
   zinit wait"2" light-mode nocompile lucid from"gh-r" for \
     lbin'!*/gojq' atload'alias jq=gojq'                          itchyny/gojq \
