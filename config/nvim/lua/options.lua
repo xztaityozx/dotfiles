@@ -21,7 +21,13 @@ o.wildmenu=true
 -- 新しい行のインデントを前の行と同じにする
 o.autoindent=true
 -- 自動インデントするときに各段に挿入される空白の数
-o.shiftwidth=2
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "perl",
+    callback = function ()
+        o.shiftwidth=4
+    end
+})
+
 -- カーソルが何行目に置かれているかを表示する
 o.ruler=true
 -- バッファを保存していないときに閉じようとすると確認するように
