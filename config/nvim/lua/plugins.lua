@@ -435,8 +435,6 @@ return require('packer').startup({
           direction = 'float',
           open_mapping = [[<F3>]]
         })
-
-        vim.api.nvim_set_keymap('n', '<S-F3>', "<cmd>ToggleTerm direction=horizontal<CR>", {noremap=true, silent=false})
       end
     }
 
