@@ -25,8 +25,22 @@ return require('packer').startup({
       end,
     }
 
-    -- vim-surround
-    use 'tpope/vim-surround'
+    use {
+      'kylechui/nvim-surround',
+      config = function ()
+        require('nvim-surround').setup({
+          keymaps = {
+            -- prefixを張替え
+            normal = "tt", -- ys
+            normal_cur = "th", -- yss
+            normal_cur_line = "tg", --yS
+            visual = "t", -- S
+          }
+        })
+        -- tf に ysiwf を割り当て、関数名が要求される
+        vim.api.nvim_set_keymap('n', 'tf', '<Plug>(nvim-surround-normal)iwf', {noremap = true, silent = true})
+      end
+    }
 
     -- bufdelete
     use {
@@ -114,7 +128,7 @@ return require('packer').startup({
           vim.keymap.set({ "v", "n" }, 'sA', require('actions-preview').code_actions, opts)
         end
       };
-      if server == "sumneko_lua" then
+      if server == "lua_ls" then
         local runtime_path = vim.split(package.path, ";", {});
         table.insert(runtime_path, "lua/?.lua")
         table.insert(runtime_path, "lua/*/init.lua")
@@ -421,6 +435,8 @@ return require('packer').startup({
           direction = 'float',
           open_mapping = [[<F3>]]
         })
+
+        vim.api.nvim_set_keymap('n', '<S-F3>', "<cmd>ToggleTerm direction=horizontal<CR>", {noremap=true, silent=false})
       end
     }
 
