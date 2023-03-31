@@ -120,7 +120,7 @@ return require('packer').startup({
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-space>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-R><C-R>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'sq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
@@ -426,15 +426,27 @@ return require('packer').startup({
         })
       end
     }
+    -- インデントのガイドラインを表示するくん
+    use {
+      "lukas-reineke/indent-blankline.nvim",
+      config = function()
+        require('indent_blankline').setup({
+          show_current_context = true,
+          show_current_context_start = true
+        })
+      end
+    }
 
     -- terminal系
     use {
       'akinsho/toggleterm.nvim',
       config = function()
-        require('toggleterm').setup({
-          direction = 'float',
-          open_mapping = [[<F3>]]
-        })
+        require('toggleterm').setup({})
+
+        vim.api.nvim_set_keymap('n', '<F3>', '<cmd>ToggleTerm direction=float<CR>', {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('n', '<F4>', '<cmd>ToggleTerm direction=horizontal<CR>', {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('t', '<F3>', '<cmd>ToggleTerm direction=float<CR>', {noremap = true, silent = true})
+        vim.api.nvim_set_keymap('t', '<F4>', '<cmd>ToggleTerm direction=horizontal<CR>', {noremap = true, silent = true})
       end
     }
 
