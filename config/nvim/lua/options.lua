@@ -22,6 +22,15 @@ o.wildmenu=true
 o.autoindent=true
 -- 自動インデントするときに各段に挿入される空白の数
 o.shiftwidth=2
+vim.api.nvim_create_autocmd(
+  "FileType",
+  {
+    pattern = 'perl',
+    callback = function()
+      vim.opt_local.shiftwidth=4
+    end
+  }
+)
 
 -- カーソルが何行目に置かれているかを表示する
 o.ruler=true
