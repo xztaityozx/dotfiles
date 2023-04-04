@@ -12,6 +12,7 @@ type gmkdir &> /dev/null && alias mkdir=gmkdir
 alias ks=ls
 alias ka=ls
 alias lks=ls
+alias ｔむｘ=tmux
 
 # cdx
 alias cg="cdx -c g"
@@ -55,3 +56,4 @@ type gdate &> /dev/null && alias date=gdate
 # エディタ系
 alias :e="$EDITOR"
 alias :ve="tmux splitw -h $EDITOR"
+
