@@ -89,9 +89,6 @@
     lbin'!bin/xpanes' as'null' has'tmux' cp'completion/zsh/_xpanes -> _xpanes'             greymd/tmux-xpanes
 
   zinit wait'2' nocompile as"program" lucid make"all" lbin'!./bin/*' for ryuichiueda/glueutils
-
-  # textimgはarm向けのビルドが無いので自前ビルド
-  zinit has'go' wait'2' nocompile as"program" atclone'asdf local golang 1.19.3' lucid make"textimg" lbin'!textimg' cp'completions/zsh/_textimg -> _textimg' for jiro4989/textimg
 # }}}
 
 # {{{
