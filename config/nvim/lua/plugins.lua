@@ -536,6 +536,16 @@ return require('packer').startup({
         }
       end
     }
+
+    -- copilot
+    use { 
+      'github/copilot.vim',
+      config = function()
+        -- Ctrl+j でCopilotの候補を選択
+        vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("\\<CR>")', {expr = true, script = true, silent = true})
+        vim.g.copilot_no_tab_map = false
+      end
+    }
   end,
   config = {
     display = {
