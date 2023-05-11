@@ -128,6 +128,10 @@ return require('packer').startup({
           vim.keymap.set({ "v", "n" }, 'sA', require('actions-preview').code_actions, opts)
         end
       };
+      if server == "omnisharp" then
+        opt.cmd = { "omnisharp" }
+      end
+
       if server == "lua_ls" then
         local runtime_path = vim.split(package.path, ";", {});
         table.insert(runtime_path, "lua/?.lua")
