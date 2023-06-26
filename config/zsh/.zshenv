@@ -12,6 +12,7 @@ $GOPATH/bin(N-/)
 $HOME/.nimble/bin(N-/)
 $HOME/.local/bin(N-/)
 $HOME/.cargo/bin(N-/)
+$HOME/.dotnet/tools(N-/)
 $path
 )
 
