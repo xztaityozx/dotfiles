@@ -181,7 +181,7 @@ function hsw() {
 }
 
 function CamelCase() {
-  sed 's/\(_\)\([a-z]\)/\U\2/g;s/^\([a-z]\)/\U\1/g'
+  sed -E 's/\(_\)\([a-z]\)/\U\2/g;s/^\([a-z]\)/\U\1/g'
 }
 
 function snake_case() {
