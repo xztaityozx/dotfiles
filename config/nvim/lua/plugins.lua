@@ -111,6 +111,10 @@ return require('packer').startup({
       "williamboman/mason-lspconfig.nvim",
     }
 
+    use {
+      "b0o/schemastore.nvim"
+    }
+
     require('mason').setup();
     require('mason-lspconfig').setup_handlers({ function(server)
       local opt = {
@@ -169,6 +173,18 @@ return require('packer').startup({
           }
         };
         opt.cmd = { "perlnavigator", "--stdio" }
+      end
+
+      if server == "yamlls" then
+        opt.settings = {
+          yaml = {
+            schemaStore = {
+              enable = false,
+              url = "",
+            },
+            schemas = require('schemastore').yaml.schemas(),
+          }
+        }
       end
       require('lspconfig')[server].setup(opt)
     end })
@@ -542,7 +558,7 @@ return require('packer').startup({
     }
 
     -- copilot
-    use { 
+    use {
       'github/copilot.vim',
       config = function()
         -- Ctrl+j でCopilotの候補を選択
