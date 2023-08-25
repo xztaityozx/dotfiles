@@ -11,11 +11,6 @@ function _zinit_fzf_atload() {
   unfunction $0
 }
 
-function _zinit_csvq_atload() {
-  alias ltsvq="csvq -i LTSV"
-  unfunction $0
-}
-
 function _zinit_exa_atload() {
   alias ls="exa --git"
   alias ll="exa --time-style=long-iso -mUuhla --icons --changed --git"

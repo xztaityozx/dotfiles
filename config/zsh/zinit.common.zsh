@@ -12,9 +12,6 @@
   zinit ice wait"2" lucid from"gh-r" lbin'!./*/bin/nvim -> nvim'
   zinit light neovim/neovim
 
-  zinit has"docker" lbin'!./dest/bin/tmux -> tmux' atpull"make clean" light-mode nocompile make'!!' \
-    cp"./dest/man/man1/tmux.1 -> $ZPFX/man/man1/tmux.1" for xztaityozx/tmux-builder
-
   # }}}
 
   # fzf
@@ -62,15 +59,13 @@
     lbin'!uni-* -> uni'                                          arp242/uni \
     lbin'!gron'                                                  tomnomnom/gron \
     lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'"   ms-jpq/sad \
-    lbin'!*/csvq -> csvq' atload'_zinit_csvq_atload'             mithrandie/csvq \
-    lbin'!ojosama'                                               jiro4989/ojosama \
     lbin'!owari' atclone'./owari completion zsh > _owari'        xztaityozx/owari \
     lbin'!sel'   atclone'./sel completion zsh > _sel'            xztaityozx/sel \
-    lbin'!yq_* -> yq' atclone'./yq_* shell-completion zsh > _yq' atpull'%atclone' mikefarah/yq \
     lbin'!bin/teip' greymd/teip \
     lbin'!grex' pemistahl/grex \
     lbin'!./*/bin/gh' atclone'./*/bin/gh completion -s zsh > _gh' atpull"%atclone" cli/cli \
-    lbin'!./*/ghq' atclone'rm ./*/misc/bash/_ghq' atpull"%atclone" x-motemen/ghq
+    lbin'!./*/ghq' atclone'rm ./*/misc/bash/_ghq' atpull"%atclone" x-motemen/ghq \
+    lbin'!dasel_* -> dasel' atclone'./dasel_* completion zsh > _dasel' TomWright/dasel
 
 
   # 最新のものがReleasesにないので自前ビルドする子たち
