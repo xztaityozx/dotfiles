@@ -44,8 +44,7 @@
   # as"null" をつけないと謎のpreviewスクリプトが暴走してえらいことになる
   # {{{
   
-    zinit has"go" lbin'!powerline-go' light-mode nocompletions nocompile as"null" \
-      atclone"asdf local golang 1.19.3 && go build" atpull"%atclone" \
+    zinit has"go" lbin'!powerline-go-* -> powerline-go' light-mode as"null" from"gh-r" \
       atload"source $ZDOTDIR/powerline.zsh" \
         for justjanne/powerline-go
 
@@ -98,16 +97,13 @@
 
     zinit wait"2" lucid as'null' has"tmux" light-mode nocompile for atload='export TPM_HOME=$PWD' tmux-plugins/tpm
 
-    zinit wait"2" lucid as'program' light-mode lbin'!shellspec' for @shellspec/shellspec
-
   # pip3 install
   # {{{
 
     zinit wait"2" lucid has"pip3" light-mode nocompile as"null" atclone"pip3 install ." atpull"%atclone" for \
       atdelete"pip3 uninstall -y pynvim" neovim/pynvim \
       atdelete"pip3 uninstall -y httpie" httpie/httpie \
-      atdelete"pip3 uninstall -y bpytop" aristocratos/bpytop \
-      atdelete"pip3 uninstall -y tqdm"   tqdm/tqdm
+      atdelete"pip3 uninstall -y bpytop" aristocratos/bpytop
 
   # }}}
 
