@@ -33,10 +33,3 @@ function _zinit_fzf-tab_atload() {
   unfunction $0
 }
 
-# zsh-utils
-function _zinit_zsh-history-substring-search_atload() {
-  bindkey "^[[A" history-substring-search-up
-  bindkey "^[[B" history-substring-search-down
-  unfunction $0
-}
-

@@ -36,7 +36,6 @@
   # }}}
   
   # powerline-go
-  # リリースに最新のものがアップロードされないので自前でビルド
   # as"null" をつけないと謎のpreviewスクリプトが暴走してえらいことになる
   # {{{
   
@@ -64,7 +63,8 @@
     lbin'!grex' pemistahl/grex \
     lbin'!./*/bin/gh' atclone'./*/bin/gh completion -s zsh > _gh' atpull"%atclone" cli/cli \
     lbin'!./*/ghq' atclone'rm ./*/misc/bash/_ghq' atpull"%atclone" x-motemen/ghq \
-    lbin'!dasel_* -> dasel' atclone'./dasel_* completion zsh > _dasel' TomWright/dasel
+    lbin'!dasel_* -> dasel' atclone'./dasel_* completion zsh > _dasel' TomWright/dasel \
+    lbin'!delta-*/delta' dandavison/delta
 
 
   # 最新のものがReleasesにないので自前ビルドする子たち
@@ -73,8 +73,7 @@
       lbin'!target/release/sd' atload"alias sd='sd -p'" chmln/sd \
       lbin'!target/release/as-tree' jez/as-tree \
       lbin'!target/release/exa' atload"_zinit_exa_atload"  ogham/exa \
-      lbin'!target/release/rg' BurntSushi/ripgrep \
-      lbin'!target/release/delta' dandavison/delta
+      lbin'!target/release/rg' BurntSushi/ripgrep
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
