@@ -14,8 +14,8 @@
 
 # そんなに急いでロードしなくていいツール
 # {{{
-  zinit wait"1" light-mode nocompile lucid from"gh-r" for \
-    lbin'!*/hexyl'                                  @sharkdp/hexyl \
-    lbin'!*/hyperfine'                              @sharkdp/hyperfine \
-    lbin'!*/pastel'    atload'_zinit_pastel_atload' @sharkdp/pastel
+  zinit wait"5" light-mode nocompile lucid from"gh-r" for \
+    lbin'!*/hexyl' @sharkdp/hexyl \
+    lbin'!*/hyperfine' @sharkdp/hyperfine \
+    lbin'!*/pastel' atload'_zinit_pastel_atload' @sharkdp/pastel
 # }}}
