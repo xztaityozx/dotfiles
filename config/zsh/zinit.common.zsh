@@ -110,5 +110,4 @@ zinit light-mode atload"zsh-defer zinit compinit &>/dev/null" for romkatv/zsh-de
 zinit wait lucid for \
   atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
   blockf zsh-users/zsh-completions \
-  atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions \
-  atload'_zinit_zsh-history-substring-search_atload' zsh-users/zsh-history-substring-search
+  atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions
