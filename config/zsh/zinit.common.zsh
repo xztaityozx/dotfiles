@@ -70,7 +70,6 @@
   # 最新のものがReleasesにないので自前ビルドする子たち
   zinit wait"zinit-rust-ready" light-mode depth=1 lucid nocompile \
     atclone"cargo build --release" atpull"%atclone" for \
-      lbin'!target/release/sd' atload"alias sd='sd -p'" chmln/sd \
       lbin'!target/release/as-tree' jez/as-tree \
       lbin'!target/release/exa' atload"_zinit_exa_atload"  ogham/exa \
       lbin'!target/release/rg' BurntSushi/ripgrep
