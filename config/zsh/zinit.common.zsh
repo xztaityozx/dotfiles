@@ -55,12 +55,12 @@
     has"ruby" lbin'!rb' thisredone/rb
 
   zinit wait"2" light-mode nocompile lucid from"gh-r" for \
-    lbin'!*/gojq' atload'alias jq=gojq'                          itchyny/gojq \
-    lbin'!uni-* -> uni'                                          arp242/uni \
-    lbin'!gron'                                                  tomnomnom/gron \
-    lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'"   ms-jpq/sad \
-    lbin'!owari' atclone'./owari completion zsh > _owari'        xztaityozx/owari \
-    lbin'!sel'   atclone'./sel completion zsh > _sel'            xztaityozx/sel \
+    lbin'!*/gojq' atload'alias jq=gojq' itchyny/gojq \
+    lbin'!uni-* -> uni' arp242/uni \
+    lbin'!gron' tomnomnom/gron \
+    lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'" ms-jpq/sad \
+    lbin'!owari' atclone'./owari completion zsh > _owari' xztaityozx/owari \
+    lbin'!sel'   atclone'./sel completion zsh > _sel' xztaityozx/sel \
     lbin'!bin/teip' greymd/teip \
     lbin'!grex' pemistahl/grex \
     lbin'!./*/bin/gh' atclone'./*/bin/gh completion -s zsh > _gh' atpull"%atclone" cli/cli \
@@ -72,7 +72,7 @@
   zinit wait"zinit-rust-ready" light-mode depth=1 lucid nocompile \
     atclone"cargo build --release" atpull"%atclone" for \
       lbin'!target/release/sd' atload"alias sd='sd -p'" chmln/sd \
-      lbin'!target/release/as-tree'                     jez/as-tree \
+      lbin'!target/release/as-tree' jez/as-tree \
       lbin'!target/release/exa' atload"_zinit_exa_atload"  ogham/exa \
       lbin'!target/release/rg' BurntSushi/ripgrep \
       lbin'!target/release/delta' dandavison/delta
@@ -80,7 +80,7 @@
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
     lbin'!gibo' atclone'./gibo update;' cp'shell-completions/gibo-completion.zsh -> _gibo' simonwhitaker/gibo \
-    lbin'!bin/xpanes' as'null' has'tmux' cp'completion/zsh/_xpanes -> _xpanes'             greymd/tmux-xpanes
+    lbin'!bin/xpanes' as'null' has'tmux' cp'completion/zsh/_xpanes -> _xpanes' greymd/tmux-xpanes
 
   zinit wait'2' nocompile as"program" lucid make"all" lbin'!./bin/*' for ryuichiueda/glueutils
 # }}}
