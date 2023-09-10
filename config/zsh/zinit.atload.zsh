@@ -11,9 +11,9 @@ function _zinit_fzf_atload() {
   unfunction $0
 }
 
-function _zinit_exa_atload() {
-  alias ls="exa --git"
-  alias ll="exa --time-style=long-iso -mUuhla --icons --changed --git"
+function _zinit_lsd_atload() {
+  alias ls=lsd
+  alias ll="lsd -l --date +'%F %T' --git"
   unfunction $0
 }
 
