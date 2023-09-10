@@ -9,7 +9,7 @@
 
   # nvim
   # zinitにrelaeseの名前を解決させることができないのでなんとかする
-  zinit ice wait"2" lucid from"gh-r" lbin'!./*/bin/nvim -> nvim' for neovim/neovim
+  zinit wait"2" lucid from"gh-r" lbin'!./*/bin/nvim -> nvim' for neovim/neovim
 
   # }}}
 
