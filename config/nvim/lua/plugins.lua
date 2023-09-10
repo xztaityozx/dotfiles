@@ -1,126 +1,134 @@
-vim.cmd [[packadd packer.nvim]]
-local use = require("packer").use;
+-- lazy.nvim の bootstrap
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-return require('packer').startup({
-  function()
-    -- packer.nvim を packer.nvimで管理しちゃう
-    use 'wbthomason/packer.nvim'
-
-    -- easymotion
-    use {
-      'easymotion/vim-easymotion',
-      setup = function()
-        vim.g.EasyMotion_do_mapping = 0
-        vim.api.nvim_set_keymap('n', 's/', '<Plug>(easymotion-sn)', { noremap = false })
-        vim.api.nvim_set_keymap('x', 's/', '<Plug>(easymotion-sn)', { noremap = false })
-      end,
+return require('lazy').setup({
+  -- easymotion
+  {
+    'easymotion/vim-easymotion',
+    init = function()
+      vim.g.EasyMotion_do_mapping = 0
+    end,
+    keys = {
+      { "s/", "<Plug>(easymotion-sn)", mode = { "n", "x" }, { noremap = false } },
     }
+  },
 
-    -- nerdcommenter
-    use {
-      'scrooloose/nerdcommenter',
-      setup = function()
-        vim.api.nvim_set_keymap('n', 'sc', '<Plug>NERDCommenterToggle', { noremap = false })
-        vim.api.nvim_set_keymap('v', 'sc', '<Plug>NERDCommenterToggle', { noremap = false })
-      end,
+  -- nerdcommenter
+  {
+    'scrooloose/nerdcommenter',
+    lazy = true,
+    keys = {
+      { "sc", "<Plug>NERDCommenterToggle", mode = { "n", "v" }, { noremap = false } },
     }
+  },
 
-    use {
-      'kylechui/nvim-surround',
-      config = function ()
-        require('nvim-surround').setup({
-          keymaps = {
-            -- prefixを張替え
-            normal = "tt", -- ys
-            normal_cur = "th", -- yss
-            normal_cur_line = "tg", --yS
-            visual = "t", -- S
-          }
-        })
-        -- tf に ysiwf を割り当て、関数名が要求される
-        vim.api.nvim_set_keymap('n', 'tf', '<Plug>(nvim-surround-normal)iwf', {noremap = true, silent = true})
-      end
-    }
-
-    -- bufdelete
-    use {
-      'famiu/bufdelete.nvim',
-      setup = function()
-        vim.api.nvim_set_keymap('n', 'bd', '<CMD>Bdelete<CR>', { noremap = true, silent = true })
-      end,
-    }
-
-    -- カッコとかの自動補完
-    --use 'cohama/lexima.vim'
-    use {
-      'windwp/nvim-autopairs',
-      config = function()
-        require('nvim-autopairs').setup({})
-      end
-    }
-
-    -- Git関係
-    -- {{{
-    use 'airblade/vim-gitgutter'
-    -- lazygit
-    use {
-      'kdheepak/lazygit.nvim',
-      config = function()
-        --vim.g.lazygit_floating_window_use_plenary = 1
-        vim.api.nvim_set_keymap('n', 'lg', '<CMD>LazyGit<CR>', { noremap = true, silent = true })
-      end
-    }
-    use 'f-person/git-blame.nvim'
-    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-    -- }}}
-
-    -- ウインドウサイズ変更するやつ
-    use {
-      'simeji/winresizer',
-      setup = function()
-        -- Aで左に
-        vim.g.winresizer_keycode_left = 97
-        -- Wで上に
-        vim.g.winresizer_keycode_up = 119
-        -- Sで下に
-        vim.g.winresizer_keycode_down = 115
-        -- Dで右に
-        vim.g.winresizer_keycode_right = 100
-      end
-    }
-
-    -- lspの設定
-    use {
-      "jose-elias-alvarez/null-ls.nvim",
-      requires = {
-        "nvim-lua/plenary.nvim"
+  {
+    'kylechui/nvim-surround',
+    opts = {
+      keymaps = {
+        -- prefixを張替え
+        normal = "tt", -- ys
+        normal_cur = "th", -- yss
+        normal_cur_line = "tg", --yS
+        visual = "t", -- S
       },
-      config = function()
-        require("null-ls").setup()
-      end
+    },
+    keys = {
+      -- tf に ysiwf を割り当て、関数名が要求される
+      { "tf", "<Plug>(nvim-surround-normal)iwf", mode = { "n" }, { noremap = true, silent = true } },
     }
+  },
 
-    -- outlineを表示したりできるやつ
-    use {
-      'stevearc/aerial.nvim',
-      config = function() require('aerial').setup() end
+  -- bufdelete
+  {
+    'famiu/bufdelete.nvim',
+    lazy = true,
+    keys = {
+      { "bd", "<CMD>Bdelete<CR>", mode = { "n" }, { noremap = true, silent = true } },
     }
+  },
 
-    use {
-      "williamboman/mason.nvim",
+  -- カッコとかの自動補完
+  {
+    'windwp/nvim-autopairs',
+    config = true,
+    lazy = true,
+    event = "InsertEnter"
+  },
+
+  -- Git関係
+  -- {{{
+  -- Gitのマーク出してくれる君
+  { 'airblade/vim-gitgutter' },
+
+  -- lazygit
+  {
+    'kdheepak/lazygit.nvim',
+    lazy = true,
+    keys = {
+      { "lg", "<CMD>LazyGit<CR>", mode = { "n" }, { noremap = true, silent = true } },
+    }
+  },
+  -- カーソル行にBlame出してくれる君
+  { 'f-person/git-blame.nvim' },
+  {
+    -- Diffを見やすく表示してくれる君
+    'sindrets/diffview.nvim',
+    lazy = true,
+    cmd = {
+      "DiffViewOpen",
+    },
+    dependencies = 'nvim-lua/plenary.nvim'
+  },
+  -- }}},
+
+  -- ウインドウサイズ変更するやつ
+  {
+    'simeji/winresizer',
+    init = function()
+      -- Aで左に
+      vim.g.winresizer_keycode_left = 97
+      -- Wで上に
+      vim.g.winresizer_keycode_up = 119
+      -- Sで下に
+      vim.g.winresizer_keycode_down = 115
+      -- Dで右に
+      vim.g.winresizer_keycode_right = 100
+    end,
+    lazy = true,
+    keys = {
+      { "<C-E>", mode = "n" }
+    }
+  },
+
+
+  {
+    "williamboman/mason.nvim",
+    dependencies = {
       "williamboman/mason-lspconfig.nvim",
-    }
+      'neovim/nvim-lspconfig',
 
-    use {
-      "b0o/schemastore.nvim"
-    }
-
-    require('mason').setup();
-    require('mason-lspconfig').setup_handlers({ function(server)
-      local opt = {
-        capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-        on_attach = function(_, bufnr)
-          local opts = { noremap = true, silent = true }
+      "b0o/schemastore.nvim",
+      'nvim-lua/lsp-status.nvim',
+      'folke/lsp-colors.nvim',
+      'folke/neodev.nvim',
+    },
+    init = function(_)
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local bufnr = args.buf;
+          local opts = { noremap = true, silent = true };
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -131,447 +139,432 @@ return require('packer').startup({
           vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
           vim.keymap.set({ "v", "n" }, 'sA', require('actions-preview').code_actions, opts)
         end
-      };
-      if server == "omnisharp" then
-        opt.cmd = { "omnisharp" }
-      end
-
-      if server == "lua_ls" then
-        local runtime_path = vim.split(package.path, ";", {});
-        table.insert(runtime_path, "lua/?.lua")
-        table.insert(runtime_path, "lua/*/init.lua")
-        opt.settings = {
-          Lua = {
-            runtime = {
-              version = "LuaJIT",
-              path = runtime_path,
-            },
-            diagnostics = {
-              globals = { "vim" },
-            },
-            workspace = {
-              library = vim.api.nvim_get_runtime_file("", true),
-              checkThirdParty = false
-            },
-            telemetry = {
-              enable = false,
-            },
-          }
+      })
+    end,
+    config = function(_, _)
+      require('mason').setup();
+      require('mason-lspconfig').setup({
+        ensure_installed = {
+          "lua_ls"
         }
-      end
+      });
 
-      if server == "perlnavigator" then
-        local pwd = os.getenv("PWD");
-        opt.settings = {
-          perlnavigator = {
-            perlPath = 'perl',
-            enableWarnings = true,
-            perltidyProfile = pwd .. '/.perltidyrc',
-            perlcriticProfile = pwd .. '/.perlcriticrc',
-            perlcriticEnabled = true,
-            includePaths = { pwd .. '/lib', pwd .. '/local/lib/perl5', pwd .. '/.libt' },
-          }
-        };
-        opt.cmd = { "perlnavigator", "--stdio" }
-      end
+      local lspconfig = require('lspconfig');
 
-      if server == "yamlls" then
-        opt.settings = {
-          yaml = {
-            schemaStore = {
-              enable = false,
-              url = "",
-            },
-            schemas = require('schemastore').yaml.schemas(),
-          }
-        }
-      end
-      require('lspconfig')[server].setup(opt)
-    end })
+      require('mason-lspconfig').setup_handlers({
+        function(server)
+          local pwd = os.getenv("PWD");
+          local basic_option = {
+            capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+            settings = {
+              Lua = {
+                runtime = {
+                  version = "LuaJIT",
+                  path = (function()
+                    local runtime_path = vim.split(package.path, ";", {});
+                    table.insert(runtime_path, "lua/?.lua");
+                    table.insert(runtime_path, "lua/*/init.lua");
+                    return runtime_path;
+                  end)(),
+                },
+                diagnostics = {
+                  globals = { "vim" },
+                },
+                workspace = {
+                  library = vim.api.nvim_get_runtime_file("", true),
+                  checkThirdParty = false
+                },
+                telemetry = {
+                  enable = false,
+                },
+              },
+              perlnavigator = {
+                perlPath = 'perl',
+                enableWarnings = true,
+                perlcriticEnabled = true,
+                includePaths = { pwd .. '/lib', pwd .. '/local/lib/perl5', pwd .. '/.libt' },
+              },
+              yaml = {
+                schemaStore = {
+                  enable = false,
+                  url = "",
+                },
+                schemas = require('schemastore').yaml.schemas(),
+              },
+            }
+          };
 
-    use {
-      'neovim/nvim-lspconfig',
-      requires = {
-        { 'nvim-lua/lsp-status.nvim' },
-        { 'folke/lsp-colors.nvim' },
-        { 'folke/neodev.nvim' },
-      },
-      config = function()
-        -- disableCacheしてもキャッシュが作成されるしつらい
-        --require('lspconfig').perlls.setup {
-          --cmd = { "perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--", "--port 13603",
-            --"--nostdio 0", "--version 2.5.0" },
-          --settings = {
-            --perl = {
-              --disableCache = true,
-            --}
-          --}
-        --};
-      end
-    }
+          if server == "omnisharp" then
+            basic_option.cmd = { "omnisharp" };
+          end
 
-    use {
-      "nvim-tree/nvim-web-devicons",
-      config = function()
-        require('nvim-web-devicons').setup({
-          color_icons = true
-        })
-      end
-    }
+          if server == "perlnavigator" then
+            basic_option.cmd = { "perlnavigator", "--stdio" };
+          end
 
-    use {
-      'folke/trouble.nvim',
-      config = function()
-        local trouble = require('trouble')
-        trouble.setup({
-          icons = true,
-          fold_open = '',
-          fold_closed = '',
-          signs = {
-            error = '',
-            warning = '',
-            hint = '',
-            information = '',
-            other = ''
-          },
-          use_diagnostic_signs = false,
-          auto_open = false,
-          auto_close = true,
-        })
-      end,
-      setup = function()
-        vim.api.nvim_set_keymap('n', 's[', '<cmd>TroubleToggle<CR>', { silent = true, noremap = true })
-      end
-    }
-
-    -- 補完
-    use {
-      'hrsh7th/nvim-cmp',
-      requires = {
-        { 'neovim/nvim-lspconfig' },
-        { 'hrsh7th/cmp-nvim-lsp' },
-        { 'hrsh7th/cmp-buffer' },
-        { 'hrsh7th/cmp-path' },
-        { 'hrsh7th/cmp-cmdline' },
-        { 'L3MON4D3/LuaSnip' },
-        { 'saadparwaiz1/cmp_luasnip' }
-      },
-      config = function()
-        local cmp = require('cmp')
-        cmp.setup({
-          view = {
-            entries = "custom"
-          },
-          snippet = {
-            expand = function(args)
-              require('luasnip').lsp_expand(args.body)
-            end
-          },
-          -- キーマッピングここから
-          mapping = {
-            -- Enterで候補決定。選択されてなかったら無視して改行
-            ['<CR>'] = function(fallback)
-              if cmp.visible() and cmp.get_selected_entry() then
-                cmp.confirm()
-              else
-                fallback()
-              end
-            end,
-            -- Shift+Tabで一つ上を選択
-            ['<S-TAB>'] = function(fallback)
-              if cmp.visible() then
-                cmp.select_prev_item()
-              else
-                fallback()
-              end
-            end,
-            -- Tabで一つ下を選択
-            ['<TAB>'] = function(fallback)
-              if cmp.visible() then
-                cmp.select_next_item()
-              else
-                fallback()
-              end
-            end
-          },
-          window = {
-            documentation = cmp.config.window.bordered(),
-          },
-          sources = cmp.config.sources({
-            { name = 'nvim_lsp' },
-            { name = 'luasnip' }
-          },
-            {
-              { name = 'buffer' },
-              { name = 'path' },
-            })
-        })
-        cmp.setup.cmdline(':', {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = cmp.config.sources({
-            { name = 'path' }
-          }, {
-            { name = 'cmdline' }
-          })
-        })
-      end
-    }
-
-    -- シグネチャヒント
-    use {
-      "ray-x/lsp_signature.nvim",
-      config = function()
-        require('lsp_signature').setup({
-          bind = true,
-          handler_opts = {
-            border = "rounded"
-          },
-          floating_window = true,
-          toggle_key = '<C-l>',
-          hint_prefix = ''
-        })
-      end
-    }
-
-    -- ステータスライン
-    use {
-      'nvim-lualine/lualine.nvim',
-      requires = {
-        { 'kdheepak/tabline.nvim', config = function() require('tabline').setup({ enable = false }) end },
-      },
-      config = function()
-        local function custom_progress()
-          return [[%3p%% %3l/%3L]]
+          lspconfig[server].setup(basic_option);
         end
+      });
+    end
+  },
 
-        local colors = {
-          indicator = {
-            normal = '#c57339',
-            insert = '#3f83a6',
-            visual = '#6845ad',
-            replace = '#cc3768',
-          },
-          fg = {
-            black = '#1e2132',
-            white = '#8389a3',
-          },
-          bg = {
-            b = '#818596',
-            c = '#262a3f',
-            z = '#e9b189',
-          },
-        }
+  {
+    "nvim-tree/nvim-web-devicons",
+    opts = {
+      color_icons = true
+    },
+    lazy = true,
+  },
 
-        require('lualine').setup({
-          sections = {
-            lualine_a = { 'mode' },
-            lualine_b = {
-              'branch',
-              'diff',
-            },
-            lualine_c = { 'filetype', 'filename' },
-            lualine_x = { "require('lsp-status').status()" },
-            lualine_y = { 'encoding',
-              { 'fileformat', symbols = { unix = ' Linux', dos = ' Windows', mac = ' macOS' } } },
-            lualine_z = { 'location', custom_progress },
-          },
-          tabline = {
-            lualine_a = {},
-            lualine_b = {},
-            lualine_c = { require 'tabline'.tabline_buffers },
-            lualine_y = {},
-            lualine_z = { 'tabs' },
-          },
-          options = {
-            theme = {
-              normal = {
-                a = { fg = colors.fg.black, bg = colors.indicator.normal },
-                b = { fg = colors.fg.black, bg = colors.bg.b },
-                c = { fg = colors.fg.white, bg = colors.bg.c },
-                z = { fg = colors.fg.black, bg = colors.bg.z },
-              },
-              insert = {
-                a = { fg = colors.fg.black, bg = colors.indicator.insert },
-                b = { fg = colors.fg.black, bg = colors.bg.b },
-                c = { fg = colors.fg.white, bg = colors.bg.c },
-                z = { fg = colors.fg.black, bg = colors.bg.z },
-              },
-              visual = {
-                a = { fg = colors.fg.black, bg = colors.indicator.visual },
-                b = { fg = colors.fg.black, bg = colors.bg.b },
-                c = { fg = colors.fg.white, bg = colors.bg.c },
-                z = { fg = colors.fg.black, bg = colors.bg.z },
-              },
-              replace = {
-                a = { fg = colors.fg.black, bg = colors.indicator.replace },
-                b = { fg = colors.fg.black, bg = colors.bg.b },
-                c = { fg = colors.fg.white, bg = colors.bg.c },
-                z = { fg = colors.fg.black, bg = colors.bg.z },
-              },
-              inacive = {
-                a = { fg = colors.fg.black, bg = '#33374c' },
-                b = { fg = colors.fg.black, bg = '#262a3f' },
-                c = { fg = colors.fg.white, bg = '#1e2132' },
-              },
-            },
-            component_separators = { left = '', right = '' },
-            section_separators = { left = '', right = '' },
-          }
-        })
-      end
-    }
-
-    -- カーソル下にある単語と同じ奴にアンダーラインがつくやつ
-    use 'itchyny/vim-cursorword'
-
-    -- treesitter
-    use {
-      'nvim-treesitter/nvim-treesitter',
-      config = function()
-        require('nvim-treesitter.configs').setup({
-          indent = {
-            enable = true,
-          },
-          --なんか急にハイライト死んだ
-          highlight = {
-            enable = true
-          },
-          incremental_selection = {
-            enable = true,
-            keymaps = {
-              init_selection = "<F9>",
-              node_incremental = "<F7>",
-              scope_incremental = "+",
-              node_decremental = "<F8>",
-            }
-          }
-        })
-      end
-    }
-    -- インデントのガイドラインを表示するくん
-    use {
-      "lukas-reineke/indent-blankline.nvim",
-      config = function()
-        require('indent_blankline').setup({
-          show_current_context = true,
-          show_current_context_start = true
-        })
-      end
-    }
-
-    -- terminal系
-    use {
-      'akinsho/toggleterm.nvim',
-      config = function()
-        require('toggleterm').setup({})
-
-        vim.api.nvim_set_keymap('n', '<F3>', '<cmd>ToggleTerm direction=float<CR>', {noremap = true, silent = true})
-        vim.api.nvim_set_keymap('n', '<F4>', '<cmd>ToggleTerm direction=horizontal<CR>', {noremap = true, silent = true})
-        vim.api.nvim_set_keymap('t', '<F3>', '<cmd>ToggleTerm direction=float<CR>', {noremap = true, silent = true})
-        vim.api.nvim_set_keymap('t', '<F4>', '<cmd>ToggleTerm direction=horizontal<CR>', {noremap = true, silent = true})
-      end
-    }
-
-    -- colorscheme
-    use { 'cocopon/iceberg.vim', opt = true }
-
-    -- fuzzy finder
-    use {
-      'nvim-telescope/telescope.nvim',
-      requires = {
-        { 'nvim-lua/plenary.nvim' },
-        use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+  {
+    'folke/trouble.nvim',
+    opts = {
+      icons = true,
+      fold_open = '',
+      fold_closed = '',
+      signs = {
+        error = '',
+        warning = '',
+        hint = '',
+        information = '',
+        other = '',
       },
-      config = function()
-        vim.api.nvim_set_keymap('n', '<C-p>', "<cmd>Telescope find_files<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'sb', "<cmd>Telescope buffers<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'sg', "<cmd>Telescope live_grep<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'sh', "<cmd>Telescope help_tags<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'sx', "<cmd>Telescope grep_string<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'sm', "<cmd>Telescope oldfiles<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 's"', "<cmd>Telescope registers<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'sQ', "<cmd>Telescope quickfix<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'sf', "<cmd>Telescope aerial<CR>", { noremap = true, silent = true })
+      use_diagnostic_signs = false,
+      auto_open = false,
+      auto_close = true,
+    },
+    keys = {
+      { "s[", "<cmd>TroubleToggle<CR>", mode = "n", { silent = true, noremap = true } },
+    },
+    lazy = true,
+    event = "LspAttach"
+  },
 
-        -- lsp系
-        vim.api.nvim_set_keymap('n', 'gd', "<cmd>Telescope lsp_definitions<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'gT', "<cmd>Telescope lsp_type_definitions<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'sD', "<cmd>Telescope diagnostics<CR>", { noremap = true, silent = true })
-        vim.api.nvim_set_keymap('n', 'gr', "<cmd>Telescope lsp_references<CR>", { noremap = true, silent = true })
-
-        require('telescope').setup({
-          defaults = {
-            sorting_strategy = 'ascending',
-            layout_strategy = 'horizontal',
-            layout_config = { prompt_position = "top" },
-            mappings = {
-              i = {
-                ["<esc>"] = require('telescope.actions').close,
-              },
-            }
-          },
-          extensions = {
-            fzf = {
-              fuzzy = true,
-              override_generic_sorter = true,
-              override_file_sorter = true,
-              case_mode = 'smart_case',
-            }
-          }
+  -- 補完
+  {
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      { 'neovim/nvim-lspconfig' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'L3MON4D3/LuaSnip' },
+      { 'saadparwaiz1/cmp_luasnip' },
+    },
+    lazy = true,
+    event = "InsertEnter",
+    config = function()
+      local cmp = require('cmp')
+      cmp.setup({
+        view = {
+          entries = "custom"
+        },
+        snippet = {
+          expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+          end
+        },
+        -- キーマッピングここから
+        mapping = {
+          -- Enterで候補決定。選択されてなかったら無視して改行
+          ['<CR>'] = function(fallback)
+            if cmp.visible() and cmp.get_selected_entry() then
+              cmp.confirm()
+            else
+              fallback()
+            end
+          end,
+          -- Shift+Tabで一つ上を選択
+          ['<S-TAB>'] = function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              fallback()
+            end
+          end,
+          -- Tabで一つ下を選択
+          ['<TAB>'] = function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              fallback()
+            end
+          end
+        },
+        window = {
+          documentation = cmp.config.window.bordered(),
+        },
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'luasnip' },
+        },
+          {
+            { name = 'buffer' },
+            { name = 'path' },
+          })
+      })
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' },
+        }, {
+          { name = 'cmdline' },
         })
+      })
+    end
+  },
 
-        require('telescope').load_extension('fzf')
-        require('telescope').load_extension('aerial')
+  -- シグネチャヒント
+  {
+    "ray-x/lsp_signature.nvim",
+    opts = {
+      bind = true,
+      handler_opts = {
+        border = "rounded"
+      },
+      floating_window = true,
+      toggle_key = '<C-l>',
+      hint_prefix = '',
+    },
+    lazy = true,
+    event = "LspAttach"
+  },
+
+  -- ステータスライン
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = {
+      {
+        'kdheepak/tabline.nvim',
+        opts = { enable = false }
+      },
+    },
+    config = function()
+      local function custom_progress()
+        return [[%3p%% %3l/%3L]]
       end
-    }
-    use 'nvim-treesitter/nvim-treesitter-context'
-    use {
-      'kosayoda/nvim-lightbulb',
-      config = function()
-        require('nvim-lightbulb').setup({
-          autocmd = { enabled = true },
-          virtual_text = { enabled = false }
-        })
-      end,
-    }
 
-    use {
-      "aznhe21/actions-preview.nvim",
-      config = function()
-        require("actions-preview").setup {
-          -- バックエンドに使うプラグインの優先順位。デフォルトではtelescopeを優先的に使う
-          -- backend = { "nui", "telescope" },
-          -- telescopeで表示する場合の設定。ウィンドウ小さめでもいい感じに出す
-          telescope = {
-            sorting_strategy = "ascending",
-            layout_strategy = "vertical",
-            layout_config = {
-              width = 0.8,
-              height = 0.9,
-              prompt_position = "top",
-              preview_cutoff = 20,
-              preview_height = function(_, _, max_lines)
-                return max_lines - 15
-              end,
+      local colors = {
+        indicator = {
+          normal = '#c57339',
+          insert = '#3f83a6',
+          visual = '#6845ad',
+          replace = '#cc3768',
+        },
+        fg = {
+          black = '#1e2132',
+          white = '#8389a3',
+        },
+        bg = {
+          b = '#818596',
+          c = '#262a3f',
+          z = '#e9b189',
+        },
+      }
+      require('lualine').setup({
+        sections = {
+          lualine_a = { 'mode' },
+          lualine_b = {
+            'branch',
+            'diff',
+          },
+          lualine_c = { 'filetype', 'filename' },
+          lualine_x = { "require('lsp-status').status()" },
+          lualine_y = { 'encoding',
+            { 'fileformat', symbols = { unix = ' Linux', dos = ' Windows', mac = ' macOS' } } },
+          lualine_z = { 'location', custom_progress },
+        },
+        tabline = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { require 'tabline'.tabline_buffers },
+          lualine_y = {},
+          lualine_z = { 'tabs' },
+        },
+        options = {
+          theme = {
+            normal = {
+              a = { fg = colors.fg.black, bg = colors.indicator.normal },
+              b = { fg = colors.fg.black, bg = colors.bg.b },
+              c = { fg = colors.fg.white, bg = colors.bg.c },
+              z = { fg = colors.fg.black, bg = colors.bg.z },
+            },
+            insert = {
+              a = { fg = colors.fg.black, bg = colors.indicator.insert },
+              b = { fg = colors.fg.black, bg = colors.bg.b },
+              c = { fg = colors.fg.white, bg = colors.bg.c },
+              z = { fg = colors.fg.black, bg = colors.bg.z },
+            },
+            visual = {
+              a = { fg = colors.fg.black, bg = colors.indicator.visual },
+              b = { fg = colors.fg.black, bg = colors.bg.b },
+              c = { fg = colors.fg.white, bg = colors.bg.c },
+              z = { fg = colors.fg.black, bg = colors.bg.z },
+            },
+            replace = {
+              a = { fg = colors.fg.black, bg = colors.indicator.replace },
+              b = { fg = colors.fg.black, bg = colors.bg.b },
+              c = { fg = colors.fg.white, bg = colors.bg.c },
+              z = { fg = colors.fg.black, bg = colors.bg.z },
+            },
+            inacive = {
+              a = { fg = colors.fg.black, bg = '#33374c' },
+              b = { fg = colors.fg.black, bg = '#262a3f' },
+              c = { fg = colors.fg.white, bg = '#1e2132' },
             },
           },
-        }
-      end
-    }
+          component_separators = { left = '', right = '' },
+          section_separators = { left = '', right = '' },
+        },
+      })
+    end
+  },
 
-    -- copilot
-    use {
-      'github/copilot.vim',
-      config = function()
-        -- Ctrl+j でCopilotの候補を選択
-        vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("\\<CR>")', {expr = true, script = true, silent = true})
-        vim.g.copilot_no_tab_map = false
-      end
+  -- カーソル下にある単語と同じ奴にアンダーラインがつくやつ
+  { 'itchyny/vim-cursorword' },
+
+  -- treesitter
+  {
+    'nvim-treesitter/nvim-treesitter',
+    config = function(_, _)
+      require('nvim-treesitter.configs').setup({
+        highlight = {
+          enable = true
+        },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<F9>",
+            node_incremental = "<F7>",
+            scope_incremental = "+",
+            node_decremental = "<F8>",
+          },
+        },
+        ensure_installed = {
+          "lua", "bash", "vim"
+        }
+      });
+    end
+  },
+  -- インデントのガイドラインを表示するくん
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    opts = {
+      show_current_context = true,
+      show_current_context_start = true
     }
-  end,
-  config = {
-    display = {
-      open_fn = require('packer.util').float,
+  },
+
+  -- terminal系
+  {
+    'akinsho/toggleterm.nvim',
+    config = true,
+    opts = {
+      open_mapping = [[<F3>]],
+      direction = 'horizontal',
+    },
+    lazy = true,
+    keys = {
+      { "<F3>", mode = { "i", "n" } }
     }
-  }
+  },
+
+  -- colorscheme
+  { 'cocopon/iceberg.vim', lazy = false, priority = 1000 },
+
+  -- fuzzy finder
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = {
+      { 'nvim-lua/plenary.nvim' },
+      -- ソート改善
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      -- LSPがあるとき、telescopeでアウトラインをピックできるやつ
+      { 'stevearc/aerial.nvim',                     config = true },
+    },
+    config = function()
+      require('telescope').setup({
+        defaults = {
+          sorting_strategy = 'ascending',
+          layout_strategy = 'horizontal',
+          layout_config = { prompt_position = "top" },
+          mappings = {
+            i = {
+              ["<esc>"] = require('telescope.actions').close,
+            },
+          },
+        },
+        extensions = {
+          fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = 'smart_case',
+          },
+        },
+      })
+
+      require('telescope').load_extension('fzf')
+      require('telescope').load_extension('aerial')
+    end,
+    keys = {
+      { "<C-p>", "<cmd>Telescope find_files<CR>",  mode = "n", { noremap = true, silent = true } },
+      { "sb",    "<cmd>Telescope buffers<CR>",     mode = "n", { noremap = true, silent = true } },
+      { "sg",    "<cmd>Telescope live_grep<CR>",   mode = "n", { noremap = true, silent = true } },
+      { "sh",    "<cmd>Telescope help_tags<CR>",   mode = "n", { noremap = true, silent = true } },
+      { "sx",    "<cmd>Telescope grep_string<CR>", mode = "n", { noremap = true, silent = true } },
+      { "sm",    "<cmd>Telescope oldfiles<CR>",    mode = "n", { noremap = true, silent = true } },
+      { "s\"",   "<cmd>Telescope registers<CR>",   mode = "n", { noremap = true, silent = true } },
+      { "sQ",    "<cmd>Telescope quickfix<CR>",    mode = "n", { noremap = true, silent = true } },
+      { "sf",    "<cmd>Telescope aerial<CR>",      mode = "n", { noremap = true, silent = true } },
+    }
+  },
+  { 'nvim-treesitter/nvim-treesitter-context' },
+  {
+    -- LSPでコードアクションがある時に電球マーク出してくれるやつ
+    'kosayoda/nvim-lightbulb',
+    opts = {
+      autocmd = { enabled = true },
+      virtual_text = { enabled = false },
+    },
+    lazy = true,
+    event = "LspAttach"
+  },
+
+  {
+    -- コードアクションのDiffをTelescopeでみられるやつ
+    "aznhe21/actions-preview.nvim",
+    opts = {
+      -- バックエンドに使うプラグインの優先順位。デフォルトではtelescopeを優先的に使う
+      backend = { "nui", "telescope" },
+      -- telescopeで表示する場合の設定。ウィンドウ小さめでもいい感じに出す
+      telescope = {
+        sorting_strategy = "ascending",
+        layout_strategy = "vertical",
+        layout_config = {
+          width = 0.8,
+          height = 0.9,
+          prompt_position = "top",
+          preview_cutoff = 20,
+          preview_height = function(_, _, max_lines)
+            return max_lines - 15
+          end,
+        },
+      },
+    },
+    lazy = true,
+    event = "LspAttach"
+  },
+
+  -- copilot
+  {
+    'github/copilot.vim',
+    config = function()
+      vim.g.copilot_no_tab_map = false
+    end,
+    keys = {
+      { "<C-J>", "copilot#Accept('\\<CR>')", mode = "i", { noremap = true, silent = true } },
+    }
+  },
 });
