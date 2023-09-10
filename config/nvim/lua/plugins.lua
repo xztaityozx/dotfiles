@@ -259,7 +259,9 @@ return require('packer').startup({
       config = function()
         local cmp = require('cmp')
         cmp.setup({
-          view = 'custom',
+          view = {
+            entries = "custom"
+          },
           snippet = {
             expand = function(args)
               require('luasnip').lsp_expand(args.body)
