@@ -84,9 +84,6 @@
 
 # {{{
     
-    zinit wait"2" lucid as'null' light-mode nocompile for \
-      atclone'mkdir -p $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim && cp -r * $HOME/.local/share/nvim/site/pack/packer/start/packer.nvim' wbthomason/packer.nvim
-
     zinit wait"2" lucid as'null' has"tmux" light-mode nocompile for atload='export TPM_HOME=$PWD' tmux-plugins/tpm
 
   # pip3 install
