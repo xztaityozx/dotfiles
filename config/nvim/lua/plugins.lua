@@ -440,9 +440,6 @@ return require('lazy').setup({
             scope_incremental = "+",
             node_decremental = "<F8>",
           },
-        },
-        ensure_installed = {
-          "lua", "bash", "vim"
         }
       });
     end
