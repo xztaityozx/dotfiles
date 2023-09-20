@@ -6,10 +6,6 @@ map('n', 's', '<NOP>', { silent = true, noremap = true })
 -- 現在バッファを右に開く
 map('n', 'sv', '<CMD>vnew %<CR>', {noremap = true})
 
--- ターミナルを右に開く
-map('n', 'st', '<CMD>vsplit term://$SHELL | startinsert<CR>', {silent = true, noremap = true})
-map('n', 'sT', '<CMD>split term://$SHELL | startinsert<CR>', {silent = true, noremap = true})
-
 -- wasdでウィンドウ移動
 map('n', 'sa', '<C-w>h', {noremap = true})
 map('n', 'sw', '<C-w>k', {noremap = true})
@@ -28,7 +24,7 @@ map('t', 'jj', '<C-\\><C-n>', {noremap = true})
 map('i', 'jj', '<ESC>', {noremap = true})
 
 -- Ctrl-dで:q
-map('n', '<C-d>', "len(getbufinfo({'buflisted':1}))==1 ? '<CMD>q<CR>' : '<CMD>Bdelete<CR>'", {noremap = true, expr = true})
+map('n', '<C-d>', "<CMD>q<CR>", {noremap = true})
 
 -- Ctrl-aで全選択
 map('n', '<C-a>', 'gg<S-V>G', {noremap = true})

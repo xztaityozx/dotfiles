@@ -57,7 +57,6 @@ return require('lazy').setup({
     lazy = true,
     keys = {
       { "bd", "<CMD>Bdelete<CR>", mode = { "n" }, { noremap = true, silent = true } },
-      { "<C-D>" }
     }
   },
 
