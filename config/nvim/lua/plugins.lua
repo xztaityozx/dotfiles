@@ -35,6 +35,7 @@ return require('lazy').setup({
 
   {
     'kylechui/nvim-surround',
+    lazy = false,
     opts = {
       keymaps = {
         -- prefixを張替え
@@ -56,6 +57,7 @@ return require('lazy').setup({
     lazy = true,
     keys = {
       { "bd", "<CMD>Bdelete<CR>", mode = { "n" }, { noremap = true, silent = true } },
+      { "<C-D>" }
     }
   },
 
