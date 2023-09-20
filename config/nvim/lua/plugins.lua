@@ -558,10 +558,9 @@ return require('lazy').setup({
   {
     'github/copilot.vim',
     config = function()
+      vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("\\<CR>")', {expr = true, script = true, silent = true})
       vim.g.copilot_no_tab_map = false
     end,
-    keys = {
-      { "<C-J>", "copilot#Accept('\\<CR>')", mode = "i", { noremap = true, silent = true } },
-    }
-  },
+    lazy = false
+  }
 });
