@@ -3,7 +3,6 @@
 # プロンプトが出てから0秒後にロードするツール
 # {{{
   zinit wait light-mode nocompile lucid from"gh-r" for \
-    lbin'!rargs' lotabout/rargs \
     lbin'!*/fd -> fd' @sharkdp/fd
 # }}}
 
