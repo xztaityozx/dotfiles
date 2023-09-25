@@ -1,9 +1,4 @@
 # プロンプトが出る前にロードしてほしいツール
-# {{{
-  zinit light-mode nocompile from"gh-r" for \
-      lbin'!./*/bat -> bat'  mv"./*/autocomplete/bat.zsh -> _bat" atload"_zinit_bat_atload"     @sharkdp/bat \
-      eval'linux/go-cdx --init' lbin'!linux/go-cdx -> go-cdx' xztaityozx/go-cdx
-# }}}
 
 # プロンプトが出てから0秒後にロードするツール
 # {{{

@@ -103,13 +103,6 @@ function zshaddhistory() {
   [[ ! "${1}" =~ "shutdown|history" ]]
 }
 
-# cdxの履歴をdistinctする
-function cdx-history-clean-up() {
-  [[ -e $HOME/.config/go-cdx/history ]] && {
-    sort -u $HOME/.config/go-cdx/history | xargs -n1 -I@ -P5 zsh -c "ls @ &>/dev/null && echo @" | sponge $HOME/.config/go-cdx/history
-  }
-}
-
 # $1 桁のhexを取得する。lower case
 function randhex() {
   local digits=${1:-10}
@@ -187,3 +180,28 @@ function CamelCase() {
 function snake_case() {
   sed 's/\([a-z]\)\([A-Z]\)/\1_\2/g' | tr '[:upper:]' '[:lower:]'
 }
+
+function switch-aws-profile() {
+  [[ -e ~/.aws/credentials ]] || {
+    logger.warn "~/.aws/credentials がないよ。どうしようもないよ"
+    return 1
+  }
+
+  local PROFILE="$(awk -v NOW=$(date +%FT%T%z) '/^\[.+\]$/{profile=$0}$1=="x_security_token_expires"&&$3>NOW{print profile}' ~/.aws/credentials | fzf | tr -d '[]')"
+  [[ -z "$PROFILE" ]] && {
+    logger.warn "キャンセルされたか、使えるプロファイルがなかったよ"
+    return 1
+  }
+
+  logger.info "$PROFILE に切り替えようとしているよ"
+  yesno
+
+  [[ "$?" != "0" ]] && {
+    logger.warn "キャンセルされたよ"
+    return 1
+  }
+
+  export AWS_PROFILE="$PROFILE"
+  logger.info "$PROFILE に変更したよ"
+}
+

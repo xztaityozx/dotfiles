@@ -14,12 +14,7 @@ alias ka=ls
 alias lks=ls
 alias ｔむｘ=tmux
 
-# cdx
-alias cg="cdx -c g"
-alias ch="cdx -h"
-alias cb="cdx -b"
-alias ..="cdx ../"
-alias dotfiles="cdx $DOTFILES_PATH"
+alias dotfiles="cd $DOTFILES_PATH"
 
 # hub
 alias hs="git status"

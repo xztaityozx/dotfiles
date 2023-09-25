@@ -1,12 +1,3 @@
-
-# Go言語製のツール
-# {{{
-
-  zinit has'go' light-mode nocompile lucid atclone"asdf local golang 1.19.3 && go build" atpull"%atclone" for \
-    eval'./go-cdx --init' lbin'!go-cdx' xztaityozx/go-cdx
-
-# }}}
-
 # Rust製のツール
 # {{{
 
