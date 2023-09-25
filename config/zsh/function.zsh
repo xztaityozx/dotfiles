@@ -60,18 +60,6 @@ function wget-tmp() {
 }
 alias wget=wget-tmp
 
-# 本日分のドキュメントを編集/作成するコマンド
-# 日報とかTODOとかを $HOME/Documents/cli-doc/以下に作る
-function doc() {
-  local docDir="$HOME/Documents/cli-doc"
-
-  [[ ! -e "$docDir" ]] && mkdir -p "$docDir"
-
-  cd $docDir
-
-  "$EDITOR" "$docDir/worklog/$(date +%Y/%m.md)"
-}
-
 # fzf を使った yes/no プロンプト
 function yesno() {
   local res="$(echo 'yes
@@ -171,37 +159,5 @@ function hsw() {
   }
 
   git switch "$branch"
-}
-
-function CamelCase() {
-  sed -E 's/\(_\)\([a-z]\)/\U\2/g;s/^\([a-z]\)/\U\1/g'
-}
-
-function snake_case() {
-  sed 's/\([a-z]\)\([A-Z]\)/\1_\2/g' | tr '[:upper:]' '[:lower:]'
-}
-
-function switch-aws-profile() {
-  [[ -e ~/.aws/credentials ]] || {
-    logger.warn "~/.aws/credentials がないよ。どうしようもないよ"
-    return 1
-  }
-
-  local PROFILE="$(awk -v NOW=$(date +%FT%T%z) '/^\[.+\]$/{profile=$0}$1=="x_security_token_expires"&&$3>NOW{print profile}' ~/.aws/credentials | fzf | tr -d '[]')"
-  [[ -z "$PROFILE" ]] && {
-    logger.warn "キャンセルされたか、使えるプロファイルがなかったよ"
-    return 1
-  }
-
-  logger.info "$PROFILE に切り替えようとしているよ"
-  yesno
-
-  [[ "$?" != "0" ]] && {
-    logger.warn "キャンセルされたよ"
-    return 1
-  }
-
-  export AWS_PROFILE="$PROFILE"
-  logger.info "$PROFILE に変更したよ"
 }
 
