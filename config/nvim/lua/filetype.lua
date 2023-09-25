@@ -27,3 +27,13 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufNewFile"}, {
     vim.bo.filetype = "terraform"
   end
 });
+
+-- mdファイルのときは折返し設定を変更する
+local file_type_markdown_augroup = vim.api.nvim_create_augroup("FileTypeMarkdown", {clear = true});
+vim.api.nvim_create_autocmd({"BufEnter", "BufNewFile"}, {
+  pattern = {"*.md"},
+  group = file_type_markdown_augroup,
+  callback = function ()
+    vim.cmd("set formatoptions+=n")
+  end
+});
