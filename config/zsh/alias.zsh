@@ -15,6 +15,7 @@ alias lks=ls
 alias ｔむｘ=tmux
 
 alias dotfiles="cd $DOTFILES_PATH"
+alias cg='ghq list --full-path | cd'
 
 # hub
 alias hs="git status"
