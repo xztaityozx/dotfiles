@@ -20,21 +20,15 @@ alias cg='ghq list --full-path | cd'
 # hub
 alias hs="git status"
 alias hpl="git pull"
-alias hps="git push"
 alias hd="git diff"
 alias hl="git log"
 alias hst="git stash"
 
-# python3
-alias py3=python3
-
 # シンプルなプロンプトなbash
 alias simple-bash='PS1="> " bash'
 
-# zinitとかをロードしないzshを起動
-alias simple-zsh='SIMPLE_MODE="yes" zsh'
 # powerlineだけシンプルにする
-alias simple-powerline='SIMPLE_POWERLINE=1 zsh'
+alias simple-zsh='SIMPLE_POWERLINE=1 zsh'
 
 # 現在シェルを置き換え
 alias relaunch-shell="exec $SHELL -l"
