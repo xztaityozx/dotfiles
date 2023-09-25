@@ -31,6 +31,10 @@
       atload"[[ ! -f ${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && zinit creinstall -Q rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup" for \
         xztaityozx/null
 
+    function zinit-rust-ready() {
+      [[ -v CARGO_HOME ]] && [[ -v RUSTUP_HOME ]]
+    }
+
   #}}}
 
 # }}}

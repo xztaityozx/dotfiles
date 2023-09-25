@@ -15,7 +15,6 @@ zinit:
 	[[ -e zinit.generated.zsh ]] && rm zinit.generated.zsh || echo ok
 	cat ./zinit.main.zsh >> zinit.generated.zsh
 	cat ./zinit.runtime.zsh >> zinit.generated.zsh
-	cat ./zinit.functions.zsh >> zinit.generated.zsh
 	cat ./zinit.atload.zsh >> zinit.generated.zsh
 	[[ "$(shell uname -m)" == "x86_64" ]] && cat ./zinit.x86_64.zsh >> zinit.generated.zsh || echo is not x86_64
 	[[ "$(shell uname -m)" != "x86_64" ]] && cat ./zinit.arm64.zsh >> zinit.generated.zsh || echo is not arm64
