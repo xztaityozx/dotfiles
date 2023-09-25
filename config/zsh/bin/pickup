@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-FZF="fzf --preview 'bat --theme Nord --style=numbers --color=always --line-range :500 {}' --print0 --height=100% --multi --reverse -1 --bind 'ctrl-p:execute($ZDOTDIR/bin/pickup)'"
+FZF="fzf --preview 'bat --theme TwoDark --style=numbers --color=always --line-range :500 {}' --print0 --height=100% --multi --reverse -1 --bind 'ctrl-p:execute($ZDOTDIR/bin/pickup)'"
 FD="fd . ./ --type={f,l} --exclude=\*.{jpg,jpeg,png,ttf,ogg,mp3,mp4,pdf} --exclude=.git --hidden --follow"
 
 pickupBufferName="tmux-pickup"

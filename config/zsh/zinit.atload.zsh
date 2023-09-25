@@ -1,6 +1,7 @@
 function _zinit_bat_atload() {
-  export MANPAGER="sh -c 'col -xb | bat --theme TwoDark -l man -p'"
-  alias cat="bat --theme TwoDark"
+  export MANPAGER="sh -c 'col -xb | bat -l man -p'"
+  export BAT_THEME=TwoDark
+  alias cat="bat"
   unfunction $0
 }
 
