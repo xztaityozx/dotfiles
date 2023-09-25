@@ -4,9 +4,6 @@ setopt extended_glob
 
 typeset -A abbreviations
 abbreviations=(
-    "GG"    "| grep"
-    "XX"    "| xargs"
-    "HH"    "| head"
     "DN"   "&> /dev/null"
     "YY"   "| yy"
     "SUS"  "| sort | uniq -c | sort -rn"
@@ -17,12 +14,10 @@ magic-abbrev-expand() {
     LBUFFER=${LBUFFER%%(#m)[-_a-zA-Z0-9]#}
     LBUFFER+=${abbreviations[$MATCH]:-$MATCH}
     zle self-insert
-
 }
 
 no-magic-abbrev-expand() {
     LBUFFER+=' '
-
 }
 
 zle -N magic-abbrev-expand
