@@ -64,7 +64,8 @@
     lbin'!./*/bin/gh' atclone'./*/bin/gh completion -s zsh > _gh' atpull"%atclone" cli/cli \
     lbin'!./*/ghq' atclone'rm ./*/misc/bash/_ghq' atpull"%atclone" x-motemen/ghq \
     lbin'!dasel_* -> dasel' atclone'./dasel_* completion zsh > _dasel' TomWright/dasel \
-    lbin'!lsd-*/lsd' atload'_zinit_lsd_atload' lsd-rs/lsd
+    lbin'!lsd-*/lsd' atload'_zinit_lsd_atload' lsd-rs/lsd \
+    lbin'!gibo' atclone'./gibo update && ./gibo completion zsh > _gibo' simonwhitaker/gibo
 
 
   # 最新のものがReleasesにないので自前ビルドする子たち
@@ -76,10 +77,9 @@
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
-    lbin'!gibo' atclone'./gibo update;' cp'shell-completions/gibo-completion.zsh -> _gibo' simonwhitaker/gibo \
     lbin'!bin/xpanes' as'null' has'tmux' cp'completion/zsh/_xpanes -> _xpanes' greymd/tmux-xpanes
 
-  zinit wait'2' nocompile as"program" lucid make"all" lbin'!./bin/*' for ryuichiueda/glueutils
+  zinit wait'2' nocompile as"program" lucid make"all" lbin'!./bin/juz' for ryuichiueda/glueutils
 # }}}
 
 # {{{
