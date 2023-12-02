@@ -111,7 +111,7 @@ return require('lazy').setup({
       'folke/lsp-colors.nvim',
       'folke/neodev.nvim',
     },
-    cmd = "Mason",
+    lazy = false,
     init = function(_)
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
