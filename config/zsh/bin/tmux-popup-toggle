@@ -18,7 +18,7 @@ function main() {
     tmux detach-client
   else
     tmux popup -d '#{pane_current_path}' -{x,y}C -{w,h}80% \
-      -T "$title" -E "tmux attach -t $sessionName || tmux new -s $sessionName \"$cmd\""
+      -E "tmux attach -t $sessionName || tmux new -s $sessionName \"$cmd\""
   fi
 }
 
