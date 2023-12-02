@@ -73,6 +73,7 @@
     atclone"cargo build --release" atpull"%atclone" for \
       lbin'!target/release/as-tree' jez/as-tree \
       lbin'!target/release/rg' BurntSushi/ripgrep \
+      lbin'!target/release/bat' atload"_zinit_bat_atload" @sharkdp/bat \
       lbin'!target/release/delta' dandavison/delta # リリースファイルはあるんだけど、GLIBCへの依存が解決できてないビルドなので自前ビルドしたほうが楽なんですねこれが
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
