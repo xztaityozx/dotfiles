@@ -49,9 +49,6 @@
 # そんなに急いでロードしなくていいツール
 # {{{
 
-  zinit wait"2" light-mode nocompile lucid for \
-    has"ruby" lbin'!rb' thisredone/rb
-
   zinit wait"2" light-mode nocompile lucid from"gh-r" for \
     lbin'!*/gojq' atload'alias jq=gojq' itchyny/gojq \
     lbin'!uni-* -> uni' arp242/uni \
