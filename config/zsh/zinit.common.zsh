@@ -53,7 +53,7 @@
     lbin'!*/gojq' atload'alias jq=gojq' itchyny/gojq \
     lbin'!uni-* -> uni' arp242/uni \
     lbin'!gron' tomnomnom/gron \
-    lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'" ms-jpq/sad \
+    lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'" bpick"*$(uname|sed 's/Linux/linux-musl/')*" ms-jpq/sad \
     lbin'!owari' atclone'./owari completion zsh > _owari' xztaityozx/owari \
     lbin'!sel'   atclone'./sel completion zsh > _sel' xztaityozx/sel \
     lbin'!bin/teip' greymd/teip \
@@ -64,13 +64,17 @@
     lbin'!lsd-*/lsd' atload'_zinit_lsd_atload' lsd-rs/lsd \
     lbin'!gibo' atclone'./gibo update && ./gibo completion zsh > _gibo' simonwhitaker/gibo \
     lbin'!./*/rg' bpick"*$(uname -p|sed 's/arm/aarch/')*" BurntSushi/ripgrep \
-    lbin'!./*/delta' bpick"*$(uname|sed 's/Linux/linux-musl/')*" dandavison/delta
+    lbin'!./*/delta' bpick"*$(uname|sed 's/Linux/linux-musl/')*" dandavison/delta \
+    lbin'!*/fd -> fd' bpick"*$(uname|sed 's/Linux/linux-musl/')*"  @sharkdp/fd \
+    lbin'!*/hexyl' bpick"*$(uname|sed 's/Linux/linux-musl/')*"  @sharkdp/hexyl \
+    lbin'!*/hyperfine'  bpick"*$(uname|sed 's/Linux/linux-musl/')*" @sharkdp/hyperfine \
+    lbin'!*/pastel' bpick"*$(uname|sed 's/Linux/linux-musl/')*"  atload'_zinit_pastel_atload' @sharkdp/pastel \
+    lbin'!*/bat' bpick"*$(uname|sed 's/Linux/linux-musl/')*"  atload'_zinit_bat_atload' @sharkdp/bat
 
   # 最新のものがReleasesにないので自前ビルドする子たち
-  zinit wait"zinit-rust-ready" light-mode depth=1 lucid nocompile \
-    atclone"cargo build --release" atpull"%atclone" for \
-      lbin'!target/release/as-tree' jez/as-tree \
-      lbin'!target/release/bat' atload"_zinit_bat_atload" @sharkdp/bat
+  #zinit wait"zinit-rust-ready" light-mode depth=1 lucid nocompile \
+    #atclone"cargo build --release" atpull"%atclone" for \
+      #lbin'!target/release/bat' atload"_zinit_bat_atload" @sharkdp/bat
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
@@ -88,8 +92,7 @@
 
     zinit wait"5" lucid has"pip3" light-mode nocompile as"null" atclone"pip3 install ." atpull"%atclone" for \
       atdelete"pip3 uninstall -y pynvim" neovim/pynvim \
-      atdelete"pip3 uninstall -y httpie" httpie/httpie \
-      atdelete"pip3 uninstall -y bpytop" aristocratos/bpytop
+      atdelete"pip3 uninstall -y httpie" httpie/httpie
 
   # }}}
 

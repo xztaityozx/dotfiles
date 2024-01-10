@@ -11,17 +11,14 @@ all: build
 build: $(ZSHRC)
 	zsh -c "zcompile $(ZSHRC)"
 
-zinit:
-	[[ -e zinit.generated.zsh ]] && rm zinit.generated.zsh || echo ok
-	cat ./zinit.main.zsh >> zinit.generated.zsh
-	cat ./zinit.runtime.zsh >> zinit.generated.zsh
-	cat ./zinit.atload.zsh >> zinit.generated.zsh
-	[[ "$(shell uname -m)" == "x86_64" ]] && cat ./zinit.x86_64.zsh >> zinit.generated.zsh || echo is not x86_64
-	[[ "$(shell uname -m)" != "x86_64" ]] && cat ./zinit.arm64.zsh >> zinit.generated.zsh || echo is not arm64
-	cat ./zinit.common.zsh >> zinit.generated.zsh
+zinit.generated.zsh:
+	[[ -e $@ ]] && rm $@ || echo ok
+	cat ./zinit.main.zsh >> $@
+	cat ./zinit.runtime.zsh >> $@
+	cat ./zinit.atload.zsh >> $@
+	cat ./zinit.common.zsh >> $@
 
-
-$(ZSHRC): clean zinit
+$(ZSHRC): clean zinit.generated.zsh
 	touch $(ZSHRC)
 	[[ "$(ENABLE_ZPROF)" == "1" ]] && echo 'zmodload zsh/zprof && zprof' >> $(ZSHRC) || echo "zprof disable"
 	cat ./main.zsh >> $(ZSHRC)
