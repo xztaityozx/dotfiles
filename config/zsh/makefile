@@ -30,4 +30,6 @@ $(ZSHRC): clean zinit.generated.zsh
 .PHONY: clean
 clean:
 	[[ -e "$(ZSHRC)" ]] && rm $(ZSHRC) || echo "ok"
+	[[ -e "$(ZSHRC).zwc" ]] && rm -f $(ZSHRC).zwc || echo "ok"
+	[[ -e "zinit.generated.zsh" ]] && rm zinit.generated.zsh || echo "ok"
 
