@@ -62,16 +62,15 @@
     lbin'!./*/ghq' atclone'rm ./*/misc/bash/_ghq' atpull"%atclone" x-motemen/ghq \
     lbin'!dasel_* -> dasel' atclone'./dasel_* completion zsh > _dasel' TomWright/dasel \
     lbin'!lsd-*/lsd' atload'_zinit_lsd_atload' lsd-rs/lsd \
-    lbin'!gibo' atclone'./gibo update && ./gibo completion zsh > _gibo' simonwhitaker/gibo
-
+    lbin'!gibo' atclone'./gibo update && ./gibo completion zsh > _gibo' simonwhitaker/gibo \
+    lbin'!./*/rg' bpick"*$(uname -p|sed 's/arm/aarch/')*" BurntSushi/ripgrep \
+    lbin'!./*/delta' bpick"*$(uname|sed 's/Linux/linux-musl/')*" dandavison/delta
 
   # 最新のものがReleasesにないので自前ビルドする子たち
   zinit wait"zinit-rust-ready" light-mode depth=1 lucid nocompile \
     atclone"cargo build --release" atpull"%atclone" for \
       lbin'!target/release/as-tree' jez/as-tree \
-      lbin'!target/release/rg' BurntSushi/ripgrep \
-      lbin'!target/release/bat' atload"_zinit_bat_atload" @sharkdp/bat \
-      lbin'!target/release/delta' dandavison/delta # リリースファイルはあるんだけど、GLIBCへの依存が解決できてないビルドなので自前ビルドしたほうが楽なんですねこれが
+      lbin'!target/release/bat' atload"_zinit_bat_atload" @sharkdp/bat
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
