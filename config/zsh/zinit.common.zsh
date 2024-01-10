@@ -77,7 +77,7 @@
   zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
     lbin'!bin/xpanes' as'null' has'tmux' cp'completion/zsh/_xpanes -> _xpanes' greymd/tmux-xpanes
 
-  zinit wait'2' nocompile as"program" lucid make"all" lbin'!./bin/juz' for ryuichiueda/glueutils
+  zinit wait'5' nocompile as"program" lucid make"all" lbin'!./bin/juz' for ryuichiueda/glueutils
 # }}}
 
 # {{{
@@ -87,14 +87,14 @@
   # pip3 install
   # {{{
 
-    zinit wait"2" lucid has"pip3" light-mode nocompile as"null" atclone"pip3 install ." atpull"%atclone" for \
+    zinit wait"5" lucid has"pip3" light-mode nocompile as"null" atclone"pip3 install ." atpull"%atclone" for \
       atdelete"pip3 uninstall -y pynvim" neovim/pynvim \
       atdelete"pip3 uninstall -y httpie" httpie/httpie \
       atdelete"pip3 uninstall -y bpytop" aristocratos/bpytop
 
   # }}}
 
-  zinit wait"2" lucid has"perl" nocompile as"program" lbin'!./cpm' for skaji/cpm
+  zinit wait"5" lucid has"perl" nocompile as"program" lbin'!./cpm' for skaji/cpm
 # }}}
 
 zinit light-mode has"tmux" trackbinds bindmap"^I -> ^@" atload"_zinit_fzf-tab_atload" for Aloxaf/fzf-tab
