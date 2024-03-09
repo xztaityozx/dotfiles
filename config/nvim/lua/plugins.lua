@@ -417,14 +417,9 @@ return require('lazy').setup({
   -- インデントのガイドラインを表示するくん
   {
     "lukas-reineke/indent-blankline.nvim",
-    cmd = {
-      "IndentBlanklineToggle",
-      "IndentBlanklineRefresh"
-    },
-    opts = {
-      show_current_context = true,
-      show_current_context_start = true
-    }
+    lazy = false,
+    opts = {},
+    main = "ibl",
   },
 
   -- terminal系
