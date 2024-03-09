@@ -277,9 +277,9 @@ return require('lazy').setup({
           documentation = cmp.config.window.bordered(),
         },
         sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-        },
+            { name = 'nvim_lsp' },
+            { name = 'luasnip' },
+          },
           {
             { name = 'buffer' },
             { name = 'path' },
