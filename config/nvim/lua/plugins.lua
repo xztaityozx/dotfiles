@@ -399,6 +399,11 @@ return require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     config = function(_, _)
       require('nvim-treesitter.configs').setup({
+        modules = {},
+        sync_install = false,
+        ensure_installed = { "lua" },
+        auto_install = false,
+        ignore_install = {},
         highlight = {
           enable = true
         },
