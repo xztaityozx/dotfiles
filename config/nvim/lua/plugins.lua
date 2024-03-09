@@ -442,7 +442,7 @@ return require('lazy').setup({
   },
 
   -- colorscheme
-  { 'cocopon/iceberg.vim', lazy = false, priority = 1000 },
+  { 'cocopon/iceberg.vim',   lazy = false, priority = 1000 },
 
   -- fuzzy finder
   {
@@ -537,7 +537,7 @@ return require('lazy').setup({
   {
     'github/copilot.vim',
     config = function()
-      vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("\\<CR>")', {expr = true, script = true, silent = true})
+      vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("\\<CR>")', { expr = true, script = true, silent = true })
       vim.g.copilot_no_tab_map = false
     end,
     lazy = false
