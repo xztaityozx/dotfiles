@@ -447,6 +447,9 @@ return require('lazy').setup({
   -- fuzzy finder
   {
     'nvim-telescope/telescope.nvim',
+    cmd = {
+      'Telescope'
+    },
     dependencies = {
       { 'nvim-lua/plenary.nvim' },
       -- ソート改善
