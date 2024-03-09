@@ -194,7 +194,7 @@ return require('lazy').setup({
     opts = {
       color_icons = true
     },
-    lazy = true,
+    lazy = false,
   },
 
   {
