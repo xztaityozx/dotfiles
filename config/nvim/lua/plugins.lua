@@ -22,19 +22,8 @@ return require('lazy').setup({
   {
     'kylechui/nvim-surround',
     lazy = false,
-    opts = {
-      keymaps = {
-        -- prefixを張替え
-        normal = "tt", -- ys
-        normal_cur = "th", -- yss
-        normal_cur_line = "tg", --yS
-        visual = "t", -- S
-      },
-    },
-    keys = {
-      -- tf に ysiwf を割り当て、関数名が要求される
-      { "tf", "<Plug>(nvim-surround-normal)iwf", mode = { "n" }, { noremap = true, silent = true } },
-    }
+    opts = {},
+    keys = {}
   },
 
   -- bufdelete
