@@ -23,7 +23,6 @@ return require('lazy').setup({
     'kylechui/nvim-surround',
     lazy = false,
     opts = {},
-    keys = {}
   },
 
   -- bufdelete
@@ -315,7 +314,10 @@ return require('lazy').setup({
   -- ステータスライン
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = {},
+    dependencies = {
+      {'kdheepak/tabline.nvim', opts = { enable = false }},
+      {'arkav/lualine-lsp-progress', event = "LspAttach" },
+    },
     config = function()
       local function custom_progress()
         return [[%3p%% %3l/%3L]]
@@ -346,12 +348,15 @@ return require('lazy').setup({
             'diff',
           },
           lualine_c = { 'filetype', 'filename' },
-          lualine_x = { "require('lsp-status').status()" },
+          lualine_x = {  "lsp_progress" ,"require('lsp-status').status()" },
           lualine_y = { 'encoding',
             { 'fileformat', symbols = { unix = ' Linux', dos = ' Windows', mac = ' macOS' } } },
           lualine_z = { 'location', custom_progress },
         },
-        tabline = {},
+        tabline = {
+          lualine_c = { require('tabline').tabline_buffers },
+          lualine_z = { 'tabs' }
+        },
         options = {
           theme = {
             normal = {
