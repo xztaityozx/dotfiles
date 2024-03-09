@@ -110,11 +110,15 @@ return require('lazy').setup({
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-R><C-R>', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'sq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
           vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
           vim.keymap.set({ "v", "n" }, 'sA', require('actions-preview').code_actions, opts)
+
+          vim.api.nvim_create_user_command("RenameSymbol",
+            function()
+              vim.lsp.buf.rename()
+            end, {})
         end
       })
     end,
