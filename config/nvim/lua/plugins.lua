@@ -315,12 +315,7 @@ return require('lazy').setup({
   -- ステータスライン
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = {
-      {
-        'kdheepak/tabline.nvim',
-        opts = { enable = false }
-      },
-    },
+    dependencies = {},
     config = function()
       local function custom_progress()
         return [[%3p%% %3l/%3L]]
@@ -356,13 +351,7 @@ return require('lazy').setup({
             { 'fileformat', symbols = { unix = ' Linux', dos = ' Windows', mac = ' macOS' } } },
           lualine_z = { 'location', custom_progress },
         },
-        tabline = {
-          lualine_a = {},
-          lualine_b = {},
-          lualine_c = { require 'tabline'.tabline_buffers },
-          lualine_y = {},
-          lualine_z = { 'tabs' },
-        },
+        tabline = {},
         options = {
           theme = {
             normal = {
