@@ -453,6 +453,8 @@ return require('lazy').setup({
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       -- LSPがあるとき、telescopeでアウトラインをピックできるやつ
       { 'stevearc/aerial.nvim',                     config = true },
+      -- undo picker
+      { 'debugloop/telescope-undo.nvim' },
     },
     config = function()
       require('telescope').setup({
@@ -483,6 +485,7 @@ return require('lazy').setup({
 
       require('telescope').load_extension('fzf')
       require('telescope').load_extension('aerial')
+      require('telescope').load_extension('undo')
     end,
     keys = {
       { "<C-p>", "<cmd>Telescope find_files<CR>",  mode = "n", { noremap = true, silent = true } },
@@ -494,6 +497,7 @@ return require('lazy').setup({
       { "s\"",   "<cmd>Telescope registers<CR>",   mode = "n", { noremap = true, silent = true } },
       { "sQ",    "<cmd>Telescope quickfix<CR>",    mode = "n", { noremap = true, silent = true } },
       { "sf",    "<cmd>Telescope aerial<CR>",      mode = "n", { noremap = true, silent = true } },
+      { "su",    "<cmd>Telescope undo<CR>",        mode = "n", { noremap = true, silent = true } },
     }
   },
   { 'nvim-treesitter/nvim-treesitter-context' },
