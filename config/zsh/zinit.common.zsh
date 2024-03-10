@@ -50,7 +50,7 @@
 # {{{
 
   zinit wait"2" light-mode nocompile lucid from"gh-r" for \
-    lbin'!*/gojq' atload'alias jq=gojq' itchyny/gojq \
+    lbin'!jq* -> jq' jqlang/jq \
     lbin'!uni-* -> uni' arp242/uni \
     lbin'!gron' tomnomnom/gron \
     lbin'!sad' atload"alias sad='sad --fzf=\"--height=100%\"'" bpick"*$(uname|sed 's/Linux/linux-musl/')*" ms-jpq/sad \
