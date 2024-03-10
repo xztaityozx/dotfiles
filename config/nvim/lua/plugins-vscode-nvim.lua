@@ -9,7 +9,7 @@ return require('lazy').setup({
       { "s/", "<Plug>(easymotion-sn)", mode = { "n", "x" }, { noremap = false } },
     }
   },
-  
+
   -- nerdcommenter
   {
     'scrooloose/nerdcommenter',
@@ -18,30 +18,23 @@ return require('lazy').setup({
       { "sc", "<Plug>NERDCommenterToggle", mode = { "n", "v" }, { noremap = false } },
     }
   },
-  
+
   {
     'kylechui/nvim-surround',
     lazy = false,
-    opts = {
-      keymaps = {
-        -- prefixを張替え
-        normal = "tt", -- ys
-        normal_cur = "th", -- yss
-        normal_cur_line = "tg", --yS
-        visual = "t", -- S
-      },
-    },
-    keys = {
-      -- tf に ysiwf を割り当て、関数名が要求される
-      { "tf", "<Plug>(nvim-surround-normal)iwf", mode = { "n" }, { noremap = true, silent = true } },
-    }
+    opts = {},
   },
-  
+
   -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',
     config = function(_, _)
       require('nvim-treesitter.configs').setup({
+        ignore_install = {},
+        auto_install = false,
+        ensure_installed = { "lua" },
+        sync_install = false,
+        modules = {},
         highlight = {
           enable = true
         },
