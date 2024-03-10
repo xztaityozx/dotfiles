@@ -315,8 +315,8 @@ return require('lazy').setup({
   {
     'nvim-lualine/lualine.nvim',
     dependencies = {
-      {'kdheepak/tabline.nvim', opts = { enable = false }},
-      {'arkav/lualine-lsp-progress', event = "LspAttach" },
+      { 'kdheepak/tabline.nvim',      opts = { enable = false } },
+      { 'arkav/lualine-lsp-progress', event = "LspAttach" },
     },
     config = function()
       local function custom_progress()
@@ -348,7 +348,7 @@ return require('lazy').setup({
             'diff',
           },
           lualine_c = { 'filetype', 'filename' },
-          lualine_x = {  "lsp_progress" ,"require('lsp-status').status()" },
+          lualine_x = { "lsp_progress", "require('lsp-status').status()" },
           lualine_y = { 'encoding',
             { 'fileformat', symbols = { unix = ' Linux', dos = ' Windows', mac = ' macOS' } } },
           lualine_z = { 'location', custom_progress },
