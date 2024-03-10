@@ -390,6 +390,9 @@ return require('lazy').setup({
           component_separators = { left = '', right = '' },
           section_separators = { left = '', right = '' },
         },
+        extensions = {
+          'nvim-tree',
+        }
       })
     end
   },
@@ -549,23 +552,42 @@ return require('lazy').setup({
     lazy = true,
     config = false,
     keys = {
-      { [[<C-a>]],  function() require('dial.map').manipulate("increment", "normal") end,  mode = { "n" },  { noremap = true, silent = true } },
-      { [[<C-x>]],  function() require('dial.map').manipulate("decrement", "normal") end,  mode = { "n" },  { noremap = true, silent = true } },
-      { [[<C-a>]],  function() require('dial.map').manipulate("increment", "visual") end,  mode = { "v" },  { noremap = true, silent = true } },
-      { [[<C-x>]],  function() require('dial.map').manipulate("decrement", "visual") end,  mode = { "v" },  { noremap = true, silent = true } },
-      { [[g<C-a>]], function() require('dial.map').manipulate("increment", "gvisual") end, mode = { "v" },  { noremap = true, silent = true } },
-      { [[g<C-x>]], function() require('dial.map').manipulate("decrement", "gvisual") end, mode = { "v" },  { noremap = true, silent = true } },
+      { [[<C-a>]],  function() require('dial.map').manipulate("increment", "normal") end,  mode = { "n" }, { noremap = true, silent = true } },
+      { [[<C-x>]],  function() require('dial.map').manipulate("decrement", "normal") end,  mode = { "n" }, { noremap = true, silent = true } },
+      { [[<C-a>]],  function() require('dial.map').manipulate("increment", "visual") end,  mode = { "v" }, { noremap = true, silent = true } },
+      { [[<C-x>]],  function() require('dial.map').manipulate("decrement", "visual") end,  mode = { "v" }, { noremap = true, silent = true } },
+      { [[g<C-a>]], function() require('dial.map').manipulate("increment", "gvisual") end, mode = { "v" }, { noremap = true, silent = true } },
+      { [[g<C-x>]], function() require('dial.map').manipulate("decrement", "gvisual") end, mode = { "v" }, { noremap = true, silent = true } },
     }
   },
 
   {
     'folke/which-key.nvim',
     event = "VeryLazy",
-    init = function ()
-      vim.o.timeout= true
+    init = function()
+      vim.o.timeout = true
       vim.o.timeoutlen = 300
     end,
     opts = {}
+  },
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = true,
+    keys = {
+      { [[<F6>]], "<CMD>NvimTreeToggle<CR>", mode = { "n", "i" }, { noremap = true, silent = true } },
+      { [[<C-l>]], "<CMD>NvimTreeFocus<CR>", mode = { "n", "i" }, { noremap = true, silent = true } },
+    },
+    opts = {
+      view = {
+        side = "right",
+      }
+    }
   },
 
   -- copilot
