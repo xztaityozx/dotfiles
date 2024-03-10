@@ -43,7 +43,6 @@ return require('lazy').setup({
   },
 
   -- Git関係
-  -- {{{
   -- Gitのマーク出してくれる君
   { 'airblade/vim-gitgutter' },
 
@@ -66,7 +65,6 @@ return require('lazy').setup({
     },
     dependencies = 'nvim-lua/plenary.nvim'
   },
-  -- }}},
 
   -- ウインドウサイズ変更するやつ
   {
@@ -559,6 +557,17 @@ return require('lazy').setup({
       { [[g<C-x>]], function() require('dial.map').manipulate("decrement", "gvisual") end, mode = { "v" },  { noremap = true, silent = true } },
     }
   },
+
+  {
+    'folke/which-key.nvim',
+    event = "VeryLazy",
+    init = function ()
+      vim.o.timeout= true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {}
+  },
+
   -- copilot
   {
     'github/copilot.vim',
