@@ -98,6 +98,23 @@ return require('lazy').setup({
       'nvim-lua/lsp-status.nvim',
       'folke/lsp-colors.nvim',
       'folke/neodev.nvim',
+      {
+        "ray-x/lsp_signature.nvim",
+        opts = {
+          bind = true,
+          handler_opts = {
+            border = "single"
+          },
+          floating_window = true,
+          hint_prefix = '',
+          toggle_key_flip_floatwin_setting = true,
+        },
+        lazy = true,
+        event = "LspAttach",
+        keys = {
+          { "<C-k>", "<cmd>lua require('lsp_signature').toggle_float_win()<CR>", mode = { "n", "i" }, { silent = true, noremap = true } },
+        }
+      }
     },
     lazy = false,
     init = function(_)
@@ -107,7 +124,6 @@ return require('lazy').setup({
           local opts = { noremap = true, silent = true };
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'sq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
@@ -293,22 +309,6 @@ return require('lazy').setup({
         })
       })
     end
-  },
-
-  -- シグネチャヒント
-  {
-    "ray-x/lsp_signature.nvim",
-    opts = {
-      bind = true,
-      handler_opts = {
-        border = "rounded"
-      },
-      floating_window = true,
-      toggle_key = '<C-l>',
-      hint_prefix = '',
-    },
-    lazy = true,
-    event = "LspAttach"
   },
 
   -- ステータスライン
