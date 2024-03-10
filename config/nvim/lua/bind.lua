@@ -26,10 +26,6 @@ map('i', 'jj', '<ESC>', {noremap = true})
 -- Ctrl-dで:q
 map('n', '<C-d>', "<CMD>q<CR>", {noremap = true})
 
--- Ctrl-aで全選択
-map('n', '<C-a>', 'gg<S-V>G', {noremap = true})
-map('i', '<C-a>', '<ESC>gg<S-V>G', {noremap = true})
-
 -- Ctrl+sで保存
 map('n', '<C-s>', '<CMD>:w<CR>', {noremap = true})
 map('i', '<C-s>', '<ESC><CMD>:w<CR>', {noremap = true})

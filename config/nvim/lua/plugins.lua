@@ -545,6 +545,20 @@ return require('lazy').setup({
     event = "LspAttach"
   },
 
+  -- 数値のインクリメントとかをいい感じにやってくれるやつ
+  {
+    'monaqa/dial.nvim',
+    lazy = true,
+    config = false,
+    keys = {
+      { [[<C-a>]],  function() require('dial.map').manipulate("increment", "normal") end,  mode = { "n" },  { noremap = true, silent = true } },
+      { [[<C-x>]],  function() require('dial.map').manipulate("decrement", "normal") end,  mode = { "n" },  { noremap = true, silent = true } },
+      { [[<C-a>]],  function() require('dial.map').manipulate("increment", "visual") end,  mode = { "v" },  { noremap = true, silent = true } },
+      { [[<C-x>]],  function() require('dial.map').manipulate("decrement", "visual") end,  mode = { "v" },  { noremap = true, silent = true } },
+      { [[g<C-a>]], function() require('dial.map').manipulate("increment", "gvisual") end, mode = { "v" },  { noremap = true, silent = true } },
+      { [[g<C-x>]], function() require('dial.map').manipulate("decrement", "gvisual") end, mode = { "v" },  { noremap = true, silent = true } },
+    }
+  },
   -- copilot
   {
     'github/copilot.vim',
