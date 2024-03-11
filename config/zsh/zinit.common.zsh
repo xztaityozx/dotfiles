@@ -69,12 +69,8 @@
     lbin'!*/hexyl' bpick"*$(uname|sed 's/Linux/linux-musl/')*"  @sharkdp/hexyl \
     lbin'!*/hyperfine'  bpick"*$(uname|sed 's/Linux/linux-musl/')*" @sharkdp/hyperfine \
     lbin'!*/pastel' bpick"*$(uname|sed 's/Linux/linux-musl/')*"  atload'_zinit_pastel_atload' @sharkdp/pastel \
-    lbin'!*/bat' bpick"*$(uname|sed 's/Linux/linux-musl/')*"  atload'_zinit_bat_atload' @sharkdp/bat
-
-  # 最新のものがReleasesにないので自前ビルドする子たち
-  #zinit wait"zinit-rust-ready" light-mode depth=1 lucid nocompile \
-    #atclone"cargo build --release" atpull"%atclone" for \
-      #lbin'!target/release/bat' atload"_zinit_bat_atload" @sharkdp/bat
+    lbin'!*/bat' bpick"*$(uname|sed 's/Linux/linux-musl/')*"  atload'_zinit_bat_atload' @sharkdp/bat \
+    lbin'!sg' atinit"./sg completions zsh > _sg" @ast-grep/ast-grep
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
