@@ -24,7 +24,7 @@
                 "^com\\.googlecode\\.iterm2",
                 "^com\\.jetbrains\\.",
                 "^com\\.microsoft\\.VSCode",
-                "^io\\.alacritty$"
+                "^com\\.github\\.wez\\.wezterm"
               ]
             }
           ]
@@ -54,7 +54,7 @@
                 "^com\\.googlecode\\.iterm2",
                 "^com\\.jetbrains\\.",
                 "^com\\.microsoft\\.VSCode",
-                "^io\\.alacritty$"
+                "^com\\.github\\.wez\\.wezterm"
               ]
             }
           ]
