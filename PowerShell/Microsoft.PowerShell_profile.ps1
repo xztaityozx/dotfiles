@@ -5,7 +5,7 @@ Set-PSReadLineKeyHandler -Chord Ctrl+D -ScriptBlock { [System.Environment]::Exit
 Set-PSReadLineKeyHandler -Chord Ctrl+LeftArrow BackwardWord
 Set-PSReadLineKeyHandler -Chord Ctrl+RightArrow ForwardWord
 Set-PsFzfOption -TabExpansion -PSReadlineChordReverseHistory 'Ctrl+r'
-Set-PSReadLineKeyHandler -Chord Tab -ScriptBlock {Invoke-FzfTabCompletion}
+Set-PSReadLineKeyHandler -Chord Ctrl+Spacebar -ScriptBlock {Invoke-FzfTabCompletion}
 
 
 # environment
@@ -35,4 +35,4 @@ Invoke-Expression (& {
 })
 
 Set-Alias :e nvim
-
+Set-Alias ls lsd
