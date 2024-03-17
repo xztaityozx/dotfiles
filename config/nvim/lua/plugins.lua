@@ -147,7 +147,7 @@ return require('lazy').setup({
 
       require('mason-lspconfig').setup_handlers({
         function(server)
-          local pwd = os.getenv("PWD");
+          local pwd = os.getenv("PWD") or '';
           local basic_option = {
             capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
             settings = {
