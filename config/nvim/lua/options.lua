@@ -71,8 +71,14 @@ o.foldmethod = "marker"
 o.foldlevel = 2
 
 -- シェルを設定
-o.shell = "/usr/bin/env zsh"
--- o.shell = "powershell.exe"
+if os.getenv("OS"):match("^Windows") then
+  o.shell = "pwsh.exe"
+  o.shellcmdflag = "-NoLogo -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+  o.shellquote="\""
+  o.shellxquote=''
+else
+  o.shell = "/usr/bin/env zsh"
+end
 
 -- カラースキームはicebergを使う
 vim.cmd('colorscheme iceberg')
