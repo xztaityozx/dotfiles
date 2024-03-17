@@ -1,7 +1,12 @@
+set scrolloff=5
+set incsearch
+
+map Q gq
 
 set surround
 set showmode
 set easymotion
+set ideajoin
 
 nnoremap s <NOP>
 vnoremap s <NOP>
