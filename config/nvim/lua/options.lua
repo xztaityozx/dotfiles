@@ -71,7 +71,7 @@ o.foldmethod = "marker"
 o.foldlevel = 2
 
 -- シェルを設定
-if os.getenv("OS"):match("^Windows") then
+if (os.getenv("OS") or ""):match("^Windows") then
   o.shell = "pwsh.exe"
   o.shellcmdflag = "-NoLogo -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
   o.shellquote="\""
