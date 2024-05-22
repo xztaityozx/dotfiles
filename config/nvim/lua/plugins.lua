@@ -19,6 +19,21 @@ return require('lazy').setup({
     }
   },
 
+  -- split と join をやってくれるやつ
+  {
+    'Wansmer/treesj',
+    lazy = true,
+    dependencies = {
+      { 'nvim-treesitter/nvim-treesitter' },
+    },
+    ops = {
+      use_default_keymaps = false,
+    },
+    keys = {
+      { "sj", "<CMD>lua require('treesj').toggle()<CR>", mode = { "n", "v" }, { noremap = true, silent = true } },
+    }
+  },
+
   {
     'kylechui/nvim-surround',
     lazy = false,
@@ -120,12 +135,12 @@ return require('lazy').setup({
         callback = function(args)
           local bufnr = args.buf;
           local opts = { noremap = true, silent = true };
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', 'sq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
-          vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+          vim.api.nvim_buf_set_keymap(bufnr, 'n',       'gD',        '<cmd>lua vim.lsp.buf.declaration()<CR>',          opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'n',       'K',         '<cmd>lua vim.lsp.buf.hover()<CR>',                opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'i',       '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>',           opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'n',       'sq',        '<cmd>lua vim.diagnostic.setloclist()<CR>',        opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'n',       '<space>f',  '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
+          vim.api.nvim_buf_set_option(bufnr, 'omnifunc',             'v:lua.vim.lsp.omnifunc')
           vim.keymap.set({ "v", "n" }, 'sA', require('actions-preview').code_actions, opts)
 
           vim.api.nvim_create_user_command("RenameSymbol",
@@ -580,8 +595,8 @@ return require('lazy').setup({
     },
     config = true,
     keys = {
-      { [[<F6>]], "<CMD>NvimTreeToggle<CR>", mode = { "n", "i" }, { noremap = true, silent = true } },
-      { [[<C-l>]], "<CMD>NvimTreeFocus<CR>", mode = { "n", "i" }, { noremap = true, silent = true } },
+      { [[<F6>]],  "<CMD>NvimTreeToggle<CR>", mode = { "n", "i" }, { noremap = true, silent = true } },
+      { [[<C-l>]], "<CMD>NvimTreeFocus<CR>",  mode = { "n", "i" }, { noremap = true, silent = true } },
     },
     opts = {
       view = {
