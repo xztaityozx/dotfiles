@@ -5,7 +5,6 @@
   zinit atinit'Z_A_USECOMP=1' light-mode for NICHOLAS85/z-a-eval
   zinit light NICHOLAS85/z-a-linkbin
   zinit light zdharma-continuum/zinit-annex-bin-gem-node
-  zinit light zdharma-continuum/zinit-annex-rust
 
 # }}}
 
@@ -23,18 +22,5 @@
 
     zinit atinit'_zinit_asdf_atinit' pick"asdf.sh" light-mode for @asdf-vm/asdf
   # }}}
-  
-  # rust
-  #{{{
-
-    zinit id-as"rust" as=null sbin"bin/*" lucid rustup \
-      atload"[[ ! -f ${ZINIT[COMPLETIONS_DIR]}/_cargo ]] && zinit creinstall -Q rust; export CARGO_HOME=\$PWD RUSTUP_HOME=\$PWD/rustup" for \
-        xztaityozx/null
-
-    function zinit-rust-ready() {
-      [[ -v CARGO_HOME ]] && [[ -v RUSTUP_HOME ]]
-    }
-
-  #}}}
 
 # }}}
