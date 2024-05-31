@@ -1,9 +1,9 @@
 
 # {{{
 
-  zinit lucid light-mode src"init.sh" for b4b4r07/enhancd
-
-  zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> direnv' eval'direnv hook zsh' direnv/direnv
+zinit lucid light-mode for romkatv/zsh-defer
+zsh-defer zinit lucid light-mode src"init.sh" for b4b4r07/enhancd
+zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> direnv' eval'direnv hook zsh' direnv/direnv
 
 # }}}
 
@@ -20,7 +20,7 @@
     }
 
     # fzf
-    zinit wait"2" atload"_zinit_fzf_atload" light-mode nocompile lucid \
+    zsh-defer zinit wait"2" atload"_zinit_fzf_atload" light-mode nocompile lucid \
       cloneopts"--depth 1" \
       lbin'!bin/{fzf,fzf-tmux}' \
       atclone"./install --bin --no-{zsh,bash,fish,completion,key-bindings}" atpull"%atclone" \
@@ -43,13 +43,13 @@
 # そんなに急いでロードしなくていいツール
 # {{{
 
-  zinit wait"2" light-mode nocompile lucid from"gh-r" for \
+  __zinit_OS_NAME_FOR_RUST_TOOLS=$(uname|sed 's/Linux/linux-musl/')
+  zsh-defer zinit wait"2" light-mode nocompile lucid from"gh-r" for \
     lbin'!./*/bin/nvim -> nvim'                                                                                                 neovim/neovim \
     lbin'!jq* -> jq'                                                                                                            jqlang/jq \
     lbin'!uni-* -> uni'                                                                                                         arp242/uni \
     lbin'!gron'                                                                                                                 tomnomnom/gron \
     lbin'!lazygit'          atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"                                               jesseduffield/lazygit \
-    lbin'!sad'              atload"alias sad='sad --fzf=\"--height=100%\"'"         bpick"*$(uname|sed 's/Linux/linux-musl/')*" ms-jpq/sad \
     lbin'!owari'            atclone'./owari completion zsh > _owari'                                                            xztaityozx/owari \
     lbin'!sel'              atclone'./sel completion zsh > _sel'                                                                xztaityozx/sel \
     lbin'!bin/teip'                                                                                                             greymd/teip \
@@ -58,43 +58,43 @@
     lbin'!./*/ghq'          atclone'rm ./*/misc/bash/_ghq'                          atpull"%atclone"                            x-motemen/ghq \
     lbin'!dasel_* -> dasel' atclone'./dasel_* completion zsh > _dasel'                                                          TomWright/dasel \
     lbin'!lsd-*/lsd'        atload'_zinit_lsd_atload'                                                                           lsd-rs/lsd \
-    lbin'!gibo'             atclone'./gibo update && ./gibo completion zsh > _gibo'                                             simonwhitaker/gibo \
+    lbin'!gibo'             atclone'./gibo update && ./gibo completion zsh > _gibo' atpull"%atclone"                            simonwhitaker/gibo \
     lbin'!./*/rg'                                                                   bpick"*$(uname -p|sed 's/arm/aarch/')*"     BurntSushi/ripgrep \
-    lbin'!./*/delta'                                                                bpick"*$(uname|sed 's/Linux/linux-musl/')*" dandavison/delta \
-    lbin'!*/fd -> fd'                                                               bpick"*$(uname|sed 's/Linux/linux-musl/')*" @sharkdp/fd \
-    lbin'!*/hexyl'                                                                  bpick"*$(uname|sed 's/Linux/linux-musl/')*" @sharkdp/hexyl \
-    lbin'!*/hyperfine'                                                              bpick"*$(uname|sed 's/Linux/linux-musl/')*" @sharkdp/hyperfine \
-    lbin'!*/pastel'         atload'_zinit_pastel_atload'                            bpick"*$(uname|sed 's/Linux/linux-musl/')*" @sharkdp/pastel \
-    lbin'!*/bat'            atload'_zinit_bat_atload'                               bpick"*$(uname|sed 's/Linux/linux-musl/')*" @sharkdp/bat \
+    lbin'!./*/delta'                                                                bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  dandavison/delta \
+    lbin'!*/fd -> fd'                                                               bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/fd \
+    lbin'!*/hexyl'                                                                  bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/hexyl \
+    lbin'!*/hyperfine'                                                              bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/hyperfine \
+    lbin'!*/pastel'         atload'_zinit_pastel_atload'                            bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/pastel \
+    lbin'!*/bat'            atload'_zinit_bat_atload'                               bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/bat \
+    lbin'!sad'              atload"alias sad='sad --fzf=\"--height=100%\"'"         bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  ms-jpq/sad \
     lbin'!sg'               atinit"./sg completions zsh > _sg"                                                                  @ast-grep/ast-grep
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
-  zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
+  zsh-defer zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
     lbin'!bin/xpanes' as'null' has'tmux' cp'completion/zsh/_xpanes -> _xpanes' greymd/tmux-xpanes
 
-  zinit wait'5' nocompile as"program" lucid make"all" lbin'!./bin/juz' for ryuichiueda/glueutils
+  zsh-defer zinit wait'5' nocompile as"program" lucid make"all" lbin'!./bin/juz' for ryuichiueda/glueutils
 # }}}
 
 # {{{
     
-  zinit wait"2" lucid as'null' has"tmux" light-mode nocompile for atload='export TPM_HOME=$PWD' tmux-plugins/tpm
+  zsh-defer zinit wait"2" if"$TMUX" lucid as'null' has"tmux" light-mode nocompile for atload='export TPM_HOME=$PWD' tmux-plugins/tpm
 
   # pip3 install
   # {{{
 
-  zinit wait"5" lucid as'null' has"pip3" light-mode nocompile atclone"pip3 install ." atpull"%atclone" for \
+  zsh-defer zinit wait"5" lucid as'null' has"pip3" light-mode nocompile atclone"pip3 install ." atpull"%atclone" for \
     atdelete"pip3 uninstall -y pynvim" neovim/pynvim \
     atdelete"pip3 uninstall -y httpie" httpie/httpie
 
   # }}}
 
-  zinit wait"5" lucid has"perl" nocompile as"program" lbin'!./cpm' for skaji/cpm
+  zsh-defer zinit wait"5" lucid has"perl" nocompile as"program" lbin'!./cpm' for skaji/cpm
 # }}}
 
-zinit light-mode has"tmux" trackbinds bindmap"^I -> ^@" atload"_zinit_fzf-tab_atload" for Aloxaf/fzf-tab
-zinit light-mode atload"zsh-defer zinit compinit &>/dev/null" for romkatv/zsh-defer
+zsh-defer zinit lucid light-mode has"tmux" trackbinds bindmap"^I -> ^@" atload"_zinit_fzf-tab_atload" for Aloxaf/fzf-tab
 
-zinit wait lucid for \
+zsh-defer zinit wait lucid for \
   atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
   blockf zsh-users/zsh-completions \
   atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions
