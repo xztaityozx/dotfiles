@@ -135,12 +135,12 @@ return require('lazy').setup({
         callback = function(args)
           local bufnr = args.buf;
           local opts = { noremap = true, silent = true };
-          vim.api.nvim_buf_set_keymap(bufnr, 'n',       'gD',        '<cmd>lua vim.lsp.buf.declaration()<CR>',          opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'n',       'K',         '<cmd>lua vim.lsp.buf.hover()<CR>',                opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'i',       '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>',           opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'n',       'sq',        '<cmd>lua vim.diagnostic.setloclist()<CR>',        opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'n',       '<space>f',  '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
-          vim.api.nvim_buf_set_option(bufnr, 'omnifunc',             'v:lua.vim.lsp.omnifunc')
+          vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'n', 'sq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
+          vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
           vim.keymap.set({ "v", "n" }, 'sA', require('actions-preview').code_actions, opts)
 
           vim.api.nvim_create_user_command("RenameSymbol",
@@ -209,6 +209,10 @@ return require('lazy').setup({
 
           if server == "perlnavigator" then
             basic_option.cmd = { "perlnavigator", "--stdio" };
+          end
+
+          if server == "pylsp" then
+            basic_option.plugins = { ruff = { enabled = true } }
           end
 
           lspconfig[server].setup(basic_option);
@@ -600,7 +604,7 @@ return require('lazy').setup({
     },
     opts = {
       view = {
-        side = "right",
+        side = "left",
       }
     }
   },

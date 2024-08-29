@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufNewFile"}, {
 -- terraformのLSPを起動するために必要。tfって基本terraformだと思うけどなんで変わらんのだろ
 local file_type_terraform_augroup = vim.api.nvim_create_augroup("FileTypeTerraform", {clear = true});
 vim.api.nvim_create_autocmd({"BufEnter", "BufNewFile"}, {
-  pattern = {"tf"},
+  pattern = {"*.tf"},
   group = file_type_terraform_augroup,
   callback = function ()
     vim.bo.filetype = "terraform"
