@@ -247,7 +247,7 @@ return require('lazy').setup({
       auto_close = true,
     },
     keys = {
-      { "s[", "<cmd>TroubleToggle<CR>", mode = "n", { silent = true, noremap = true } },
+      { "s[", "<cmd>Trouble diagnostics toggle<CR>", mode = "n", { silent = true, noremap = true } },
     },
     lazy = true,
     event = "LspAttach"
