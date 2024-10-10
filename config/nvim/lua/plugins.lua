@@ -498,7 +498,14 @@ return require('lazy').setup({
         },
         pickers = {
           find_files = {
-            find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix', '--hidden' }
+            find_command = { 
+              'fd', 
+              '--type', 'f', 
+              '--strip-cwd-prefix', 
+              '--hidden',
+              "--exclude='*.png'",
+              "--exclude='*.jpg'",
+            }
           },
         },
         extensions = {
