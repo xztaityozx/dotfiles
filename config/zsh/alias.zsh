@@ -7,6 +7,7 @@ type ggrep &> /dev/null && alias grep=ggrep
 type grm &> /dev/null && alias rm=grm
 type gpaste &> /dev/null && alias paste=gpaste
 type gmkdir &> /dev/null && alias mkdir=gmkdir
+type gawk &> /dev/null && alias awk=gawk
 
 # typo
 alias ks=ls

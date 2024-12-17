@@ -200,6 +200,16 @@ return require('lazy').setup({
                 },
                 schemas = require('schemastore').yaml.schemas(),
               },
+              pylsp = {
+                plugins = {
+                  ruff = {
+                    enabled = true
+                  },
+                  pycodestyle = {
+                    enabled = false,
+                  }
+                }
+              }
             }
           };
 
@@ -209,10 +219,6 @@ return require('lazy').setup({
 
           if server == "perlnavigator" then
             basic_option.cmd = { "perlnavigator", "--stdio" };
-          end
-
-          if server == "pylsp" then
-            basic_option.plugins = { ruff = { enabled = true } }
           end
 
           lspconfig[server].setup(basic_option);
@@ -231,21 +237,8 @@ return require('lazy').setup({
 
   {
     'folke/trouble.nvim',
-    opts = {
-      icons = true,
-      fold_open = '',
-      fold_closed = '',
-      signs = {
-        error = '',
-        warning = '',
-        hint = '',
-        information = '',
-        other = '',
-      },
-      use_diagnostic_signs = false,
-      auto_open = false,
-      auto_close = true,
-    },
+    opts = {},
+    cmd = "Trouble",
     keys = {
       { "s[", "<cmd>Trouble diagnostics toggle<CR>", mode = "n", { silent = true, noremap = true } },
     },
@@ -498,10 +491,10 @@ return require('lazy').setup({
         },
         pickers = {
           find_files = {
-            find_command = { 
-              'fd', 
-              '--type', 'f', 
-              '--strip-cwd-prefix', 
+            find_command = {
+              'fd',
+              '--type', 'f',
+              '--strip-cwd-prefix',
               '--hidden',
               "--exclude='*.png'",
               "--exclude='*.jpg'",
