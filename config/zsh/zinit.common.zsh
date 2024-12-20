@@ -73,7 +73,8 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
   zsh-defer zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
     lbin'!bin/xpanes' as'null' has'tmux' cp'completion/zsh/_xpanes -> _xpanes' greymd/tmux-xpanes
 
-  zsh-defer zinit wait'5' nocompile as"program" lucid make"all" lbin'!./bin/juz' for ryuichiueda/glueutils
+  # macでビルドできないので一旦OFF
+  #zsh-defer zinit wait'5' nocompile as"program" lucid make"all" lbin'!./bin/juz' for ryuichiueda/glueutils
 # }}}
 
 # {{{

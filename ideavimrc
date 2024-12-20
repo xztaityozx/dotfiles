@@ -5,8 +5,8 @@ map Q gq
 
 set surround
 set showmode
-set easymotion
 set ideajoin
+set which-key
 
 nnoremap s <NOP>
 vnoremap s <NOP>
@@ -20,6 +20,7 @@ vnoremap <silent> jj <C-\><C-n>
 nnoremap sc :action CommentByLineComment<CR>
 vnoremap sc :action CommentByLineComment<CR>
 nnoremap s/ :action AceAction<CR>
+xnoremap s/ :action AceAction<CR>
 nnoremap sw <C-w>k<C-\><C-n>
 nnoremap sd <C-w>l<C-\><C-n>
 nnoremap ss <C-w>j<C-\><C-n>
