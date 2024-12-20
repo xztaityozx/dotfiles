@@ -138,15 +138,10 @@ return require('lazy').setup({
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>', opts)
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', 'sq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
           vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-          vim.keymap.set({ "v", "n" }, 'sA', require('actions-preview').code_actions, opts)
-
-          vim.api.nvim_create_user_command("RenameSymbol",
-            function()
-              vim.lsp.buf.rename()
-            end, {})
+          vim.keymap.set({ "v", "n" }, '<M-.>', require('actions-preview').code_actions, opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
         end
       })
     end,
@@ -162,7 +157,6 @@ return require('lazy').setup({
 
       require('mason-lspconfig').setup_handlers({
         function(server)
-          local pwd = os.getenv("PWD") or '';
           local basic_option = {
             capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
             settings = {
@@ -191,7 +185,6 @@ return require('lazy').setup({
                 perlPath = 'perl',
                 enableWarnings = true,
                 perlcriticEnabled = true,
-                includePaths = { pwd .. '/lib', pwd .. '/local/lib/perl5', pwd .. '/.libt' },
               },
               yaml = {
                 schemaStore = {
@@ -212,14 +205,6 @@ return require('lazy').setup({
               }
             }
           };
-
-          if server == "omnisharp" then
-            basic_option.cmd = { "omnisharp" };
-          end
-
-          if server == "perlnavigator" then
-            basic_option.cmd = { "perlnavigator", "--stdio" };
-          end
 
           lspconfig[server].setup(basic_option);
         end
