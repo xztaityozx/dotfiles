@@ -14,13 +14,24 @@
   # asdf
   # {{{
     function _zinit_asdf_atinit() {
-      export ASDF_DIR=$PWD
-      export ASDF_DATA_DIR=$PWD
       export ASDF_CONFIG_FILE=$DOTFILES_PATH/config/asdf/asdfrc
       unfunction $0
     }
 
-    zinit atinit'_zinit_asdf_atinit' pick"asdf.sh" light-mode for @asdf-vm/asdf
+    function __zinit_asdf_atclone_atpull() {
+      ./asdf completion zsh > _asdf
+    }
+
+    zinit \
+      atinit'_zinit_asdf_atinit' \
+      atclone"__zinit_asdf_atclone_atpull" atpull"%atclone" \
+      atload'export PATH=$HOME/.asdf/shims:$PATH' \
+      from"gh-r" \
+      completions \
+      silent \
+      light-mode\
+      nocompile\
+      lbin'!asdf' for @asdf-vm/asdf 
   # }}}
 
 # }}}

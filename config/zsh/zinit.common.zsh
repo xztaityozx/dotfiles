@@ -45,7 +45,7 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
 
   __zinit_OS_NAME_FOR_RUST_TOOLS=$(uname|sed 's/Linux/linux-musl/')
   zsh-defer zinit wait"2" light-mode nocompile lucid from"gh-r" for \
-    lbin'!./*/bin/nvim -> nvim'                                                                                                 neovim/neovim \
+    lbin'!./*/bin/nvim -> nvim' bpick"*.tar.gz"                                                                                 neovim/neovim \
     lbin'!jq* -> jq'                                                                                                            jqlang/jq \
     lbin'!uni-* -> uni'                                                                                                         arp242/uni \
     lbin'!gron'                                                                                                                 tomnomnom/gron \
@@ -66,7 +66,7 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
     lbin'!*/hyperfine'                                                              bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/hyperfine \
     lbin'!*/pastel'         atload'_zinit_pastel_atload'                            bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/pastel \
     lbin'!*/bat'            atload'_zinit_bat_atload'                               bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/bat \
-    lbin'!sad'              atload"alias sad='sad --fzf=\"--height=100%\"'"         bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  ms-jpq/sad \
+    lbin'!sad'              atload"alias sad='sad --fzf=\"--height=100%\"'"         bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*.zip"  ms-jpq/sad \
     lbin'!sg'               atinit"./sg completions zsh > _sg"                                                                  @ast-grep/ast-grep
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
@@ -79,7 +79,7 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
 
 # {{{
     
-  zsh-defer zinit wait"2" if"$TMUX" lucid as'null' has"tmux" light-mode nocompile for atload='export TPM_HOME=$PWD' tmux-plugins/tpm
+  zsh-defer zinit wait"2" if"$TMUX" lucid as'null' has"tmux" light-mode nocompile for atload='export TPM_HOME=$HOME/.local/share/tpm' tmux-plugins/tpm
 
   # pip3 install
   # {{{
