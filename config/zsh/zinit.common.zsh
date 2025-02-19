@@ -44,7 +44,7 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
 # {{{
 
   __zinit_OS_NAME_FOR_RUST_TOOLS=$(uname|sed 's/Linux/linux-musl/')
-  zsh-defer zinit wait"2" light-mode nocompile lucid from"gh-r" for \
+  zsh-defer zinit wait"2" light-mode nocompile lucid from"gh-r" completions for \
     lbin'!./*/bin/nvim -> nvim' bpick"*.tar.gz"                                                                                 neovim/neovim \
     lbin'!jq* -> jq'                                                                                                            jqlang/jq \
     lbin'!uni-* -> uni'                                                                                                         arp242/uni \
@@ -95,6 +95,6 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
 zsh-defer zinit lucid light-mode has"tmux" trackbinds bindmap"^I -> ^@" atload"_zinit_fzf-tab_atload" for Aloxaf/fzf-tab
 
 zsh-defer zinit wait lucid for \
-  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
-  blockf zsh-users/zsh-completions \
+  zdharma-continuum/fast-syntax-highlighting \
+  blockf atload="zicompinit; zicdreplay" zsh-users/zsh-completions \
   atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions
