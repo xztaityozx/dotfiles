@@ -66,8 +66,7 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
     lbin'!*/hyperfine'                                                              bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/hyperfine \
     lbin'!*/pastel'         atload'_zinit_pastel_atload'                            bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/pastel \
     lbin'!*/bat'            atload'_zinit_bat_atload'                               bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/bat \
-    lbin'!sad'              atload"alias sad='sad --fzf=\"--height=100%\"'"         bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*.zip"  ms-jpq/sad \
-    lbin'!sg'               atinit"./sg completions zsh > _sg"                                                                  @ast-grep/ast-grep
+    lbin'!sad'              atload"alias sad='sad --fzf=\"--height=100%\"'"         bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*.zip"  ms-jpq/sad
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zsh-defer zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \

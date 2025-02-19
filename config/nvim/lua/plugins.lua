@@ -478,11 +478,13 @@ return require('lazy').setup({
           find_files = {
             find_command = {
               'fd',
+              ".",
               '--type', 'f',
               '--strip-cwd-prefix',
               '--hidden',
               "--exclude='*.png'",
               "--exclude='*.jpg'",
+              "--exclude=.git/"
             }
           },
         },
