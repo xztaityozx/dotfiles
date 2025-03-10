@@ -12,10 +12,6 @@ type apt-get &> /dev/null && {
 
 mkdir -p $HOME/.local/share/nvim/site/autoload
 
-# zinit
-mkdir -p $SCRIPT_DIR/config/zsh/.zinit
-git clone https://github.com/zdharma-continuum/zinit.git $SCRIPT_DIR/config/zsh/.zinit/bin
-
 mkdir -p $HOME/.config
 ln -s $SCRIPT_DIR/config/* $HOME/.config/
 ln -s $SCRIPT_DIR/ideavimrc $HOME/.ideavimrc

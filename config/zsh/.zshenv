@@ -7,7 +7,6 @@ export DOTFILES_PATH="$HOME/ghq/github.com/xztaityozx/dotfiles"
 export path=(
 $DOTFILES_PATH/config/zsh/bin(N-/)
 $GOPATH/bin(N-/)
-$HOME/.nimble/bin(N-/)
 $HOME/.local/bin(N-/)
 $HOME/.cargo/bin(N-/)
 $HOME/.dotnet/tools(N-/)
