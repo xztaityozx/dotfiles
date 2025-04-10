@@ -13,11 +13,6 @@ $HOME/.dotnet/tools(N-/)
 $path
 )
 
-export fpath=(
-/opt/homebrew/share/zsh/site-functions(N-/)
-$fpath
-)
-
 # 単語の区切りを変更
 export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
 
@@ -30,3 +25,8 @@ export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000
 export SAVEHIST=10000
 
+if type brew &> /dev/null; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+true
