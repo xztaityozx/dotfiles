@@ -343,7 +343,7 @@ return require('lazy').setup({
             'diff',
           },
           lualine_c = { 'filetype', 'filename' },
-          lualine_x = { "lsp_progress", "require('lsp-status').status()" },
+          lualine_x = { "lsp_progress", { "lsp_status", ignore_lsp = {} } },
           lualine_y = { 'encoding',
             { 'fileformat', symbols = { unix = ' Linux', dos = ' Windows', mac = ' macOS' } } },
           lualine_z = { 'location', custom_progress },
