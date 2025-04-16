@@ -66,9 +66,6 @@ o.cursorline = true
 o.completeopt = "menuone,noselect,preview"
 -- 目印行を表示する
 o.signcolumn = "yes"
--- 折り畳み方を{{{}}}で囲まれた部分にする
-o.foldmethod = "marker"
-o.foldlevel = 2
 
 -- シェルを設定
 if (os.getenv("OS") or ""):match("^Windows") then

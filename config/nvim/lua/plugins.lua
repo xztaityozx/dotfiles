@@ -401,6 +401,8 @@ return require('lazy').setup({
   {
     'nvim-treesitter/nvim-treesitter',
     config = function(_, _)
+      vim.wo.foldmethod = "expr"
+      vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
       require('nvim-treesitter.configs').setup({
         modules = {},
         sync_install = false,
