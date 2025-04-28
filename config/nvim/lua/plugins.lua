@@ -512,7 +512,7 @@ return require('lazy').setup({
       { "sh",    "<cmd>Telescope help_tags<CR>",   mode = "n", { noremap = true, silent = true } },
       { "sx",    "<cmd>Telescope grep_string<CR>", mode = "n", { noremap = true, silent = true } },
       { "sm",    "<cmd>Telescope oldfiles<CR>",    mode = "n", { noremap = true, silent = true } },
-      { "s\"",   "<cmd>Telescope registers<CR>",   mode = "n", { noremap = true, silent = true } },
+      { "s2",   "<cmd>Telescope registers<CR>",   mode = "n", { noremap = true, silent = true } },
       { "sQ",    "<cmd>Telescope quickfix<CR>",    mode = "n", { noremap = true, silent = true } },
       { "sf",    "<cmd>Telescope aerial<CR>",      mode = "n", { noremap = true, silent = true } },
       { "su",    "<cmd>Telescope undo<CR>",        mode = "n", { noremap = true, silent = true } },
