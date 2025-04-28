@@ -595,7 +595,25 @@ return require('lazy').setup({
     opts = {
       view = {
         side = "left",
-      }
+      },
+      on_attach = function(bufnr)
+        local nvim_tree_api = require("nvim-tree.api")
+        local function opts(desc)
+          return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        end
+
+        vim.keymap.set("n", "<2-LeftMouse>", nvim_tree_api.node.open.edit,       opts("Open"))
+        vim.keymap.set("n", "<C-h>",         nvim_tree_api.node.open.horizontal, opts("Open: Horizontal Split"))
+        vim.keymap.set("n", "<C-v>",         nvim_tree_api.node.open.vertical,   opts("Open: Vertical Split"))
+        vim.keymap.set("n", "<CR>",          nvim_tree_api.node.open.edit,       opts("Open"))
+        vim.keymap.set("n", "R",             nvim_tree_api.tree.reload,          opts("Refresh"))
+        vim.keymap.set("n", "a",             nvim_tree_api.fs.create,            opts("Create File Or Directory"))
+        vim.keymap.set("n", "d",             nvim_tree_api.fs.remove,            opts("Delete"))
+        vim.keymap.set("n", "e",             nvim_tree_api.fs.rename_basename,   opts("Rename: Basename"))
+        vim.keymap.set("n", "q",             nvim_tree_api.tree.close,           opts("Close"))
+        vim.keymap.set("n", "r",             nvim_tree_api.fs.rename,            opts("Rename"))
+        vim.keymap.set("n", "yy",            nvim_tree_api.fs.copy.filename,     opts("Copy Name"))
+      end
     }
   },
 
