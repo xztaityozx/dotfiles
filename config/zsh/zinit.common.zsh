@@ -20,7 +20,7 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
     }
 
     # fzf
-    zsh-defer zinit wait"2" atload"_zinit_fzf_atload" light-mode nocompile lucid \
+    zsh-defer zinit wait"2" atload"__zinit_fzf_atload" light-mode nocompile lucid \
       cloneopts"--depth 1" \
       lbin'!bin/{fzf,fzf-tmux}' \
       atclone"./install --bin --no-{zsh,bash,fish,completion,key-bindings}" atpull"%atclone" \
@@ -57,15 +57,15 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
     lbin'!./*/bin/gh'       atclone'./*/bin/gh completion -s zsh > _gh'             atpull"%atclone"                            cli/cli \
     lbin'!./*/ghq'          atclone'rm ./*/misc/bash/_ghq'                          atpull"%atclone"                            x-motemen/ghq \
     lbin'!dasel_* -> dasel' atclone'./dasel_* completion zsh > _dasel'                                                          TomWright/dasel \
-    lbin'!lsd-*/lsd'        atload'_zinit_lsd_atload'                                                                           lsd-rs/lsd \
+    lbin'!lsd-*/lsd'        atload'__zinit_lsd_atload'                                                                           lsd-rs/lsd \
     lbin'!gibo'             atclone'./gibo update && ./gibo completion zsh > _gibo' atpull"%atclone"                            simonwhitaker/gibo \
     lbin'!./*/rg'                                                                   bpick"*$(uname -p|sed 's/arm/aarch/')*"     BurntSushi/ripgrep \
     lbin'!./*/delta'                                                                bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  dandavison/delta \
     lbin'!*/fd -> fd'                                                               bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/fd \
     lbin'!*/hexyl'                                                                  bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/hexyl \
     lbin'!*/hyperfine'                                                              bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/hyperfine \
-    lbin'!*/pastel'         atload'_zinit_pastel_atload'                            bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/pastel \
-    lbin'!*/bat'            atload'_zinit_bat_atload'                               bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/bat \
+    lbin'!*/pastel'         atload'__zinit_pastel_atload'                            bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/pastel \
+    lbin'!*/bat'            atload'__zinit_bat_atload'                               bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/bat \
     lbin'!sad'              atload"alias sad='sad --fzf=\"--height=100%\"'"         bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*.zip"  ms-jpq/sad
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
@@ -92,7 +92,7 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
   zsh-defer zinit wait"5" lucid has"perl" nocompile as"program" lbin'!./cpm' for skaji/cpm
 # }}}
 
-zsh-defer zinit lucid light-mode has"tmux" trackbinds bindmap"^I -> ^@" atload"_zinit_fzf-tab_atload" for Aloxaf/fzf-tab
+zsh-defer zinit lucid light-mode has"tmux" trackbinds bindmap"^I -> ^@" atload"__zinit_fzf-tab_atload" for Aloxaf/fzf-tab
 
 zsh-defer zinit wait lucid for \
   zdharma-continuum/fast-syntax-highlighting \
