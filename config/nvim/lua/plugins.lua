@@ -61,14 +61,6 @@ return require('lazy').setup({
   -- Gitのマーク出してくれる君
   { 'airblade/vim-gitgutter' },
 
-  -- lazygit
-  {
-    'kdheepak/lazygit.nvim',
-    lazy = true,
-    keys = {
-      { "lg", "<CMD>LazyGit<CR>", mode = { "n" }, { noremap = true, silent = true } },
-    }
-  },
   -- カーソル行にBlame出してくれる君
   { 'f-person/git-blame.nvim' },
   {
