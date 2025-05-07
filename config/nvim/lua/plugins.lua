@@ -94,9 +94,9 @@ return require('lazy').setup({
 
 
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     dependencies = {
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason-lspconfig.nvim",
       'neovim/nvim-lspconfig',
 
       "b0o/schemastore.nvim",
@@ -140,66 +140,78 @@ return require('lazy').setup({
     config = function(_, _)
       require('mason').setup();
       require('mason-lspconfig').setup({
-        ensure_installed = {
+        automatic_enable = {
           "lua_ls"
         }
       });
 
       local lspconfig = require('lspconfig');
 
-      require('mason-lspconfig').setup_handlers({
-        function(server)
-          local basic_option = {
-            capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-            settings = {
-              Lua = {
-                runtime = {
-                  version = "LuaJIT",
-                  path = (function()
-                    local runtime_path = vim.split(package.path, ";", {});
-                    table.insert(runtime_path, "lua/?.lua");
-                    table.insert(runtime_path, "lua/*/init.lua");
-                    return runtime_path;
-                  end)(),
-                },
-                diagnostics = {
-                  globals = { "vim" },
-                },
-                workspace = {
-                  library = vim.api.nvim_get_runtime_file("", true),
-                  checkThirdParty = false
-                },
-                telemetry = {
-                  enable = false,
-                },
+      vim.lsp.config('*', {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+      });
+
+      vim.lsp.config('lua_ls', {
+        settings = {
+          Lua = {
+            runtime = {
+              version = "LuaJIT",
+              path = (function()
+                local runtime_path = vim.split(package.path, ";", {});
+                table.insert(runtime_path, "lua/?.lua");
+                table.insert(runtime_path, "lua/*/init.lua");
+                return runtime_path;
+              end)(),
+            },
+            diagnostics = {
+              globals = { "vim" },
+            },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true),
+              checkThirdParty = false
+            },
+            telemetry = {
+              enable = false,
+            },
+          }
+        }
+      });
+
+      vim.lsp.config('perlnavigator', {
+        settings = {
+          perlnavigator = {
+            perlPath = 'perl',
+            enableWarnings = true,
+            perlcriticEnabled = true,
+          }
+        }
+      });
+
+      vim.lsp.config('yaml', {
+        settings = {
+          yaml = {
+            schemaStore = {
+              enable = false,
+              url = "",
+            },
+            schemas = require('schemastore').yaml.schemas(),
+          }
+        }
+      });
+
+      vim.lsp.config('pylsp', {
+        settings = {
+          pylsp = {
+            plugins = {
+              ruff = {
+                enabled = true
               },
-              perlnavigator = {
-                perlPath = 'perl',
-                enableWarnings = true,
-                perlcriticEnabled = true,
-              },
-              yaml = {
-                schemaStore = {
-                  enable = false,
-                  url = "",
-                },
-                schemas = require('schemastore').yaml.schemas(),
-              },
-              pylsp = {
-                plugins = {
-                  ruff = {
-                    enabled = true
-                  },
-                  pycodestyle = {
-                    enabled = false,
-                  }
-                }
+              pycodestyle = {
+                enabled = false,
               }
             }
-          };
-
-          lspconfig[server].setup(basic_option);
-        end
+          }
+        }
       });
     end
   },
@@ -504,7 +516,7 @@ return require('lazy').setup({
       { "sh",    "<cmd>Telescope help_tags<CR>",   mode = "n", { noremap = true, silent = true } },
       { "sx",    "<cmd>Telescope grep_string<CR>", mode = "n", { noremap = true, silent = true } },
       { "sm",    "<cmd>Telescope oldfiles<CR>",    mode = "n", { noremap = true, silent = true } },
-      { "s2",   "<cmd>Telescope registers<CR>",   mode = "n", { noremap = true, silent = true } },
+      { "s2",    "<cmd>Telescope registers<CR>",   mode = "n", { noremap = true, silent = true } },
       { "sQ",    "<cmd>Telescope quickfix<CR>",    mode = "n", { noremap = true, silent = true } },
       { "sf",    "<cmd>Telescope aerial<CR>",      mode = "n", { noremap = true, silent = true } },
       { "su",    "<cmd>Telescope undo<CR>",        mode = "n", { noremap = true, silent = true } },
@@ -594,17 +606,17 @@ return require('lazy').setup({
           return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
         end
 
-        vim.keymap.set("n", "<2-LeftMouse>", nvim_tree_api.node.open.edit,       opts("Open"))
-        vim.keymap.set("n", "<C-h>",         nvim_tree_api.node.open.horizontal, opts("Open: Horizontal Split"))
-        vim.keymap.set("n", "<C-v>",         nvim_tree_api.node.open.vertical,   opts("Open: Vertical Split"))
-        vim.keymap.set("n", "<CR>",          nvim_tree_api.node.open.edit,       opts("Open"))
-        vim.keymap.set("n", "R",             nvim_tree_api.tree.reload,          opts("Refresh"))
-        vim.keymap.set("n", "a",             nvim_tree_api.fs.create,            opts("Create File Or Directory"))
-        vim.keymap.set("n", "d",             nvim_tree_api.fs.remove,            opts("Delete"))
-        vim.keymap.set("n", "e",             nvim_tree_api.fs.rename_basename,   opts("Rename: Basename"))
-        vim.keymap.set("n", "q",             nvim_tree_api.tree.close,           opts("Close"))
-        vim.keymap.set("n", "r",             nvim_tree_api.fs.rename,            opts("Rename"))
-        vim.keymap.set("n", "yy",            nvim_tree_api.fs.copy.filename,     opts("Copy Name"))
+        vim.keymap.set("n", "<2-LeftMouse>", nvim_tree_api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "<C-h>", nvim_tree_api.node.open.horizontal, opts("Open: Horizontal Split"))
+        vim.keymap.set("n", "<C-v>", nvim_tree_api.node.open.vertical, opts("Open: Vertical Split"))
+        vim.keymap.set("n", "<CR>", nvim_tree_api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "R", nvim_tree_api.tree.reload, opts("Refresh"))
+        vim.keymap.set("n", "a", nvim_tree_api.fs.create, opts("Create File Or Directory"))
+        vim.keymap.set("n", "d", nvim_tree_api.fs.remove, opts("Delete"))
+        vim.keymap.set("n", "e", nvim_tree_api.fs.rename_basename, opts("Rename: Basename"))
+        vim.keymap.set("n", "q", nvim_tree_api.tree.close, opts("Close"))
+        vim.keymap.set("n", "r", nvim_tree_api.fs.rename, opts("Rename"))
+        vim.keymap.set("n", "yy", nvim_tree_api.fs.copy.filename, opts("Copy Name"))
       end
     }
   },
