@@ -140,9 +140,7 @@ return require('lazy').setup({
     config = function(_, _)
       require('mason').setup();
       require('mason-lspconfig').setup({
-        automatic_enable = {
-          "lua_ls"
-        }
+        automatic_enable = true
       });
 
       local lspconfig = require('lspconfig');

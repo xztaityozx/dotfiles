@@ -83,7 +83,7 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
   # pip3 install
   # {{{
 
-  zsh-defer zinit wait"5" lucid as'null' has"pip3" light-mode nocompile atclone"pip3 install ." atpull"%atclone" for \
+  zsh-defer zinit wait"5" lucid as'null' has"pip3" light-mode nocompile atclone"pip3 install --user ." atpull"%atclone" for \
     atdelete"pip3 uninstall -y pynvim" neovim/pynvim \
     atdelete"pip3 uninstall -y httpie" httpie/httpie
 
