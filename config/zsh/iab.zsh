@@ -7,6 +7,7 @@ abbreviations=(
     "DN"   "&> /dev/null"
     "YY"   "| yy"
     "SUS"  "| sort | uniq -c | sort -rn"
+    "DC"   "docker compose"
 )
 
 magic-abbrev-expand() {
