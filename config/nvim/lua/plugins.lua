@@ -466,9 +466,11 @@ return require('lazy').setup({
       { 'stevearc/aerial.nvim',                     config = true },
       -- undo picker
       { 'debugloop/telescope-undo.nvim' },
+      { "nvim-telescope/telescope-ui-select.nvim" }
     },
     config = function()
-      require('telescope').setup({
+      local telescope = require('telescope')
+      telescope.setup({
         defaults = {
           sorting_strategy = 'ascending',
           layout_strategy = 'horizontal',
@@ -503,9 +505,10 @@ return require('lazy').setup({
         },
       })
 
-      require('telescope').load_extension('fzf')
-      require('telescope').load_extension('aerial')
-      require('telescope').load_extension('undo')
+      telescope.load_extension('fzf')
+      telescope.load_extension('aerial')
+      telescope.load_extension('undo')
+      telescope.load_extension('ui-select')
     end,
     keys = {
       { "<C-p>", "<cmd>Telescope find_files<CR>",  mode = "n", { noremap = true, silent = true } },
@@ -627,5 +630,19 @@ return require('lazy').setup({
       vim.g.copilot_no_tab_map = false
     end,
     lazy = false
-  }
+  },
+
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      { "github/copilot.vim" },
+      { "nvim-lua/plenary.nvim", branch = "master" },
+    },
+    build = "make tiktoken",
+    opts = {
+      window = {
+        width = 0.3,
+      }
+    }
+  },
 });
