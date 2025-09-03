@@ -1,0 +1,43 @@
+#!/usr/bin/env zsh
+
+type magick &>/dev/null || type convert &>/dev/null || { echo "ImageMagick is required but not installed. Aborting." >&2; exit 1; }
+
+# concatinate image files to terminal (with sixel support)
+
+function usage() {
+  echo "Usage: imgcat [options] [image_file ...]"
+  echo "Options:"
+  echo "  -h, --help        Show this help message and exit"
+  exit 1
+}
+
+zparseopts -D -E -A optionHash -help h
+
+if [[ -n ${optionHash[(i)--help]} || -n ${optionHash[(i)-h]} ]]; then
+  usage
+fi
+
+CONVERT_CMD="convert"
+if type magick &>/dev/null; then
+  CONVERT_CMD="magick"
+fi
+
+function imgcat() {
+  local target_file="$1"
+
+  if [[ ! -f "$target_file" ]]; then
+    echo "File not found: $target_file" >&2
+    return 1
+  fi
+
+  echo "\e[1m== file: $target_file =====================================================\e[39m"
+  "$CONVERT_CMD" "$target_file" sixel:-
+}
+
+if [[ $# -eq 0 ]]; then
+  usage
+fi
+
+for img_file in "$@"; do
+  imgcat "$img_file"
+done
