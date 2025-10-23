@@ -419,9 +419,9 @@ return require('lazy').setup({
           enable = true,
           keymaps = {
             init_selection = "<F9>",
-            node_incremental = "<F7>",
+            node_incremental = "[",
             scope_incremental = "+",
-            node_decremental = "<F8>",
+            node_decremental = "]",
           },
         }
       });
@@ -619,6 +619,59 @@ return require('lazy').setup({
         vim.keymap.set("n", "r", nvim_tree_api.fs.rename, opts("Rename"))
         vim.keymap.set("n", "yy", nvim_tree_api.fs.copy.filename, opts("Copy Name"))
       end
+    }
+  },
+
+  -- debugger
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+      { "theHamsta/nvim-dap-virtual-text", opts = {} },
+    },
+    lazy = true,
+    config = function()
+      local dap = require('dap')
+      dap.adapters.perl = {
+        type = 'executable',
+        command = vim.env.MASON .. '/bin/perl-debug-adapter',
+        args = {},
+        options= {
+          initialize_timeout_sec = 20,
+        },
+        cwd = "${workspaceFolder}",
+      }
+      dap.configurations.perl = {
+        {
+          type = 'perl',
+          request = 'launch',
+          name = 'Launch Perl',
+          program = '${workspaceFolder}/${relativeFile}',
+        },
+        {
+          type = 'perl',
+          request = 'launch',
+          name = 'Launch Prove',
+          program = '${workspaceFolder}/bin/debuggable-prove.pl',
+          args = { '${workspaceFolder}/t' },
+        }
+      }
+
+      dap.set_log_level('TRACE')
+      local dapui = require('dapui')
+      dapui.setup()
+    end,
+    cmd = {
+      "DapToggleBreakpoint",
+    },
+    keys = {
+      { "s<F4>", "<CMD>lua require('dapui').toggle()<CR>", mode = { "n" }, { noremap = true, silent = true }},
+      { "<F8>", "<CMD>lua require('dap').toggle_breakpoint()<CR>", mode = { "n" }, { noremap = true, silent = true }},
+      { "<F7>", "<CMD>lua require('dap').step_over()<CR>", mode = { "n" }, { noremap = true, silent = true }},
+      { "s<F6>", "<CMD>lua require('dap').step_into()<CR>", mode = { "n" }, { noremap = true, silent = true }},
+      { "s<F3>", "<CMD>lua require('dap').continue()<CR>", mode = { "n" }, { noremap = true, silent = true }},
+      { "siK", "<CMD>lua require('dap.ui.widgets').hover()<CR>", mode = { "n" }, { noremap = true, silent = true }},
     }
   },
 
