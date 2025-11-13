@@ -60,7 +60,7 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
     lbin'!lsd-*/lsd'        atload'__zinit_lsd_atload'                                                                           lsd-rs/lsd \
     lbin'!gibo'             atclone'./gibo update && ./gibo completion zsh > _gibo' atpull"%atclone"                            simonwhitaker/gibo \
     lbin'!./*/rg'                                                                   bpick"*$(uname -p|sed 's/arm/aarch/')*"     BurntSushi/ripgrep \
-    lbin'!./*/delta'                                                                bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  dandavison/delta \
+    lbin'!./*/delta'                                                                bpick"*$(uname -p|sed 's/arm/aarch/')*"     dandavison/delta \
     lbin'!*/fd -> fd'                                                               bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/fd \
     lbin'!*/hexyl'                                                                  bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/hexyl \
     lbin'!*/hyperfine'                                                              bpick"*${__zinit_OS_NAME_FOR_RUST_TOOLS}*"  @sharkdp/hyperfine \
