@@ -681,6 +681,7 @@ return require('lazy').setup({
     config = function()
       vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("\\<CR>")', { expr = true, script = true, silent = true })
       vim.g.copilot_no_tab_map = false
+      vim.g.copilot_node_command = "~/.local/share/mise/installs/node/23/bin/node"
     end,
     lazy = false
   },
