@@ -7,17 +7,22 @@ if ! tmux list-commands | grep -q popup; then
 fi
 
 function main() {
-  zparseopts -D -E -A optionHash -session-name: -command: -title:
+  zparseopts -D -E -A optionHash -session-name: -command: -title: x: y: w: h:
+
+  local X="${optionHash[-x]:-C}"
+  local Y="${optionHash[-y]:-C}"
+  local W="${optionHash[-w]:-80%}"
+  local H="${optionHash[-h]:-80%}"
 
   local sessionName=${optionHash[--session-name]:-popup}
-  local cmd=${optionHash[--command]:-$SHELL}
+  local cmd=${optionHash[--command]:-zsh}
   local currentSessionName="$(tmux display-message -p -F '#{session_name}')"
   local title=${optionHash[--title]:-toggle: F12}
   
   if [[ "$currentSessionName" =~ "$sessionName" ]]; then
     tmux detach-client
   else
-    tmux popup -d '#{pane_current_path}' -{x,y}C -{w,h}80% \
+    tmux popup -d '#{pane_current_path}' -x "$X" -y "$Y"  -w "$W" -h "$H" \
       -E "tmux attach -t $sessionName || tmux new -s $sessionName \"$cmd\""
   fi
 }
