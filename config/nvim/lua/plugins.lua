@@ -1,4 +1,4 @@
-return require('lazy').setup({
+return {
   -- easymotion
   {
     'easymotion/vim-easymotion',
@@ -142,8 +142,6 @@ return require('lazy').setup({
       require('mason-lspconfig').setup({
         automatic_enable = true
       });
-
-      local lspconfig = require('lspconfig');
 
       vim.lsp.config('*', {
         capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
@@ -637,7 +635,7 @@ return require('lazy').setup({
         type = 'executable',
         command = vim.env.MASON .. '/bin/perl-debug-adapter',
         args = {},
-        options= {
+        options = {
           initialize_timeout_sec = 20,
         },
         cwd = "${workspaceFolder}",
@@ -666,12 +664,12 @@ return require('lazy').setup({
       "DapToggleBreakpoint",
     },
     keys = {
-      { "s<F4>", "<CMD>lua require('dapui').toggle()<CR>", mode = { "n" }, { noremap = true, silent = true }},
-      { "<F8>", "<CMD>lua require('dap').toggle_breakpoint()<CR>", mode = { "n" }, { noremap = true, silent = true }},
-      { "<F7>", "<CMD>lua require('dap').step_over()<CR>", mode = { "n" }, { noremap = true, silent = true }},
-      { "s<F6>", "<CMD>lua require('dap').step_into()<CR>", mode = { "n" }, { noremap = true, silent = true }},
-      { "s<F3>", "<CMD>lua require('dap').continue()<CR>", mode = { "n" }, { noremap = true, silent = true }},
-      { "siK", "<CMD>lua require('dap.ui.widgets').hover()<CR>", mode = { "n" }, { noremap = true, silent = true }},
+      { "s<F4>", "<CMD>lua require('dapui').toggle()<CR>",          mode = { "n" }, { noremap = true, silent = true } },
+      { "<F8>",  "<CMD>lua require('dap').toggle_breakpoint()<CR>", mode = { "n" }, { noremap = true, silent = true } },
+      { "<F7>",  "<CMD>lua require('dap').step_over()<CR>",         mode = { "n" }, { noremap = true, silent = true } },
+      { "s<F6>", "<CMD>lua require('dap').step_into()<CR>",         mode = { "n" }, { noremap = true, silent = true } },
+      { "s<F3>", "<CMD>lua require('dap').continue()<CR>",          mode = { "n" }, { noremap = true, silent = true } },
+      { "siK",   "<CMD>lua require('dap.ui.widgets').hover()<CR>",  mode = { "n" }, { noremap = true, silent = true } },
     }
   },
 
@@ -699,4 +697,4 @@ return require('lazy').setup({
       }
     }
   },
-});
+};

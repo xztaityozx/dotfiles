@@ -18,10 +18,18 @@ vim.opt.rtp:prepend(lazypath)
 if vim.g.vscode then
   require("plugins-vscode-nvim")
 else
-  require("plugins")
+  local plugins = require("plugins")
+  local local_plugins_path = vim.fn.stdpath("config") .. "/lua/local_plugins.lua"
+  if vim.loop.fs_stat(local_plugins_path) then
+    plugins = vim.list_extend(plugins, require("local_plugins"))
+  end
+  require("lazy").setup(plugins)
+
   require("filetype")
   require("options")
 end
 
 require("bind")
 require("default_plugin")
+
+-- local_plugins.lua があるときだけ読み込む
