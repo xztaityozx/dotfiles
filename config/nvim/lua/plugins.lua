@@ -562,7 +562,18 @@ return {
   {
     'monaqa/dial.nvim',
     lazy = true,
-    config = false,
+    config = function()
+      local augend = require('dial.augend')
+      require('dial.config').augends:register_group {
+        default = {
+          augend.integer.alias.decimal,
+          augend.integer.alias.hex,
+          augend.date.alias["%Y/%m/%d"],
+          augend.constant.alias.bool,
+          augend.constant.alias.Bool,
+        }
+      }
+    end,
     keys = {
       { [[<C-a>]],  function() require('dial.map').manipulate("increment", "normal") end,  mode = { "n" }, { noremap = true, silent = true } },
       { [[<C-x>]],  function() require('dial.map').manipulate("decrement", "normal") end,  mode = { "n" }, { noremap = true, silent = true } },
