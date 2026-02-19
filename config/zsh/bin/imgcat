@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-type magick &>/dev/null || type convert &>/dev/null || { echo "ImageMagick is required but not installed. Aborting." >&2; exit 1; }
+type img2sixel &>/dev/null || type magick &>/dev/null || type convert &>/dev/null || { echo "img2sixel or ImageMagick is required but not installed. Aborting." >&2; exit 1; }
 
 # concatinate image files to terminal (with sixel support)
 
@@ -17,8 +17,12 @@ if [[ -n ${optionHash[(i)--help]} || -n ${optionHash[(i)-h]} ]]; then
   usage
 fi
 
+USE_IMG2SIXEL=false
 CONVERT_CMD="convert"
-if type magick &>/dev/null; then
+
+if type img2sixel &>/dev/null; then
+  USE_IMG2SIXEL=true
+elif type magick &>/dev/null; then
   CONVERT_CMD="magick"
 fi
 
@@ -31,7 +35,11 @@ function imgcat() {
   fi
 
   echo "\e[1m== file: $target_file =====================================================\e[39m"
-  "$CONVERT_CMD" "$target_file" sixel:-
+  if [[ "$USE_IMG2SIXEL" == "true" ]]; then
+    img2sixel "$target_file"
+  else
+    "$CONVERT_CMD" "$target_file" sixel:-
+  fi
 }
 
 if [[ $# -eq 0 ]]; then
