@@ -15,7 +15,7 @@
   # {{{
   zinit as="command" lucid from"gh-r" for \
     id-as=usage atpull="%atclone" jdx/usage \
-    id-as=mise bpick="*.tar.gz" pick="mise/bin/mise" atclone="mise/bin/mise completion zsh > _mise" atpull="%atclone" eval'mise/bin/mise activate zsh' jdx/mise
+    id-as=mise bpick="*.tar.gz" lbin="!mise/bin/mise" atclone="mise/bin/mise completion zsh > _mise" atpull="%atclone" eval'mise activate zsh' jdx/mise
 
   # }}}
 # }}}
