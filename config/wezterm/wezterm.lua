@@ -11,7 +11,9 @@ return {
   keys = {
     { key = "q",  mods = "CTRL",    action = wezterm.action { SendString = "\x11" } },
     { key = "¥",  mods = "ALT|OPT", action = wezterm.action { SendString = "\\" } },
-    { key = "F3", mods = "SHIFT",   action = wezterm.action.Nop }
+    { key = "F3",       mods = "SHIFT",   action = wezterm.action.Nop },
+    { key = "PageUp",   mods = "SHIFT",   action = wezterm.action.DisableDefaultAssignment },
+    { key = "PageDown", mods = "SHIFT",   action = wezterm.action.DisableDefaultAssignment },
   },
   quick_select_patterns = {
     '\\w+(?:::\\w+)+', -- Perl, Rust, C++ style namespaces and functions
