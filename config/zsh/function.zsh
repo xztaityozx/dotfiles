@@ -17,12 +17,7 @@ function logger.warn() {
 #   - [command] | yy -> copy [command]'s output to clipboard
 #   - yy -> copy last command
 function yy() {
-  CMD=""
-  type clip.exe &> /dev/null  && CMD=clip.exe
-  type pbcopy &> /dev/null  && CMD=pbcopy
-  [[ $"$CMD" == "" ]] && logger.warn "clip.exe, or pbcopy not found" && exit 1
-
-  [[ ! -t 0 ]] && "$CMD" && return
+  [[ ! -t 0 ]] && "$DOTIFILES_PATH/config/zsh/bin/yy" && return
   history -1 | sel --remove-empty 2: | "$CMD"
 }
 

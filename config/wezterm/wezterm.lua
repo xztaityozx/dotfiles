@@ -8,6 +8,7 @@ return {
   hide_tab_bar_if_only_one_tab = true,
   bold_brightens_ansi_colors = true,
   window_padding = { top = 0, bottom = 0, left = 0, right = 0 },
+  notification_handling = "AlwaysShow",
   keys = {
     { key = "q",  mods = "CTRL",    action = wezterm.action { SendString = "\x11" } },
     { key = "¥",  mods = "ALT|OPT", action = wezterm.action { SendString = "\\" } },
