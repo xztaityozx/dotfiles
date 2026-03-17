@@ -22,8 +22,8 @@ function yy() {
   type pbcopy &> /dev/null  && CMD=pbcopy
   [[ $"$CMD" == "" ]] && logger.warn "clip.exe, or pbcopy not found" && exit 1
 
-  [ -p /dev/fd/0 ] && $CMD && return
-  history | tail -n1 | sel --remove-empty 2: | $CMD
+  [[ ! -t 0 ]] && "$CMD" && return
+  history -1 | sel --remove-empty 2: | "$CMD"
 }
 
 function p() {
