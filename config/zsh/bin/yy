@@ -1,8 +1,18 @@
 #!/usr/bin/env zsh
 
 CMD=""
-type clip.exe &> /dev/null  && CMD=clip.exe
-type pbcopy &> /dev/null  && CMD=pbcopy
-[[ $"$CMD" == "" ]] && logger.warn "clip.exe, or pbcopy not found" && exit 1
+type clip.exe &> /dev/null && CMD=clip.exe
+type pbcopy &> /dev/null && CMD=pbcopy
 
-"$CMD"
+if [[ -n "$CMD" ]]; then
+  "$CMD"
+else
+  # OSC 52 でクリップボードにコピー (SSH先やpopup内用)
+  local data
+  data="$(cat | base64)"
+  if [[ -n "$TMUX" ]]; then
+    printf "\ePtmux;\e\e]52;c;%s\a\e\\" "$data"
+  else
+    printf "\e]52;c;%s\a" "$data"
+  fi
+fi

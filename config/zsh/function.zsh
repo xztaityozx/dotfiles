@@ -17,7 +17,7 @@ function logger.warn() {
 #   - [command] | yy -> copy [command]'s output to clipboard
 #   - yy -> copy last command
 function yy() {
-  [[ ! -t 0 ]] && "$DOTIFILES_PATH/config/zsh/bin/yy" && return
+  [[ ! -t 0 ]] && "$DOTFILES_PATH/config/zsh/bin/yy" && return
   history -1 | sel --remove-empty 2: | "$CMD"
 }
 
