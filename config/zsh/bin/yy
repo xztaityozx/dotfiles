@@ -6,13 +6,13 @@ type pbcopy &> /dev/null && CMD=pbcopy
 
 if [[ -n "$CMD" ]]; then
   "$CMD"
+elif [[ -n "$TMUX" ]]; then
+  # tmux serverにバッファを渡し、-w でOSC 52を実端末に送る
+  # popup内のネストされたtmuxでも、サーバー経由で実クライアントに届く
+  tmux load-buffer -w -
 else
-  # OSC 52 でクリップボードにコピー (SSH先やpopup内用)
+  # tmux外でのOSC 52フォールバック
   local data
   data="$(cat | base64)"
-  if [[ -n "$TMUX" ]]; then
-    printf "\ePtmux;\e\e]52;c;%s\a\e\\" "$data"
-  else
-    printf "\e]52;c;%s\a" "$data"
-  fi
+  printf "\e]52;c;%s\a" "$data"
 fi
