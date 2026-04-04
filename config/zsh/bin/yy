@@ -4,7 +4,9 @@ CMD=""
 type clip.exe &> /dev/null && CMD=clip.exe
 type pbcopy &> /dev/null && CMD=pbcopy
 
-if [[ -n "$CMD" ]]; then
+if [[ "$CMD" == "clip.exe" ]]; then
+  iconv -f UTF-8 -t UTF-16LE | "$CMD"
+elif [[ -n "$CMD" ]]; then
   "$CMD"
 elif [[ -n "$TMUX" ]]; then
   # tmux serverにバッファを渡し、-w でOSC 52を実端末に送る
