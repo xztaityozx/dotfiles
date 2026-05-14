@@ -404,25 +404,6 @@ return {
       vim.wo.foldmethod = "expr"
       vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
       vim.wo.foldlevel = 99
-      require('nvim-treesitter.configs').setup({
-        modules = {},
-        sync_install = false,
-        ensure_installed = { "lua" },
-        auto_install = false,
-        ignore_install = {},
-        highlight = {
-          enable = true
-        },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "<F9>",
-            node_incremental = "[",
-            scope_incremental = "+",
-            node_decremental = "]",
-          },
-        }
-      });
     end
   },
   -- インデントのガイドラインを表示するくん
