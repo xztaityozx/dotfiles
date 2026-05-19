@@ -16,3 +16,6 @@
 	name = xztaityozx
 [init]
 	defaultBranch = main
+
+[diff "image"]
+    textconv = imgcat
