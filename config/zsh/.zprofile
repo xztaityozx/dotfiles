@@ -1,6 +1,10 @@
 SSH_ENV="$HOME/.ssh/environment"
 
 function start_agent {
+    type sshd >/dev/null || {
+        echo "No ssh-agent found. Please install openssh-client package."
+        return
+    }
     echo "Initialising new SSH agent..."
     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
     echo succeeded
