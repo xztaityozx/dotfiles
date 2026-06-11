@@ -3,6 +3,8 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
 echo 'export ZDOTDIR=$HOME/.config/zsh && source $ZDOTDIR/.zshenv' >> $HOME/.zshenv
 
+export ZDOTDIR=$HOME.config/zsh
+
 type apt-get &> /dev/null && {
   echo debian/ubuntu
 
@@ -16,3 +18,4 @@ mkdir -p $HOME/.config
 ln -s $SCRIPT_DIR/config/* $HOME/.config/
 ln -s $SCRIPT_DIR/ideavimrc $HOME/.ideavimrc
 
+cd $HOME/.config/zsh && make
