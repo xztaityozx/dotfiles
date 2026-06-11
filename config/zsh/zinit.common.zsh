@@ -56,7 +56,6 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
     lbin'!grex'                                                                                                                 pemistahl/grex \
     lbin'!./*/bin/gh'       atclone'./*/bin/gh completion -s zsh > _gh'             atpull"%atclone"                            cli/cli \
     lbin'!./*/ghq'          atclone'rm ./*/misc/bash/_ghq'                          atpull"%atclone"                            x-motemen/ghq \
-    lbin'!dasel_* -> dasel' atclone'./dasel_* completion zsh > _dasel'                                                          TomWright/dasel \
     lbin'!lsd-*/lsd'        atload'__zinit_lsd_atload'                                                                           lsd-rs/lsd \
     lbin'!gibo'             atclone'./gibo update && ./gibo completion zsh > _gibo' atpull"%atclone"                            simonwhitaker/gibo \
     lbin'!./*/rg'                                                                   bpick"*$(uname -p|sed 's/arm/aarch/')*"     BurntSushi/ripgrep \
