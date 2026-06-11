@@ -1,7 +1,7 @@
 local wezterm = require('wezterm')
 
 return {
-  font = wezterm.font("HackGen Console NF"),
+  font = wezterm.font("UDEV Gothic 35NF"),
   color_scheme = 'iceberg-dark',
   font_size = 18,
   use_ime = true,
