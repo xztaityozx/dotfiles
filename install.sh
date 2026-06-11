@@ -3,7 +3,7 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
 echo 'export ZDOTDIR=$HOME/.config/zsh && source $ZDOTDIR/.zshenv' >> $HOME/.zshenv
 
-export ZDOTDIR=$HOME.config/zsh
+export ZDOTDIR=$HOME/.config/zsh
 
 mkdir -p $HOME/.local/share/nvim/site/autoload
 
