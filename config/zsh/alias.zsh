@@ -48,3 +48,4 @@ type gdate &> /dev/null && alias date=gdate
 alias :e="$EDITOR"
 alias :ve="tmux splitw -h $EDITOR"
 
+alias dco="docker compose"
