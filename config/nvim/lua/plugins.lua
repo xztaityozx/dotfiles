@@ -674,19 +674,5 @@ return {
       vim.g.copilot_node_command = "~/.local/share/mise/installs/node/23/bin/node"
     end,
     lazy = false
-  },
-
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    dependencies = {
-      { "github/copilot.vim" },
-      { "nvim-lua/plenary.nvim", branch = "master" },
-    },
-    build = "make tiktoken",
-    opts = {
-      window = {
-        width = 0.3,
-      }
-    }
-  },
+  }
 };

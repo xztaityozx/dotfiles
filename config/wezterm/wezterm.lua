@@ -18,5 +18,6 @@ return {
   },
   quick_select_patterns = {
     '\\w+(?:::\\w+)+', -- Perl, Rust, C++ style namespaces and functions
+    '[A-Z]+(_[A-Z]+)?-\\d+',
   }
 }
