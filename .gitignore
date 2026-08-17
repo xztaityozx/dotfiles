@@ -17,3 +17,4 @@ config/lazygit/state.yml
 config/lazygit/**/*.patch
 config/nvim/plugin/packer_compiled.lua
 *.zwc
+config/lazygit/*.json
