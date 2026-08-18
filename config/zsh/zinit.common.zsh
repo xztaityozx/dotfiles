@@ -2,7 +2,7 @@
 # {{{
 
 zinit lucid light-mode for romkatv/zsh-defer
-zsh-defer zinit lucid light-mode src"init.sh" for b4b4r07/enhancd
+zsh-defer zinit lucid light-mode nocompletions src"init.sh" for b4b4r07/enhancd
 zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> direnv' eval'direnv hook zsh' direnv/direnv
 
 # }}}
@@ -44,14 +44,14 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
 # {{{
 
   __zinit_OS_NAME_FOR_RUST_TOOLS=$(uname|sed 's/Linux/linux-musl/')
-  zsh-defer zinit wait"2" light-mode nocompile lucid from"gh-r" completions for \
-    lbin'!./*/bin/nvim -> nvim' bpick"*.tar.gz"                                                                                 neovim/neovim \
+  zsh-defer zinit wait"2" light-mode nocompile lucid from"gh-r" for \
+    lbin'!./*/bin/nvim -> nvim' bpick"*.tar.gz" nocompletions                                                                   neovim/neovim \
     lbin'!jq* -> jq'                                                                                                            jqlang/jq \
     lbin'!uni-* -> uni'                                                                                                         arp242/uni \
     lbin'!gron'                                                                                                                 tomnomnom/gron \
     lbin'!lazygit'          atload"alias lg='lazygit -ucd $HOME/.config/lazygit'"                                               jesseduffield/lazygit \
-    lbin'!owari'            atclone'./owari completion zsh > _owari'                                                            xztaityozx/owari \
-    lbin'!sel'              atclone'./sel completion zsh > _sel'                                                                xztaityozx/sel \
+    lbin'!owari'            atclone'./owari completion zsh > _owari'                atpull"%atclone"                            xztaityozx/owari \
+    lbin'!sel'              atclone'./sel completion zsh > _sel'                    atpull"%atclone"                            xztaityozx/sel \
     lbin'!bin/teip'                                                                                                             greymd/teip \
     lbin'!grex'                                                                                                                 pemistahl/grex \
     lbin'!./*/bin/gh'       atclone'./*/bin/gh completion -s zsh > _gh'             atpull"%atclone"                            cli/cli \
@@ -71,7 +71,7 @@ zsh-defer zinit from"gh-r" light-mode lucid nocompile for lbin'!direnv.* -> dire
 
   # gh-rにバイナリがあるのではなくcloneすれば実行可能ファイルが手に入る系
   zsh-defer zinit wait'2' nocompile light-mode lucid atpull'%atclone' for \
-    lbin'!bin/xpanes' as'null' has'tmux' cp'completion/zsh/_xpanes -> _xpanes' greymd/tmux-xpanes
+    lbin'!bin/xpanes' as'null' completions has'tmux' cp'completion/zsh/_xpanes -> _xpanes' greymd/tmux-xpanes
 
   # macでビルドできないので一旦OFF
   #zsh-defer zinit wait'5' nocompile as"program" lucid make"all" lbin'!./bin/juz' for ryuichiueda/glueutils
@@ -97,5 +97,5 @@ zsh-defer zinit lucid light-mode has"tmux" trackbinds bindmap"^I -> ^@" atload"_
 
 zsh-defer zinit wait lucid for \
   zdharma-continuum/fast-syntax-highlighting \
-  blockf atload="zicompinit; zicdreplay" zsh-users/zsh-completions \
+  blockf atload="__compinit_fast; zicdreplay" zsh-users/zsh-completions \
   atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions

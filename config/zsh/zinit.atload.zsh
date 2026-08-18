@@ -34,3 +34,17 @@ function __zinit_fzf-tab_atload() {
   unfunction $0
 }
 
+
+# compinitはfpath約1450ファイルの走査に250ms超かかる。走査はメタデータI/Oバウンドで
+# キャッシュが冷えていると更に膨らむので、dumpが24h以内なら -C で走査ごと省略する
+function __compinit_fast() {
+  local dump="${ZDOTDIR:-$HOME}/.zcompdump"
+  local -a stale=( "$dump"(Nmh+24) )
+  autoload -Uz compinit
+  if [[ -s $dump && -z $stale ]]; then
+    compinit -C -d "$dump"
+  else
+    compinit -d "$dump"
+  fi
+  [[ -s $dump && ! $dump.zwc -nt $dump ]] && zcompile -R -- "$dump.zwc" "$dump"
+}

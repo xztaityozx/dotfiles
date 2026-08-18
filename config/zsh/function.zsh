@@ -156,3 +156,21 @@ function hsw() {
   git switch "$branch"
 }
 
+# gh-rのプラグインはバージョン名入りディレクトリに展開されるが、zinitはupdate時に
+# 補完を張り直さない。バージョンが上がるとリンクが切れるので切れたものだけ直す
+function zinit-fix-completions() {
+  local link target plugin
+  local -a found
+  for link in ${ZINIT[COMPLETIONS_DIR]}/*(N@); do
+    [[ -e "$link" ]] && continue
+    target="$(readlink -- "$link")"
+    plugin="${${target#${ZINIT[PLUGINS_DIR]}/}%%/*}"
+    found=( ${ZINIT[PLUGINS_DIR]}/$plugin/**/${link:t}(N.) )
+    if (( $#found )); then
+      ln -sf -- "$found[1]" "$link" && logger.info "張り直した: ${link:t}"
+    else
+      rm -f -- "$link" && logger.warn "リンク先が消えたので削除: ${link:t}"
+    fi
+  done
+}
+
