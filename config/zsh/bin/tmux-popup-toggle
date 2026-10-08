@@ -22,8 +22,14 @@ function main() {
   if [[ "$currentSessionName" =~ "$sessionName" ]]; then
     tmux detach-client
   else
+    local clientTty
+    clientTty="$(tmux display-message -p -F '#{client_tty}')" || return $?
+    if ! tmux has-session -t "=$sessionName" 2>/dev/null; then
+      tmux new-session -d -s "$sessionName" -c '#{pane_current_path}' "$cmd" || return $?
+    fi
+    tmux set-option -t "$sessionName" @yy-client-tty "$clientTty" || return $?
     tmux popup -d '#{pane_current_path}' -x "$X" -y "$Y"  -w "$W" -h "$H" \
-      -E "tmux attach -t $sessionName || tmux new -s $sessionName \"$cmd\""
+      -E "tmux attach -t ${(qq)sessionName}"
   fi
 }
 

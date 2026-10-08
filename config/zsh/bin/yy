@@ -9,9 +9,13 @@ if [[ "$CMD" == "clip.exe" ]]; then
 elif [[ -n "$CMD" ]]; then
   "$CMD"
 elif [[ -n "$TMUX" ]]; then
-  # tmux serverにバッファを渡し、-w でOSC 52を実端末に送る
-  # popup内のネストされたtmuxでも、サーバー経由で実クライアントに届く
-  tmux load-buffer -w -
+  # popupでは、開いた側のクライアントにOSC 52を送る
+  local client_tty="$(tmux show-options -qv @yy-client-tty)"
+  if [[ -n "$client_tty" ]]; then
+    tmux load-buffer -w -t "$client_tty" -
+  else
+    tmux load-buffer -w -
+  fi
 else
   # tmux外でのOSC 52フォールバック
   local data
